@@ -1,7 +1,9 @@
 package br.com.ottimizza.dashboard.models;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,12 +16,13 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
 
 @Entity
 @NoArgsConstructor
@@ -41,8 +44,9 @@ public class Kpi implements Serializable {
 
     @Getter
     @Setter
-    @ManyToOne
-    @JoinColumn(name = "fk_company_id", referencedColumnName = "id", nullable = false)
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "fk_company_id")
     private Company company;
 
     @Getter
@@ -70,15 +74,9 @@ public class Kpi implements Serializable {
     @Column(name = "column_x0_label", nullable = false)
     private String columnX0Label;
 
-//    @Getter
-//    @Setter
-//    @Fetch(FetchMode.SELECT)
-//    @OneToMany(mappedBy="kpis",
-//        cascade = CascadeType.ALL,
-//        targetEntity = KpiDetail.class,
-//        fetch = FetchType.EAGER,
-//        orphanRemoval = true)
-//    private List<KpiDetail> kpiDetails;
-//    //@JoinColumn(name = "kpi_id")
-    
+    @Getter
+    @Setter	
+    @OneToMany(mappedBy = "kpiID", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<KpiDetail> kpiDetail = new ArrayList<>();
+  
 }

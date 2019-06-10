@@ -1,13 +1,16 @@
 package br.com.ottimizza.dashboard.services;
 
-import br.com.ottimizza.dashboard.models.KpiDetail;
+import java.util.List;
 import java.util.Optional;
+
 import javax.inject.Inject;
 import javax.persistence.NoResultException;
+
 import org.json.JSONObject;
 import org.springframework.stereotype.Service;
+
+import br.com.ottimizza.dashboard.models.KpiDetail;
 import br.com.ottimizza.dashboard.repositories.kpi_detail.KpiDetailRepository;
-import java.util.List;
 
 @Service
 public class KpiDetailService {
