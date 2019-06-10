@@ -1,0 +1,64 @@
+server:
+    port: ${PORT:5000}
+    context-path: /
+    
+db:
+    host: ${DB_HOST:ec2-54-221-236-144.compute-1.amazonaws.com}
+    port: ${DB_PORT:5432}
+    database: ${DB_DATABASE:d21clj8genqcb7}
+    username: ${DB_USERNAME:dmcarcpvuojvaj}
+    password: ${DB_PASSWORD:e905f741255eb0549a9d5bb317a294cb6a741a431e3148bbce38cfcf5c5a55af}
+    
+spring: 
+    datasource:
+        url: jdbc:postgresql://${db.host}:${db.port}/${db.database}?useSSL=true&ssl=true&sslfactory=org.postgresql.ssl.NonValidatingFactory
+        username: ${db.username}
+        password: ${db.password}
+
+    jpa:
+        hibernate:
+            ddl-auto: update
+        properties:
+            hibernate:
+                temp:    
+                    use_jdbc_metadata_defaults: false
+
+    servlet:
+        multipart:
+            enabled: true
+            file-size-threshold: 2KB
+            max-request-size: 215MB
+            max-file-size: 200MB
+    
+security:
+    basic:
+        enabled: false
+
+    oauth2:
+        client:
+            clientId: bussola-contabil-client
+            clientSecret: bussola-contabil-secret
+            accessTokenUri: https://ottimizza-oauth-server.herokuapp.com/oauth/token
+            userAuthorizationUri: https://ottimizza-oauth-server.herokuapp.com/oauth/authorize
+
+        resource:
+            userInfoUri: https://ottimizza-oauth-server.herokuapp.com/user/info
+            tokenInfoUri: https://ottimizza-oauth-server.herokuapp.com/oauth/check_token
+            filter_order: 3
+
+            
+
+
+## MULTIPART (MultipartProperties)
+# Enable multipart uploads
+# spring.servlet.multipart.enabled=true
+# Threshold after which files are written to disk.
+# spring.servlet.multipart.file-size-threshold=2KB
+# Max file size.
+# spring.servlet.multipart.max-file-size=200MB
+# Max Request Size
+# spring.servlet.multipart.max-request-size=215MB
+
+## File Storage Properties
+# All files uploaded through the REST API will be stored in this directory
+# file.upload-dir=./uploads

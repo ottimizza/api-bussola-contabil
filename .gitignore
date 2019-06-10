@@ -1,0 +1,11 @@
+# generated folders
+target/
+bin/
+
+# IDE and text editors related files.
+.settings/
+.vscode/
+
+.classpath
+.factorypath
+.project
