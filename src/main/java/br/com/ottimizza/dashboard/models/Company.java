@@ -20,6 +20,10 @@ import lombok.Setter;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
@@ -48,15 +52,5 @@ public class Company implements Serializable {
     @OneToMany(mappedBy = "company", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Kpi> kpis = new ArrayList<>();
     
-//    @Getter
-//    @Setter
-//    @OneToMany(mappedBy="companies")
-//    private List<Kpi> kpis; 
-//    @Fetch(FetchMode.SELECT)
-//        targetEntity = Kpi.class,
-//        cascade = CascadeType.ALL,
-//        fetch = FetchType.EAGER,
-//        orphanRemoval = true)
-//    //@JoinColumn(name = "fk_company_id")
     
 }

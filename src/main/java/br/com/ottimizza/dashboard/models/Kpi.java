@@ -22,7 +22,9 @@ import lombok.Setter;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @NoArgsConstructor
@@ -48,8 +50,6 @@ public class Kpi implements Serializable {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "fk_company_id")
     private Company company;
-
-
     @Getter
     @Setter
     @Column(name = "title", nullable = false)
@@ -100,20 +100,4 @@ public class Kpi implements Serializable {
     @Column(name = "label_4", nullable = true)
     private String label4;
 
-    @Getter
-    @Setter	
-    @OneToMany(mappedBy = "kpiID", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<KpiDetail> kpiDetail = new ArrayList<>();
-    
-//    @Getter
-//    @Setter
-//    @Fetch(FetchMode.SELECT)
-//    @OneToMany(mappedBy="kpis",
-//        cascade = CascadeType.ALL,
-//        targetEntity = KpiDetail.class,
-//        fetch = FetchType.EAGER,
-//        orphanRemoval = true)
-//    private List<KpiDetail> kpiDetails;
-//    //@JoinColumn(name = "kpi_id")
-    
 }

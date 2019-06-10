@@ -1,7 +1,5 @@
 package br.com.ottimizza.dashboard.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,6 +10,9 @@ import javax.persistence.Index;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -35,7 +36,6 @@ public class KpiDetail implements Serializable {
     @JsonIgnore
     @JoinColumn(name = "kpi_id")
     private Kpi kpiID;
-
     @Getter
     @Setter
     @Column(name = "column_x", length = 40, nullable = false)
