@@ -3,7 +3,6 @@ package br.com.ottimizza.dashboard.models;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -16,13 +15,14 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @NoArgsConstructor
@@ -49,6 +49,7 @@ public class Kpi implements Serializable {
     @JoinColumn(name = "fk_company_id")
     private Company company;
 
+
     @Getter
     @Setter
     @Column(name = "title", nullable = false)
@@ -73,10 +74,46 @@ public class Kpi implements Serializable {
     @Setter
     @Column(name = "column_x0_label", nullable = false)
     private String columnX0Label;
+    
+    @Getter
+    @Setter
+    @Column(name = "visible", nullable = true)
+    private Boolean visible = true;
+    
+    @Getter
+    @Setter
+    @Column(name = "label", nullable = true)
+    private String label;
+    
+    @Getter
+    @Setter
+    @Column(name = "label_2", nullable = true)
+    private String label2;
+    
+    @Getter
+    @Setter
+    @Column(name = "label_3", nullable = true)
+    private String label3;
+    
+    @Getter
+    @Setter
+    @Column(name = "label_4", nullable = true)
+    private String label4;
 
     @Getter
     @Setter	
     @OneToMany(mappedBy = "kpiID", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<KpiDetail> kpiDetail = new ArrayList<>();
-  
+    
+//    @Getter
+//    @Setter
+//    @Fetch(FetchMode.SELECT)
+//    @OneToMany(mappedBy="kpis",
+//        cascade = CascadeType.ALL,
+//        targetEntity = KpiDetail.class,
+//        fetch = FetchType.EAGER,
+//        orphanRemoval = true)
+//    private List<KpiDetail> kpiDetails;
+//    //@JoinColumn(name = "kpi_id")
+    
 }
