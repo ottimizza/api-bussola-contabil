@@ -1,8 +1,6 @@
 package br.com.ottimizza.dashboard.controllers;
 
 import br.com.ottimizza.dashboard.models.Company;
-import br.com.ottimizza.dashboard.models.CompanyCustom;
-import br.com.ottimizza.dashboard.models.KpiDetail;
 import br.com.ottimizza.dashboard.models.users.User;
 import br.com.ottimizza.dashboard.services.CompanyService;
 import br.com.ottimizza.dashboard.services.UserService;
@@ -47,20 +45,10 @@ public class CompanyController {
             throws Exception {
 
         // Get Authorized User by Username.
-        //User authorized = userService.findByUsername(principal.getName());
+        User authorized = userService.findByUsername(principal.getName());
 
         return ResponseEntity.ok(companyService.findById(idCompany));
     }
-    // </editor-fold>
-    
-//    @GetMapping("find/custom/{id}")
-//    // <editor-fold defaultstate="collapsed" desc="Find company by ID">
-//    public ResponseEntity<CompanyCustom> findCompanyCustomByID(Principal principal, @PathVariable("id") Long idCompany)
-//            throws Exception {
-//        // Get Authorized User by Username.
-//        //User authorized = userService.findByUsername(principal.getName());
-//        return ResponseEntity.ok(companyService.findByIdCustom(idCompany));
-//    }
     // </editor-fold>
 
     @RequestMapping(value = "/find/cnpj", method = RequestMethod.POST, consumes = "application/json")
@@ -70,9 +58,7 @@ public class CompanyController {
         List<String> listaCNPJ = body.get("cnpj");
         return ResponseEntity.ok(companyService.findByListCNPJ(listaCNPJ));
     }
-    
     // </editor-fold>
-    
     
     @PutMapping("update/{id}")
     // <editor-fold defaultstate="collapsed" desc="Update by ID">

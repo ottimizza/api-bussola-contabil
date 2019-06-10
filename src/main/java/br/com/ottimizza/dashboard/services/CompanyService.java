@@ -1,7 +1,6 @@
 package br.com.ottimizza.dashboard.services;
 
 import br.com.ottimizza.dashboard.models.Company;
-import br.com.ottimizza.dashboard.models.CompanyCustom;
 import br.com.ottimizza.dashboard.models.Kpi;
 import br.com.ottimizza.dashboard.models.KpiDetail;
 import br.com.ottimizza.dashboard.models.KpiShort;
@@ -37,12 +36,6 @@ public class CompanyService {
     //<editor-fold defaultstate="collapsed" desc="Find by Id">
     public Optional<Company> findById(Long idCompany)throws Exception{
         return repository.findById(idCompany);
-    }
-    //</editor-fold>
-    
-    //<editor-fold defaultstate="collapsed" desc="Find by Id">
-    public CompanyCustom findByIdCustom(Long idCompany)throws Exception{
-        return repository.findByIdCustom(idCompany);
     }
     //</editor-fold>
     
@@ -101,7 +94,7 @@ public class CompanyService {
         List<String> cnpjs = new ArrayList<>();
         cnpjs.add(cnpj);
         try {
-            //List<Company> companies = repository.findCompaniesByCNPJ(cnpjs);
+            List<Company> companies = repository.findCompaniesByCNPJ(cnpjs);
             List<Kpi> kpis = kpiRepository.findKpisByCNPJ(cnpjs);
             List<KpiDetail> kpiDetails = kpiDetailRepository.findKpiDetailsByCNPJ(cnpjs);
             
@@ -113,10 +106,9 @@ public class CompanyService {
                 kpiRepository.delete(kpi);
             }
             
-            //Manteremos todas as empresas no banco de dados apenas apagando as KPIS
-            //for (Company company : companies) {
-            //  repository.delete(company);
-            //}
+            for (Company company : companies) {
+                repository.delete(company);
+            }
             
             response.put("status","sucess");
             response.put("message","Excluído informações com sucesso!");

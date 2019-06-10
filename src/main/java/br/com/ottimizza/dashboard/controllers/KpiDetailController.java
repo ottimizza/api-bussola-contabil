@@ -1,10 +1,7 @@
 package br.com.ottimizza.dashboard.controllers;
 
-import br.com.ottimizza.dashboard.models.Company;
-import br.com.ottimizza.dashboard.models.CompanyCustom;
 import br.com.ottimizza.dashboard.models.Kpi;
 import br.com.ottimizza.dashboard.models.KpiDetail;
-import br.com.ottimizza.dashboard.models.KpiDetailCustom;
 import br.com.ottimizza.dashboard.services.KpiDetailService;
 import java.util.List;
 import java.util.Map;
@@ -48,17 +45,7 @@ public class KpiDetailController {
             return ResponseEntity.ok(kpiService.findByListCNPJ(listaCNPJ));
         }
     //</editor-fold>
-    @RequestMapping(value = "/custom/find/cnpj", method = RequestMethod.POST, consumes = "application/json")
-    // <editor-fold defaultstate="collapsed" desc="Find company by ID">
-    public ResponseEntity<List<CompanyCustom>> findCompaniesByCNPJCustom(@RequestBody Map<String, List<String>> body)
-            throws Exception {
-        List<String> listaCNPJ = body.get("cnpj");
         
-        return ResponseEntity.ok(kpiService.findByListCNPJCustom(listaCNPJ));
-    }
-    
-    
-    // </editor-fold>
     @DeleteMapping("delete/{id}")
     //<editor-fold defaultstate="collapsed" desc="Delete kpi">
         public ResponseEntity<String> removeKpi(@PathVariable("id") Long idKpi) throws Exception{

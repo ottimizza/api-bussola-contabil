@@ -69,31 +69,6 @@ public class Kpi implements Serializable {
     @Setter
     @Column(name = "column_x0_label", nullable = false)
     private String columnX0Label;
-    
-    @Getter
-    @Setter
-    @Column(name = "visible", nullable = true)
-    private Boolean visible = true;
-    
-    @Getter
-    @Setter
-    @Column(name = "label", nullable = true)
-    private String label;
-    
-    @Getter
-    @Setter
-    @Column(name = "label_2", nullable = true)
-    private String label2;
-    
-    @Getter
-    @Setter
-    @Column(name = "label_3", nullable = true)
-    private String label3;
-    
-    @Getter
-    @Setter
-    @Column(name = "label_4", nullable = true)
-    private String label4;
 
 //    @Getter
 //    @Setter

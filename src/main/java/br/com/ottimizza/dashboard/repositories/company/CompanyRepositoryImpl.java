@@ -1,7 +1,6 @@
 package br.com.ottimizza.dashboard.repositories.company;
 
 import br.com.ottimizza.dashboard.models.Company;
-import br.com.ottimizza.dashboard.models.CompanyCustom;
 import br.com.ottimizza.dashboard.models.QCompany;
 import br.com.ottimizza.dashboard.models.QKpi;
 import br.com.ottimizza.dashboard.models.QKpiDetail;
@@ -43,18 +42,4 @@ public class CompanyRepositoryImpl implements CompanyRepositoryCustom {
 
         return query.orderBy(company.name.asc()).fetch();
     }
-
-	@Override
-	public CompanyCustom findByIdCustom(Long id) {
-		JPAQuery<CompanyCustom> query = new JPAQuery<CompanyCustom>(em).from(company)
-                .where(company.id.eq(id));
-		
-		return query.fetchFirst();
-	}
-
-	@Override
-	public List<CompanyCustom> findCompaniesByCNPJCustom(List<String> cnpj) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 }

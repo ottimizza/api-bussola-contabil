@@ -1,23 +1,18 @@
 package br.com.ottimizza.dashboard.services;
 
-import br.com.ottimizza.dashboard.models.CompanyCustom;
 import br.com.ottimizza.dashboard.models.KpiDetail;
-import br.com.ottimizza.dashboard.models.KpiDetailCustom;
-
 import java.util.Optional;
 import javax.inject.Inject;
 import javax.persistence.NoResultException;
 import org.json.JSONObject;
 import org.springframework.stereotype.Service;
 import br.com.ottimizza.dashboard.repositories.kpi_detail.KpiDetailRepository;
-import br.com.ottimizza.dashboard.repositories.kpi_detail.KpiDetailRepositoryCustom;
-
 import java.util.List;
 
 @Service
 public class KpiDetailService {
     
-	@Inject
+    @Inject
     private KpiDetailRepository repository;
     
     //<editor-fold defaultstate="collapsed" desc="Save">
@@ -35,12 +30,6 @@ public class KpiDetailService {
     //<editor-fold defaultstate="collapsed" desc="Find by List CNPJ">
     public List<KpiDetail> findByListCNPJ(List<String> cnpj)throws Exception{
         return repository.findKpiDetailsByCNPJ(cnpj);
-    }
-    //</editor-fold>
-  
-    //<editor-fold defaultstate="collapsed" desc="Find by List CNPJ">
-    public List<CompanyCustom> findByListCNPJCustom(List<String> cnpj)throws Exception{
-        return repository.findKpiDetailsCustomByCNPJ(cnpj);
     }
     //</editor-fold>
     
