@@ -3,13 +3,18 @@ package br.com.ottimizza.dashboard.controllers;
 import br.com.ottimizza.dashboard.models.Company;
 import br.com.ottimizza.dashboard.models.users.User;
 import br.com.ottimizza.dashboard.services.CompanyService;
+import br.com.ottimizza.dashboard.services.SalesForceService;
 import br.com.ottimizza.dashboard.services.UserService;
 
 import java.security.Principal;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import javax.inject.Inject;
+
+import org.json.JSONObject;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -59,6 +64,23 @@ public class CompanyController {
         return ResponseEntity.ok(companyService.findByListCNPJ(listaCNPJ));
     }
     // </editor-fold>
+    
+    @RequestMapping(value = "/find/email", method = RequestMethod.POST, consumes = "application/json")
+    public ResponseEntity<List<Company>>  searchCNPJ(@RequestBody Map<String,String> email){
+    	List<Company> resp = new ArrayList<Company>();
+    	try {
+            SalesForceService sForce = new SalesForceService();
+            JSONObject response = sForce.searchCNPJ(email.get("email"));
+            
+            List<String> listaCNPJ = new ArrayList<String>();
+            if(response.has("records"))  listaCNPJ = Arrays.asList((String) response.get("records"));
+            resp = companyService.findByListCNPJ(listaCNPJ);
+            
+        } catch (Exception e) {
+        }
+        return ResponseEntity.ok(resp);
+
+    }
     
     @PutMapping("update/{id}")
     // <editor-fold defaultstate="collapsed" desc="Update by ID">
