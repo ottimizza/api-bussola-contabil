@@ -70,13 +70,8 @@ public class CompanyController {
     public ResponseEntity<List<Company>>  searchCNPJ(@RequestBody Map<String,String> email){
     	List<Company> resposta = new ArrayList<Company>();
     	try {
-
     		SalesForceService sForce = new SalesForceService();
             JSONObject response = sForce.searchCNPJ(email.get("email"));
-            System.out.println(">> busca 1");
-            
-//            JSONObject js = new JSONObject();
-//            js.put("email", response.get("records"));
             JSONArray listaJson = response.optJSONArray("records");
             
             List<String> listaCNPJ = new ArrayList();
@@ -84,14 +79,8 @@ public class CompanyController {
             for (int i = 0; i < listaJson.length(); i++) {
             	listaCNPJ.add(listaJson.get(i).toString());
 			}
-            
-            System.out.println(">> busca 2 "+ listaCNPJ);
-            
             resposta = companyService.findByListCNPJ(listaCNPJ);
-            System.out.println(">> busca OK");
-        } catch (Exception e) {            System.out.println(">> busca nOK");
-
-        }
+        } catch (Exception e) { }
         return ResponseEntity.ok(resposta);
 
     }
