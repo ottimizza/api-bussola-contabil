@@ -71,8 +71,10 @@ public class CompanyController {
     	try {
             SalesForceService sForce = new SalesForceService();
             JSONObject response = sForce.searchCNPJ(email.get("email"));
+            JSONObject js = new JSONObject();
+            js.put("email", response.get("records"));
             
-            List<String> listaCNPJ = Arrays.asList((String) response.get("records"));
+            List<String> listaCNPJ = Arrays.asList(js.get("email").toString());
             
             resposta = companyService.findByListCNPJ(listaCNPJ);
             
