@@ -14,6 +14,7 @@ import java.util.Map;
 import java.util.Optional;
 import javax.inject.Inject;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -76,13 +77,16 @@ public class CompanyController {
             
 //            JSONObject js = new JSONObject();
 //            js.put("email", response.get("records"));
+            JSONArray listaJson = response.optJSONArray("records");
             
-            List<String> listaCNPJ = Arrays.asList(response.optString("records"));
+            List<String> listaCNPJ = new ArrayList();
+            
+            for (int i = 0; i < listaJson.length(); i++) {
+            	listaCNPJ.add(listaJson.get(i).toString());
+			}
             
             System.out.println(">> busca 2 "+ listaCNPJ);
-            System.out.println(">> busca 3 "+ response.optString("records"));
-            System.out.println(">> busca 4 "+ response.get("records"));
-
+            
             resposta = companyService.findByListCNPJ(listaCNPJ);
             System.out.println(">> busca OK");
         } catch (Exception e) {            System.out.println(">> busca nOK");
