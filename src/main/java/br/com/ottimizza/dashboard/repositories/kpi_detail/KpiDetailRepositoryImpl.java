@@ -26,7 +26,6 @@ public class KpiDetailRepositoryImpl implements KpiDetailRepositoryCustom {
                 .innerJoin(kpi).on(kpi.company.id.eq(company.id))
                 .innerJoin(kpiDetail).on(kpiDetail.kpiID.id.eq(kpi.id))
                 .where(company.cnpj.in(cnpj));
-        return query.orderBy(company.name.asc()).orderBy(kpi.kpiAlias.asc()).orderBy(kpiDetail.columnX.asc()).fetch();
+        return query.orderBy(company.name.asc()).orderBy(kpi.kpiAlias.asc()).orderBy(kpiDetail.columnXSeq.asc()).fetch();
     }
-    
 }
