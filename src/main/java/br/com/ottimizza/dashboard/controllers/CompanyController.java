@@ -72,16 +72,18 @@ public class CompanyController {
 
     		SalesForceService sForce = new SalesForceService();
             JSONObject response = sForce.searchCNPJ(email.get("email"));
-            System.out.println(">> busca 1 "+(List<String>)response.get("records"));
+            System.out.println(">> busca 1");
             
 //            JSONObject js = new JSONObject();
 //            js.put("email", response.get("records"));
             
             List<String> listaCNPJ = Arrays.asList(response.optString("records"));
             
-            System.out.println(">> busca 2 ");
+            System.out.println(">> busca 2 "+ listaCNPJ);
+            System.out.println(">> busca 3 "+ response.optString("records"));
+            System.out.println(">> busca 4 "+ response.get("records"));
 
-            resposta = companyService.findByListCNPJ((List<String>)response.get("records"));
+            resposta = companyService.findByListCNPJ(listaCNPJ);
             System.out.println(">> busca OK");
         } catch (Exception e) {            System.out.println(">> busca nOK");
 
