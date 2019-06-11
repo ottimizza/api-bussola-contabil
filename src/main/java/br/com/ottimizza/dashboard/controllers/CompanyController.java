@@ -79,11 +79,9 @@ public class CompanyController {
             
             List<String> listaCNPJ = Arrays.asList(response.optString("records"));
             
-            System.out.println(">> busca 2 "+ listaCNPJ);
-            System.out.println(">> busca 3 "+ response.optString("records"));
-            System.out.println(">> busca 4 "+ response.get("records"));
+            System.out.println(">> busca 2 "+ (List<String>)response.get("records"));
 
-            resposta = companyService.findByListCNPJ(listaCNPJ);
+            resposta = companyService.findByListCNPJ((List<String>)response.get("records"));
             System.out.println(">> busca OK");
         } catch (Exception e) {            System.out.println(">> busca nOK");
 
