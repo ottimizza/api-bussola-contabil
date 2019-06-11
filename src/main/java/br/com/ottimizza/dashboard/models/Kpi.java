@@ -50,6 +50,7 @@ public class Kpi implements Serializable {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "fk_company_id")
     private Company company;
+    
     @Getter
     @Setter
     @Column(name = "title", nullable = false)
@@ -100,4 +101,9 @@ public class Kpi implements Serializable {
     @Column(name = "label_4", nullable = true)
     private String label4;
 
+    @Getter
+    @Setter	
+    @OneToMany(mappedBy = "kpiID", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<KpiDetail> kpiDetail = new ArrayList<>();
+    
 }

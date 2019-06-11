@@ -36,6 +36,7 @@ public class KpiDetail implements Serializable {
     @JsonIgnore
     @JoinColumn(name = "kpi_id")
     private Kpi kpiID;
+    
     @Getter
     @Setter
     @Column(name = "column_x", length = 40, nullable = false)
