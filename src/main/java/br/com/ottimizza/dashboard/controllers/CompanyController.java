@@ -78,7 +78,10 @@ public class CompanyController {
 //            js.put("email", response.get("records"));
             
             List<String> listaCNPJ = Arrays.asList(response.optString("records"));
-            System.out.println(">> busca 2");
+            
+            System.out.println(">> busca 2 "+ listaCNPJ);
+            System.out.println(">> busca 3 "+ response.optString("records"));
+            System.out.println(">> busca 4 "+ response.get("records"));
 
             resposta = companyService.findByListCNPJ(listaCNPJ);
             System.out.println(">> busca OK");
