@@ -40,9 +40,8 @@ public class CompanyService {
     //</editor-fold>
     
     //<editor-fold defaultstate="collapsed" desc="Find by List CNPJ">
-    public List<Company> findByListCNPJ(Object object)throws Exception{
-    	
-        return repository.findCompaniesByCNPJ(object);
+    public List<Company> findByListCNPJ(List<String> cnpj)throws Exception{
+        return repository.findCompaniesByCNPJ(cnpj);
     }
     //</editor-fold>
     

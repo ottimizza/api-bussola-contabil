@@ -73,11 +73,14 @@ public class CompanyController {
             JSONObject response = sForce.searchCNPJ(email.get("email"));
 //            JSONObject js = new JSONObject();
 //            js.put("email", response.get("records"));
-//            List<String> listaCNPJ = Arrays.asList(js.get("email").toString());
             
-            resposta = companyService.findByListCNPJ(response.get("records"));
+            List<String> listaCNPJ = Arrays.asList((String) response.get("records"));
             
-        } catch (Exception e) { }
+            resposta = companyService.findByListCNPJ(listaCNPJ);
+            System.out.println(">> busca OK");
+        } catch (Exception e) {            System.out.println(">> busca nOK");
+
+        }
         return ResponseEntity.ok(resposta);
 
     }
