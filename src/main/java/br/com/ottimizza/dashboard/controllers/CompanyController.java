@@ -67,18 +67,18 @@ public class CompanyController {
     
     @RequestMapping(value = "/find/email", method = RequestMethod.POST, consumes = "application/json")
     public ResponseEntity<List<Company>>  searchCNPJ(@RequestBody Map<String,String> email){
-    	List<Company> resp = new ArrayList<Company>();
+    	List<Company> resposta = new ArrayList<Company>();
     	try {
             SalesForceService sForce = new SalesForceService();
             JSONObject response = sForce.searchCNPJ(email.get("email"));
             
-            List<String> listaCNPJ = new ArrayList<String>();
-            if(response.has("records"))  listaCNPJ = Arrays.asList((String) response.get("records"));
-            resp = companyService.findByListCNPJ(listaCNPJ);
+            List<String> listaCNPJ = Arrays.asList((String) response.get("records"));
+            
+            resposta = companyService.findByListCNPJ(listaCNPJ);
             
         } catch (Exception e) {
         }
-        return ResponseEntity.ok(resp);
+        return ResponseEntity.ok(resposta);
 
     }
     
