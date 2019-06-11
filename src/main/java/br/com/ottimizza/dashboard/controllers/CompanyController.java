@@ -45,7 +45,7 @@ public class CompanyController {
             throws Exception {
 
         // Get Authorized User by Username.
-        //User authorized = userService.findByUsername(principal.getName());
+        User authorized = userService.findByUsername(principal.getName());
 
         return ResponseEntity.ok(companyService.findById(idCompany));
     }
