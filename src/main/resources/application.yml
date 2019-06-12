@@ -1,6 +1,17 @@
 server:
     port: ${PORT:5000}
-    context-path: /
+    servlet: 
+        context-path: /
+        
+# OAuth2 Environment Variables
+oauth2-config:
+    oauth2-server-url: ${OAUTH2_SERVER_URL:https://development-oauth-server.herokuapp.com}
+    oauth2-client-id: ${OAUTH2_CLIENT_ID:bussola-contabil-client}
+    oauth2-client-secret: ${OAUTH2_CLIENT_SECRET:bussola-contabil-secret}
+
+# Sentry Environment Variables
+sentry-config:
+    sentry-dsn: ${SENTRY_DSN}
     
 db:
     host: ${DB_HOST:ec2-54-221-236-144.compute-1.amazonaws.com}
@@ -30,22 +41,19 @@ spring:
             max-request-size: 215MB
             max-file-size: 200MB
     
-security:
-    basic:
-        enabled: false
 
+security:
     oauth2:
         client:
-            clientId: bussola-contabil-client
-            clientSecret: bussola-contabil-secret
-            accessTokenUri: https://ottimizza-oauth-server.herokuapp.com/oauth/token
-            userAuthorizationUri: https://ottimizza-oauth-server.herokuapp.com/oauth/authorize
+            clientId: ${oauth2-config.oauth2-client-id}
+            clientSecret: ${oauth2-config.oauth2-client-secret}
+            accessTokenUri: ${oauth2-config.oauth2-server-url}/oauth/token
+            userAuthorizationUri: ${oauth2-config.oauth2-server-url}/oauth/authorize
 
         resource:
-            userInfoUri: https://ottimizza-oauth-server.herokuapp.com/user/info
-            tokenInfoUri: https://ottimizza-oauth-server.herokuapp.com/oauth/check_token
+            userInfoUri: ${oauth2-config.oauth2-server-url}/user/info
+            tokenInfoUri: ${oauth2-config.oauth2-server-url}/oauth/check_token
             filter_order: 3
-
             
 
 

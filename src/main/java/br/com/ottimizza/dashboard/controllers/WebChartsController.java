@@ -37,9 +37,10 @@ public class WebChartsController {
 	@Inject
 	WebChartsService wcs;
 
-	@RequestMapping(value = "/by_cnpj", method = RequestMethod.POST, produces = MediaType.APPLICATION_XHTML_XML_VALUE)
+	@RequestMapping(value = "/by_cnpj", method = RequestMethod.POST, produces = MediaType.TEXT_HTML_VALUE)
 //	@RequestMapping(value = "/by_cnpj", method = RequestMethod.POST)
 	public HttpEntity<byte[]> download(@RequestBody String objRequest) throws IOException {
+//	public String download(@RequestBody String objRequest) throws IOException {
 
 		JSONObject requestBody = new JSONObject(objRequest);
 		JSONArray cnpjs	= requestBody.optJSONArray("cnpj");
@@ -183,7 +184,7 @@ public class WebChartsController {
 		SalesForceApi api = new SalesForceApi();
 		String urlLogo = api.getUrlLogotipoByEmail(email);
 		//mudar link
-		if(urlLogo.equals("")) urlLogo = "https://lh3.googleusercontent.com/YAA95IggRdcOMPe4jxErDUiQwhLKWtfcOlN9SEIztjyBtqEmuK6E5s1JCxzRUboX_g=s180";
+		if(urlLogo.equals("")) urlLogo = "https://s4.ottimizzacontabil.com:55325/storage/QzpcYnVja2V0c1x6YXAtY29udGFiaWxcT3R0aW1penphc2lzdGVtYXNcMjAxOVwwNlwxMlw3YmM2NWNkNC1kOWNmLTQ0ZjEtYWQxYy05N2FmZTFjMDhlYWJfXzEzNjgxIGxvZ28gYnVzcyBvbGEucG5n";
 		
 		sb.append("			<div id=\"head\">").append(rn);
 		sb.append("				<img id=\"logo\" src=\"").append(urlLogo).append("\" height=\"100px\">").append(rn);
@@ -200,7 +201,7 @@ public class WebChartsController {
 			        String valorString = DecimalFormat.getCurrencyInstance(ptBr).format(dataToCharts.optDouble("value"));
 			        
 					sb.append("			<div id=\"epi\">").append(rn);
-					sb.append("				<div id=\"charts").append(charts).append("\")>").append(rn);
+					sb.append("				<div id=\"charts").append(charts).append("\">").append(rn);
 					sb.append("					<h4>").append(dataToCharts.optString("title")).append("</h4>").append(rn);
 					sb.append("					<span id=\"endo\"><strong>").append(valorString).append("</strong></span>").append(rn);
 					sb.append("				</div>").append(rn);
@@ -217,7 +218,7 @@ public class WebChartsController {
 			}	
 		}
 		sb.append("		</div>").append(rn).append(rn);
-		sb.append("	</body>").append(rn);
+		
 		sb.append("	<footer>").append(rn);
 		sb.append("		<script type=\"text/javascript\" src=\"https://www.gstatic.com/charts/loader.js\"></script>").append(rn);
 		sb.append("		<script>").append(rn);
@@ -277,7 +278,7 @@ public class WebChartsController {
 		sb.append("			google.charts.setOnLoadCallback(drawCharts);").append(rn);
 		sb.append("		</script>").append(rn);
 		sb.append("	</footer>").append(rn);
-		
+		sb.append("	</body>").append(rn);
 		sb.append("</html>").append(rn);
 
 		// escrevendo arquivo
@@ -293,5 +294,6 @@ public class WebChartsController {
 		HttpEntity<byte[]> entity = new HttpEntity<byte[]>(arquivo, httpHeaders);
 
 		return entity;
+//		return sb.toString();
 	}
 }
