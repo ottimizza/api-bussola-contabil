@@ -27,6 +27,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.ottimizza.dashboard.apis.SalesForceApi;
 import br.com.ottimizza.dashboard.services.WebChartsService;
 
 @RestController
@@ -41,8 +42,9 @@ public class WebChartsController {
 	public HttpEntity<byte[]> download(@RequestBody String objRequest) throws IOException {
 
 		JSONObject requestBody = new JSONObject(objRequest);
-		JSONArray cnpjs = requestBody.optJSONArray("cnpj");
-		Locale ptBr = new Locale("pt", "BR");
+		JSONArray cnpjs	= requestBody.optJSONArray("cnpj");
+		String email	= requestBody.optString("email");
+		Locale ptBr		= new Locale("pt", "BR");
 
 		// variavel usada em FOR
 		int totalCharts = 21;
@@ -56,12 +58,12 @@ public class WebChartsController {
 		Writer osw = new OutputStreamWriter(fos);
 		BufferedWriter bw = new BufferedWriter(osw);
 
-		String c = cnpjs.getString(0);
+		String cnpjString = cnpjs.getString(0);
 
 		// busca de dados
 		String cnpjReq = "";
 		List<String> cnpj = new ArrayList<String>();
-		cnpj.add(c);
+		cnpj.add(cnpjString);
 
 		JSONObject dataToCharts = new JSONObject();
 //		montar aqui depois mover pra service ou nao
@@ -75,8 +77,7 @@ public class WebChartsController {
 		sb.append("<!DOCTYPE html>										").append(rn);
 		sb.append("<html>												").append(rn);
 		sb.append("	<head>												").append(rn);
-		sb.append("		<meta charset=\"utf-8\"/>						").append(rn);
-		
+		sb.append("		<meta charset=\"utf-8\"/>						").append(rn);		
 		sb.append("		<style>             							").append(rn);
 		sb.append("			* {               							").append(rn);
 		sb.append("				font-family: 'IBM Plex Sans', sans-serif;	").append(rn);
@@ -120,7 +121,6 @@ public class WebChartsController {
 		sb.append("			#charts7 {									").append(rn);
 		sb.append("				width: 69%;								").append(rn);
 		sb.append("				height: 100%;								").append(rn);
-//		sb.append("				display: inline-block;							").append(rn);
 		sb.append("				border-radius: 20px;							").append(rn);
 		sb.append("				border-style: solid;								").append(rn);
 		sb.append("				border-color: #4285f4;								").append(rn);
@@ -138,25 +138,32 @@ public class WebChartsController {
 		sb.append("				margin-left: 13%;								").append(rn);
 		sb.append("			}												").append(rn);
 		sb.append("			#charts7 #endo {							").append(rn);
-//		sb.append("				position: absolute;						").append(rn);
-//		sb.append("				top: 50%;								").append(rn);
-//		sb.append("				left: 50%;								").append(rn);
-//		sb.append("				transform: translate(-50%, -50%);		").append(rn);
 		sb.append("				font-size: 2em;							").append(rn);
 		sb.append("				color: #4285f4;							").append(rn);
 		sb.append("			}												").append(rn);
 		sb.append("			#charts12 #endo {									").append(rn);
-//		sb.append("				position: absolute;									").append(rn);
-//		sb.append("				top: 50%;											").append(rn);
-//		sb.append("				left: 50%;											").append(rn);
-//		sb.append("				transform: translate(-50%, -50%);					").append(rn);
 		sb.append("				font-size: 2em;										").append(rn);
 		sb.append("				color: darkred;										").append(rn);
 		sb.append("			}														").append(rn);
+		sb.append("			#head {					 								").append(rn);
+		sb.append("				display: flex;		 								").append(rn);
+		sb.append("				padding-left: 12%; 		 							").append(rn);
+		sb.append("				margin: 5% 0px 5% 0px; 								").append(rn);
+		sb.append("			}						 								").append(rn);
+		sb.append("			#container #head div{	 								").append(rn);
+		sb.append("				display: grid;										").append(rn);
+		sb.append("				padding: 10px 10px 10px 10%;						").append(rn);
+		sb.append("				width: 100%;"										).append(rn);
+		sb.append("			}"														).append(rn);
+		sb.append("			#container #head #logo {"								).append(rn);
+		sb.append("				height: 100px;"										).append(rn);
+		sb.append("			}"														).append(rn);
+		sb.append("			"														).append(rn);
+		
 		
 		Integer [] ordenated = {7,12,21,1,8,9,13,2,3,6,4,5,15,16,18,10,11,14,17,19,20};
 		List <Integer> chartsSequence = Arrays.asList(ordenated);
-		
+		dataToCharts = new JSONObject();
 		for (Integer charts : chartsSequence) {
 			dataToCharts = wcs.getDataToCharts(cnpj, charts);
 
@@ -172,6 +179,19 @@ public class WebChartsController {
 		int cont = 0;
 		
 		sb.append("		<div id=\"container\">").append(rn);
+		
+		SalesForceApi api = new SalesForceApi();
+		String urlLogo = api.getUrlLogotipoByEmail(email);
+		//mudar link
+		if(urlLogo.equals("")) urlLogo = "https://lh3.googleusercontent.com/YAA95IggRdcOMPe4jxErDUiQwhLKWtfcOlN9SEIztjyBtqEmuK6E5s1JCxzRUboX_g=s180";
+		
+		sb.append("			<div id=\"head\">").append(rn);
+		sb.append("				<img id=\"logo\" src=\"").append(urlLogo).append("\" height=\"100px\">").append(rn);
+		sb.append("				<div>").append(rn);
+		sb.append("					<span>").append(cnpjString).append("</span>").append(rn);
+		sb.append("					<span>").append(dataToCharts.optString("companyName")).append("</span>").append(rn);
+		sb.append("				</div>").append(rn);
+		sb.append("			</div>").append(rn);
 		
 		for (Integer charts : chartsSequence) {
 			dataToCharts = wcs.getDataToCharts(cnpj, charts);
@@ -191,8 +211,9 @@ public class WebChartsController {
 				}
 				cont++;
 			}
-			if(cont > 3 && (cont-1)%3 == 0) {
-				sb.append("			<div id=\"separator\"></div>").append(rn).append(rn);
+//			if(cont > 3 && (cont-1)%3 == 0) {
+				if((cont % 3) == 0) {
+						sb.append("			<div id=\"separator\"></div>").append(rn).append(rn);
 			}	
 		}
 		sb.append("		</div>").append(rn).append(rn);
@@ -264,7 +285,7 @@ public class WebChartsController {
 		bw.close();
 
 		// baixar
-		String fName = "arquivo_pra_baixar.html";
+		String fName = "Bussola.html";
 
 		byte[] arquivo = Files.readAllBytes(Paths.get(tmp.getAbsolutePath()));
 		HttpHeaders httpHeaders = new HttpHeaders();

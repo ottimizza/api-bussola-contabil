@@ -17,7 +17,6 @@ public class WebChartsService {
 	KpiDetailService kpiDetailService;
 	
 	public static final String CHART_TYPE_COLUMN = "ColumnChart";
-//	public static final String CHART_TYPE_COLUMN_ = "ColumnChart";
 	public static final String CHART_TYPE_LINE = "LineChart";
 	public static final String CHART_TYPE_PIE = "PieChart";
 	public static final String CHART_TYPE_BAR = "BarChart";
@@ -57,6 +56,7 @@ public class WebChartsService {
 						records.put("title", kpiDetail.getKpiID().getTitle());
 						records.put("subtitle", kpiDetail.getKpiID().getSubtitle());
 						records.put("cnpj", kpiDetail.getKpiID().getCompany().getCnpj());
+						records.put("companyName", kpiDetail.getKpiID().getCompany().getName());
 						records.put("visible", kpiDetail.getKpiID().getVisible());
 						
 						records.put("graphType", kpiDetail.getKpiID().getGraphType());
@@ -132,7 +132,7 @@ public class WebChartsService {
 		if (param == 4)		records.put("chartType",CHART_TYPE_COLUMN);
 		if (param == 5)		records.put("chartType",CHART_TYPE_LINE);
 		if (param == 6)		records.put("chartType",CHART_TYPE_LINE);
-		if (param == 7)		records.put("chartType",CHART_TYPE_COLUMN);	//gauge
+		if (param == 7)		records.put("chartType",CHART_TYPE_COLUMN);	// etiqueta
 		if (param == 8)		records.put("chartType",CHART_TYPE_COLUMN);
 		if (param == 9)		records.put("chartType",CHART_TYPE_COLUMN);
 		if (param == 10)	records.put("chartType",CHART_TYPE_COLUMN);
@@ -169,22 +169,9 @@ public class WebChartsService {
 	public String putOptions(JSONObject dataToCharts){
 		StringBuffer sb = new StringBuffer();
 		String rn = "\r\n";
-//		String chartType = dataToCharts.optString("chartType");
-//		if(!chartType.equalsIgnoreCase("ColumnChart")) {
-			sb.append("				let options").append(dataToCharts.optString("div")).append(" = Object.assign({}, optionsTo").append(dataToCharts.optString("chartType")).append(");").append(rn);
-			sb.append("				options").append(dataToCharts.optString("div")).append(".title = '").append(dataToCharts.optString("title")).append("';").append(rn);
-//		} else {
-//			sb.append("				let options").append(dataToCharts.optString("div")).append(" = Object.assign({}, optionsTo").append(dataToCharts.optString("chartType")).append(");").append(rn);
-//			sb.append("				options").append(dataToCharts.optString("div")).append(" = {").append(rn);
-//			sb.append("					width: 800,").append(rn);
-//			sb.append("					legend: { position: 'none' },").append(rn);
-//			sb.append("					axes: {").append(rn);
-//			sb.append("						x: { 0: { side: 'bottom'} }").append(rn);
-//			sb.append("					},").append(rn);
-//			sb.append("					bar: { groupWidth: '90%' }").append(rn);
-//			sb.append("				};").append(rn);
-//			sb.append("					").append(rn);
-//		}
+		sb.append("				let options").append(dataToCharts.optString("div")).append(" = Object.assign({}, optionsTo").append(dataToCharts.optString("chartType")).append(");").append(rn);
+		sb.append("				options").append(dataToCharts.optString("div")).append(".title = '").append(dataToCharts.optString("title")).append("';").append(rn);
+
 		return sb.toString();
 	}
 
@@ -194,16 +181,9 @@ public class WebChartsService {
 		String rn  = "\r\n";
 		String k   = dataToCharts.optString("div");
 		String div = "charts"+k;
-//		String chartType = dataToCharts.optString("chartType");
-//		if(!chartType.equalsIgnoreCase("ColumnChart")) {
-			sb.append("				let grafico").append(k).append(" = new google.visualization.").append(dataToCharts.optString("chartType")).append("(").append(rn);
-			sb.append("					document.getElementById('").append(div).append("'));").append(rn);
-			sb.append("				grafico").append(k).append(".draw(dataTable").append(k).append(", options").append(k).append(");").append(rn).append(rn);
-//		} else {
-//			sb.append("				let grafico").append(k).append(" = new google.charts.Bar").append("(").append(rn);
-//			sb.append("					document.getElementById('").append(div).append("'));").append(rn);
-//			sb.append("				grafico").append(k).append(".draw(dataTable").append(k).append(", google.charts.Bar.convertOptions(options").append(k).append("));").append(rn).append(rn);
-//		}
+		sb.append("				let grafico").append(k).append(" = new google.visualization.").append(dataToCharts.optString("chartType")).append("(").append(rn);
+		sb.append("					document.getElementById('").append(div).append("'));").append(rn);
+		sb.append("				grafico").append(k).append(".draw(dataTable").append(k).append(", options").append(k).append(");").append(rn).append(rn);
 		return sb.toString();
 	}
 	
