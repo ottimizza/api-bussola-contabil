@@ -6,6 +6,7 @@ import br.com.ottimizza.dashboard.services.CompanyService;
 import br.com.ottimizza.dashboard.services.SalesForceService;
 import br.com.ottimizza.dashboard.services.UserService;
 
+import java.math.BigInteger;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -87,7 +88,7 @@ public class CompanyController {
     
     @PutMapping("update/{id}")
     // <editor-fold defaultstate="collapsed" desc="Update by ID">
-    public ResponseEntity<String> updateCompany(@PathVariable("id") Long idCompany, @RequestBody Company company)
+    public ResponseEntity<String> updateCompany(@PathVariable("id") BigInteger idCompany, @RequestBody Company company)
             throws Exception {
         return ResponseEntity.ok(companyService.updateById(idCompany, company).toString());
     }

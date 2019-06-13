@@ -7,6 +7,8 @@ import javax.persistence.NoResultException;
 import org.json.JSONObject;
 import org.springframework.stereotype.Service;
 import br.com.ottimizza.dashboard.repositories.kpi_detail.KpiDetailRepository;
+
+import java.math.BigInteger;
 import java.util.List;
 
 @Service
@@ -34,7 +36,7 @@ public class KpiDetailService {
     //</editor-fold>
     
     //<editor-fold defaultstate="collapsed" desc="Update by Id">
-    public JSONObject updateById(Long idKpi, KpiDetail kpi) throws Exception{
+    public JSONObject updateById(BigInteger idKpi, KpiDetail kpi) throws Exception{
         JSONObject response = new JSONObject();
         try {
             Optional<KpiDetail> kpiOptional = repository.findById(idKpi);

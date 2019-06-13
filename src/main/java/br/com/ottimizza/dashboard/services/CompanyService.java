@@ -7,6 +7,8 @@ import br.com.ottimizza.dashboard.models.KpiShort;
 import br.com.ottimizza.dashboard.repositories.company.CompanyRepository;
 import br.com.ottimizza.dashboard.repositories.kpi.KpiRepository;
 import br.com.ottimizza.dashboard.repositories.kpi_detail.KpiDetailRepository;
+
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -46,7 +48,7 @@ public class CompanyService {
     //</editor-fold>
     
     //<editor-fold defaultstate="collapsed" desc="Update by Id">
-    public JSONObject updateById(Long idCompany, Company company) throws Exception{
+    public JSONObject updateById(BigInteger idCompany, Company company) throws Exception{
         JSONObject response = new JSONObject();
         try {
             Optional<Company> companyOptional = repository.findById(idCompany);

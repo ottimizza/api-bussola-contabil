@@ -1,6 +1,8 @@
 package br.com.ottimizza.dashboard.models;
 
 import java.io.Serializable;
+import java.math.BigInteger;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -28,13 +30,13 @@ public class KpiDetail implements Serializable {
     @Getter
     @Setter
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private Long id;
+    private BigInteger id;
 
     @ManyToOne
     @Getter
     @Setter    
     @JsonIgnore
-    @JoinColumn(name = "kpi_id")
+    @JoinColumn(name = "fk_kpis_id")
     private Kpi kpiID;
     
     @Getter

@@ -1,6 +1,7 @@
 package br.com.ottimizza.dashboard.models;
 
 import java.io.Serializable;
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.CascadeType;
@@ -35,7 +36,7 @@ public class Company implements Serializable {
     @Setter
     @Column(name = "id", nullable = false)
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private Long id;
+    private BigInteger id;
     
     @Getter
     @Setter

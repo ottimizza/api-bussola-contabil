@@ -1,6 +1,7 @@
 package br.com.ottimizza.dashboard.models;
 
 import java.io.Serializable;
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.CascadeType;
@@ -29,7 +30,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "kpis", indexes = {@Index(name = "kpi_index", columnList = "kpi_alias,fk_company_id", unique = true)})
+@Table(name = "kpis", indexes = {@Index(name = "kpi_index", columnList = "kpi_alias,fk_companies_id", unique = true)})
 public class Kpi implements Serializable {
 
     @Id
@@ -37,7 +38,7 @@ public class Kpi implements Serializable {
     @Setter
     @Column(name = "id", nullable = false)
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private Long id;
+    private BigInteger id;
 
     @Getter
     @Setter
@@ -48,7 +49,7 @@ public class Kpi implements Serializable {
     @Setter
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "fk_company_id")
+    @JoinColumn(name = "fk_companies_id")
     private Company company;
     
     @Getter
