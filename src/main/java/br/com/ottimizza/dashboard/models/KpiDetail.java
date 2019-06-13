@@ -23,7 +23,7 @@ import lombok.Setter;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "kpis_details", indexes = {@Index(name = "kpi_detail_index", columnList = "kpi_id,column_x,column_y", unique = true)})
+@Table(name = "kpis_details", indexes = {@Index(name = "kpi_detail_index", columnList = "fk_kpis_id,column_x,column_y", unique = true)})
 public class KpiDetail implements Serializable {
 
     @Id
