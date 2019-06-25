@@ -1,12 +1,9 @@
 package br.com.ottimizza.dashboard.graphQL;
 
-import java.math.BigInteger;
 import java.util.List;
 
-import javax.inject.Inject;
 import javax.persistence.EntityManager;
 
-import com.coxautodev.graphql.tools.GraphQLQueryResolver;
 // JPAQUERY
 import com.querydsl.jpa.impl.JPAQuery;
 
@@ -18,7 +15,6 @@ import io.leangen.graphql.annotations.GraphQLQuery;
 public class CompanyResolver {
 
 	private QCompany company = QCompany.company;
-
 	private EntityManager em;
 	private CompanyRepository companyRepository;
 

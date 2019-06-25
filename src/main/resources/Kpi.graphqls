@@ -1,17 +1,3 @@
-schema {
-	query: Query
-	mutation: Mutation
-}
-
-extends type Query {
-	
-}
-
-extends type Mutation {
-
-}
-    
-
 type Kpi {
 	id: BigInteger!
 	kpiAlias: String!
@@ -28,3 +14,34 @@ type Kpi {
 	visible: Boolean!
 	kpiDetail: [KpiDetail]!
 }
+
+input KpiFilter {
+	id: BigInteger
+	kpiAlias: String
+	company: Company
+	title: String
+	subtitle: String
+	description: String
+	graphType: Short
+	columnX0Label: String
+	label: String
+	label2: String
+	label3: String
+	label4: String
+	visible: Boolean
+	kpiDetail: [KpiDetail]
+}
+
+extends type Query {
+	
+}
+
+extends type Mutation {
+
+}
+    
+schema {
+	query: Query
+	mutation: Mutation
+}
+
