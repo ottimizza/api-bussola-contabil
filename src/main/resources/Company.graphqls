@@ -4,7 +4,7 @@ schema {
 }
 
 type Query {
-	findCompany(id: BigInteger): [Company]
+	findCompany(filter: CompanyFilter): [Company]
 	
 }
 
@@ -19,3 +19,8 @@ type Company {
 	kpis: [Kpi]!
 }
 
+input CompanyFilter {
+	id: BigInteger
+	cnpj: String
+	name: String
+}
