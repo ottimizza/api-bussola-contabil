@@ -50,8 +50,7 @@ public class Company implements Serializable {
     
     @Getter
     @Setter	
-    @OneToMany(mappedBy = "company", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Kpi> kpis = new ArrayList<>();
-    
+    @OneToMany(mappedBy = "company", fetch = FetchType.EAGER)
+    private List<Kpi> kpis;
     
 }
