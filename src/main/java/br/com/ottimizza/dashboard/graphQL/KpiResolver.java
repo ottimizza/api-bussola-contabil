@@ -30,9 +30,6 @@ public class KpiResolver implements GraphQLQueryResolver{
 		if(filter.getId() != null) {
 			query.where(kpi.id.in(filter.getId()));
 		}
-		if(filter.getCompany() != null) {
-			query.where(kpi.company.id.in(filter.getCompany().getId()));
-		}
 		
 		return query.fetch();
 		

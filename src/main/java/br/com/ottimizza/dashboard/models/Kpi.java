@@ -104,7 +104,9 @@ public class Kpi implements Serializable {
 
     @Getter
     @Setter	
-    @OneToMany(mappedBy = "kpiID", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<KpiDetail> kpiDetail = new ArrayList<>();
+    @OneToMany(mappedBy = "kpiID", fetch = FetchType.EAGER)
+    private List<KpiDetail> kpiDetail;
     
 }
+
+

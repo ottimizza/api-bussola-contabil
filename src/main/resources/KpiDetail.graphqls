@@ -1,17 +1,3 @@
-schema {
-	query: Query
-	mutation: Mutation
-}
-
-extends type Query {
-
-	
-}
-
-extends type Mutation {
-
-}
-    
 type KpiDetail {
 	id: BigInteger!
 	kpiID: Kpi!
@@ -26,3 +12,29 @@ type KpiDetail {
 	xBinding:String!
 }
 
+input KpiDetailfilter {
+	id: BigInteger
+	kpiID: Kpi
+	columnX:String
+	columnY:String
+	columnZ:String
+	valorKPI:double
+	valorKPI2:Double
+	valorKPI3:Double
+	valorKPI4:Double
+	columnXSeq:String
+	xBinding:String
+}
+extends type Query {
+
+	
+}
+
+extends type Mutation {
+
+}
+    
+schema {
+	query: Query
+	mutation: Mutation
+}
