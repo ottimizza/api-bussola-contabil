@@ -38,6 +38,16 @@ public class CompanyResolver {
 		return query.orderBy(company.name.asc()).fetch();
 	}
 
+	@GraphQLQuery
+	public List<Company> findCompany(String name) {
+		JPAQuery<Company> query = new JPAQuery<Company>(em).from(company);
+
+		if (name != null) {
+			query.where(company.name.contains(name));
+		}
+
+		return query.orderBy(company.name.asc()).fetch();
+	}
 	public long countCompany() {
 		return companyRepository.count();
 	}
