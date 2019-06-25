@@ -14,7 +14,7 @@ extends type Mutation {
     
 type KpiDetail {
 	id: BigInteger!
-	kpiID:Kpi!
+	kpiID: Kpi!
 	columnX:String!
 	columnY:String!
 	columnZ:String!
