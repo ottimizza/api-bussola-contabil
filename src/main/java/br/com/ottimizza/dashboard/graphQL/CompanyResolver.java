@@ -28,11 +28,11 @@ public class CompanyResolver {
 	}
 
 	@GraphQLQuery
-	public List<Company> findCompany(BigInteger id) {
+	public List<Company> findCompany(Company c) {
 		JPAQuery<Company> query = new JPAQuery<Company>(em).from(company);
 
-		if (id != null) {
-			query.where(company.id.in(id));
+		if (c.getId() != null) {
+			query.where(company.id.in(c.getId()));
 		}
 
 		return query.orderBy(company.name.asc()).fetch();
