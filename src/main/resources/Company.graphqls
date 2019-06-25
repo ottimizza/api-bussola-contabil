@@ -1,3 +1,20 @@
+type Kpi {
+	id: BigInteger!
+	kpiAlias: String!
+	company: Company!
+	title: String!
+	subtitle: String!
+	description: String!
+	graphType: Short!
+	columnX0Label: String!
+	label: String!
+	label2: String!
+	label3: String!
+	label4: String!
+	visible: Boolean!
+	kpiDetail: [KpiDetail]!
+}
+
 type Company {
 	id: BigInteger!
 	cnpj: String!
