@@ -34,20 +34,15 @@ public class CompanyResolver {
 		if (filter.getId() != null) {
 			query.where(company.id.in(filter.getId()));
 		}
+		
+		if (filter.getName() != null) {
+			query.where(company.name.contains(filter.getName()));
+		}
+
 
 		return query.orderBy(company.name.asc()).fetch();
 	}
 
-//	@GraphQLQuery
-//	public List<Company> findCompany(String name) {
-//		JPAQuery<Company> query = new JPAQuery<Company>(em).from(company);
-//
-//		if (name != null) {
-//			query.where(company.name.contains(name));
-//		}
-//
-//		return query.orderBy(company.name.asc()).fetch();
-//	}
 	public long countCompany() {
 		return companyRepository.count();
 	}
