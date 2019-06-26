@@ -10,7 +10,7 @@ type Kpi {
 	label: String!
 	label2: String!
 	label3: String!
-	label4: String!
+	label4: KpiDetail!
 	visible: Boolean!
 	kpiDetail: [String]!
 }
