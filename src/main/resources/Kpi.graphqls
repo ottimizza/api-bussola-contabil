@@ -16,7 +16,6 @@ type Kpi {
 }
 
 input KpiFilter {
-	companyId: BigInteger
 	id: BigInteger
 	kpiAlias: String
 	company: Company
