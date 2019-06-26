@@ -12,7 +12,7 @@ type Kpi {
 	label3: String!
 	label4: String!
 	visible: Boolean!
-	kpiDetail: [KpiDetail]!
+	kpiDetail: [String]!
 }
 
 input KpiFilter {
