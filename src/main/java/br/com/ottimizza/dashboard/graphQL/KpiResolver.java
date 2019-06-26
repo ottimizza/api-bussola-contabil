@@ -10,6 +10,7 @@ import com.querydsl.jpa.impl.JPAQuery;
 import br.com.ottimizza.dashboard.models.Kpi;
 import br.com.ottimizza.dashboard.models.QKpi;
 import br.com.ottimizza.dashboard.repositories.kpi.KpiRepository;
+import io.leangen.graphql.annotations.GraphQLMutation;
 import io.leangen.graphql.annotations.GraphQLQuery;
 
 public class KpiResolver implements GraphQLQueryResolver{
@@ -30,12 +31,21 @@ public class KpiResolver implements GraphQLQueryResolver{
 		if(filter.getId() != null) {
 			query.where(kpi.id.in(filter.getId()));
 		}
-//		if(filter.getCompany().getId() != null) {
-//			query.where(kpi.company.id.in(filter.getCompany().getId()));
-//		}
 		
-		return query.fetch();
-		
+		return query.fetch();		
+	}
+	
+	@GraphQLMutation
+	public List<Kpi> editKpi(Kpi filter) {
+		JPAQuery<Kpi> query = new JPAQuery<Kpi>(em).from(kpi);
+		if(filter.getId() != null) {
+			Kpi k = findKpi(filter).get(0);
+			if(filter.getTitle() != null) {
+				k.setTitle(filter.getTitle());
+				query.where(kpi.id.in(filter.getId()));
+			}
+		}
+		return query.fetch();	
 	}
 
 }

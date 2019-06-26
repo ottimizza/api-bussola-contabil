@@ -38,7 +38,7 @@ extends type Query {
 }
 
 extends type Mutation {
-
+	editKpi(filter: Kpifilter): [Kpi]
 }
     
 schema {
