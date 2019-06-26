@@ -10,9 +10,9 @@ type Kpi {
 	label: String!
 	label2: String!
 	label3: String!
-	label4: KpiDetail!
+	label4: String!
 	visible: Boolean!
-	kpiDetail: [String]!
+	kpiDetail: [KpiDetail]!
 }
 
 input KpiFilter {

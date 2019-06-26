@@ -100,7 +100,7 @@ public class Kpi implements Serializable {
     @Getter
     @Setter
     @Column(name = "label_4", nullable = true)
-    private String label4;
+    private KpiDetail label4;
 
     @Getter
     @Setter	
