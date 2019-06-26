@@ -3,7 +3,6 @@ type Company {
 	cnpj: String!
 	name: String!
 	kpis: [Kpi]!
-	cnpjs: [String]!
 }
 
 input CompanyFilter {
@@ -14,7 +13,6 @@ input CompanyFilter {
 
 extends type Query {
 	findCompany(filter: CompanyFilter): [Company]
-	findCompany(email: String): [String]
 	
 }
 
