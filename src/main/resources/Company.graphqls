@@ -14,7 +14,7 @@ input CompanyFilter {
 
 extends type Query {
 	findCompany(filter: CompanyFilter): [Company]
-	findCompany(email: String): [Company]
+	findCompany(email: String): [String]
 	
 }
 
