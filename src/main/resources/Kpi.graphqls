@@ -33,6 +33,7 @@ input KpiFilter {
 }
 
 extends type Query {
+	findKpi(filter: Kpifilter): [Kpi]
 	
 }
 

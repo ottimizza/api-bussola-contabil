@@ -23,7 +23,7 @@ public class KpiDetailResolver {
 	}
 	
 	@GraphQLQuery
-	public List<KpiDetail> findKpi(KpiDetail filter) {
+	public List<KpiDetail> findKpiDetail(KpiDetail filter) {
 		JPAQuery<KpiDetail> query = new JPAQuery<KpiDetail>(em).from(kpiDetail);
 		
 		if(filter.getId() != null) {

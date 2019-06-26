@@ -26,6 +26,7 @@ input KpiDetailfilter {
 	xBinding:String
 }
 extends type Query {
+	findKpiDetail(filter: KpiDetailfilter): [KpiDetail]
 
 	
 }
