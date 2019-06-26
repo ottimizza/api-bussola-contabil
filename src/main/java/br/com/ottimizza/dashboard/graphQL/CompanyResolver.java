@@ -35,6 +35,9 @@ public class CompanyResolver {
 			query.where(company.name.contains(filter.getName()));
 		}
 
+		if (filter.getCnpj() != null) {
+			query.where(company.cnpj.eq(filter.getCnpj()));
+		}
 
 		return query.orderBy(company.name.asc()).fetch();
 	}

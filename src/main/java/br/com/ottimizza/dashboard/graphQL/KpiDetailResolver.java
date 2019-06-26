@@ -1,7 +1,12 @@
 package br.com.ottimizza.dashboard.graphQL;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
 
+import com.querydsl.jpa.impl.JPAQuery;
+
+import br.com.ottimizza.dashboard.models.KpiDetail;
 import br.com.ottimizza.dashboard.models.QKpiDetail;
 import br.com.ottimizza.dashboard.repositories.kpi_detail.KpiDetailRepository;
 import io.leangen.graphql.annotations.GraphQLQuery;
@@ -17,15 +22,15 @@ public class KpiDetailResolver {
 		this.kpiDetailRepository = kpiDetailRepository;
 	}
 	
-//	@GraphQLQuery
-//	public List<KpiDetail> findKpi(Kpi filter) {
-//		JPAQuery<Kpi> query = new JPAQuery<Kpi>(em).from(kpi);
-//		
-//		if(filter.getId() != null) {
-//			query.where(kpi.id.in(filter.getId()));
-//		}
-//		
-//		return query.fetch();
-//		
-//	}
+	@GraphQLQuery
+	public List<KpiDetail> findKpi(KpiDetail filter) {
+		JPAQuery<KpiDetail> query = new JPAQuery<KpiDetail>(em).from(kpiDetail);
+		
+		if(filter.getId() != null) {
+			query.where(kpiDetail.id.in(filter.getId()));
+		}
+		
+		return query.fetch();
+		
+	}
 }
