@@ -11,12 +11,12 @@ input CompanyFilter {
 	name: String
 }
 
-type Query {
+extends type Query {
 	findCompany(filter: CompanyFilter): [Company]
 	
 }
 
-type Mutation {
+extends type Mutation {
 
 }
     
