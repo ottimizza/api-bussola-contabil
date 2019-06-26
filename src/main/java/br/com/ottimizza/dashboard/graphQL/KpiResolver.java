@@ -1,5 +1,6 @@
 package br.com.ottimizza.dashboard.graphQL;
 
+import java.math.BigInteger;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -35,37 +36,15 @@ public class KpiResolver implements GraphQLQueryResolver{
 		return query.fetch();		
 	}
 	
-	@GraphQLMutation
-	public List<Kpi> editKpi(Kpi filter) {
-		List<Kpi> query = findKpi(filter);
-		if(query.isEmpty()) {
-		throw new Error("dont find it");
-		}
-		query.get(0).setTitle(filter.getTitle());
-		
-		return query;
-//		if(filter.getId() != null) {
-//			Kpi k = findKpi(filter).get(0);
-//			if(filter.getTitle() != null) {
-//				k.setTitle(filter.getTitle());
-//				query.where(kpi.id.in(filter.getId()));
-//			}
-//		}
-//		return query.fetch();	
-	}
 
-}
-
-//updateAuthor: (_, { authorId, firstName, lastName }) => { 
-//	 const author = find(authors, { id: authorId }); 
-//	 if (!author) {
-//	   throw new Error(`Couldn’t find author with id ${authorId}`);
-//	 }
-//	 author.firstName = firstName; 
-//	 author.lastName = lastName; 
-//	 return author;
+//	@GraphQLMutation
+//	public Kpi editKpi(BigInteger id, String title) {
+//		
+//		Link newLink = new Link(url, description, context.getUser().getId());
+//	    linkRepository.saveLink(newLink);
+//	    return newLink;
 //	}
-
+}
 
 
 

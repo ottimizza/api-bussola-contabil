@@ -3,6 +3,7 @@ type Company {
 	cnpj: String!
 	name: String!
 	kpis: [Kpi]!
+	cnpjs: [String]!
 }
 
 input CompanyFilter {

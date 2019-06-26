@@ -2,11 +2,13 @@ package br.com.ottimizza.dashboard.graphQL;
 
 import java.util.List;
 
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 
 // JPAQUERY
 import com.querydsl.jpa.impl.JPAQuery;
 
+import br.com.ottimizza.dashboard.apis.SalesForceApi;
 import br.com.ottimizza.dashboard.models.Company;
 import br.com.ottimizza.dashboard.models.QCompany;
 import br.com.ottimizza.dashboard.repositories.company.CompanyRepository;
@@ -14,6 +16,9 @@ import io.leangen.graphql.annotations.GraphQLQuery;
 
 public class CompanyResolver {
 
+	@Inject
+	SalesForceApi sf;
+	
 	private QCompany company = QCompany.company;
 	private EntityManager em;
 	private CompanyRepository companyRepository;
@@ -26,7 +31,7 @@ public class CompanyResolver {
 	@GraphQLQuery
 	public List<Company> findCompany(Company filter) {
 		JPAQuery<Company> query = new JPAQuery<Company>(em).from(company);
-
+		
 		if (filter.getId() != null) {
 			query.where(company.id.in(filter.getId()));
 		}
@@ -41,7 +46,14 @@ public class CompanyResolver {
 
 		return query.orderBy(company.name.asc()).fetch();
 	}
-
+	
+	@GraphQLQuery
+	public List<String> findCompany(String email) {
+		
+		List<String> cnpjs = sf.getCNPJbyEmail(email);
+		return cnpjs;
+	}
+	
 	public long countCompany() {
 		return companyRepository.count();
 	}
