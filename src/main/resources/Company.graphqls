@@ -1,8 +1,5 @@
-type Company {
-	id: BigInteger!
-	cnpj: String!
-	name: String!
-	kpis: [Kpi]!
+extends type Company {
+	
 }
 
 input CompanyFilter {
