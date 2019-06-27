@@ -36,14 +36,6 @@ public class KpiResolver{
 		return query.fetch();		
 	}
 	
-	@GraphQLMutation
-	public Kpi editKpi(BigInteger id, String title) {
-		Kpi kpi = kpiRepository.findById(id);
-		kpi.setTitle(title);
-		
-		return kpiRepository.save(kpi);
-	}
-
 }
 
 
