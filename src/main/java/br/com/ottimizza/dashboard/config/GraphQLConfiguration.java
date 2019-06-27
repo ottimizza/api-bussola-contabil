@@ -7,11 +7,11 @@ import javax.persistence.PersistenceContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import br.com.ottimizza.dashboard.graphql.CompanyResolver;
-import br.com.ottimizza.dashboard.graphql.KpiDetailResolver;
-import br.com.ottimizza.dashboard.graphql.KpiResolver;
-import br.com.ottimizza.dashboard.graphql.Query;
 import br.com.ottimizza.dashboard.graphql.mutations.KpiMutations;
+import br.com.ottimizza.dashboard.graphql.queries.CompanyResolver;
+import br.com.ottimizza.dashboard.graphql.queries.KpiDetailResolver;
+import br.com.ottimizza.dashboard.graphql.queries.KpiResolver;
+import br.com.ottimizza.dashboard.graphql.queries.Query;
 import br.com.ottimizza.dashboard.repositories.company.CompanyRepository;
 import br.com.ottimizza.dashboard.repositories.kpi.KpiRepository;
 import br.com.ottimizza.dashboard.repositories.kpi_detail.KpiDetailRepository;
