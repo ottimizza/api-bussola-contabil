@@ -1,4 +1,4 @@
-package br.com.ottimizza.dashboard.graphQL;
+package br.com.ottimizza.dashboard.graphql;
 
 import java.math.BigInteger;
 import java.util.List;
@@ -14,7 +14,7 @@ import br.com.ottimizza.dashboard.repositories.kpi.KpiRepository;
 import io.leangen.graphql.annotations.GraphQLMutation;
 import io.leangen.graphql.annotations.GraphQLQuery;
 
-public class KpiResolver implements GraphQLQueryResolver{
+public class KpiResolver{
 
 	private QKpi kpi = QKpi.kpi;
 	private EntityManager em;
@@ -37,7 +37,13 @@ public class KpiResolver implements GraphQLQueryResolver{
 	}
 	
 
-//	@GraphQLMutation
+	@GraphQLMutation
+	public Kpi editKpi(BigInteger id, String title) {
+		Kpi kpi = kpiRepository.findById(id);
+		kpi.setTitle(title);
+		
+		return kpiRepository.save(kpi);
+	}
 //	public Kpi editKpi(BigInteger id, String title) {
 //		
 //		Link newLink = new Link(url, description, context.getUser().getId());

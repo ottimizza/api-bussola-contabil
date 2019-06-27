@@ -1,4 +1,4 @@
-package br.com.ottimizza.dashboard.graphQL;
+package br.com.ottimizza.dashboard.graphql;
 
 import java.util.List;
 
