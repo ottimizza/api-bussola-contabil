@@ -3,6 +3,7 @@ type Query {
 }
 
 type Mutation {
+	editKpi(id: BigInteger, title: String): Kpi
 
 }
     
