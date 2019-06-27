@@ -41,15 +41,11 @@ public class KpiService {
     // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="Update by Id">
-    public JSONObject updateById(BigInteger idKpi, Kpi kpi) throws Exception {
+    public JSONObject updateById(BigInteger idKpi, Kpi kpi) throws NoResultException, Exception {
         JSONObject response = new JSONObject();
         try {
-            Optional<Kpi> kpiOptional = repository.findById(idKpi);
-
-            if (!kpiOptional.isPresent())
-                throw new NoResultException();
-
-            kpi.setId(idKpi);
+        	
+            kpi.setId(repository.findById(idKpi).getId());
             repository.save(kpi);
 
             response.put("status", "sucess");
