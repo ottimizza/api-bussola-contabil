@@ -11,6 +11,7 @@ import br.com.ottimizza.dashboard.graphql.CompanyResolver;
 import br.com.ottimizza.dashboard.graphql.KpiDetailResolver;
 import br.com.ottimizza.dashboard.graphql.KpiResolver;
 import br.com.ottimizza.dashboard.graphql.Query;
+import br.com.ottimizza.dashboard.graphql.mutations.KpiMutations;
 import br.com.ottimizza.dashboard.repositories.company.CompanyRepository;
 import br.com.ottimizza.dashboard.repositories.kpi.KpiRepository;
 import br.com.ottimizza.dashboard.repositories.kpi_detail.KpiDetailRepository;
@@ -36,12 +37,16 @@ public class GraphQLConfiguration {
 		CompanyResolver companyQuery = new CompanyResolver(em, companyRepository);
 		KpiResolver kpiQuery = new KpiResolver(em, kpiRepository);
 		KpiDetailResolver kpiDetailQuery = new KpiDetailResolver(em, kpiDetailRepository);
+		
+		KpiMutations kpiMutations = new KpiMutations(em, kpiRepository);
+		
 		return new GraphQLSchemaGenerator().
 				withOperationsFromSingletons(
 						query, 
 						companyQuery,
 						kpiQuery,
-						kpiDetailQuery
+						kpiDetailQuery,
+						kpiMutations
 				).generate();
 	}
 	

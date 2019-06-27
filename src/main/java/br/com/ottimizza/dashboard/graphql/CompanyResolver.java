@@ -43,12 +43,6 @@ public class CompanyResolver {
 		return query.orderBy(company.name.asc()).fetch();
 	}
 	
-//	@GraphQLQuery
-//	public List<String> findCompany(String email) {
-//		
-//		List<String> cnpjs = sf.getCNPJbyEmail(email);
-//		return cnpjs;
-//	}
 
 	public long countCompany() {
 		return companyRepository.count();
