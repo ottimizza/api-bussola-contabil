@@ -36,7 +36,6 @@ public class KpiResolver{
 		return query.fetch();		
 	}
 	
-
 	@GraphQLMutation
 	public Kpi editKpi(BigInteger id, String title) {
 		Kpi kpi = kpiRepository.findById(id);
@@ -44,12 +43,7 @@ public class KpiResolver{
 		
 		return kpiRepository.save(kpi);
 	}
-//	public Kpi editKpi(BigInteger id, String title) {
-//		
-//		Link newLink = new Link(url, description, context.getUser().getId());
-//	    linkRepository.saveLink(newLink);
-//	    return newLink;
-//	}
+
 }
 
 
