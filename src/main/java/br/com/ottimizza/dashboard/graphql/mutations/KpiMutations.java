@@ -23,7 +23,7 @@ public class KpiMutations {
 
 	
 	@GraphQLMutation
-	public Kpi findKpi(BigInteger id, String title) {
+	public Kpi editKpi(BigInteger id, String title) {
 		Kpi kpi = kpiRepository.findById(id);
 		kpi.setTitle(title);
 		
