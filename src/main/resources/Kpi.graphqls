@@ -34,11 +34,11 @@ input KpiFilter {
 
 extends type Query {
 	findKpi(filter: Kpifilter): [Kpi]
+	editKpi(id: BigInteger, title: String): Kpi
 	
 }
 
 extends type Mutation {
-	editKpi(id: BigInteger, title: String): Kpi
 
 }
     
