@@ -10,13 +10,13 @@ import br.com.ottimizza.dashboard.repositories.kpi.KpiRepository;
 import io.leangen.graphql.annotations.GraphQLMutation;
 
 
-public class KpiMutations {
+public class KpiMutation {
 
 	private QKpi kpi = QKpi.kpi;
 	private EntityManager em;
 	private KpiRepository kpiRepository;
 	
-	public KpiMutations(EntityManager em, KpiRepository kpiRepository) {
+	public KpiMutation(EntityManager em, KpiRepository kpiRepository) {
 		this.em = em;
 		this.kpiRepository = kpiRepository;
 	}
