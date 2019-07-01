@@ -22,13 +22,21 @@ public class KpiMutations {
 	}
 
 	
-	@GraphQLMutation
+	@GraphQLMutation(name = "editKpi")
 	public Kpi editKpi(BigInteger id, String title) {
 		Kpi kpi = kpiRepository.findById(id);
 		kpi.setTitle(title);
 		
 		return kpiRepository.save(kpi);
 	}
+
+//	@GraphQLMutation(name = "createKpi")
+//	public Kpi createKpi(BigInteger id, String title) {
+//		Kpi kpi = kpiRepository.findById(id);
+//		kpi.setTitle(title);
+//		
+//		return kpiRepository.save(kpi);
+//	}
 
 }
 
