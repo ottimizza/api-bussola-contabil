@@ -34,9 +34,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         }).toArray(new String[] {});
 
         http
-                .authorizeRequests()
-                    .antMatchers(allowed).permitAll()
-                    .anyRequest().authenticated();
+            .authorizeRequests()
+                .antMatchers(allowed).permitAll();
+
+        http
+            .authorizeRequests()
+                .anyRequest().authenticated();
 
     }
 

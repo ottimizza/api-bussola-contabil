@@ -55,7 +55,7 @@ public class OAuthClientController {
     @Value("${oauth2-config.oauth2-client-secret}")
     private String OAUTH2_CLIENT_SECRET;
 
-    @PostMapping("callback")
+    @PostMapping("/callback")
     public ResponseEntity<String> oauthCallback(@RequestParam("code") String code,
                                                 @RequestParam("redirect_uri") String redirectUri) {
         ResponseEntity<String> response = null;
