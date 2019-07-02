@@ -1,5 +1,7 @@
 package br.com.ottimizza.dashboard.config;
 
+import java.util.Arrays;
+
 import org.springframework.context.annotation.Configuration;
 
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -18,9 +20,27 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
         resources.resourceId(RESOURCE_ID);
     }
 
-    @Override
+    @Override //@formatter:off
     public void configure(HttpSecurity http) throws Exception {
-        http.antMatcher("/**").authorizeRequests().anyRequest().authenticated();
+        String[] allowed = Arrays.asList(new String[] {
+                "/oauth/callback*", 
+        }).toArray(new String[] {});
+
+        // http.authorizeRequests()
+        //         .antMatchers(allowed).permitAll();
+
+        // http
+        //     .antMatcher("/**").authorizeRequests()
+        //     .anyRequest().authenticated();
+
+         // @formatter:off
+        http
+            .antMatcher("/**")
+            .authorizeRequests()
+                .antMatchers("/**").authenticated()
+                .antMatchers("/oauth/callback*").permitAll()
+                .anyRequest().authenticated();
+		// @formatter:on
     }
 
 }
