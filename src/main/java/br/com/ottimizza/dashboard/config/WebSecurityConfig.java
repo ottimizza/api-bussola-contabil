@@ -43,8 +43,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
         http
             .authorizeRequests()
-                .antMatchers(protectedResources).authenticated();
-                // .anyRequest().authenticated();
+                .antMatchers(protectedResources).authenticated()
+                .anyRequest().authenticated();
 
     }
 
