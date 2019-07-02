@@ -1,6 +1,8 @@
 package br.com.ottimizza.dashboard.models;
 
 import java.io.Serializable;
+import java.math.BigInteger;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -21,10 +23,14 @@ import lombok.Setter;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "kpis", indexes = {@Index(name = "kpi_index", columnList = "kpi_alias,fk_company_id", unique = true)})
+@Table(name = "kpis", indexes = {@Index(name = "kpi_index", columnList = "kpi_alias,fk_companies_id", unique = true)})
 public class Kpi implements Serializable {
 
     @Id
@@ -32,7 +38,7 @@ public class Kpi implements Serializable {
     @Setter
     @Column(name = "id", nullable = false)
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private Long id;
+    private BigInteger id;
 
     @Getter
     @Setter
@@ -41,10 +47,11 @@ public class Kpi implements Serializable {
 
     @Getter
     @Setter
-    @ManyToOne
-    @JoinColumn(name = "fk_company_id", referencedColumnName = "id", nullable = false)
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "fk_companies_id")
     private Company company;
-
+    
     @Getter
     @Setter
     @Column(name = "title", nullable = false)
@@ -69,16 +76,37 @@ public class Kpi implements Serializable {
     @Setter
     @Column(name = "column_x0_label", nullable = false)
     private String columnX0Label;
+    
+    @Getter
+    @Setter
+    @Column(name = "visible", nullable = true)
+    private Boolean visible = true;
+    
+    @Getter
+    @Setter
+    @Column(name = "label", nullable = true)
+    private String label;
+    
+    @Getter
+    @Setter
+    @Column(name = "label_2", nullable = true)
+    private String label2;
+    
+    @Getter
+    @Setter
+    @Column(name = "label_3", nullable = true)
+    private String label3;
+    
+    @Getter
+    @Setter
+    @Column(name = "label_4", nullable = true)
+    private String label4;
 
-//    @Getter
-//    @Setter
-//    @Fetch(FetchMode.SELECT)
-//    @OneToMany(mappedBy="kpis",
-//        cascade = CascadeType.ALL,
-//        targetEntity = KpiDetail.class,
-//        fetch = FetchType.EAGER,
-//        orphanRemoval = true)
-//    private List<KpiDetail> kpiDetails;
-//    //@JoinColumn(name = "kpi_id")
+    @Getter
+    @Setter	
+    @OneToMany(mappedBy = "kpiID", fetch = FetchType.EAGER)
+    private List<KpiDetail> kpiDetail;
     
 }
+
+

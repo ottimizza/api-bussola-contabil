@@ -1,6 +1,8 @@
 package br.com.ottimizza.dashboard.models;
 
 import java.io.Serializable;
+import java.math.BigInteger;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -23,7 +25,7 @@ public class KpiShort implements Serializable {
     @Setter
     @Column(name = "id", nullable = false)
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private Long id;
+    private BigInteger id;
 
     @Getter
     @Setter
