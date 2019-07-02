@@ -61,7 +61,7 @@ public class OAuthClientController {
     @Value("${oauth2-config.oauth2-client-secret}")
     private String OAUTH2_CLIENT_SECRET;
 
-    @PostMapping("/callback")
+    @PostMapping(value = "/callback", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> oauthCallback(@RequestParam("code") String code,
             @RequestParam("redirect_uri") String redirectUri) throws IOException {
         System.out.println("AUTHORIZATION CODE EXCHANGE");
@@ -89,7 +89,7 @@ public class OAuthClientController {
             return ResponseEntity.ok(EntityUtils.toString(responseEntity, "UTF-8"));
         } catch (Exception ex) {
             ex.printStackTrace();
-            return ResponseEntity.ok("{}");
+            return ResponseEntity.status(401).body("{}");
         }
     }
 
