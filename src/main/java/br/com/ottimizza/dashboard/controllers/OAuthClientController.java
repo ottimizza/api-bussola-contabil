@@ -15,6 +15,7 @@ import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.util.EntityUtils;
 import org.springframework.beans.factory.annotation.Value;
@@ -62,51 +63,34 @@ public class OAuthClientController {
 
     @PostMapping("/callback")
     public ResponseEntity<String> oauthCallback(@RequestParam("code") String code,
-                                                @RequestParam("redirect_uri") String redirectUri) throws IOException {
+            @RequestParam("redirect_uri") String redirectUri) throws IOException {
         System.out.println("AUTHORIZATION CODE EXCHANGE");
         System.out.println("code ..........: " + code);
         System.out.println("redirect_uri ..: " + redirectUri);
 
-        ResponseEntity<String> response = null;
-        RestTemplate restTemplate = new RestTemplate();
-
-        String credentials = OAUTH2_CLIENT_ID + ":" + OAUTH2_CLIENT_ID;
+        String credentials = OAUTH2_CLIENT_ID + ":" + OAUTH2_CLIENT_SECRET;
         String encodedCredentials = Base64.getEncoder().encodeToString(credentials.getBytes());
 
-        // HttpHeaders headers = new HttpHeaders();
-        // headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
-        // headers.add("Authorization", "Basic " + encodedCredentials);
+        try {
+            HttpClient httpClient = HttpClientBuilder.create().build();
 
-        // HttpEntity<String> request = new HttpEntity<String>(headers);
+            URIBuilder uriBuilder = new URIBuilder(OAUTH2_SERVER_URL + "/oauth/token");
+            uriBuilder.addParameter("code", code);
+            uriBuilder.addParameter("grant_type", "authorization_code");
+            uriBuilder.addParameter("redirect_uri", redirectUri);
 
-        String access_token_url = OAUTH2_SERVER_URL + "/oauth/token";
-        access_token_url += "?code=" + code;
-        access_token_url += "&grant_type=authorization_code";
-        access_token_url += "&redirect_uri=" + redirectUri;
+            HttpPost httpPost = new HttpPost(uriBuilder.build());
 
-        HttpClient httpClient = HttpClientBuilder.create().build();
-        HttpPost httpPost = new HttpPost(access_token_url);
+            httpPost.setHeader("Authorization", "Basic " + encodedCredentials);
 
-        httpPost.setHeader("Authorization", "Basic " + encodedCredentials);
+            HttpResponse httpResponse = httpClient.execute(httpPost);
+            HttpEntity responseEntity = httpResponse.getEntity();
 
-        HttpResponse httpResponse = httpClient.execute(httpPost);
-        // int statusCode = httpResponse.getStatusLine().getStatusCode();
-        HttpEntity responseEntity = httpResponse.getEntity();
-        String responseBody = EntityUtils.toString(responseEntity, "UTF-8");
-
-        return ResponseEntity.ok(responseBody); 
-        //restTemplate.exchange(access_token_url, HttpMethod.POST, request, String.class);
-        // response = restTemplate.exchange(access_token_url, HttpMethod.POST, request,
-        // String.class);
-
-        // System.out.println("Access Token Response ---------" + response.getBody());
-
-        // // Get the Access Token From the recieved JSON response
-        // ObjectMapper mapper = new ObjectMapper();
-        // JsonNode node = mapper.readTree(response.getBody());
-        // String token = node.path("access_token").asText();
-
-        // return ResponseEntity.ok("");
+            return ResponseEntity.ok(EntityUtils.toString(responseEntity, "UTF-8"));
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return ResponseEntity.ok("{}");
+        }
     }
 
 }
