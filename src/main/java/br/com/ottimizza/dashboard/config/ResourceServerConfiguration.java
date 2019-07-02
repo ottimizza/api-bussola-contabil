@@ -38,8 +38,8 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
             .antMatcher("/**")
             .authorizeRequests()
                 .antMatchers("/company**").authenticated()
-                .antMatchers("/oauth/callback*").permitAll();
-                // .anyRequest().authenticated();
+                .antMatchers("/oauth/callback*").permitAll()
+                .anyRequest().authenticated();
 		// @formatter:on
     }
 
