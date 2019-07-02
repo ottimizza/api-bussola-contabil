@@ -29,17 +29,22 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override //@formatter:off
     public void configure(HttpSecurity http) throws Exception {
-        String[] allowed = Arrays.asList(new String[] {
+        String[] allowedResources = Arrays.asList(new String[] {
                 "/oauth/callback*", "/", "/login", "/login**"
+        }).toArray(new String[] {});
+        
+        String[] protectedResources = Arrays.asList(new String[] {
+                "/company/**", 
         }).toArray(new String[] {});
 
         http
             .authorizeRequests()
-                .antMatchers(allowed).permitAll();
+                .antMatchers(allowedResources).permitAll();
 
         http
             .authorizeRequests()
-                .anyRequest().authenticated();
+                .antMatchers(protectedResources).authenticated();
+                // .anyRequest().authenticated();
 
     }
 
