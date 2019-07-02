@@ -58,6 +58,10 @@ public class OAuthClientController {
     @PostMapping("/callback")
     public ResponseEntity<String> oauthCallback(@RequestParam("code") String code,
                                                 @RequestParam("redirect_uri") String redirectUri) {
+        System.out.println("AUTHORIZATION CODE EXCHANGE");
+        System.out.println("code ..........: " + code);
+        System.out.println("redirect_uri ..: " + redirectUri);
+
         ResponseEntity<String> response = null;
         RestTemplate restTemplate = new RestTemplate();
 
