@@ -27,3 +27,4 @@ public class CompanyMutation {
 	    return newCompany;
 	}
 }
+
