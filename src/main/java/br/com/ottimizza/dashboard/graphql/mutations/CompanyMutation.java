@@ -20,8 +20,8 @@ public class CompanyMutation {
 
 	@GraphQLMutation //1
 //	public Company createCompany(String cnpj, String name, @GraphQLRootContext AuthorizationContext context) { //2
-	public Company createCompany(String cnpj, String name) { //2
-	    Company newCompany = new Company(cnpj, name);
+	public Company createCompany(Company filter) { //2
+	    Company newCompany = new Company(filter.getCnpj(), filter.getName());
 	    
 	    companyRepository.save(newCompany);
 	    return newCompany;
