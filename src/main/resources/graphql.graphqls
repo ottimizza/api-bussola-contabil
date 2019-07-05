@@ -1,15 +1,93 @@
+schema {
+	query: Query
+}
+
 type Query {
+	findCompany(filter: CompanyFilter): [Company]
+	findKpi(filter: Kpifilter): [Kpi]
+	findKpiDetail(filter: KpiDetailfilter): [KpiDetail]
 	
 }
 
 type Mutation {
-
-}
-    
-  
-schema {
-	query: Query
-	mutation: Mutation
+	editKpi(id: BigInteger, title: String): Kpi
+	createCompany(filter: CompanyFilter): Company
+	
 }
 
-    
+type Company {
+	id: BigInteger!
+	cnpj: String!
+	name: String!
+	kpis: [Kpi]!
+}
+
+input CompanyFilter {
+	id: BigInteger
+	cnpj: String
+	name: String
+}
+
+type Kpi {
+	id: BigInteger!
+	kpiAlias: String!
+	company: Company!
+	title: String!
+	subtitle: String!
+	description: String!
+	graphType: Short!
+	columnX0Label: String!
+	label: String!
+	label2: String!
+	label3: String!
+	label4: String!
+	visible: Boolean!
+	kpiDetail: [KpiDetail]!
+}
+
+input KpiFilter {
+	id: BigInteger
+	kpiAlias: String
+	company: Company
+	title: String
+	subtitle: String
+	description: String
+	graphType: Short
+	columnX0Label: String
+	label: String
+	label2: String
+	label3: String
+	label4: String
+	visible: Boolean
+	kpiDetail: [KpiDetail]
+}
+
+type KpiDetail {
+	id: BigInteger!
+	kpiID: Kpi!
+	columnX:String!
+	columnY:String!
+	columnZ:String!
+	valorKPI:double!
+	valorKPI2:Double!
+	valorKPI3:Double!
+	valorKPI4:Double!
+	columnXSeq:String!
+	xBinding:String!
+}
+
+input KpiDetailfilter {
+	id: BigInteger
+	kpiID: Kpi
+	columnX:String
+	columnY:String
+	columnZ:String
+	valorKPI:double
+	valorKPI2:Double
+	valorKPI3:Double
+	valorKPI4:Double
+	columnXSeq:String
+	xBinding:String
+}
+
+
