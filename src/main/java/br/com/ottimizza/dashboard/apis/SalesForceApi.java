@@ -35,7 +35,7 @@ public class SalesForceApi {
             
             // Obtem o Roteiro /////////////////////////////////////////////////
             StringBuilder sql = new StringBuilder();
-            sql.append("SELECT CNPJ__c, name FROM Empresa__c WHERE Email_Dono_Empresa__c like '%").append(emailDono).append("%'");
+            sql.append("SELECT CNPJ__c, Name FROM Empresa__c WHERE Email_Dono_Empresa__c like '%").append(emailDono).append("%'");
 
             //String cnpjResultado = "";
             QueryResult qres1 = sfConnection.query(sql.toString());
@@ -45,8 +45,8 @@ public class SalesForceApi {
                     SObject resultados = qres1.getRecords()[xx];
                     JSONObject campoOb = new JSONObject();
                     campoOb.put("cnpj", resultados.getField("CNPJ__c"));
-                    campoOb.put("name", resultados.getField("name"));
-                    System.out.println(">> > "+resultados.getField("CNPJ__c")+" - "+resultados.getField("name"));
+                    campoOb.put("name", resultados.getField("Name"));
+                    System.out.println(">> > "+resultados.getField("CNPJ__c")+" - "+resultados.getField("Name"));
                     if (campoOb != null) empresas.add(campoOb);
                 }
             }
