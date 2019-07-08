@@ -9,8 +9,8 @@ import io.leangen.graphql.annotations.GraphQLMutation;
 
 public class CompanyMutation {
 
-	private QCompany company = QCompany.company;
 	private EntityManager em;
+	private QCompany company = QCompany.company;
 	private CompanyRepository companyRepository;
 
 	public CompanyMutation(EntityManager em, CompanyRepository companyRepository) {
