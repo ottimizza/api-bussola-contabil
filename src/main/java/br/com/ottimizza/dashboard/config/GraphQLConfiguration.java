@@ -39,6 +39,7 @@ public class GraphQLConfiguration {
 		KpiResolver kpiQuery = new KpiResolver(em, kpiRepository);
 		KpiDetailResolver kpiDetailQuery = new KpiDetailResolver(em, kpiDetailRepository);
 		KpiMutation kpiMutation = new KpiMutation(em, kpiRepository);
+		CompanyMutation companyMutation = new CompanyMutation(em, companyRepository);
 		
 		return new GraphQLSchemaGenerator().
 				withOperationsFromSingletons(
@@ -46,7 +47,8 @@ public class GraphQLConfiguration {
 						companyQuery,
 						kpiQuery,
 						kpiDetailQuery,
-						kpiMutation
+						kpiMutation,
+						companyMutation
 						
 				).generate();
 	}
