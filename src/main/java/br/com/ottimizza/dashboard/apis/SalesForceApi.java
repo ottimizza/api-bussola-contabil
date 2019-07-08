@@ -46,7 +46,6 @@ public class SalesForceApi {
                     JSONObject campoOb = new JSONObject();
                     campoOb.put("cnpj", resultados.getField("CNPJ__c"));
                     campoOb.put("name", resultados.getField("Name"));
-                    System.out.println(">> > "+resultados.getField("CNPJ__c")+" - "+resultados.getField("Name"));
                     if (campoOb != null) empresas.add(campoOb);
                 }
             }
