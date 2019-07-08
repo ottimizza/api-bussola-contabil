@@ -5,7 +5,7 @@ extends type Company {
 	kpis: [Kpi]
 }
 
-input CompanyFilter {
+extends input CompanyFilter {
 	id: BigInteger
 	cnpj: String
 	name: String

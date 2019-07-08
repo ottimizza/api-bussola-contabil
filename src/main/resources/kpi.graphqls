@@ -15,7 +15,7 @@ extends type Kpi {
 	kpiDetail: [KpiDetail]!
 }
 
-input KpiFilter {
+extends input KpiFilter {
 	id: BigInteger
 	kpiAlias: String
 	company: Company
