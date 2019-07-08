@@ -18,7 +18,7 @@ public class SalesForceService {
         try {            
             SalesForceApi api = new SalesForceApi();
             response.put("status", "sucess");
-            response.put("recordw", api.getCNPJbyEmail(email));
+            response.put("records", api.getCNPJbyEmail(email));
             response.put("urlLogotipo", api.getUrlLogotipoByEmail(email));
             
             System.out.println("SERVICE OK!");
