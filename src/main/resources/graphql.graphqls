@@ -1,36 +1,14 @@
 schema {
 	query: Query
+	mutation: Mutation
 }
 
 type Query {
-	findCompany(filter: CompanyFilter): [Company]
-	findKpiDetail(filter: KpiDetailfilter): [KpiDetail]
 	
 }
 
 type Mutation {
-	createCompany(filter: CompanyFilter): Company
 	
 }
 
-type Company {
-	id: BigInteger!
-	cnpj: String!
-	name: String!
-	kpis: [Kpi]
-}
-
-type KpiDetail {
-	id: BigInteger!
-	kpiID: Kpi!
-	columnX:String!
-	columnY:String!
-	columnZ:String!
-	valorKPI:double!
-	valorKPI2:Double!
-	valorKPI3:Double!
-	valorKPI4:Double!
-	columnXSeq:String!
-	xBinding:String!
-}
 
