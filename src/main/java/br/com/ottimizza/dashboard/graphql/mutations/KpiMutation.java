@@ -1,4 +1,4 @@
-package br.com.ottimizza.dashboard.graphql;
+package br.com.ottimizza.dashboard.graphql.mutations;
 
 import java.math.BigInteger;
 

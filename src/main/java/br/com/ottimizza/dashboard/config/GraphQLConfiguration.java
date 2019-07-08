@@ -7,8 +7,8 @@ import javax.persistence.PersistenceContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import br.com.ottimizza.dashboard.graphql.CompanyMutation;
-import br.com.ottimizza.dashboard.graphql.KpiMutation;
+import br.com.ottimizza.dashboard.graphql.mutations.CompanyMutation;
+import br.com.ottimizza.dashboard.graphql.mutations.KpiMutation;
 import br.com.ottimizza.dashboard.graphql.queries.CompanyResolver;
 import br.com.ottimizza.dashboard.graphql.queries.KpiDetailResolver;
 import br.com.ottimizza.dashboard.graphql.queries.KpiResolver;
