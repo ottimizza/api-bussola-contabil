@@ -29,7 +29,7 @@ public class KpiMutation {
 //	}
 	
 	
-	@GraphQLMutation(name = "mutationKpi")
+//	@GraphQLMutation(name = "mutationKpi")
 	public Kpi mutationKpi(Kpi kpi) {
 		
 		if(kpi.getId() != null) {
@@ -39,7 +39,7 @@ public class KpiMutation {
 		}
 		
 	}
-	
+	@GraphQLMutation(name = "mutationKpi")
 	public Kpi editKpi(Kpi newKpi) {
 		Kpi kpi = kpiRepository.findById(newKpi.getId());
 		
