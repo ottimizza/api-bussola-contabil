@@ -44,7 +44,7 @@ public class KpiDetailMutation {
 		}catch (ConversionException ce) {
 			
 		}
-		kpiDetailRepository.delete(kpiDetail);
+		kpiDetailRepository.deleteById(id);
 		return kpiDetail;
 	}
 	 

@@ -11,6 +11,7 @@ import br.com.ottimizza.dashboard.models.KpiDetail;
 import br.com.ottimizza.dashboard.models.QKpi;
 import br.com.ottimizza.dashboard.repositories.kpi.KpiRepository;
 import br.com.ottimizza.dashboard.repositories.kpi_detail.KpiDetailRepository;
+import br.com.ottimizza.dashboard.services.KpiDetailService;
 import io.leangen.graphql.annotations.GraphQLMutation;
 
 public class KpiMutation {
@@ -22,7 +23,7 @@ public class KpiMutation {
 	private EntityManager em;
 	private QKpi kpi = QKpi.kpi;
 	private KpiRepository kpiRepository;
-	private KpiDetailRepository kpiDetailRepository;
+	private KpiDetailService kpiDetailService;
 
 	public KpiMutation(EntityManager em, KpiRepository kpiRepository) {
 		this.em = em;
@@ -85,7 +86,9 @@ public class KpiMutation {
 			for (KpiDetail kpiDetail : kpiDetails) {
 				System.out.println("for . "+kpiDetail.getId());
 //				kpiDetailMut.deleteKpiDetail(kpiDetail.getId());
-//				kpiDetailRepository.delete(kpiDetail);
+				try {
+					System.out.println(kpiDetailService.deleteById(kpiDetail.getId()));
+				} catch (Exception e) {}
 				System.out.println("for ..");
 			}
 //			deleteKpi(kpi.getId());

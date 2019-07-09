@@ -35,6 +35,12 @@ public class KpiDetailService {
     }
     //</editor-fold>
     
+  //<editor-fold defaultstate="collapsed" desc="Find by List CNPJ">
+    public Boolean deleteById(BigInteger idKpiDetail)throws Exception{
+        return repository.deleteById(idKpiDetail);
+    }
+    //</editor-fold>
+    
     //<editor-fold defaultstate="collapsed" desc="Update by Id">
     public JSONObject updateById(BigInteger idKpi, KpiDetail kpi) throws Exception{
         JSONObject response = new JSONObject();
