@@ -5,6 +5,7 @@ import java.math.BigInteger;
 import javax.persistence.EntityManager;
 
 import br.com.ottimizza.dashboard.models.Kpi;
+import br.com.ottimizza.dashboard.models.KpiDetail;
 import br.com.ottimizza.dashboard.models.QKpiDetail;
 import br.com.ottimizza.dashboard.repositories.kpi_detail.KpiDetailRepository;
 import io.leangen.graphql.annotations.GraphQLMutation;
@@ -27,17 +28,19 @@ public class KpiDetailMutation {
 		kpi.setTitle(title);
 		
 		return kpiDetailRepository.save(kpiDetail);
-	}* 
+	}
+	*/ 
 	
 	
 	@GraphQLMutation(name = "deleteKpiDetail")
 	public KpiDetail deleteKpiDetail(BigInteger id) {
+		
 		KpiDetail kpiDetail = kpiDetailRepository.findById(id);
 		
-		kpiDetailRepository.delete(kpi);
-	
+		kpiDetailRepository.delete(kpiDetail);
+		
 		return kpiDetail;
 	}
-	 * */
+	 
 
 }

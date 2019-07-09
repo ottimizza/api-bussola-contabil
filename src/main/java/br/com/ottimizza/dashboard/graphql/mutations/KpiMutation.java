@@ -1,12 +1,15 @@
 package br.com.ottimizza.dashboard.graphql.mutations;
 
 import java.math.BigInteger;
+import java.util.List;
 
 import javax.persistence.EntityManager;
 
 import br.com.ottimizza.dashboard.models.Kpi;
+import br.com.ottimizza.dashboard.models.KpiDetail;
 import br.com.ottimizza.dashboard.models.QKpi;
 import br.com.ottimizza.dashboard.repositories.kpi.KpiRepository;
+import br.com.ottimizza.dashboard.repositories.kpi_detail.KpiDetailRepository;
 import io.leangen.graphql.annotations.GraphQLMutation;
 
 public class KpiMutation {
@@ -14,6 +17,7 @@ public class KpiMutation {
 	private EntityManager em;
 	private QKpi kpi = QKpi.kpi;
 	private KpiRepository kpiRepository;
+	private KpiDetailRepository kpiDetailRepository;
 
 	public KpiMutation(EntityManager em, KpiRepository kpiRepository) {
 		this.em = em;
@@ -67,7 +71,13 @@ public class KpiMutation {
 	public Kpi deleteKpi(BigInteger id) {
 		Kpi kpi = kpiRepository.findById(id);
 		
-		if(kpi.getKpiDetail().isEmpty()) kpiRepository.delete(kpi);
+		if(!kpi.getKpiDetail().isEmpty()) {
+			List<KpiDetail> kpiDetails = kpi.getKpiDetail();
+			for (KpiDetail kpiDetail : kpiDetails) {
+				kpiDetailRepository.delete(kpiDetail);
+			}			
+		}
+		kpiRepository.delete(kpi);
 
 		return kpi;
 	}

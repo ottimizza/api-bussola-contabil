@@ -9,6 +9,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface KpiDetailRepository extends JpaRepository<KpiDetail, Long>, KpiDetailRepositoryCustom{
 
-	Optional<KpiDetail> findById(BigInteger idKpi);
+	KpiDetail findById(BigInteger idKpi);
     
 }
