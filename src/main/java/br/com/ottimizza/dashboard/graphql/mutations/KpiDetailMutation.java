@@ -29,11 +29,9 @@ public class KpiDetailMutation {
 		public KpiDetail editKpiDetail(BigInteger id, String title) {
 		KpiDetail kpiDetail = kpiDetailRepository.findById(id);
 		kpi.setTitle(title);
-		
 		return kpiDetailRepository.save(kpiDetail);
 	}
 	*/
-	
 	
 	@GraphQLMutation(name = "deleteKpiDetail")
 	public KpiDetail deleteKpiDetail(BigInteger id) {
