@@ -83,8 +83,8 @@ public class KpiMutation {
 			
 			
 			for (KpiDetail kpiDetail : kpiDetails) {
-				System.out.println("for .");
-				kpiDetailMut.deleteKpiDetail(kpiDetail.getId());
+				System.out.println("for . "+kpiDetail.getId());
+//				kpiDetailMut.deleteKpiDetail(kpiDetail.getId());
 //				kpiDetailRepository.delete(kpiDetail);
 				System.out.println("for ..");
 			}
