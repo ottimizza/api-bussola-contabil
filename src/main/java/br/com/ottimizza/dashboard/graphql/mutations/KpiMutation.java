@@ -76,8 +76,9 @@ public class KpiMutation {
 		} else {
 			List<KpiDetail> kpiDetails = kpi.getKpiDetail();
 			for (KpiDetail kpiDetail : kpiDetails) {
-				System.out.println("passou no for.");
-//				kpiDetailRepository.delete(kpiDetail);
+				System.out.println("for .");
+				kpiDetailRepository.delete(kpiDetail);
+				System.out.println("for ..");
 			}
 //			deleteKpi(kpi.getId());
 //			kpiRepository.delete(kpi);
