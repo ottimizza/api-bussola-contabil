@@ -24,7 +24,7 @@ public class KpiDetailService {
     //</editor-fold>
     
     //<editor-fold defaultstate="collapsed" desc="Find by Id">
-    public Optional<KpiDetail> findById(Long idKpi) throws Exception{
+    public Optional<KpiDetail> findById(BigInteger idKpi) throws Exception{
         return repository.findById(idKpi);
     }
     //</editor-fold>
@@ -69,7 +69,7 @@ public class KpiDetailService {
     //</editor-fold>
     
     //<editor-fold defaultstate="collapsed" desc="Delete by Id">
-    public JSONObject delete(Long idKpi)throws Exception{
+    public JSONObject delete(BigInteger idKpi)throws Exception{
         JSONObject response = new JSONObject();
         try {
             repository.deleteById(idKpi);
