@@ -36,6 +36,7 @@ public class KpiDetailRepositoryImpl implements KpiDetailRepositoryCustom {
 
 	@Override
 	public Boolean deleteById(BigInteger idKpiDetail) {
+		System.out.println("Excluindo KPI Detail");
 		new JPADeleteClause(em, kpiDetail).where(kpiDetail.id.eq(idKpiDetail)).execute();
 		return true;
 	}
