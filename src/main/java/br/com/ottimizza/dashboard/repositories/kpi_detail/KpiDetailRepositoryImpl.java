@@ -33,11 +33,4 @@ public class KpiDetailRepositoryImpl implements KpiDetailRepositoryCustom {
                 .where(company.cnpj.in(cnpj));
         return query.orderBy(company.name.asc()).orderBy(kpi.kpiAlias.asc()).orderBy(kpiDetail.columnXSeq.asc()).fetch();
     }
-
-	@Override
-	public Boolean deleteById(BigInteger idKpiDetail) {
-		System.out.println("Excluindo KPI Detail");
-		new JPADeleteClause(em, kpiDetail).where(kpiDetail.id.eq(idKpiDetail)).execute();
-		return true;
-	}
 }

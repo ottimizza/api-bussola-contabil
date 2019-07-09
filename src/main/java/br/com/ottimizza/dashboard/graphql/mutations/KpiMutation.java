@@ -23,7 +23,7 @@ public class KpiMutation {
 	private EntityManager em;
 	private QKpi kpi = QKpi.kpi;
 	private KpiRepository kpiRepository;
-	private KpiDetailService kpiDetailService;
+	private KpiDetailRepository kpiDetailRepository;
 
 	public KpiMutation(EntityManager em, KpiRepository kpiRepository) {
 		this.em = em;
@@ -87,7 +87,7 @@ public class KpiMutation {
 				System.out.println("for . "+kpiDetail.getId());
 //				kpiDetailMut.deleteKpiDetail(kpiDetail.getId());
 				try {
-					System.out.println(kpiDetailService.deleteById(kpiDetail.getId()));
+					System.out.println(kpiDetailRepository.deleteById(kpiDetail.getId()));
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
