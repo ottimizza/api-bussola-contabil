@@ -71,13 +71,16 @@ public class KpiMutation {
 	public Kpi deleteKpi(BigInteger id) {
 		Kpi kpi = kpiRepository.findById(id);
 		
-		if(!kpi.getKpiDetail().isEmpty()) {
+		if(kpi.getKpiDetail().isEmpty()) {
+			kpiRepository.delete(kpi);
+		} else {
 			List<KpiDetail> kpiDetails = kpi.getKpiDetail();
 			for (KpiDetail kpiDetail : kpiDetails) {
 				kpiDetailRepository.delete(kpiDetail);
-			}			
+			}
+			kpiRepository.delete(kpi);
+			
 		}
-		kpiRepository.delete(kpi);
 
 		return kpi;
 	}
