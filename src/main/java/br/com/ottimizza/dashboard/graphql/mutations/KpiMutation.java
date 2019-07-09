@@ -65,11 +65,12 @@ public class KpiMutation {
 	}
 	
 	@GraphQLMutation(name = "deleteKpi")
-	public boolean deleteKpi(Kpi newKpi) { //talvez String deva ser o retorno
+	public Kpi deleteKpi(BigInteger id) { //talvez String deva ser o retorno
 		
-		Kpi kpi = kpiRepository.findById(newKpi.getId());
+		Kpi kpi = kpiRepository.findById(id);
+//		Kpi kpi = kpiRepository.findById(newKpi.getId());
 		kpiRepository.delete(kpi);
 		
-		return true;
+		return kpi;
 	}
 }
