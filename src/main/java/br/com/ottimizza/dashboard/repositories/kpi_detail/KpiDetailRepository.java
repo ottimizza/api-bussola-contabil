@@ -8,9 +8,9 @@ import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface KpiDetailRepository extends JpaRepository<KpiDetail, Long>, KpiDetailRepositoryCustom{
+public interface KpiDetailRepository extends JpaRepository<KpiDetail, BigInteger>, KpiDetailRepositoryCustom{
 
-	KpiDetail findById(BigInteger idKpi);
+	Optional <KpiDetail> findById(BigInteger idKpi);
 
 	void deleteById(BigInteger id);
     
