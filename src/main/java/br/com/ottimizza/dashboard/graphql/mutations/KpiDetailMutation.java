@@ -25,25 +25,21 @@ public class KpiDetailMutation {
 	}
 	
 	/*
-	 * @GraphQLMutation(name = "editKpiDetail")
+	  @GraphQLMutation(name = "editKpiDetail")
 		public KpiDetail editKpiDetail(BigInteger id, String title) {
 		KpiDetail kpiDetail = kpiDetailRepository.findById(id);
 		kpi.setTitle(title);
 		
 		return kpiDetailRepository.save(kpiDetail);
 	}
-	*/ 
+	*/
 	
 	
-//	@GraphQLMutation(name = "deleteKpiDetail")
+	@GraphQLMutation(name = "deleteKpiDetail")
 	public KpiDetail deleteKpiDetail(BigInteger id) {
-		Optional<KpiDetail> kpiOptional = kpiDetailRepository.findById(id);
-		KpiDetail kpiDetail = new KpiDetail();
-		try {
-			kpiDetail = kpiOptional.get();
-		}catch (ConversionException ce) {
-			
-		}
+//		Optional<KpiDetail> kpiOptional = kpiDetailRepository.findById(id);
+		KpiDetail kpiDetail = kpiDetailRepository.findById(id);
+		
 		kpiDetailRepository.deleteById(id);
 		return kpiDetail;
 	}

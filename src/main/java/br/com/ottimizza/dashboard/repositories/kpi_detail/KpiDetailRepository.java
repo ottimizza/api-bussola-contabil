@@ -10,8 +10,10 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface KpiDetailRepository extends JpaRepository<KpiDetail, Long>, KpiDetailRepositoryCustom{
 
-	Optional<KpiDetail> findById(BigInteger idKpi);
+	KpiDetail findById(BigInteger idKpi);
+
+	void deleteById(BigInteger id);
     
-	Boolean deleteById(BigInteger idKpi);
+//	Boolean deleteById(BigInteger idKpi);
 	
 }

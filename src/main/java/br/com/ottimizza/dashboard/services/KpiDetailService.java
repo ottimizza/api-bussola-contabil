@@ -35,37 +35,37 @@ public class KpiDetailService {
     }
     //</editor-fold>
     
-  //<editor-fold defaultstate="collapsed" desc="Find by List CNPJ">
-    public Boolean deleteById(BigInteger idKpiDetail)throws Exception{
-        return repository.deleteById(idKpiDetail);
-    }
-    //</editor-fold>
+//  //<editor-fold defaultstate="collapsed" desc="Find by List CNPJ">
+//    public Boolean deleteById(BigInteger idKpiDetail)throws Exception{
+//        return repository.deleteById(idKpiDetail);
+//    }
+//    //</editor-fold>
     
     //<editor-fold defaultstate="collapsed" desc="Update by Id">
-    public JSONObject updateById(BigInteger idKpi, KpiDetail kpi) throws Exception{
-        JSONObject response = new JSONObject();
-        try {
-        	Optional<KpiDetail> kpiOptional = repository.findById(idKpi);
-            
-            if(!kpiOptional.isPresent()) throw new NoResultException();
-                
-            kpi.setId(idKpi);
-            repository.save(kpi);
-            
-            response.put("status","sucess");
-            response.put("message","Atualizado detalhe do kpi com sucesso!");
-            
-        } catch (NoResultException e0) {
-            response.put("status","error");
-            response.put("message","Problema ao encontrar o detalhe do kpi!");
-            throw new NoResultException(response.toString()) ;
-        } catch (Exception e1) {
-            response.put("status","Error");
-            response.put("message","Houve um problema ao atualizar!");
-            throw new Exception(response.toString()) ;
-        }
-        return response;
-    }
+//    public JSONObject updateById(BigInteger idKpi, KpiDetail kpi) throws Exception{
+//        JSONObject response = new JSONObject();
+//        try {
+//        	Optional<KpiDetail> kpiOptional = repository.findById(idKpi);
+//            
+//            if(!kpiOptional.isPresent()) throw new NoResultException();
+//                
+//            kpi.setId(idKpi);
+//            repository.save(kpi);
+//            
+//            response.put("status","sucess");
+//            response.put("message","Atualizado detalhe do kpi com sucesso!");
+//            
+//        } catch (NoResultException e0) {
+//            response.put("status","error");
+//            response.put("message","Problema ao encontrar o detalhe do kpi!");
+//            throw new NoResultException(response.toString()) ;
+//        } catch (Exception e1) {
+//            response.put("status","Error");
+//            response.put("message","Houve um problema ao atualizar!");
+//            throw new Exception(response.toString()) ;
+//        }
+//        return response;
+//    }
     //</editor-fold>
     
     //<editor-fold defaultstate="collapsed" desc="Delete by Id">
