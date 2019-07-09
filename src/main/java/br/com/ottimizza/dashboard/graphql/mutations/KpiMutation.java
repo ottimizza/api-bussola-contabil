@@ -66,16 +66,17 @@ public class KpiMutation {
 	@GraphQLMutation(name = "deleteKpi")
 	public Kpi deleteKpi(BigInteger id) {
 		Kpi kpi = kpiRepository.findById(id);
-		kpiRepository.delete(kpi);
+		
+		if(kpi.getKpiDetail().isEmpty()) kpiRepository.delete(kpi);
 
 		return kpi;
 	}
 	
-//	@GraphQLMutation(name = "deleteKpi")
-//	public Kpi deleteKpi(Kpi newKpi) {
-//		Kpi kpi = kpiRepository.findById(newKpi.getId());
-//		kpiRepository.delete(kpi);
-//
-//		return kpi;
-//	}
+	@GraphQLMutation(name = "deleteKpi")
+	public Kpi deleteKpi(Kpi newKpi) {
+		Kpi kpi = kpiRepository.findById(newKpi.getId());
+		kpiRepository.delete(kpi);
+
+		return kpi;
+	}
 }
