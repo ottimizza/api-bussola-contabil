@@ -39,16 +39,15 @@ public class KpiDetailService {
     public JSONObject updateById(BigInteger idKpi, KpiDetail kpi) throws Exception{
         JSONObject response = new JSONObject();
         try {
-//        	Optional<KpiDetail> kpiOptional = repository.findById(idKpi);
-//        	KpiDetail kpiOptional = repository.findById(idKpi);
-//            
-//            if(!kpiOptional.isPresent()) throw new NoResultException();
-//                
-//            kpi.setId(idKpi);
-//            repository.save(kpi);
-//            
-//            response.put("status","sucess");
-//            response.put("message","Atualizado detalhe do kpi com sucesso!");
+        	Optional<KpiDetail> kpiOptional = repository.findById(idKpi);
+            
+            if(!kpiOptional.isPresent()) throw new NoResultException();
+                
+            kpi.setId(idKpi);
+            repository.save(kpi);
+            
+            response.put("status","sucess");
+            response.put("message","Atualizado detalhe do kpi com sucesso!");
             
         } catch (NoResultException e0) {
             response.put("status","error");

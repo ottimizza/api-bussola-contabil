@@ -1,6 +1,7 @@
 package br.com.ottimizza.dashboard.graphql.mutations;
 
 import java.math.BigInteger;
+import java.util.Optional;
 
 import javax.persistence.EntityManager;
 
@@ -32,15 +33,13 @@ public class KpiDetailMutation {
 	*/ 
 	
 	
-	@GraphQLMutation(name = "deleteKpiDetail")
-	public KpiDetail deleteKpiDetail(BigInteger id) {
-		
-		KpiDetail kpiDetail = kpiDetailRepository.findById(id);
-		
-		kpiDetailRepository.delete(kpiDetail);
-		
-		return kpiDetail;
-	}
+//	@GraphQLMutation(name = "deleteKpiDetail")
+//	public KpiDetail deleteKpiDetail(BigInteger id) {
+//		KpiDetail kpiDetail = kpiDetailRepository.findById(id);
+//		
+//		kpiDetailRepository.delete(kpiDetail);
+//		return kpiDetail;
+//	}
 	 
 
 }
