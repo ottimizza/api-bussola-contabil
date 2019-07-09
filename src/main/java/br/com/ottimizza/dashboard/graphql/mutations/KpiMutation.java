@@ -3,6 +3,7 @@ package br.com.ottimizza.dashboard.graphql.mutations;
 import java.math.BigInteger;
 import java.util.List;
 
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 
 import br.com.ottimizza.dashboard.models.Kpi;
@@ -14,6 +15,10 @@ import io.leangen.graphql.annotations.GraphQLMutation;
 
 public class KpiMutation {
 
+	@Inject
+	KpiDetailMutation kpiDetailMut;
+
+	
 	private EntityManager em;
 	private QKpi kpi = QKpi.kpi;
 	private KpiRepository kpiRepository;
@@ -75,9 +80,12 @@ public class KpiMutation {
 			kpiRepository.delete(kpi);
 		} else {
 			List<KpiDetail> kpiDetails = kpi.getKpiDetail();
+			
+			
 			for (KpiDetail kpiDetail : kpiDetails) {
 				System.out.println("for .");
-				kpiDetailRepository.delete(kpiDetail);
+				kpiDetailMut.deleteKpiDetail(kpiDetail.getId());
+//				kpiDetailRepository.delete(kpiDetail);
 				System.out.println("for ..");
 			}
 //			deleteKpi(kpi.getId());
@@ -88,11 +96,11 @@ public class KpiMutation {
 		return kpi;
 	}
 	
-	@GraphQLMutation(name = "deleteKpi")
-	public Kpi deleteKpi(Kpi newKpi) {
-		Kpi kpi = kpiRepository.findById(newKpi.getId());
-		kpiRepository.delete(kpi);
-
-		return kpi;
-	}
+//	@GraphQLMutation(name = "deleteKpi")
+//	public Kpi deleteKpi(Kpi newKpi) {
+//		Kpi kpi = kpiRepository.findById(newKpi.getId());
+//		kpiRepository.delete(kpi);
+//
+//		return kpi;
+//	}
 }

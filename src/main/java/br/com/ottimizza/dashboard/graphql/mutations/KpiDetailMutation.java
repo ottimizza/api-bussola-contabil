@@ -5,6 +5,8 @@ import java.util.Optional;
 
 import javax.persistence.EntityManager;
 
+import org.springframework.core.convert.ConversionException;
+
 import br.com.ottimizza.dashboard.models.Kpi;
 import br.com.ottimizza.dashboard.models.KpiDetail;
 import br.com.ottimizza.dashboard.models.QKpiDetail;
@@ -34,12 +36,17 @@ public class KpiDetailMutation {
 	
 	
 //	@GraphQLMutation(name = "deleteKpiDetail")
-//	public KpiDetail deleteKpiDetail(BigInteger id) {
-//		KpiDetail kpiDetail = kpiDetailRepository.findById(id);
-//		
-//		kpiDetailRepository.delete(kpiDetail);
-//		return kpiDetail;
-//	}
+	public KpiDetail deleteKpiDetail(BigInteger id) {
+		Optional<KpiDetail> kpiOptional = kpiDetailRepository.findById(id);
+		KpiDetail kpiDetail = new KpiDetail();
+		try {
+			kpiDetail = kpiOptional.get();
+		}catch (ConversionException ce) {
+			
+		}
+		kpiDetailRepository.delete(kpiDetail);
+		return kpiDetail;
+	}
 	 
 
 }
