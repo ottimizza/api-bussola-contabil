@@ -71,11 +71,11 @@ public class KpiMutation {
 		return kpi;
 	}
 	
-	@GraphQLMutation(name = "deleteKpi")
-	public Kpi deleteKpi(Kpi newKpi) {
-		Kpi kpi = kpiRepository.findById(newKpi.getId());
-		kpiRepository.delete(kpi);
-
-		return kpi;
-	}
+//	@GraphQLMutation(name = "deleteKpi")
+//	public Kpi deleteKpi(Kpi newKpi) {
+//		Kpi kpi = kpiRepository.findById(newKpi.getId());
+//		kpiRepository.delete(kpi);
+//
+//		return kpi;
+//	}
 }
