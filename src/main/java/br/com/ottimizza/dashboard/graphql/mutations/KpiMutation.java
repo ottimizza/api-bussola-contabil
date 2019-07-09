@@ -39,7 +39,7 @@ public class KpiMutation {
 		}
 		
 	}
-	@GraphQLMutation(name = "mutationKpi")
+	@GraphQLMutation(name = "editKpi")
 	public Kpi editKpi(Kpi newKpi) {
 		Kpi kpi = kpiRepository.findById(newKpi.getId());
 		
@@ -60,17 +60,22 @@ public class KpiMutation {
 	}
 	
 	public Kpi createKpi(Kpi kpi) {
-		
 		return kpiRepository.save(kpi);
 	}
 	
 	@GraphQLMutation(name = "deleteKpi")
-	public Kpi deleteKpi(BigInteger id) { //talvez String deva ser o retorno
-		
+	public Kpi deleteKpi(BigInteger id) {
 		Kpi kpi = kpiRepository.findById(id);
-//		Kpi kpi = kpiRepository.findById(newKpi.getId());
 		kpiRepository.delete(kpi);
-		
+
+		return kpi;
+	}
+	
+	@GraphQLMutation(name = "deleteKpi")
+	public Kpi deleteKpi(Kpi newKpi) {
+		Kpi kpi = kpiRepository.findById(newKpi.getId());
+		kpiRepository.delete(kpi);
+
 		return kpi;
 	}
 }
