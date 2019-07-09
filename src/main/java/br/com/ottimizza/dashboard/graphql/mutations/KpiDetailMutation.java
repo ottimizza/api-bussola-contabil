@@ -38,9 +38,9 @@ public class KpiDetailMutation {
 //		Optional<KpiDetail> kpiOptional = kpiDetailRepository.findById(id);
 		KpiDetail kpiDetail = kpiDetailRepository.findById(id);
 		System.out.println(">> > "+kpiDetail.getValorKPI()); 
-		kpiDetailRepository.deleteById(id);
+		//kpiDetailRepository.deleteById(id);
 		return kpiDetail;
 	}
-	 
+	
 
 }
