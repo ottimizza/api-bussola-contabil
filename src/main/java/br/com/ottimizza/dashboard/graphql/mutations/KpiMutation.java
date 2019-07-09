@@ -78,6 +78,7 @@ public class KpiMutation {
 			for (KpiDetail kpiDetail : kpiDetails) {
 				kpiDetailRepository.delete(kpiDetail);
 			}
+//			deleteKpi(kpi.getId());
 			kpiRepository.delete(kpi);
 			
 		}
