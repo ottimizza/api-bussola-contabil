@@ -32,5 +32,5 @@ extends type Query {
 }
 
 extends type Mutation {
-	
+	deleteKpiDetail(BigInteger: id): KpiDetail
 }

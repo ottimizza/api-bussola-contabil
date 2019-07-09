@@ -14,6 +14,5 @@ public interface KpiDetailRepository extends JpaRepository<KpiDetail, Long>, Kpi
 
 	void deleteById(BigInteger id);
     
-//	Boolean deleteById(BigInteger idKpi);
 	
 }
