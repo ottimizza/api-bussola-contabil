@@ -1,9 +1,13 @@
 package br.com.ottimizza.dashboard.graphql.mutations;
 
+import java.math.BigInteger;
+
 import javax.persistence.EntityManager;
 
+import br.com.ottimizza.dashboard.models.Kpi;
 import br.com.ottimizza.dashboard.models.QKpiDetail;
 import br.com.ottimizza.dashboard.repositories.kpi_detail.KpiDetailRepository;
+import io.leangen.graphql.annotations.GraphQLMutation;
 
 public class KpiDetailMutation {
 
@@ -24,6 +28,16 @@ public class KpiDetailMutation {
 		
 		return kpiDetailRepository.save(kpiDetail);
 	}* 
+	
+	
+	@GraphQLMutation(name = "deleteKpiDetail")
+	public KpiDetail deleteKpiDetail(BigInteger id) {
+		KpiDetail kpiDetail = kpiDetailRepository.findById(id);
+		
+		kpiDetailRepository.delete(kpi);
+	
+		return kpiDetail;
+	}
 	 * */
 
 }
