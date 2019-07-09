@@ -74,11 +74,12 @@ public class KpiMutation {
 		if(kpi.getKpiDetail().isEmpty()) {
 			kpiRepository.delete(kpi);
 		} else {
-//			List<KpiDetail> kpiDetails = kpi.getKpiDetail();
-//			for (KpiDetail kpiDetail : kpiDetails) {
+			List<KpiDetail> kpiDetails = kpi.getKpiDetail();
+			for (KpiDetail kpiDetail : kpiDetails) {
+				System.out.println("passou no for.");
 //				kpiDetailRepository.delete(kpiDetail);
-//			}
-////			deleteKpi(kpi.getId());
+			}
+//			deleteKpi(kpi.getId());
 //			kpiRepository.delete(kpi);
 			
 		}
