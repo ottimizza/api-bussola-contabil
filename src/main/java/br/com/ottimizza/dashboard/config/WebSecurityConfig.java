@@ -30,7 +30,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override //@formatter:off
     public void configure(HttpSecurity http) throws Exception {
         String[] allowedResources = Arrays.asList(new String[] {
-                "/oauth/callback*", "/", "/login", "/login**"
+                "/oauth/callback*", "/", "/login", "/login**", "/oauth/refresh*"
         }).toArray(new String[] {});
         
         String[] protectedResources = Arrays.asList(new String[] {
