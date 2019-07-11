@@ -2,9 +2,11 @@ package br.com.ottimizza.dashboard.graphql.mutations;
 
 import java.math.BigInteger;
 import java.util.List;
+import java.util.Optional;
 
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
+import javax.ws.rs.NotFoundException;
 
 import br.com.ottimizza.dashboard.models.Kpi;
 import br.com.ottimizza.dashboard.models.KpiDetail;
@@ -51,7 +53,11 @@ public class KpiMutation {
 	}
 	@GraphQLMutation(name = "editKpi")
 	public Kpi editKpi(Kpi newKpi) {
-		Kpi kpi = kpiRepository.findById(newKpi.getId());
+		Kpi kpi = new Kpi();
+		try {
+			kpi = kpiRepository.findById(newKpi.getId()).map(k -> k)
+					.orElseThrow(() -> new NotFoundException());
+		} catch (Exception e) { }
 		
 		kpi.setKpiAlias(newKpi.getKpiAlias());
 		kpi.setTitle(newKpi.getTitle());
@@ -75,7 +81,11 @@ public class KpiMutation {
 	
 	@GraphQLMutation(name = "deleteKpi")
 	public Kpi deleteKpi(BigInteger id) {
-		Kpi kpi = kpiRepository.findById(id);
+		Kpi kpi = new Kpi();
+		try {
+			kpi = kpiRepository.findById(id).map(k -> k)
+					.orElseThrow(() -> new NotFoundException());
+		} catch (Exception e) { }
 		
 		if(kpi.getKpiDetail().isEmpty()) {
 			kpiRepository.delete(kpi);

@@ -29,7 +29,7 @@ public class KpiService {
     // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="Find by Id">
-    public Optional<Kpi> findById(Long idKpi) throws Exception {
+    public Optional<Kpi> findById(BigInteger idKpi) throws Exception {
         return repository.findById(idKpi);
     }
     // </editor-fold>
@@ -45,7 +45,7 @@ public class KpiService {
         JSONObject response = new JSONObject();
         try {
         	
-            kpi.setId(repository.findById(idKpi).getId());
+            kpi.setId(repository.findById(idKpi).get().getId());
             repository.save(kpi);
 
             response.put("status", "sucess");
@@ -65,8 +65,9 @@ public class KpiService {
     // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="Delete by Id">
-    public JSONObject delete(Long idKpi) throws Exception {
-        JSONObject response = new JSONObject();
+//    public JSONObject delete(Long idKpi) throws Exception { 
+	public JSONObject delete(BigInteger idKpi) throws Exception {
+    	        JSONObject response = new JSONObject();
         try {
             repository.deleteById(idKpi);
             response.put("status", "sucess");

@@ -6,9 +6,11 @@ import java.math.BigInteger;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 
-public interface KpiRepository extends JpaRepository<Kpi, Long>, KpiRepositoryCustom{
+public interface KpiRepository extends JpaRepository<Kpi, BigInteger>, KpiRepositoryCustom{
 
-	Kpi findById(BigInteger idKpi);
-    
+//	@Query("")
+//	Kpi findById(BigInteger idKpi);
+//    
 }

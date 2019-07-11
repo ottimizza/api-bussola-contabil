@@ -4,6 +4,8 @@ import br.com.ottimizza.dashboard.models.Company;
 import br.com.ottimizza.dashboard.models.Kpi;
 import br.com.ottimizza.dashboard.models.KpiShort;
 import br.com.ottimizza.dashboard.services.KpiService;
+
+import java.math.BigInteger;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -34,7 +36,7 @@ public class KpiController {
         
     @GetMapping("find/{id}")
     //<editor-fold defaultstate="collapsed" desc="Find kpi by id">
-        public ResponseEntity<Optional<Kpi>> findKpiByID(@PathVariable("id") Long idKpi) throws Exception{
+        public ResponseEntity<Optional<Kpi>> findKpiByID(@PathVariable("id") BigInteger idKpi) throws Exception{
             return ResponseEntity.ok(kpiService.findById(idKpi));
         }
     //</editor-fold>
@@ -49,7 +51,7 @@ public class KpiController {
         
     @DeleteMapping("delete/{id}")
     //<editor-fold defaultstate="collapsed" desc="Delete kpi">
-        public ResponseEntity<String> removeKpi(@PathVariable("id") Long idKpi) throws Exception{
+        public ResponseEntity<String> removeKpi(@PathVariable("id") BigInteger idKpi) throws Exception{
             return ResponseEntity.ok(kpiService.delete(idKpi).toString());
         }
     //</editor-fold>

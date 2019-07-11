@@ -1,5 +1,6 @@
 package br.com.ottimizza.dashboard.repositories.kpi_detail;
 
+import java.math.BigInteger;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -32,4 +33,6 @@ public class KpiDetailRepositoryImpl implements KpiDetailRepositoryCustom {
                 .where(company.cnpj.in(cnpj));
         return query.orderBy(company.name.asc()).orderBy(kpi.kpiAlias.asc()).orderBy(kpiDetail.columnXSeq.asc()).fetch();
     }
+
+	
 }

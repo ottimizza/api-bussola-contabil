@@ -9,4 +9,6 @@ public interface KpiDetailRepositoryCustom {
     
     List<KpiDetail> findKpiDetailsByCNPJ(List<String> cnpj);
     
+	
+
 }

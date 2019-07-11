@@ -36,7 +36,7 @@ public class CompanyService {
     //</editor-fold>
     
     //<editor-fold defaultstate="collapsed" desc="Find by Id">
-    public Optional<Company> findById(Long idCompany)throws Exception{
+    public Optional<Company> findById(BigInteger idCompany)throws Exception{
         return repository.findById(idCompany);
     }
     //</editor-fold>
@@ -75,7 +75,7 @@ public class CompanyService {
     //</editor-fold>
     
     //<editor-fold defaultstate="collapsed" desc="Delete by Id">
-    public JSONObject delete(Long idCompany)throws Exception{
+    public JSONObject delete(BigInteger idCompany)throws Exception{
         JSONObject response = new JSONObject();
         try {
             repository.deleteById(idCompany);

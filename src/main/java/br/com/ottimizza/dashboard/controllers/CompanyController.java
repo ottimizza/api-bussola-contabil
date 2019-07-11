@@ -48,7 +48,7 @@ public class CompanyController {
 
     @GetMapping("find/{id}")
     // <editor-fold defaultstate="collapsed" desc="Find company by ID">
-    public ResponseEntity<Optional<Company>> findCompanyByID(Principal principal, @PathVariable("id") Long idCompany)
+    public ResponseEntity<Optional<Company>> findCompanyByID(Principal principal, @PathVariable("id") BigInteger idCompany)
             throws Exception {
 
         // Get Authorized User by Username.
@@ -104,7 +104,7 @@ public class CompanyController {
     
     @DeleteMapping("delete/{id}")
     // <editor-fold defaultstate="collapsed" desc="Delete company">
-    public ResponseEntity<String> removeCompany(@PathVariable("id") Long idCompany) throws Exception {
+    public ResponseEntity<String> removeCompany(@PathVariable("id") BigInteger idCompany) throws Exception {
         return ResponseEntity.ok(companyService.delete(idCompany).toString());
     }
     // </editor-fold>
