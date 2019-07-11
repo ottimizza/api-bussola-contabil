@@ -109,7 +109,7 @@ public class OAuthClientController {
             URIBuilder uriBuilder = new URIBuilder(OAUTH2_SERVER_URL + "/oauth/token");
             uriBuilder.addParameter("refresh_token", refreshToken);
             uriBuilder.addParameter("grant_type", "refresh_token");
-            uriBuilder.addParameter("client_id", clientId);
+//            uriBuilder.addParameter("client_id", clientId);
 
             HttpPost httpPost = new HttpPost(uriBuilder.build());
 
