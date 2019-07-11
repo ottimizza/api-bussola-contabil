@@ -99,6 +99,7 @@ public class OAuthClientController {
         System.out.println("refresh_token ..........: " + refreshToken);
         System.out.println("client_id ..............: " + clientId);
 
+        
         String credentials = OAUTH2_CLIENT_ID + ":" + OAUTH2_CLIENT_SECRET;
         String encodedCredentials = Base64.getEncoder().encodeToString(credentials.getBytes());
 
