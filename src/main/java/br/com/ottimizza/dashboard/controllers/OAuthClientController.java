@@ -92,5 +92,35 @@ public class OAuthClientController {
             return ResponseEntity.status(401).body("{}");
         }
     }
+    @PostMapping(value = "/refresh", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<String> oauthRefresh(@RequestParam("refresh_token") String refreshToken,
+            @RequestParam("client_id") String clientId) throws IOException {
+        System.out.println("AUTHORIZATION CODE EXCHANGE");
+        System.out.println("refresh_token ..........: " + refreshToken);
+        System.out.println("client_id ..............: " + clientId);
 
+        String credentials = OAUTH2_CLIENT_ID + ":" + OAUTH2_CLIENT_SECRET;
+        String encodedCredentials = Base64.getEncoder().encodeToString(credentials.getBytes());
+
+        try {
+            HttpClient httpClient = HttpClientBuilder.create().build();
+
+            URIBuilder uriBuilder = new URIBuilder(OAUTH2_SERVER_URL + "/oauth/token");
+            uriBuilder.addParameter("refresh_token", refreshToken);
+            uriBuilder.addParameter("grant_type", "refresh_token");
+            uriBuilder.addParameter("client_id", clientId);
+
+            HttpPost httpPost = new HttpPost(uriBuilder.build());
+
+            httpPost.setHeader("Authorization", "Basic " + encodedCredentials);
+
+            HttpResponse httpResponse = httpClient.execute(httpPost);
+            HttpEntity responseEntity = httpResponse.getEntity();
+
+            return ResponseEntity.ok(EntityUtils.toString(responseEntity, "UTF-8"));
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return ResponseEntity.status(401).body("{}");
+        }
+    }
 }
