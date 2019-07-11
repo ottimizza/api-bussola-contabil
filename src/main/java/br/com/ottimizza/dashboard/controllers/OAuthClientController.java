@@ -64,10 +64,7 @@ public class OAuthClientController {
     @PostMapping(value = "/callback", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> oauthCallback(@RequestParam("code") String code,
             @RequestParam("redirect_uri") String redirectUri) throws IOException {
-        System.out.println("AUTHORIZATION CODE EXCHANGE");
-        System.out.println("code ..........: " + code);
-        System.out.println("redirect_uri ..: " + redirectUri);
-
+        
         String credentials = OAUTH2_CLIENT_ID + ":" + OAUTH2_CLIENT_SECRET;
         String encodedCredentials = Base64.getEncoder().encodeToString(credentials.getBytes());
 
@@ -95,10 +92,6 @@ public class OAuthClientController {
     @PostMapping(value = "/refresh", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> oauthRefresh(@RequestParam("refresh_token") String refreshToken,
             @RequestParam("client_id") String clientId) throws IOException {
-        System.out.println("AUTHORIZATION CODE EXCHANGE");
-        System.out.println("refresh_token ..........: " + refreshToken);
-        System.out.println("client_id ..............: " + clientId);
-
         
         String credentials = OAUTH2_CLIENT_ID + ":" + OAUTH2_CLIENT_SECRET;
         String encodedCredentials = Base64.getEncoder().encodeToString(credentials.getBytes());
@@ -109,7 +102,6 @@ public class OAuthClientController {
             URIBuilder uriBuilder = new URIBuilder(OAUTH2_SERVER_URL + "/oauth/token");
             uriBuilder.addParameter("refresh_token", refreshToken);
             uriBuilder.addParameter("grant_type", "refresh_token");
-//            uriBuilder.addParameter("client_id", clientId);
 
             HttpPost httpPost = new HttpPost(uriBuilder.build());
 
