@@ -9,21 +9,23 @@ import io.leangen.graphql.annotations.GraphQLMutation;
 
 public class CompanyMutation {
 
-	private QCompany company = QCompany.company;
 	private EntityManager em;
+	private QCompany company = QCompany.company;
 	private CompanyRepository companyRepository;
-	
+
 	public CompanyMutation(EntityManager em, CompanyRepository companyRepository) {
 		this.em = em;
 		this.companyRepository = companyRepository;
 	}
 
 	@GraphQLMutation //1
-//	public Company createCompany(String cnpj, String name, @GraphQLRootContext AuthorizationContext context) { //2
-	public Company createCompany(String cnpj, String name) { //2
-	    Company newCompany = new Company(cnpj, name);
+	public Company createCompany(Company filter) { //2
+	    Company newCompany = new Company(filter.getCnpj(), filter.getName());
 	    
 	    companyRepository.save(newCompany);
-	    return newCompany;
+	    return newCompany;	
 	}
+	
+	
+
 }

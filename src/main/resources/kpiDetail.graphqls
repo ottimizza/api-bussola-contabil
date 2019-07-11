@@ -1,4 +1,4 @@
-type KpiDetail {
+extends type KpiDetail {
 	id: BigInteger!
 	kpiID: Kpi!
 	columnX:String!
@@ -12,7 +12,7 @@ type KpiDetail {
 	xBinding:String!
 }
 
-input KpiDetailfilter {
+extends input KpiDetailfilter {
 	id: BigInteger
 	kpiID: Kpi
 	columnX:String
@@ -25,17 +25,12 @@ input KpiDetailfilter {
 	columnXSeq:String
 	xBinding:String
 }
-extends type Query {
-	findKpiDetail(filter: KpiDetailfilter): [KpiDetail]
 
+
+extends type Query {
 	
 }
 
 extends type Mutation {
-
-}
-    
-schema {
-	query: Query
-	mutation: Mutation
+	deleteKpiDetail(BigInteger: id): KpiDetail
 }

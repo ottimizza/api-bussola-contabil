@@ -35,7 +35,7 @@ public class CompanyController {
 
     @Inject
     CompanyService companyService;
-
+ 
     @Inject
     UserService userService;
 
@@ -48,7 +48,7 @@ public class CompanyController {
 
     @GetMapping("find/{id}")
     // <editor-fold defaultstate="collapsed" desc="Find company by ID">
-    public ResponseEntity<Optional<Company>> findCompanyByID(Principal principal, @PathVariable("id") Long idCompany)
+    public ResponseEntity<Optional<Company>> findCompanyByID(Principal principal, @PathVariable("id") BigInteger idCompany)
             throws Exception {
 
         // Get Authorized User by Username.
@@ -56,16 +56,13 @@ public class CompanyController {
 
         return ResponseEntity.ok(companyService.findById(idCompany));
     }
-    // </editor-fold>
 
     @RequestMapping(value = "/find/cnpj", method = RequestMethod.POST, consumes = "application/json")
-    // <editor-fold defaultstate="collapsed" desc="Find company by ID">
     public ResponseEntity<List<Company>> findCompaniesByCNPJ(@RequestBody Map<String, List<String>> body)
             throws Exception {
         List<String> listaCNPJ = body.get("cnpj");
         return ResponseEntity.ok(companyService.findByListCNPJ(listaCNPJ));
     }
-    // </editor-fold>
     
     @RequestMapping(value = "/find/email", method = RequestMethod.POST, consumes = "application/json")
     public ResponseEntity<List<Company>>  searchCNPJ(@RequestBody Map<String,String> email){
@@ -87,26 +84,20 @@ public class CompanyController {
     }
     
     @PutMapping("update/{id}")
-    // <editor-fold defaultstate="collapsed" desc="Update by ID">
     public ResponseEntity<String> updateCompany(@PathVariable("id") BigInteger idCompany, @RequestBody Company company)
             throws Exception {
         return ResponseEntity.ok(companyService.updateById(idCompany, company).toString());
     }
-    // </editor-fold>
 
     @RequestMapping(value = "/deleteAllKpi", method = RequestMethod.POST, consumes = "application/json")
-    // <editor-fold defaultstate="collapsed" desc="DELETE all information related to CNPJ">
     public ResponseEntity<String> deleteAllInformationByCNPJ(@RequestBody Map<String,String> cnpj)
             throws Exception {
         return ResponseEntity.ok(companyService.deleteAllInformationByCNPJ(cnpj.get("cnpj")).toString());
     }
-    // </editor-fold>
     
     @DeleteMapping("delete/{id}")
-    // <editor-fold defaultstate="collapsed" desc="Delete company">
-    public ResponseEntity<String> removeCompany(@PathVariable("id") Long idCompany) throws Exception {
+    public ResponseEntity<String> removeCompany(@PathVariable("id") BigInteger idCompany) throws Exception {
         return ResponseEntity.ok(companyService.delete(idCompany).toString());
     }
-    // </editor-fold>
 
 }

@@ -1,14 +1,19 @@
 package br.com.ottimizza.dashboard.repositories.kpi_detail;
 
+import java.math.BigInteger;
+import java.util.List;
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
+import org.springframework.stereotype.Repository;
+
+import com.querydsl.jpa.impl.JPAQuery;
+
 import br.com.ottimizza.dashboard.models.KpiDetail;
 import br.com.ottimizza.dashboard.models.QCompany;
 import br.com.ottimizza.dashboard.models.QKpi;
 import br.com.ottimizza.dashboard.models.QKpiDetail;
-import com.querydsl.jpa.impl.JPAQuery;
-import java.util.List;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import org.springframework.stereotype.Repository;
 
 @Repository
 public class KpiDetailRepositoryImpl implements KpiDetailRepositoryCustom {
@@ -28,4 +33,6 @@ public class KpiDetailRepositoryImpl implements KpiDetailRepositoryCustom {
                 .where(company.cnpj.in(cnpj));
         return query.orderBy(company.name.asc()).orderBy(kpi.kpiAlias.asc()).orderBy(kpiDetail.columnXSeq.asc()).fetch();
     }
+
+	
 }

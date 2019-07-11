@@ -24,7 +24,7 @@ public class KpiDetailService {
     //</editor-fold>
     
     //<editor-fold defaultstate="collapsed" desc="Find by Id">
-    public Optional<KpiDetail> findById(Long idKpi) throws Exception{
+    public Optional<KpiDetail> findById(BigInteger idKpi) throws Exception{
         return repository.findById(idKpi);
     }
     //</editor-fold>
@@ -35,11 +35,23 @@ public class KpiDetailService {
     }
     //</editor-fold>
     
+  //<editor-fold defaultstate="collapsed" desc="Find by List CNPJ">
+    public Boolean deleteById(BigInteger idKpiDetail)throws Exception{
+        try{
+        	repository.deleteById(idKpiDetail);
+        	return true;
+        }catch (Exception e) {
+			return false;
+		}
+        
+    }
+    //</editor-fold>
+    
     //<editor-fold defaultstate="collapsed" desc="Update by Id">
     public JSONObject updateById(BigInteger idKpi, KpiDetail kpi) throws Exception{
         JSONObject response = new JSONObject();
         try {
-            Optional<KpiDetail> kpiOptional = repository.findById(idKpi);
+        	Optional<KpiDetail> kpiOptional = repository.findById(idKpi);
             
             if(!kpiOptional.isPresent()) throw new NoResultException();
                 
@@ -63,7 +75,7 @@ public class KpiDetailService {
     //</editor-fold>
     
     //<editor-fold defaultstate="collapsed" desc="Delete by Id">
-    public JSONObject delete(Long idKpi)throws Exception{
+    public JSONObject delete(BigInteger idKpi)throws Exception{
         JSONObject response = new JSONObject();
         try {
             repository.deleteById(idKpi);

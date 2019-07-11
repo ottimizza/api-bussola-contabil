@@ -7,6 +7,8 @@ import javax.persistence.PersistenceContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import br.com.ottimizza.dashboard.graphql.mutations.CompanyMutation;
+import br.com.ottimizza.dashboard.graphql.mutations.KpiDetailMutation;
 import br.com.ottimizza.dashboard.graphql.mutations.KpiMutation;
 import br.com.ottimizza.dashboard.graphql.queries.CompanyResolver;
 import br.com.ottimizza.dashboard.graphql.queries.KpiDetailResolver;
@@ -34,11 +36,14 @@ public class GraphQLConfiguration {
 	@Bean
 	public GraphQLSchema schema() {
 		Query query = new Query();
+		
 		CompanyResolver companyQuery = new CompanyResolver(em, companyRepository);
 		KpiResolver kpiQuery = new KpiResolver(em, kpiRepository);
 		KpiDetailResolver kpiDetailQuery = new KpiDetailResolver(em, kpiDetailRepository);
-		
-		KpiMutation kpiMutations = new KpiMutation(em, kpiRepository);
+
+		CompanyMutation companyMutation = new CompanyMutation(em, companyRepository);
+		KpiMutation kpiMutation = new KpiMutation(em, kpiRepository);
+		KpiDetailMutation kpiDetailMutation = new KpiDetailMutation(em, kpiDetailRepository);
 		
 		return new GraphQLSchemaGenerator().
 				withOperationsFromSingletons(
@@ -46,7 +51,9 @@ public class GraphQLConfiguration {
 						companyQuery,
 						kpiQuery,
 						kpiDetailQuery,
-						kpiMutations
+						companyMutation,
+						kpiDetailMutation,
+						kpiMutation						
 				).generate();
 	}
 	
