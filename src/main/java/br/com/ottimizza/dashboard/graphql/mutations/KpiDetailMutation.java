@@ -29,10 +29,10 @@ public class KpiDetailMutation {
 	public KpiDetail editKpiDetail(BigInteger id, String columnXSeq) { 
 		Optional<KpiDetail> detailOptional = detailRepository.findById(id);
 		KpiDetail detail = new KpiDetail();
-//		if(!detailOptional.isEmpty()) {
-//			detail = detailOptional.get();
-//			detail.setColumnXSeq(columnXSeq);
-//		}
+		if(detailOptional.isPresent()) {
+			detail = detailOptional.get();
+			detail.setColumnXSeq(columnXSeq);
+		}
 		return detailRepository.save(detail);
 	}
 	
