@@ -34,7 +34,7 @@ public class KpiDetailMutation {
 			detail = detailOptional.get();
 		}catch (Exception e) {	}
 		if(!columnXSeq.equals(""))		detail.setColumnXSeq(columnXSeq);
-		if(!columnX.equals(""))			detail.setColumnXSeq(columnX);
+		if(!columnX.equals(""))			detail.setColumnX(columnX);
 		if(valorKPI != 0) 				detail.setValorKPI(valorKPI);
 		return detailRepository.save(detail);
 	}
