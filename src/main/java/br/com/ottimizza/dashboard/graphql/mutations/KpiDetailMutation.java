@@ -1,6 +1,7 @@
 package br.com.ottimizza.dashboard.graphql.mutations;
 
 import java.math.BigInteger;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import javax.persistence.EntityManager;
@@ -26,12 +27,14 @@ public class KpiDetailMutation {
 	
 	//teste
 	@GraphQLMutation(name = "editDetail")
-	public KpiDetail editKpiDetail(BigInteger id, String columnXSeq) { 
+	public KpiDetail editKpiDetail(BigInteger id, String columnXSeq) throws NoSuchElementException, Exception{ 
 		Optional<KpiDetail> detailOptional = detailRepository.findById(id);
 		KpiDetail detail = new KpiDetail();
-		if(detailOptional.isPresent()) {
+		try {	
 			detail = detailOptional.get();
 			detail.setColumnXSeq(columnXSeq);
+		}catch (Exception e) {
+			// TODO: handle exception
 		}
 		return detailRepository.save(detail);
 	}
