@@ -59,7 +59,22 @@ public class KpiDetailMutation {
 		}
 		return detailRepository.save(detail);
 	}
-
+	
+	@GraphQLMutation(name = "createKpiDetail")
+	public KpiDetail createKpiDetail(KpiDetail filter) throws NoSuchElementException, Exception {
+		KpiDetail detail = new KpiDetail();
+		
+		if(filter.getColumnXSeq() != null) 	detail.setColumnXSeq(filter.getColumnXSeq());
+		if(filter.getColumnX() != null) 	detail.setColumnX(filter.getColumnX());
+		if(filter.getColumnY() != null) 	detail.setColumnY(filter.getColumnY());
+		if(filter.getColumnZ() != null) 	detail.setColumnZ(filter.getColumnZ());
+		if(filter.getValorKPI() != null) 	detail.setValorKPI(filter.getValorKPI());
+		if(filter.getValorKPI2() != null) 	detail.setValorKPI2(filter.getValorKPI2());
+		if(filter.getValorKPI3() != null) 	detail.setValorKPI3(filter.getValorKPI3());
+		if(filter.getValorKPI4() != null) 	detail.setValorKPI4(filter.getValorKPI4());
+		
+		return detailRepository.save(detail);
+	}
 	@GraphQLMutation(name = "deleteDetail")
 	public KpiDetail deleteDetail(BigInteger id) {
 		KpiDetail detail = new KpiDetail();
