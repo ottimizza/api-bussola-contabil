@@ -3,7 +3,7 @@ extends type KpiDetail {
 	columnX:String!
 	columnY:String!
 	columnZ:String!
-	valorKPI:double!
+	valorKPI:Double!
 	valorKPI2:Double!
 	valorKPI3:Double!
 	valorKPI4:Double!
@@ -15,7 +15,7 @@ extends input KpiDetailFilter {
 	columnX:String
 	columnY:String
 	columnZ:String
-	valorKPI:double
+	valorKPI:Double
 	valorKPI2:Double
 	valorKPI3:Double
 	valorKPI4:Double
