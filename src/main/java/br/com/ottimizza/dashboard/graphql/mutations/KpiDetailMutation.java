@@ -26,7 +26,7 @@ public class KpiDetailMutation {
 	}
 	
 	//teste
-	@GraphQLMutation(name = "editDetail")
+	@GraphQLMutation(name = "editKpiDetail")
 	public KpiDetail editKpiDetail(BigInteger id, String columnXSeq) throws NoSuchElementException, Exception{ 
 		Optional<KpiDetail> detailOptional = detailRepository.findById(id);
 		KpiDetail detail = new KpiDetail();
