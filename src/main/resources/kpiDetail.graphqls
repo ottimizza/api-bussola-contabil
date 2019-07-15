@@ -7,7 +7,7 @@ extends type KpiDetail {
 	valorKPI2:Double!
 	valorKPI3:Double!
 	valorKPI4:Double!
-	columnXSeq:String
+	columnXSeq:String!
 }
 
 extends input KpiDetailFilter {
