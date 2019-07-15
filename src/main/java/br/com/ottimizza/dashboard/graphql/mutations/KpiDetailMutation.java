@@ -24,22 +24,39 @@ public class KpiDetailMutation {
 		this.em = em;
 		this.detailRepository = kpiDetailRepository;
 	}
-	
-	//teste
+
+	// teste
+//	@GraphQLMutation(name = "editKpiDetail")
+//	public KpiDetail editKpiDetail(BigInteger id, String columnXSeq) throws NoSuchElementException, Exception{ 
+//		Optional<KpiDetail> detailOptional = detailRepository.findById(id);
+//		KpiDetail detail = new KpiDetail();
+//		try {	
+//			detail = detailOptional.get();
+//			detail.setColumnXSeq(columnXSeq);
+//		}catch (Exception e) {
+//			// TODO: handle exception
+//		}
+//		return detailRepository.save(detail);
+//	}
 	@GraphQLMutation(name = "editKpiDetail")
-	public KpiDetail editKpiDetail(BigInteger id, String columnXSeq) throws NoSuchElementException, Exception{ 
-		Optional<KpiDetail> detailOptional = detailRepository.findById(id);
+	public KpiDetail editKpiDetail(KpiDetail filter) throws NoSuchElementException, Exception {
 		KpiDetail detail = new KpiDetail();
-		try {	
-			detail = detailOptional.get();
-			detail.setColumnXSeq(columnXSeq);
-		}catch (Exception e) {
-			// TODO: handle exception
+		
+		if(filter.getId() != null) {
+			Optional<KpiDetail> detailOptional = detailRepository.findById(filter.getId());
+			try {
+				detail = detailOptional.get();
+			} catch (Exception e) {	}
+			
+			if(filter.getColumnXSeq() != null) 	detail.setColumnXSeq(filter.getColumnXSeq());
+			if(filter.getColumnX() != null) 	detail.setColumnX(filter.getColumnX());
+			if(filter.getValorKPI() != 0) 		detail.setValorKPI(filter.getValorKPI());
+
+			
 		}
 		return detailRepository.save(detail);
 	}
-	
-	
+
 	@GraphQLMutation(name = "deleteDetail")
 	public KpiDetail deleteDetail(BigInteger id) {
 		KpiDetail detail = new KpiDetail();
@@ -49,6 +66,5 @@ public class KpiDetailMutation {
 		detailRepository.deleteById(id);
 		return detail;
 	}
-	
 
 }

@@ -30,6 +30,6 @@ extends type Query {
 
 extends type Mutation {
 	deleteDetail(BigInteger: id): KpiDetail
-	editKpiDetail(BigInteger: id, String: columnXSeq): KpiDetail
+	editKpiDetail(filter: KpiDetailFilter): KpiDetail
 	
 }
