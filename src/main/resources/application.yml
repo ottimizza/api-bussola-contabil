@@ -28,7 +28,7 @@ spring:
 
         tomcat:
             initial-size: 2 
-            max-active: 2
+#            max-active: 2
       # springboot's initial number 
       # of connections
       # max-wait: 20000
