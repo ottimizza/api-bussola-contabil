@@ -17,30 +17,34 @@ public class KpiDetailMutation {
 
 	private EntityManager em;
 	private QKpiDetail kpiDetail = QKpiDetail.kpiDetail;
-	private KpiDetailRepository kpiDetailRepository;
+	private KpiDetailRepository detailRepository;
 
-	public KpiDetailMutation(EntityManager em, KpiDetailRepository kpidetailRepository) {
+	public KpiDetailMutation(EntityManager em, KpiDetailRepository kpiDetailRepository) {
 		this.em = em;
-		this.kpiDetailRepository = kpiDetailRepository;
+		this.detailRepository = kpiDetailRepository;
 	}
 	
-	/*
-	  @GraphQLMutation(name = "editKpiDetail")
-		public KpiDetail editKpiDetail(BigInteger id, String title) {
-		KpiDetail kpiDetail = kpiDetailRepository.findById(id);
-		kpi.setTitle(title);
-		return kpiDetailRepository.save(kpiDetail);
+	//teste
+	@GraphQLMutation(name = "editDetail")
+	public KpiDetail editKpiDetail(BigInteger id, String columnXSeq) { 
+		Optional<KpiDetail> detailOptional = detailRepository.findById(id);
+		KpiDetail detail = new KpiDetail();
+		if(!detailOptional.isEmpty()) {
+			detail = detailOptional.get();
+			detail.setColumnXSeq(columnXSeq);
+		}
+		return detailRepository.save(detail);
 	}
-	*/
 	
-	@GraphQLMutation(name = "deleteKpiDetail")
-	public KpiDetail deleteKpiDetail(BigInteger id) {
-		KpiDetail kpiDetail = new KpiDetail();
-//		Optional<KpiDetail> kpiOptional = kpiDetailRepository.findById(id);
-//		KpiDetail kpiDetail = kpiDetailRepository.findById(id);
-//		System.out.println(">> > "+kpiDetail.getValorKPI()); 
-		kpiDetailRepository.deleteById(id);
-		return kpiDetail;
+	
+	@GraphQLMutation(name = "deleteDetail")
+	public KpiDetail deleteDetail(BigInteger id) {
+		KpiDetail detail = new KpiDetail();
+//		Optional<KpiDetail> detailOptional = kpiDetailRepository.findById(id);
+//		KpiDetail detail = kpiDetailRepository.findById(id);
+//		System.out.println(">> > "+detail.getValorKPI()); 
+		detailRepository.deleteById(id);
+		return detail;
 	}
 	
 

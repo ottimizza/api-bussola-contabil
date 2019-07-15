@@ -1,6 +1,5 @@
 extends type KpiDetail {
 	id: BigInteger!
-	kpiID: Kpi!
 	columnX:String!
 	columnY:String!
 	columnZ:String!
@@ -9,12 +8,10 @@ extends type KpiDetail {
 	valorKPI3:Double!
 	valorKPI4:Double!
 	columnXSeq:String!
-	xBinding:String!
 }
 
 extends input KpiDetailfilter {
 	id: BigInteger
-	kpiID: Kpi
 	columnX:String
 	columnY:String
 	columnZ:String
@@ -23,7 +20,6 @@ extends input KpiDetailfilter {
 	valorKPI3:Double
 	valorKPI4:Double
 	columnXSeq:String
-	xBinding:String
 }
 
 
@@ -32,5 +28,6 @@ extends type Query {
 }
 
 extends type Mutation {
-	deleteKpiDetail(BigInteger: id): KpiDetail
+	deleteDetail(BigInteger: id): KpiDetail
+	editDetail(BigInteger: id): KpiDetail
 }
