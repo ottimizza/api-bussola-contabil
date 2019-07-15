@@ -1,6 +1,6 @@
 extends type KpiDetail {
 	id: BigInteger!
-	columnX:String!
+	columnX:String
 	columnY:String!
 	columnZ:String!
 	valorKPI:double!
