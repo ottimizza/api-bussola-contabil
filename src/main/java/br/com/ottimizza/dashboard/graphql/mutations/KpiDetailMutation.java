@@ -49,10 +49,16 @@ public class KpiDetailMutation {
 			
 			if(filter.getColumnXSeq() != null) 	detail.setColumnXSeq(filter.getColumnXSeq());
 			if(filter.getColumnX() != null) 	detail.setColumnX(filter.getColumnX());
+			if(filter.getColumnY() != null) 	detail.setColumnY(filter.getColumnY());
+			if(filter.getColumnZ() != null) 	detail.setColumnZ(filter.getColumnZ());
+			if(filter.getColumnX() != null) 	detail.setColumnX(filter.getColumnX());
 			if(filter.getValorKPI() != 0) 		detail.setValorKPI(filter.getValorKPI());
-
+			if(filter.getValorKPI2() != 0) 		detail.setValorKPI2(filter.getValorKPI2());
+			if(filter.getValorKPI3() != 0) 		detail.setValorKPI3(filter.getValorKPI3());
+			if(filter.getValorKPI4() != 0) 		detail.setValorKPI4(filter.getValorKPI4());
 			
 		}
+
 		return detailRepository.save(detail);
 	}
 
