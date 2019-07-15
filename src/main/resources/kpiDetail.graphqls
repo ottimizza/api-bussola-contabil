@@ -10,7 +10,7 @@ extends type KpiDetail {
 	columnXSeq:String!
 }
 
-extends input KpiDetailfilter {
+extends input KpiDetailFilter {
 	id: BigInteger
 	columnX:String
 	columnY:String
@@ -30,6 +30,6 @@ extends type Query {
 
 extends type Mutation {
 	deleteDetail(BigInteger: id): KpiDetail
-	editKpiDetail(BigInteger: id, String: columnXSeq, double: valorKPI, String: columnX): KpiDetail
+	editKpiDetail(filter: KpiDetailFilter): KpiDetail
 	
 }
