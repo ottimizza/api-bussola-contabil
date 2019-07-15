@@ -27,11 +27,11 @@ spring:
         password: ${db.password}
 
     tomcat:
+        initial-size: 2 
+        max-active: 2
       # springboot's initial number 
       # of connections
-      initial-size: 2 
       # max-wait: 20000
-      max-active: 2
       # max-idle: 150
       # min-idle: 8
       # default-auto-commit: true
