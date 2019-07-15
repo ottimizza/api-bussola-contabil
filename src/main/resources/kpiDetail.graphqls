@@ -1,13 +1,13 @@
 extends type KpiDetail {
 	id: BigInteger!
-	columnX:String
+	columnX:String!
 	columnY:String!
 	columnZ:String!
 	valorKPI:double!
 	valorKPI2:Double!
 	valorKPI3:Double!
 	valorKPI4:Double!
-	columnXSeq:String!
+	columnXSeq:String
 }
 
 extends input KpiDetailFilter {
