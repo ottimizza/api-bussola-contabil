@@ -27,15 +27,15 @@ public class KpiDetailMutation {
 
 	// teste
 	@GraphQLMutation(name = "editKpiDetail")
-	public KpiDetail editKpiDetail(BigInteger id, String columnXSeq, double valorKPI) throws NoSuchElementException, Exception{ 
-		Optional<KpiDetail> detailOptional = detailRepository.findById(id);
+	public KpiDetail editKpiDetail(BigInteger id, String columnXSeq, double valorKPI, String columnX) throws NoSuchElementException, Exception{ 
 		KpiDetail detail = new KpiDetail();
+		Optional<KpiDetail> detailOptional = detailRepository.findById(id);
 		try {	
 			detail = detailOptional.get();
-			detail.setColumnXSeq(columnXSeq);
-		}catch (Exception e) {
-			// TODO: handle exception
-		}
+		}catch (Exception e) {	}
+		if(!columnXSeq.equals(""))		detail.setColumnXSeq(columnXSeq);
+		if(!columnX.equals(""))			detail.setColumnXSeq(columnX);
+		if(valorKPI != 0) 				detail.setValorKPI(valorKPI);
 		return detailRepository.save(detail);
 	}
 //	@GraphQLMutation(name = "editKpiDetail")
