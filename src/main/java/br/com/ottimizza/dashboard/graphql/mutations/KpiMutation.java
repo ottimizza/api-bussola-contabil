@@ -41,16 +41,6 @@ public class KpiMutation {
 //	}
 	
 	
-//	@GraphQLMutation(name = "mutationKpi")
-	public Kpi mutationKpi(Kpi kpi) {
-		
-		if(kpi.getId() != null) {
-			return editKpi(kpi);
-		} else {
-			return createKpi(kpi);
-		}
-		
-	}
 	@GraphQLMutation(name = "editKpi")
 	public Kpi editKpi(Kpi newKpi) {
 		Kpi kpi = new Kpi();
@@ -75,6 +65,7 @@ public class KpiMutation {
 		return kpiRepository.save(kpi);
 	}
 	
+	@GraphQLMutation(name = "createKpi")
 	public Kpi createKpi(Kpi kpi) {
 		return kpiRepository.save(kpi);
 	}
