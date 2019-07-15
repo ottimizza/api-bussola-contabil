@@ -18,7 +18,7 @@ public class CompanyMutation {
 		this.companyRepository = companyRepository;
 	}
 
-	@GraphQLMutation //1
+	@GraphQLMutation(name = "createCompany")
 	public Company createCompany(Company filter) { //2
 	    Company newCompany = new Company(filter.getCnpj(), filter.getName());
 	    
