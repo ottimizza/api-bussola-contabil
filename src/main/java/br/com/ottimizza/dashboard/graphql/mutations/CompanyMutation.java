@@ -19,8 +19,11 @@ public class CompanyMutation {
 	}
 
 	@GraphQLMutation(name = "createCompany")
-	public Company createCompany(Company filter) { //2
-	    Company newCompany = new Company(filter.getCnpj(), filter.getName());
+	public Company createCompany(String cnpj, String name) {
+		
+	    Company newCompany = new Company();
+	    newCompany.setCnpj(cnpj);
+	    newCompany.setName(name);
 	    
 	    companyRepository.save(newCompany);
 	    return newCompany;	
