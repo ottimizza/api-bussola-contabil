@@ -61,7 +61,7 @@ public class KpiDetailMutation {
 	}
 	
 	@GraphQLMutation(name = "createKpiDetail")
-	public KpiDetail createKpiDetail(String columnXSeq, String columnX, Double valorKPI) {
+	public KpiDetail createKpiDetail(String columnXSeq, String columnX, String columnY, String columnZ, Double valorKPI) {
 		KpiDetail detail = new KpiDetail();
 		
 		if(columnXSeq != null) 	detail.setColumnXSeq(columnXSeq);
