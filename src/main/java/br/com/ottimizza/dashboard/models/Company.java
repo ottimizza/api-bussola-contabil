@@ -53,10 +53,5 @@ public class Company implements Serializable {
     @OneToMany(mappedBy = "company", fetch = FetchType.EAGER)
     private List<Kpi> kpis;
 
-	public Company(String cnpj, String name) {
-		this.cnpj = cnpj;
-		this.name = name;
-	}
-    
-    
+	
 }
