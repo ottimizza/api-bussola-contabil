@@ -31,6 +31,6 @@ extends type Query {
 extends type Mutation {
 	deleteDetail(BigInteger: id): KpiDetail
 	editKpiDetail(filter: KpiDetailFilter): KpiDetail
-	createKpiDetail(filter: KpiDetailFilter): KpiDetail
+	createKpiDetail(String: columnXSeq, String: columnX, Double: valorKPI): KpiDetail
 	
 }

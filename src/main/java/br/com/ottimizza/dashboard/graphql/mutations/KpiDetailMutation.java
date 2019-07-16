@@ -61,14 +61,14 @@ public class KpiDetailMutation {
 	}
 	
 	@GraphQLMutation(name = "createKpiDetail")
-	public KpiDetail createKpiDetail(KpiDetail filter) {
-//		KpiDetail detail = new KpiDetail();
-//		
-//		try {
-//			detail = filter;
-//		}catch (Exception e) {	}
+	public KpiDetail createKpiDetail(String columnXSeq, String columnX, Double valorKPI) {
+		KpiDetail detail = new KpiDetail();
 		
-		return detailRepository.save(filter);
+		if(columnXSeq != null) 	detail.setColumnXSeq(columnXSeq);
+		if(columnX != null) 	detail.setColumnX(columnX);
+		if(valorKPI != null) 	detail.setValorKPI(valorKPI);
+		
+		return detailRepository.save(detail);
 	}
 	@GraphQLMutation(name = "deleteDetail")
 	public KpiDetail deleteDetail(BigInteger id) {
