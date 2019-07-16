@@ -66,6 +66,8 @@ public class KpiDetailMutation {
 		
 		if(columnXSeq != null) 	detail.setColumnXSeq(columnXSeq);
 		if(columnX != null) 	detail.setColumnX(columnX);
+		if(columnY != null) 	detail.setColumnY(columnY);
+		if(columnZ != null) 	detail.setColumnZ(columnZ);
 		if(valorKPI != null) 	detail.setValorKPI(valorKPI);
 		
 		return detailRepository.save(detail);
