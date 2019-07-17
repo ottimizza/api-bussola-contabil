@@ -24,20 +24,7 @@ public class KpiDetailMutation {
 		this.em = em;
 		this.detailRepository = kpiDetailRepository;
 	}
-
-	// teste
-//	@GraphQLMutation(name = "editKpiDetail")
-//	public KpiDetail editKpiDetail(BigInteger id, String columnXSeq, double valorKPI, String columnX) throws NoSuchElementException, Exception{ 
-//		KpiDetail detail = new KpiDetail();
-//		Optional<KpiDetail> detailOptional = detailRepository.findById(id);
-//		try {	
-//			detail = detailOptional.get();
-//		}catch (Exception e) {	}
-//		if(!columnXSeq.equals(""))		detail.setColumnXSeq(columnXSeq);
-//		if(!columnX.equals(""))			detail.setColumnX(columnX);
-//		if(valorKPI != 0) 				detail.setValorKPI(valorKPI);
-//		return detailRepository.save(detail);
-//	}
+	
 	@GraphQLMutation(name = "editKpiDetail")
 	public KpiDetail editKpiDetail(KpiDetail filter) throws NoSuchElementException, Exception {
 		KpiDetail detail = new KpiDetail();
@@ -61,14 +48,15 @@ public class KpiDetailMutation {
 	}
 	
 	@GraphQLMutation(name = "createKpiDetail")
-	public KpiDetail createKpiDetail(String columnXSeq, String columnX, String columnY, String columnZ, Double valorKPI) {
+	public KpiDetail createKpiDetail(KpiDetail filter) {
 		KpiDetail detail = new KpiDetail();
 		
-		if(columnXSeq != null) 	detail.setColumnXSeq(columnXSeq);
-		if(columnX != null) 	detail.setColumnX(columnX);
-		if(columnY != null) 	detail.setColumnY(columnY);
-		if(columnZ != null) 	detail.setColumnZ(columnZ);
-		if(valorKPI != null) 	detail.setValorKPI(valorKPI);
+		detail = filter;
+//		if(columnXSeq != null) 	detail.setColumnXSeq(columnXSeq);
+//		if(columnX != null) 	detail.setColumnX(columnX);
+//		if(columnY != null) 	detail.setColumnY(columnY);
+//		if(columnZ != null) 	detail.setColumnZ(columnZ);
+//		if(valorKPI != null) 	detail.setValorKPI(valorKPI);
 		
 		return detailRepository.save(detail);
 	}
