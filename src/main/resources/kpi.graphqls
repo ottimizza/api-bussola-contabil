@@ -1,18 +1,18 @@
 extends type Kpi {
-	id: BigInteger!
-	kpiAlias: String!
-	company: Company!
-	title: String!
-	subtitle: String!
-	description: String!
-	graphType: Short!
-	columnX0Label: String!
-	label: String!
-	label2: String!
-	label3: String!
-	label4: String!
-	visible: Boolean!
-	kpiDetail: [KpiDetail]!
+	id: BigInteger
+	kpiAlias: String
+	company: Company
+	title: String
+	subtitle: String
+	description: String
+	graphType: Short
+	columnX0Label: String
+	label: String
+	label2: String
+	label3: String
+	label4: String
+	visible: Boolean
+	kpiDetail: [KpiDetail]
 }
 
 extends input KpiFilter {
@@ -34,12 +34,11 @@ extends input KpiFilter {
 
 extends type Query {
 	findKpi(filter: Kpifilter): [Kpi]
-	
 }
 
 extends type Mutation {
-	mutationKpi(Kpi: kpi): Kpi
-	editKpi(Kpi: kpi): Kpi
+	createKpi(filter: KpiFilter): Kpi
+	editKpi(filter: KpiFilter): Kpi
 	deleteKpi(BigInteger: id): Kpi
 	
 }

@@ -66,8 +66,8 @@ public class KpiMutation {
 	}
 	
 	@GraphQLMutation(name = "createKpi")
-	public Kpi createKpi(Kpi kpi) {
-		return kpiRepository.save(kpi);
+	public Kpi createKpi(Kpi filter) {
+		return kpiRepository.save(filter);
 	}
 	
 	@GraphQLMutation(name = "deleteKpi")
