@@ -24,20 +24,15 @@ public class KpiDetailRepositoryImpl implements KpiDetailRepositoryCustom {
     private QCompany company = QCompany.company;
     private QKpi kpi = QKpi.kpi;
     private QKpiDetail kpiDetail = QKpiDetail.kpiDetail;
-	@Override
-	public List<KpiDetail> findKpiDetailsByCNPJ(List<String> cnpj) {
-		// TODO Auto-generated method stub
-		return null;
-	}
     
-//    @Override
-//	public List<KpiDetail> findKpiDetailsByCNPJ(List<String> cnpj) {
-//        JPAQuery<KpiDetail> query = new JPAQuery<KpiDetail>(em).from(company)
-//                .innerJoin(kpi).on(kpi.company.id.eq(company.id))
-//                .innerJoin(kpiDetail).on(kpiDetail.kpiID.id.eq(kpi.id))
-//                .where(company.cnpj.in(cnpj));
-//        return query.orderBy(company.name.asc()).orderBy(kpi.kpiAlias.asc()).orderBy(kpiDetail.columnXSeq.asc()).fetch();
-//    }
+    @Override
+	public List<KpiDetail> findKpiDetailsByCNPJ(List<String> cnpj) {
+        JPAQuery<KpiDetail> query = new JPAQuery<KpiDetail>(em).from(company)
+                .innerJoin(kpi).on(kpi.company.id.eq(company.id))
+                .innerJoin(kpiDetail).on(kpiDetail.kpiID.id.eq(kpi.id))
+                .where(company.cnpj.in(cnpj));
+        return query.orderBy(company.name.asc()).orderBy(kpi.kpiAlias.asc()).orderBy(kpiDetail.columnXSeq.asc()).fetch();
+    }
 
 	
 }

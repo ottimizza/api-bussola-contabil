@@ -32,6 +32,12 @@ public class KpiDetail implements Serializable {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private BigInteger id;
 
+    @ManyToOne
+    @Getter
+    @Setter    
+    @JsonIgnore
+    @JoinColumn(name = "fk_kpis_id")
+    private Kpi kpiID;
     
     @Getter
     @Setter
