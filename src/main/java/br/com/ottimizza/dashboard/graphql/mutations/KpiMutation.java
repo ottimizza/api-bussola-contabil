@@ -2,15 +2,20 @@ package br.com.ottimizza.dashboard.graphql.mutations;
 
 import java.math.BigInteger;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.ws.rs.NotFoundException;
 
+import br.com.ottimizza.dashboard.models.Company;
 import br.com.ottimizza.dashboard.models.Kpi;
 import br.com.ottimizza.dashboard.models.KpiDetail;
 import br.com.ottimizza.dashboard.models.QKpi;
+import br.com.ottimizza.dashboard.repositories.company.CompanyRepository;
+import br.com.ottimizza.dashboard.repositories.company.CompanyRepositoryCustom;
+import br.com.ottimizza.dashboard.repositories.company.CompanyRepositoryImpl;
 import br.com.ottimizza.dashboard.repositories.kpi.KpiRepository;
 import br.com.ottimizza.dashboard.repositories.kpi_detail.KpiDetailRepository;
 import br.com.ottimizza.dashboard.services.KpiDetailService;
@@ -24,6 +29,7 @@ public class KpiMutation {
 	
 	private EntityManager em;
 	private QKpi kpi = QKpi.kpi;
+	private CompanyRepository companyRepository;
 	private KpiRepository kpiRepository;
 	private KpiDetailRepository kpiDetailRepository;
 
@@ -57,9 +63,27 @@ public class KpiMutation {
 	}
 	
 	@GraphQLMutation(name = "createKpi")
-	public Kpi createKpi(Kpi filter) {
-		return kpiRepository.save(filter);
+	public Kpi createKpi(BigInteger companyID, String title, Short graphType, String columnX0Label, String label) {
+		Kpi kpi = new Kpi();
+		Optional<Company> optionalCompany = companyRepository.findById(companyID);
+		Company c = new Company();
+		try {
+			c = optionalCompany.get();
+		}catch (Exception e) {
+			new NoSuchElementException();
+		}
+		kpi.setCompany(c);
+		kpi.setTitle(title);
+		kpi.setGraphType(graphType);
+		kpi.setColumnX0Label(columnX0Label);
+		kpi.setLabel(label);
+		
+		return kpiRepository.save(kpi);
+		
 	}
+//	public Kpi createKpi(Kpi filter) {
+//		return kpiRepository.save(filter);
+//	}
 	
 	@GraphQLMutation(name = "deleteKpi")
 	public Kpi deleteKpi(BigInteger id) {

@@ -43,7 +43,7 @@ extends type Query {
 }
 
 extends type Mutation {
-	createKpi(filter: KpiFilter): Kpi
+	createKpi(companyID: BigInteger, title: String, graphType: Short, columnX0Label: String, label: String): Kpi
 	editKpi(filter: KpiFilter): Kpi
 	deleteKpi(BigInteger: id): Kpi
 	
