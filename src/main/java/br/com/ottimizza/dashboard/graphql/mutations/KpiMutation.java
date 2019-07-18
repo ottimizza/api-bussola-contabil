@@ -32,15 +32,6 @@ public class KpiMutation {
 		this.kpiRepository = kpiRepository;
 	}
 	
-//	@GraphQLMutation(name = "editKpi")
-//	public Kpi editKpi(BigInteger id, String title) {
-//		Kpi kpi = kpiRepository.findById(id);
-//		kpi.setTitle(title);
-//		
-//		return kpiRepository.save(kpi);
-//	}
-	
-	
 	@GraphQLMutation(name = "editKpi")
 	public Kpi editKpi(Kpi newKpi) {
 		Kpi kpi = new Kpi();
