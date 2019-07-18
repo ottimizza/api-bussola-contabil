@@ -63,28 +63,32 @@ public class KpiMutation {
 	}
 	
 	@GraphQLMutation(name = "createKpi")
-	public Kpi createKpi(BigInteger companyID, String title, Short graphType, String columnX0Label, String label) {
+	public Kpi createKpi(BigInteger companyID, Kpi filter) {
+		
 		Kpi kpi = new Kpi();
 		Optional<Company> optionalCompany = companyRepository.findById(companyID);
 		Company c = new Company();
-		try {
-			c = optionalCompany.get();
-		}catch (Exception e) {
-			new NoSuchElementException();
-		}
+		
+		try {c = optionalCompany.get();}
+		catch (Exception e) { new NoSuchElementException(); }
+		
 		kpi.setCompany(c);
-		kpi.setTitle(title);
-		kpi.setGraphType(graphType);
-		kpi.setColumnX0Label(columnX0Label);
-		kpi.setLabel(label);
+		kpi.setTitle(filter.getTitle());
+		kpi.setGraphType(filter.getGraphType());
+		kpi.setColumnX0Label(filter.getColumnX0Label());
+		kpi.setLabel(filter.getLabel());
+	
+		kpi.setKpiAlias(filter.getKpiAlias());
+		kpi.setSubtitle(filter.getSubtitle());
+		kpi.setDescription(filter.getDescription());
+		kpi.setVisible(filter.getVisible());
+		kpi.setLabel2(filter.getLabel2());
+		kpi.setLabel3(filter.getLabel3());
+		kpi.setLabel4(filter.getLabel4());
 		
 		return kpiRepository.save(kpi);
 		
 	}
-//	public Kpi createKpi(Kpi filter) {
-//		return kpiRepository.save(filter);
-//	}
-	
 	@GraphQLMutation(name = "deleteKpi")
 	public Kpi deleteKpi(BigInteger id) {
 		Kpi kpi = new Kpi();
