@@ -67,7 +67,9 @@ public class KpiMutation {
 		System.out.println(">>>0 ");
 
 		Kpi kpi = new Kpi();
+		System.out.println(">>a ");
 		Optional<Company> optionalCompany = companyRepository.findById(companyID);
+		System.out.println(">>b ");
 		Company c = new Company();
 		System.out.println(">>>1 "+c.getCnpj());
 
