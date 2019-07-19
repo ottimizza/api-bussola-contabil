@@ -68,7 +68,8 @@ public class KpiMutation {
 		Kpi kpi = new Kpi();
 		Optional<Company> optionalCompany = companyRepository.findById(companyID);
 		Company c = new Company();
-		
+		System.out.println(">>>1 "+c.getCnpj());
+
 		
 		try {
 			c = optionalCompany.get();
@@ -92,7 +93,7 @@ public class KpiMutation {
 		
 		kpi = kpiRepository.save(kpi);
 		
-		System.out.println(">>> "+c.getCnpj());
+		System.out.println(">>>2 "+c.getCnpj());
 		return kpi;
 		
 	}
