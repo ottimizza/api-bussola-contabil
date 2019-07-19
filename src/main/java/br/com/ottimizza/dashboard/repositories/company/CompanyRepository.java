@@ -9,6 +9,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface CompanyRepository extends JpaRepository<Company, BigInteger>, CompanyRepositoryCustom {
 
-//	Optional<Company> findById(BigInteger idCompany);
+	Optional<Company> findById(BigInteger idCompany);
     
 }
