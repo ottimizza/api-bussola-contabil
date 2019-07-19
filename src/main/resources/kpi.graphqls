@@ -32,12 +32,6 @@ extends input KpiFilter {
 	kpiDetail: [KpiDetail]
 }
 
-extends input CompanyFilter {
-	id: BigInteger
-	cnpj: String
-	name: String
-}
-
 extends type Query {
 	findKpi(filter: Kpifilter): [Kpi]
 }

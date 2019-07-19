@@ -69,6 +69,7 @@ public class KpiMutation {
 		Optional<Company> optionalCompany = companyRepository.findById(companyID);
 		Company c = new Company();
 		
+		
 		try {c = optionalCompany.get();}
 		catch (Exception e) { new NoSuchElementException(); }
 		
@@ -85,7 +86,7 @@ public class KpiMutation {
 		kpi.setLabel2(filter.getLabel2());
 		kpi.setLabel3(filter.getLabel3());
 		kpi.setLabel4(filter.getLabel4());
-		
+		System.out.println(">>> "+c.getCnpj());
 		return kpiRepository.save(kpi);
 		
 	}
