@@ -71,22 +71,25 @@ public class KpiMutation {
 		
 		
 		try {
-		c = optionalCompany.get();
-		kpi.setCompany(c);
-		kpi.setTitle(filter.getTitle());
-		kpi.setGraphType(filter.getGraphType());
-		kpi.setColumnX0Label(filter.getColumnX0Label());
-		kpi.setLabel(filter.getLabel());
-	
-		kpi.setKpiAlias(filter.getKpiAlias());
-		kpi.setSubtitle(filter.getSubtitle());
-		kpi.setDescription(filter.getDescription());
-		kpi.setVisible(filter.getVisible());
-		kpi.setLabel2(filter.getLabel2());
-		kpi.setLabel3(filter.getLabel3());
-		kpi.setLabel4(filter.getLabel4());
+			c = optionalCompany.get();
+			kpi.setCompany(c);
+			kpi.setTitle(filter.getTitle());
+			kpi.setGraphType(filter.getGraphType());
+			kpi.setColumnX0Label(filter.getColumnX0Label());
+			kpi.setLabel(filter.getLabel());
+		
+			kpi.setKpiAlias(filter.getKpiAlias());
+			kpi.setSubtitle(filter.getSubtitle());
+			kpi.setDescription(filter.getDescription());
+			kpi.setVisible(filter.getVisible());
+			kpi.setLabel2(filter.getLabel2());
+			kpi.setLabel3(filter.getLabel3());
+			kpi.setLabel4(filter.getLabel4());
+		} catch (Exception e) { 
+			//new NoSuchElementException(); 
 		}
-		catch (Exception e) { new NoSuchElementException(); }
+		
+		
 		kpi = kpiRepository.save(kpi);
 		
 		System.out.println(">>> "+c.getCnpj());
