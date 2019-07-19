@@ -70,9 +70,8 @@ public class KpiMutation {
 		Company c = new Company();
 		
 		
-		try {c = optionalCompany.get();}
-		catch (Exception e) { new NoSuchElementException(); }
-		
+		try {
+		c = optionalCompany.get();
 		kpi.setCompany(c);
 		kpi.setTitle(filter.getTitle());
 		kpi.setGraphType(filter.getGraphType());
@@ -86,8 +85,12 @@ public class KpiMutation {
 		kpi.setLabel2(filter.getLabel2());
 		kpi.setLabel3(filter.getLabel3());
 		kpi.setLabel4(filter.getLabel4());
+		}
+		catch (Exception e) { new NoSuchElementException(); }
+		kpi = kpiRepository.save(kpi);
+		
 		System.out.println(">>> "+c.getCnpj());
-		return kpiRepository.save(kpi);
+		return kpi;
 		
 	}
 	@GraphQLMutation(name = "deleteKpi")
