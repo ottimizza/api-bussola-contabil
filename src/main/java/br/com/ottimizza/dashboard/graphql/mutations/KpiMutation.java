@@ -64,7 +64,8 @@ public class KpiMutation {
 	
 	@GraphQLMutation(name = "createKpi")
 	public Kpi createKpi(BigInteger companyID, Kpi filter) {
-		
+		System.out.println(">>>0 ");
+
 		Kpi kpi = new Kpi();
 		Optional<Company> optionalCompany = companyRepository.findById(companyID);
 		Company c = new Company();
