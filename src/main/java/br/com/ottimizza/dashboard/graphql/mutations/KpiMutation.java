@@ -60,42 +60,60 @@ public class KpiMutation {
 	}
 	
 	@GraphQLMutation(name = "createKpi")
-	public Kpi createKpi(BigInteger companyID, Kpi filter) {
+	public Kpi createKpi(BigInteger companyId, Company company, String kpiAlias, String title, String subtitle, String description, Short graphType, String columnX0Label, String label, String label2, String label3, String label4, Boolean visible){
 
 		Kpi kpi = new Kpi();
-		System.out.println(">>>0 ");
-		Optional<Company> optionalCompany = companyRepository.findById(companyID);
-		System.out.println(">>>1 ");
-		Company c = new Company();
-		System.out.println(">>>2 "+c.getCnpj());
-
 		
-		try {
-			c = optionalCompany.get();
-			kpi.setCompany(c);
-			kpi.setTitle(filter.getTitle());
-			kpi.setGraphType(filter.getGraphType());
-			kpi.setColumnX0Label(filter.getColumnX0Label());
-			kpi.setLabel(filter.getLabel());
-		
-			kpi.setKpiAlias(filter.getKpiAlias());
-			kpi.setSubtitle(filter.getSubtitle());
-			kpi.setDescription(filter.getDescription());
-			kpi.setVisible(filter.getVisible());
-			kpi.setLabel2(filter.getLabel2());
-			kpi.setLabel3(filter.getLabel3());
-			kpi.setLabel4(filter.getLabel4());
-		} catch (Exception e) { 
-			//new NoSuchElementException(); 
+		if(!companyId.equals("") && !companyId.equals(null)){
+			Optional<Company> optionalCompany = companyRepository.findById(companyId);
+			
+			try{company = optionalCompany.get();}
+			catch (Exception e) { new NoSuchElementException(e.getStackTrace().toString());	}
+			
+		}else if(!company.getId().equals(null)) {
+			kpi.setCompany(company);
+			kpi.setKpiAlias(kpiAlias);
+			kpi.setTitle(title);
+			kpi.setSubtitle(subtitle);
+			kpi.setDescription(description);
+			kpi.setGraphType(graphType);
+			kpi.setColumnX0Label(columnX0Label);
+			kpi.setLabel(label);
+			kpi.setLabel2(label2);
+			kpi.setLabel3(label3);
+			kpi.setLabel4(label4);
+			kpi.setVisible(visible);
 		}
-		
-		
-		kpi = kpiRepository.save(kpi);
-		
-		System.out.println(">>>2 "+c.getCnpj());
 		return kpi;
-		
 	}
+//	public Kpi createKpi(BigInteger companyId, Kpi kpi) {
+//		Kpi newKpi = new Kpi();
+//		Optional<Company> optionalCompany = companyRepository.findById(companyID);
+//		Company c = new Company();
+//
+//		
+//		try {
+//			c = optionalCompany.get();
+//			newKpi.setCompany(c);
+//			newKpi.setTitle(kpi.getTitle());
+//			newKpi.setGraphType(kpi.getGraphType());
+//			newKpi.setColumnX0Label(kpi.getColumnX0Label());
+//			newKpi.setLabel(kpi.getLabel());
+//		
+//			newKpi.setKpiAlias(kpi.getKpiAlias());
+//			newKpi.setSubtitle(kpi.getSubtitle());
+//			newKpi.setDescription(kpi.getDescription());
+//			newKpi.setVisible(kpi.getVisible());
+//			newKpi.setLabel2(kpi.getLabel2());
+//			newKpi.setLabel3(kpi.getLabel3());
+//			newKpi.setLabel4(kpi.getLabel4());
+//		} catch (Exception e) { 
+//			//new NoSuchElementException(); 
+//		}
+//		
+//		
+//		return kpiRepository.save(newKpi);	
+//	}
 	@GraphQLMutation(name = "deleteKpi")
 	public Kpi deleteKpi(BigInteger id) {
 		Kpi kpi = new Kpi();

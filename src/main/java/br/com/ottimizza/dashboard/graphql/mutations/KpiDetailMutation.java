@@ -11,6 +11,8 @@ import org.springframework.core.convert.ConversionException;
 import br.com.ottimizza.dashboard.models.Kpi;
 import br.com.ottimizza.dashboard.models.KpiDetail;
 import br.com.ottimizza.dashboard.models.QKpiDetail;
+import br.com.ottimizza.dashboard.repositories.company.CompanyRepository;
+import br.com.ottimizza.dashboard.repositories.kpi.KpiRepository;
 import br.com.ottimizza.dashboard.repositories.kpi_detail.KpiDetailRepository;
 import io.leangen.graphql.annotations.GraphQLMutation;
 
@@ -19,10 +21,15 @@ public class KpiDetailMutation {
 	private EntityManager em;
 	private QKpiDetail kpiDetail = QKpiDetail.kpiDetail;
 	private KpiDetailRepository detailRepository;
+	private KpiRepository kpiRepository;
+	private CompanyRepository companyRepository;
 
-	public KpiDetailMutation(EntityManager em, KpiDetailRepository kpiDetailRepository) {
+	public KpiDetailMutation(EntityManager em, KpiDetailRepository kpiDetailRepository, KpiRepository kpiRepository, CompanyRepository companyRepository) {
 		this.em = em;
 		this.detailRepository = kpiDetailRepository;
+		this.kpiRepository = kpiRepository;
+		this.companyRepository = companyRepository;
+		
 	}
 	
 	@GraphQLMutation(name = "editKpiDetail")
