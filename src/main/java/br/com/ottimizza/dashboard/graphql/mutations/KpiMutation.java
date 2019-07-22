@@ -74,13 +74,14 @@ public class KpiMutation {
 
 			try {
 				company = optionalCompany.get();
-				System.out.println(">>> 2");
+				System.out.println(">>> 2 "+company.getId());
 			} catch (Exception e) {
-				new NoSuchElementException(e.getStackTrace().toString());
 				System.out.println(">>> 3");
+				new NoSuchElementException(e.getStackTrace().toString());
 			}
 
-		} else if (!company.getId().equals(null)) {
+		}
+		if (!company.getId().equals(null)) {
 			System.out.println(">>> 4");
 
 			kpi.setCompany(company);
