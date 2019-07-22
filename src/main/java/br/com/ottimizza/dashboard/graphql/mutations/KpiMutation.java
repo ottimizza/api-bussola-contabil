@@ -24,12 +24,13 @@ import io.leangen.graphql.annotations.GraphQLMutation;
 public class KpiMutation {
 
 	@Inject
-	KpiDetailMutation kpiDetailMut;
+	CompanyRepository companyRepository;
+//	KpiDetailMutation kpiDetail;
 
 	
 	private EntityManager em;
 	private QKpi kpi = QKpi.kpi;
-	private CompanyRepository companyRepository;
+//	private CompanyRepository companyRepository;
 	private KpiRepository kpiRepository;
 	private KpiDetailRepository kpiDetailRepository;
 
@@ -64,14 +65,13 @@ public class KpiMutation {
 	
 	@GraphQLMutation(name = "createKpi")
 	public Kpi createKpi(BigInteger companyID, Kpi filter) {
-		System.out.println(">>>0 ");
 
 		Kpi kpi = new Kpi();
-		System.out.println(">>a ");
+		System.out.println(">>>0 ");
 		Optional<Company> optionalCompany = companyRepository.findById(companyID);
-		System.out.println(">>b ");
+		System.out.println(">>>1 ");
 		Company c = new Company();
-		System.out.println(">>>1 "+c.getCnpj());
+		System.out.println(">>>2 "+c.getCnpj());
 
 		
 		try {
