@@ -22,7 +22,7 @@ import br.com.ottimizza.dashboard.services.KpiDetailService;
 import io.leangen.graphql.annotations.GraphQLMutation;
 
 public class KpiMutation {
-	
+
 	private EntityManager em;
 	private QKpi kpi = QKpi.kpi;
 	private CompanyRepository companyRepository;
@@ -34,15 +34,15 @@ public class KpiMutation {
 		this.kpiRepository = kpiRepository;
 		this.companyRepository = companyRepository;
 	}
-	
+
 	@GraphQLMutation(name = "editKpi")
 	public Kpi editKpi(Kpi newKpi) {
 		Kpi kpi = new Kpi();
 		try {
-			kpi = kpiRepository.findById(newKpi.getId()).map(k -> k)
-					.orElseThrow(() -> new NotFoundException());
-		} catch (Exception e) { }
-		
+			kpi = kpiRepository.findById(newKpi.getId()).map(k -> k).orElseThrow(() -> new NotFoundException());
+		} catch (Exception e) {
+		}
+
 		kpi.setKpiAlias(newKpi.getKpiAlias());
 		kpi.setTitle(newKpi.getTitle());
 		kpi.setSubtitle(newKpi.getSubtitle());
@@ -55,22 +55,34 @@ public class KpiMutation {
 		kpi.setLabel4(newKpi.getLabel4());
 		kpi.setVisible(newKpi.getVisible());
 		kpi.setKpiDetail(newKpi.getKpiDetail());
-		
+
 		return kpiRepository.save(kpi);
 	}
-	
-	@GraphQLMutation(name = "createKpi")
-	public Kpi createKpi(BigInteger companyId, Company company, String kpiAlias, String title, String subtitle, String description, Short graphType, String columnX0Label, String label, String label2, String label3, String label4, Boolean visible){
 
+	@GraphQLMutation(name = "createKpi")
+	public Kpi createKpi(BigInteger companyId, Company company, String kpiAlias, String title, String subtitle,
+			String description, Short graphType, String columnX0Label, String label, String label2, String label3,
+			String label4, Boolean visible) {
+
+		System.out.println(">>> 0");
 		Kpi kpi = new Kpi();
-		
-		if(!companyId.equals("") && !companyId.equals(null)){
+
+		if (!companyId.equals("") && !companyId.equals(null)) {
+			System.out.println(">>> 1");
+
 			Optional<Company> optionalCompany = companyRepository.findById(companyId);
-			
-			try{company = optionalCompany.get();}
-			catch (Exception e) { new NoSuchElementException(e.getStackTrace().toString());	}
-			
-		}else if(!company.getId().equals(null)) {
+
+			try {
+				company = optionalCompany.get();
+				System.out.println(">>> 2");
+			} catch (Exception e) {
+				new NoSuchElementException(e.getStackTrace().toString());
+				System.out.println(">>> 3");
+			}
+
+		} else if (!company.getId().equals(null)) {
+			System.out.println(">>> 4");
+
 			kpi.setCompany(company);
 			kpi.setKpiAlias(kpiAlias);
 			kpi.setTitle(title);
@@ -84,8 +96,10 @@ public class KpiMutation {
 			kpi.setLabel4(label4);
 			kpi.setVisible(visible);
 		}
-		return kpi;
+		
+		return kpiRepository.save(kpi);
 	}
+
 //	public Kpi createKpi(BigInteger companyId, Kpi kpi) {
 //		Kpi newKpi = new Kpi();
 //		Optional<Company> optionalCompany = companyRepository.findById(companyID);
@@ -118,30 +132,29 @@ public class KpiMutation {
 	public Kpi deleteKpi(BigInteger id) {
 		Kpi kpi = new Kpi();
 		try {
-			kpi = kpiRepository.findById(id).map(k -> k)
-					.orElseThrow(() -> new NotFoundException());
-		} catch (Exception e) { }
-		
-		if(kpi.getKpiDetail().isEmpty()) {
+			kpi = kpiRepository.findById(id).map(k -> k).orElseThrow(() -> new NotFoundException());
+		} catch (Exception e) {
+		}
+
+		if (kpi.getKpiDetail().isEmpty()) {
 			kpiRepository.delete(kpi);
 		} else {
 			List<KpiDetail> kpiDetails = kpi.getKpiDetail();
-			
-			
+
 			for (KpiDetail kpiDetail : kpiDetails) {
-				System.out.println("for . "+kpiDetail.getId());
+				System.out.println("for . " + kpiDetail.getId());
 //				kpiDetailMut.deleteKpiDetail(kpiDetail.getId());
-				
+
 				System.out.println("for ..");
 			}
 //			deleteKpi(kpi.getId());
 //			kpiRepository.delete(kpi);
-			
+
 		}
 
 		return kpi;
 	}
-	
+
 //	@GraphQLMutation(name = "deleteKpi")
 //	public Kpi deleteKpi(Kpi newKpi) {
 //		Kpi kpi = kpiRepository.findById(newKpi.getId());
