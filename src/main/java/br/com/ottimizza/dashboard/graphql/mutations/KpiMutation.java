@@ -22,21 +22,17 @@ import br.com.ottimizza.dashboard.services.KpiDetailService;
 import io.leangen.graphql.annotations.GraphQLMutation;
 
 public class KpiMutation {
-
-	@Inject
-	CompanyRepository companyRepository;
-//	KpiDetailMutation kpiDetail;
-
 	
 	private EntityManager em;
 	private QKpi kpi = QKpi.kpi;
-//	private CompanyRepository companyRepository;
+	private CompanyRepository companyRepository;
 	private KpiRepository kpiRepository;
 	private KpiDetailRepository kpiDetailRepository;
 
-	public KpiMutation(EntityManager em, KpiRepository kpiRepository) {
+	public KpiMutation(EntityManager em, KpiRepository kpiRepository, CompanyRepository companyRepository) {
 		this.em = em;
 		this.kpiRepository = kpiRepository;
+		this.companyRepository = companyRepository;
 	}
 	
 	@GraphQLMutation(name = "editKpi")
