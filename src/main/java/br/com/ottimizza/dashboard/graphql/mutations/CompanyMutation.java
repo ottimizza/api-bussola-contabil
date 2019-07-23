@@ -19,9 +19,6 @@ import br.com.ottimizza.dashboard.services.KpiService;
 import io.leangen.graphql.annotations.GraphQLMutation;
 
 public class CompanyMutation {
-
-	@Inject
-	KpiService kpiService;
 	
 	private EntityManager em;
 	private QCompany company = QCompany.company;
@@ -51,7 +48,7 @@ public class CompanyMutation {
 	    if(kpis != null)
     		for (Kpi kpi : kpis) {
     			try {
-//			    	KpiService kpiService = new KpiService();		    	
+			    	KpiService kpiService = new KpiService();		    	
 			    	Kpi newKpi = kpiService.createKpi(newCompany.getId(), kpi);
 //			    	jsArray.put(kpi.getKpiAlias(), "OK");
 			    	System.out.println(">>> >> 1 "+newKpi.getId());
