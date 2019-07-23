@@ -83,6 +83,7 @@ public class KpiService {
 		Kpi newKpi = new Kpi();
 		Optional<Company> optionalCompany = companyRepository.findById(companyId);
 		Company c = new Company();
+		System.out.println("~~~ b1 "+optionalCompany.get().getId());
 
 		try {
 			c = optionalCompany.get();
