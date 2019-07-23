@@ -35,14 +35,8 @@ public class CompanyMutation {
 	public Company createCompany(String cnpj, String name, List<Kpi> kpis) {
 		System.out.println(">>>1 ");
 	    Company newCompany = new Company(); 
-	    if(kpis.isEmpty()) {
-	    	System.out.println(">>>2 ");
-		    
-		    newCompany.setCnpj(cnpj);
-		    newCompany.setName(name);
-		    return companyRepository.save(newCompany);
-	    }
-	    if(!kpis.isEmpty()) {
+	    
+	    if(kpis.equals(null) && !kpis.isEmpty()) {
 	    	System.out.println(">>>3 ");
 		    
 		    newCompany.setCnpj(cnpj);
@@ -59,6 +53,13 @@ public class CompanyMutation {
 		    		System.out.println("<><> "+e.getMessage());
 				}
 		    }
+	    } else {
+	    	System.out.println(">>>2 ");
+		    
+		    newCompany.setCnpj(cnpj);
+		    newCompany.setName(name);
+		    return companyRepository.save(newCompany);
+	    
 	    }
 //	    companyRepository.save(newCompany);
 	    return newCompany;	
