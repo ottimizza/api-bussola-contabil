@@ -6,6 +6,7 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import br.com.ottimizza.dashboard.models.Company;
@@ -35,24 +36,22 @@ public class CompanyMutation {
 
 	@GraphQLMutation(name = "createCompany")
 	public Company createCompany(String cnpj, String name, List<Kpi> kpis) {
-		System.out.println(">>a");
-		if(kpis == null) System.out.println(">>b");
 		
 		Company newCompany = new Company(); 
 		newCompany.setCnpj(cnpj);
 	    newCompany.setName(name);
 	    newCompany = companyRepository.save(newCompany);
-	    
-	    try {
-	    	for (Kpi kpi : kpis) {
-
-		    	KpiService kpiService = new KpiService();		    	
-		    	kpiService.createKpi(newCompany.getId(), kpi);
-				
+	    JSONObject jsArray = new JSONObject();
+	    if(kpis == null)
+    		for (Kpi kpi : kpis) {
+    			try {
+			    	KpiService kpiService = new KpiService();		    	
+			    	kpiService.createKpi(newCompany.getId(), kpi);
+			    	jsArray.put(kpi.getKpiAlias(), "OK");
+    			}catch (Exception e) {
+			    	jsArray.put(kpi.getKpiAlias(), "NOK");
+				}
 		    }
-	    }catch (Exception e) {
-			
-		}
 	    return newCompany;
 	}
 //		System.out.println(">>>1 ");
