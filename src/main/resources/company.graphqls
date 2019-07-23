@@ -16,6 +16,6 @@ extends type Query {
 }
 
 extends type Mutation {
-	createCompany(filter: CompanyFilter): Company
+	createCompany(cnpj: String, name: String, kpis: [Kpi]): Company
 	
 }
