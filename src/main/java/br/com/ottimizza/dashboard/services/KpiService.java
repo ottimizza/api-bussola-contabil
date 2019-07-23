@@ -79,6 +79,7 @@ public class KpiService {
     }
 	
 	public Kpi createKpi(BigInteger companyId, Kpi kpi) {
+		System.out.println("~~~ a ");
 		Kpi newKpi = new Kpi();
 		Optional<Company> optionalCompany = companyRepository.findById(companyId);
 		Company c = new Company();
