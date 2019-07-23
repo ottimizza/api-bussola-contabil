@@ -3,6 +3,7 @@ package br.com.ottimizza.dashboard.graphql.mutations;
 import java.math.BigInteger;
 import java.util.List;
 
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 
 import org.json.JSONObject;
@@ -13,6 +14,7 @@ import br.com.ottimizza.dashboard.models.QCompany;
 import br.com.ottimizza.dashboard.repositories.company.CompanyRepository;
 import br.com.ottimizza.dashboard.repositories.kpi.KpiRepository;
 import br.com.ottimizza.dashboard.repositories.kpi_detail.KpiDetailRepository;
+import br.com.ottimizza.dashboard.services.KpiService;
 import io.leangen.graphql.annotations.GraphQLMutation;
 
 public class CompanyMutation {
@@ -35,7 +37,6 @@ public class CompanyMutation {
 	public Company createCompany(String cnpj, String name, List<Kpi> kpis) {
 		System.out.println(">>a");
 		if(kpis == null) System.out.println(">>b");
-//		if(kpis.isEmpty()) System.out.println(">>c");
 		
 		Company newCompany = new Company(); 
 		newCompany.setCnpj(cnpj);
@@ -44,10 +45,9 @@ public class CompanyMutation {
 	    
 	    try {
 	    	for (Kpi kpi : kpis) {
-		    	System.out.println(">>>b ");
-			    
-	    		KpiMutation kpiMut = new KpiMutation(em, kpiDetailRepository, kpiRepository, companyRepository);
-		    	kpiMut.createKpi(newCompany.getId(), kpi);
+
+		    	KpiService kpiService = new KpiService();		    	
+		    	kpiService.createKpi(newCompany.getId(), kpi);
 				
 		    }
 	    }catch (Exception e) {

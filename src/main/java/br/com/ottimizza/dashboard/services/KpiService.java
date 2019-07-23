@@ -1,7 +1,9 @@
 package br.com.ottimizza.dashboard.services;
 
+import br.com.ottimizza.dashboard.models.Company;
 import br.com.ottimizza.dashboard.models.Kpi;
 import br.com.ottimizza.dashboard.models.KpiShort;
+import br.com.ottimizza.dashboard.repositories.company.CompanyRepository;
 import br.com.ottimizza.dashboard.repositories.kpi.KpiRepository;
 import br.com.ottimizza.dashboard.repositories.kpi.kpi_short.KpiShortRepository;
 
@@ -22,25 +24,23 @@ public class KpiService {
     @Inject
     private KpiShortRepository kpiShortRepository;
 
-    // <editor-fold defaultstate="collapsed" desc="Save">
+    
+    @Inject
+    private CompanyRepository companyRepository;
+
+    
     public Kpi save(Kpi kpi) throws Exception {
         return repository.save(kpi);
     }
-    // </editor-fold>
 
-    // <editor-fold defaultstate="collapsed" desc="Find by Id">
     public Optional<Kpi> findById(BigInteger idKpi) throws Exception {
         return repository.findById(idKpi);
     }
-    // </editor-fold>
 
-    // <editor-fold defaultstate="collapsed" desc="Find by List CNPJ">
     public List<KpiShort> findByListCNPJ(List<String> cnpj) throws Exception {
         return kpiShortRepository.findKpisByCNPJ(cnpj);
     }
-    // </editor-fold>
 
-    // <editor-fold defaultstate="collapsed" desc="Update by Id">
     public JSONObject updateById(BigInteger idKpi, Kpi kpi) throws NoResultException, Exception {
         JSONObject response = new JSONObject();
         try {
@@ -62,9 +62,7 @@ public class KpiService {
         }
         return response;
     }
-    // </editor-fold>
 
-    // <editor-fold defaultstate="collapsed" desc="Delete by Id">
 //    public JSONObject delete(Long idKpi) throws Exception { 
 	public JSONObject delete(BigInteger idKpi) throws Exception {
     	        JSONObject response = new JSONObject();
@@ -79,6 +77,33 @@ public class KpiService {
         }
         return response;
     }
-    // </editor-fold>
+	
+	public Kpi createKpi(BigInteger companyId, Kpi kpi) {
+		Kpi newKpi = new Kpi();
+		Optional<Company> optionalCompany = companyRepository.findById(companyId);
+		Company c = new Company();
+
+		try {
+			c = optionalCompany.get();
+			newKpi.setCompany(c);
+			newKpi.setTitle(kpi.getTitle());
+			newKpi.setGraphType(kpi.getGraphType());
+			newKpi.setColumnX0Label(kpi.getColumnX0Label());
+			newKpi.setLabel(kpi.getLabel());
+		
+			newKpi.setKpiAlias(kpi.getKpiAlias());
+			newKpi.setSubtitle(kpi.getSubtitle());
+			newKpi.setDescription(kpi.getDescription());
+			newKpi.setVisible(kpi.getVisible());
+			newKpi.setLabel2(kpi.getLabel2());
+			newKpi.setLabel3(kpi.getLabel3());
+			newKpi.setLabel4(kpi.getLabel4());
+		} catch (Exception e) { 
+			//new NoSuchElementException(); 
+		}
+		
+		
+		return repository.save(newKpi);	
+	}
 
 }

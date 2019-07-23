@@ -90,34 +90,6 @@ public class KpiMutation {
 		return kpiRepository.save(kpi);
 	}
 	
-	@GraphQLMutation(name = "createKpi")
-	public Kpi createKpi(BigInteger companyId, Kpi kpi) {
-		Kpi newKpi = new Kpi();
-		Optional<Company> optionalCompany = companyRepository.findById(companyId);
-		Company c = new Company();
-
-		try {
-			c = optionalCompany.get();
-			newKpi.setCompany(c);
-			newKpi.setTitle(kpi.getTitle());
-			newKpi.setGraphType(kpi.getGraphType());
-			newKpi.setColumnX0Label(kpi.getColumnX0Label());
-			newKpi.setLabel(kpi.getLabel());
-		
-			newKpi.setKpiAlias(kpi.getKpiAlias());
-			newKpi.setSubtitle(kpi.getSubtitle());
-			newKpi.setDescription(kpi.getDescription());
-			newKpi.setVisible(kpi.getVisible());
-			newKpi.setLabel2(kpi.getLabel2());
-			newKpi.setLabel3(kpi.getLabel3());
-			newKpi.setLabel4(kpi.getLabel4());
-		} catch (Exception e) { 
-			//new NoSuchElementException(); 
-		}
-		
-		
-		return kpiRepository.save(newKpi);	
-	}
 	@GraphQLMutation(name = "deleteKpi")
 	public Kpi deleteKpi(BigInteger id) {
 		Kpi kpi = new Kpi();
