@@ -1,5 +1,5 @@
 extends type Kpi {
-	id: BigInteger
+	id: BigInteger!
 	kpiAlias: String!
 	company: CompanyFilter
 	title: String!
