@@ -19,24 +19,23 @@ import br.com.ottimizza.dashboard.repositories.kpi_detail.KpiDetailRepository;
 import br.com.ottimizza.dashboard.services.KpiService;
 import io.leangen.graphql.annotations.GraphQLMutation;
 
-@Component
 public class CompanyMutation {
 	
-	@Inject
-	KpiService kpiService;
-	
+
 	private EntityManager em;
 	private QCompany company = QCompany.company;
 	private KpiDetailRepository kpiDetailRepository;
 	private KpiRepository kpiRepository;
 	private CompanyRepository companyRepository;
 
-	public CompanyMutation(EntityManager em, KpiDetailRepository kpiDetailRepository, KpiRepository kpiRepository, CompanyRepository companyRepository) {
+	private KpiService kpiService;
+	
+	public CompanyMutation(EntityManager em, KpiDetailRepository kpiDetailRepository, KpiRepository kpiRepository, CompanyRepository companyRepository, KpiService kpiService) {
 		this.em = em;
 		this.kpiDetailRepository = kpiDetailRepository;
 		this.kpiRepository = kpiRepository;
 		this.companyRepository = companyRepository;
-		
+		this.kpiService = kpiService;
 	}
 
 	@GraphQLMutation(name = "createCompany")

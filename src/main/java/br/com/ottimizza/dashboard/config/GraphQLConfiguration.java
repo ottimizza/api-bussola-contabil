@@ -17,6 +17,7 @@ import br.com.ottimizza.dashboard.graphql.queries.Query;
 import br.com.ottimizza.dashboard.repositories.company.CompanyRepository;
 import br.com.ottimizza.dashboard.repositories.kpi.KpiRepository;
 import br.com.ottimizza.dashboard.repositories.kpi_detail.KpiDetailRepository;
+import br.com.ottimizza.dashboard.services.KpiService;
 import graphql.schema.GraphQLSchema;
 import io.leangen.graphql.GraphQLSchemaGenerator;
 
@@ -32,6 +33,8 @@ public class GraphQLConfiguration {
 	KpiRepository kpiRepository;
 	@Inject
 	KpiDetailRepository kpiDetailRepository;
+	@Inject
+	KpiService kpiService;
 	
 	@Bean
 	public GraphQLSchema schema() {
@@ -43,7 +46,7 @@ public class GraphQLConfiguration {
 
 //		CompanyMutation companyMutation = new CompanyMutation(em, companyRepository);
 //		KpiMutation kpiMutation = new KpiMutation(em, kpiRepository, companyRepository);
-		CompanyMutation companyMutation = new CompanyMutation(em, kpiDetailRepository, kpiRepository, companyRepository);
+		CompanyMutation companyMutation = new CompanyMutation(em, kpiDetailRepository, kpiRepository, companyRepository, kpiService);
 		KpiMutation kpiMutation = new KpiMutation(em, kpiDetailRepository, kpiRepository, companyRepository);
 		KpiDetailMutation kpiDetailMutation = new KpiDetailMutation(em, kpiDetailRepository, kpiRepository, companyRepository);
 		
