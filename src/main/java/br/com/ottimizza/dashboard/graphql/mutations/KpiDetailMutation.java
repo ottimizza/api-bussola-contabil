@@ -37,7 +37,7 @@ public class KpiDetailMutation {
 		KpiDetail detail = new KpiDetail();
 		
 		if(filter.getId() != null) {
-			Optional<KpiDetail> detailOptional = detailRepository.findById(filter.getId());
+			Optional<KpiDetail> detailOptional = kpiDetailRepository.findById(filter.getId());
 			try { detail = detailOptional.get(); } 
 			catch (Exception e) {	}
 			
@@ -51,7 +51,7 @@ public class KpiDetailMutation {
 			if(filter.getValorKPI4() != null) 	detail.setValorKPI4(filter.getValorKPI4());
 			
 		}
-		return detailRepository.save(detail);
+		return kpiDetailRepository.save(detail);
 	}
 	
 	@GraphQLMutation(name = "createKpiDetail")
@@ -65,7 +65,7 @@ public class KpiDetailMutation {
 //		if(columnZ != null) 	detail.setColumnZ(columnZ);
 //		if(valorKPI != null) 	detail.setValorKPI(valorKPI);
 		
-		return detailRepository.save(detail);
+		return kpiDetailRepository.save(detail);
 	}
 	@GraphQLMutation(name = "deleteDetail")
 	public KpiDetail deleteDetail(BigInteger id) {
@@ -73,7 +73,7 @@ public class KpiDetailMutation {
 //		Optional<KpiDetail> detailOptional = kpiDetailRepository.findById(id);
 //		KpiDetail detail = kpiDetailRepository.findById(id);
 //		System.out.println(">> > "+detail.getValorKPI()); 
-		detailRepository.deleteById(id);
+		kpiDetailRepository.deleteById(id);
 		return detail;
 	}
 
