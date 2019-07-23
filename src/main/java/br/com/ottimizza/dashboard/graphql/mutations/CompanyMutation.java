@@ -44,6 +44,9 @@ public class CompanyMutation {
 		newCompany.setCnpj(cnpj);
 	    newCompany.setName(name);
 	    newCompany = companyRepository.save(newCompany);
+	    
+	    
+	    System.out.println(">>> >> 0 "+newCompany.getId());
 //	    JSONObject jsArray = new JSONObject();
 	    if(kpis != null)
     		for (Kpi kpi : kpis) {
@@ -51,10 +54,10 @@ public class CompanyMutation {
 //			    	KpiService kpiService = new KpiService();		    	
 			    	Kpi newKpi = kpiService.createKpi(newCompany.getId(), kpi);
 //			    	jsArray.put(kpi.getKpiAlias(), "OK");
-			    	System.out.println(">>> 1 "+newKpi.getId());
+			    	System.out.println(">>> >> 1 "+newKpi.getId());
     			}catch (Exception e) {
 //			    	jsArray.put(kpi.getKpiAlias(), "NOK");
-			    	System.out.println(">>> 2 "+kpi.getKpiAlias().toString());
+			    	System.out.println(">>> >> 2 "+kpi.getKpiAlias().toString());
 				}
 		    }
 	    return newCompany;
