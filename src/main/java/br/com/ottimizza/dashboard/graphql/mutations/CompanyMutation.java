@@ -42,7 +42,7 @@ public class CompanyMutation {
 	    newCompany.setName(name);
 	    newCompany = companyRepository.save(newCompany);
 //	    JSONObject jsArray = new JSONObject();
-	    if(kpis == null)
+	    if(kpis != null)
     		for (Kpi kpi : kpis) {
     			try {
 			    	KpiService kpiService = new KpiService();		    	
