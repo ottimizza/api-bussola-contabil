@@ -41,8 +41,10 @@ public class GraphQLConfiguration {
 		KpiResolver kpiQuery = new KpiResolver(em, kpiRepository);
 		KpiDetailResolver kpiDetailQuery = new KpiDetailResolver(em, kpiDetailRepository);
 
-		CompanyMutation companyMutation = new CompanyMutation(em, companyRepository);
-		KpiMutation kpiMutation = new KpiMutation(em, kpiRepository, companyRepository);
+//		CompanyMutation companyMutation = new CompanyMutation(em, companyRepository);
+//		KpiMutation kpiMutation = new KpiMutation(em, kpiRepository, companyRepository);
+		CompanyMutation companyMutation = new CompanyMutation(em, kpiDetailRepository, kpiRepository, companyRepository);
+		KpiMutation kpiMutation = new KpiMutation(em, kpiDetailRepository, kpiRepository, companyRepository);
 		KpiDetailMutation kpiDetailMutation = new KpiDetailMutation(em, kpiDetailRepository, kpiRepository, companyRepository);
 		
 		return new GraphQLSchemaGenerator().

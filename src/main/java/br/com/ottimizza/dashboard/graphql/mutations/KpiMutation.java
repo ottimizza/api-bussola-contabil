@@ -29,12 +29,12 @@ public class KpiMutation {
 	private KpiRepository kpiRepository;
 	private KpiDetailRepository kpiDetailRepository;
 
-	public KpiMutation(EntityManager em, KpiRepository kpiRepository, CompanyRepository companyRepository) {
+	public KpiMutation(EntityManager em, KpiDetailRepository kpiDetailRepository, KpiRepository kpiRepository, CompanyRepository companyRepository) {
 		this.em = em;
+		this.kpiDetailRepository = kpiDetailRepository;
 		this.kpiRepository = kpiRepository;
 		this.companyRepository = companyRepository;
 	}
-
 	@GraphQLMutation(name = "editKpi")
 	public Kpi editKpi(Kpi newKpi) {
 		Kpi kpi = new Kpi();
@@ -64,26 +64,15 @@ public class KpiMutation {
 			String description, Short graphType, String columnX0Label, String label, String label2, String label3,
 			String label4, Boolean visible) {
 
-		System.out.println(">>> 0");
 		Kpi kpi = new Kpi();
 
 		if (!companyId.equals("") && !companyId.equals(null)) {
-			System.out.println(">>> 1");
-
 			Optional<Company> optionalCompany = companyRepository.findById(companyId);
 
-			try {
-				company = optionalCompany.get();
-				System.out.println(">>> 2 "+company.getId());
-			} catch (Exception e) {
-				System.out.println(">>> 3");
-				new NoSuchElementException(e.getStackTrace().toString());
-			}
-
+			try { company = optionalCompany.get(); } 
+			catch (Exception e) { new NoSuchElementException(e.getStackTrace().toString()); }
 		}
 		if (!company.getId().equals(null)) {
-			System.out.println(">>> 4");
-
 			kpi.setCompany(company);
 			kpi.setKpiAlias(kpiAlias);
 			kpi.setTitle(title);
@@ -97,43 +86,37 @@ public class KpiMutation {
 			kpi.setLabel4(label4);
 			kpi.setVisible(visible);
 		}
-		try {
-			kpi = kpiRepository.save(kpi);
-		} catch (Exception e) {
-			System.out.println("<< "+e.getMessage().toString());
-			System.out.println("<<< "+e.getStackTrace().toString());
-		}
+		
 		return kpiRepository.save(kpi);
 	}
 
-//	public Kpi createKpi(BigInteger companyId, Kpi kpi) {
-//		Kpi newKpi = new Kpi();
-//		Optional<Company> optionalCompany = companyRepository.findById(companyID);
-//		Company c = new Company();
-//
-//		
-//		try {
-//			c = optionalCompany.get();
-//			newKpi.setCompany(c);
-//			newKpi.setTitle(kpi.getTitle());
-//			newKpi.setGraphType(kpi.getGraphType());
-//			newKpi.setColumnX0Label(kpi.getColumnX0Label());
-//			newKpi.setLabel(kpi.getLabel());
-//		
-//			newKpi.setKpiAlias(kpi.getKpiAlias());
-//			newKpi.setSubtitle(kpi.getSubtitle());
-//			newKpi.setDescription(kpi.getDescription());
-//			newKpi.setVisible(kpi.getVisible());
-//			newKpi.setLabel2(kpi.getLabel2());
-//			newKpi.setLabel3(kpi.getLabel3());
-//			newKpi.setLabel4(kpi.getLabel4());
-//		} catch (Exception e) { 
-//			//new NoSuchElementException(); 
-//		}
-//		
-//		
-//		return kpiRepository.save(newKpi);	
-//	}
+	public Kpi createKpi(BigInteger companyId, Kpi kpi) {
+		Kpi newKpi = new Kpi();
+		Optional<Company> optionalCompany = companyRepository.findById(companyId);
+		Company c = new Company();
+
+		try {
+			c = optionalCompany.get();
+			newKpi.setCompany(c);
+			newKpi.setTitle(kpi.getTitle());
+			newKpi.setGraphType(kpi.getGraphType());
+			newKpi.setColumnX0Label(kpi.getColumnX0Label());
+			newKpi.setLabel(kpi.getLabel());
+		
+			newKpi.setKpiAlias(kpi.getKpiAlias());
+			newKpi.setSubtitle(kpi.getSubtitle());
+			newKpi.setDescription(kpi.getDescription());
+			newKpi.setVisible(kpi.getVisible());
+			newKpi.setLabel2(kpi.getLabel2());
+			newKpi.setLabel3(kpi.getLabel3());
+			newKpi.setLabel4(kpi.getLabel4());
+		} catch (Exception e) { 
+			//new NoSuchElementException(); 
+		}
+		
+		
+		return kpiRepository.save(newKpi);	
+	}
 	@GraphQLMutation(name = "deleteKpi")
 	public Kpi deleteKpi(BigInteger id) {
 		Kpi kpi = new Kpi();

@@ -20,13 +20,13 @@ public class KpiDetailMutation {
 
 	private EntityManager em;
 	private QKpiDetail kpiDetail = QKpiDetail.kpiDetail;
-	private KpiDetailRepository detailRepository;
+	private KpiDetailRepository kpiDetailRepository;
 	private KpiRepository kpiRepository;
 	private CompanyRepository companyRepository;
 
 	public KpiDetailMutation(EntityManager em, KpiDetailRepository kpiDetailRepository, KpiRepository kpiRepository, CompanyRepository companyRepository) {
 		this.em = em;
-		this.detailRepository = kpiDetailRepository;
+		this.kpiDetailRepository = kpiDetailRepository;
 		this.kpiRepository = kpiRepository;
 		this.companyRepository = companyRepository;
 		

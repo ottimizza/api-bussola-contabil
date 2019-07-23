@@ -1,7 +1,7 @@
 extends type Company {
-	id: BigInteger
-	cnpj: String
-	name: String
+	id: BigInteger!
+	cnpj: String!
+	name: String!
 	kpis: [Kpi]
 }
 
