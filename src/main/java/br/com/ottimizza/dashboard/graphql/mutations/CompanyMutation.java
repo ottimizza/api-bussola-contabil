@@ -34,13 +34,26 @@ public class CompanyMutation {
 	@GraphQLMutation(name = "createCompany")
 	public Company createCompany(String cnpj, String name, List<Kpi> kpis) {
 		System.out.println(">>a");
-		if(kpis.equals(null)) System.out.println(">>b");
-		if(kpis.isEmpty()) System.out.println(">>c");
+//		if(kpis.equals(null)) System.out.println(">>b");
+//		if(kpis.isEmpty()) System.out.println(">>c");
 		
 		Company newCompany = new Company(); 
 		newCompany.setCnpj(cnpj);
 	    newCompany.setName(name);
-	    return companyRepository.save(newCompany);
+	    newCompany = companyRepository.save(newCompany);
+	    
+	    try {
+	    	for (Kpi kpi : kpis) {
+		    	System.out.println(">>>b ");
+			    
+	    		KpiMutation kpiMut = new KpiMutation(em, kpiDetailRepository, kpiRepository, companyRepository);
+		    	kpiMut.createKpi(newCompany.getId(), kpi);
+				
+		    }
+	    }catch (Exception e) {
+			
+		}
+	    return newCompany;
 	}
 //		System.out.println(">>>1 ");
 //	    Company newCompany = new Company(); 
