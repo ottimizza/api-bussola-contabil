@@ -1,12 +1,12 @@
 extends type Kpi {
 	id: BigInteger
-	kpiAlias: String
+	kpiAlias: String!
 	company: CompanyFilter
-	title: String
+	title: String!
 	subtitle: String
 	description: String
-	graphType: Short
-	columnX0Label: String
+	graphType: Short!
+	columnX0Label: String!
 	label: String
 	label2: String
 	label3: String

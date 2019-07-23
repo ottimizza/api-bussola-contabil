@@ -97,7 +97,12 @@ public class KpiMutation {
 			kpi.setLabel4(label4);
 			kpi.setVisible(visible);
 		}
-		
+		try {
+			kpi = kpiRepository.save(kpi);
+		} catch (Exception e) {
+			System.out.println("<< "+e.getMessage().toString());
+			System.out.println("<<< "+e.getStackTrace().toString());
+		}
 		return kpiRepository.save(kpi);
 	}
 
