@@ -33,6 +33,10 @@ public class CompanyMutation {
 
 	@GraphQLMutation(name = "createCompany")
 	public Company createCompany(String cnpj, String name, List<Kpi> kpis) {
+		System.out.println(">>a");
+		if(kpis.equals(null)) System.out.println(">>b");
+		if(kpis.isEmpty()) System.out.println(">>c");
+		
 		Company newCompany = new Company(); 
 		newCompany.setCnpj(cnpj);
 	    newCompany.setName(name);
