@@ -33,37 +33,42 @@ public class CompanyMutation {
 
 	@GraphQLMutation(name = "createCompany")
 	public Company createCompany(String cnpj, String name, List<Kpi> kpis) {
-		System.out.println(">>>1 ");
-	    Company newCompany = new Company(); 
-	    
-	    if(kpis.equals(null) && !kpis.isEmpty()) {
-	    	System.out.println(">>>3 ");
-		    
-		    newCompany.setCnpj(cnpj);
-		    newCompany.setName(name);
-		    newCompany = companyRepository.save(newCompany);
-			
-		    for (Kpi kpi : kpis) {
-		    	System.out.println(">>>4 ");
-			    
-		    	try {
-			    	KpiMutation kpiMut = new KpiMutation(em, kpiDetailRepository, kpiRepository, companyRepository);
-			    	kpiMut.createKpi(newCompany.getId(), kpi);
-		    	}catch (Exception e) {
-		    		System.out.println("<><> "+e.getMessage());
-				}
-		    }
-	    } else {
-	    	System.out.println(">>>2 ");
-		    
-		    newCompany.setCnpj(cnpj);
-		    newCompany.setName(name);
-		    return companyRepository.save(newCompany);
-	    
-	    }
-//	    companyRepository.save(newCompany);
-	    return newCompany;	
+		Company newCompany = new Company(); 
+		newCompany.setCnpj(cnpj);
+	    newCompany.setName(name);
+	    return companyRepository.save(newCompany);
 	}
+//		System.out.println(">>>1 ");
+//	    Company newCompany = new Company(); 
+//	    
+//	    if(kpis.equals(null) && !kpis.isEmpty()) {
+//	    	System.out.println(">>>3 ");
+//		    
+//		    newCompany.setCnpj(cnpj);
+//		    newCompany.setName(name);
+//		    newCompany = companyRepository.save(newCompany);
+//			
+//		    for (Kpi kpi : kpis) {
+//		    	System.out.println(">>>4 ");
+//			    
+//		    	try {
+//			    	KpiMutation kpiMut = new KpiMutation(em, kpiDetailRepository, kpiRepository, companyRepository);
+//			    	kpiMut.createKpi(newCompany.getId(), kpi);
+//		    	}catch (Exception e) {
+//		    		System.out.println("<><> "+e.getMessage());
+//				}
+//		    }
+//	    } else {
+//	    	System.out.println(">>>2 ");
+//		    
+//		    newCompany.setCnpj(cnpj);
+//		    newCompany.setName(name);
+//		    return companyRepository.save(newCompany);
+//	    
+//	    }
+////	    companyRepository.save(newCompany);
+//	    return newCompany;	
+//	}
 	
 //	@GraphQLMutation(name = "createCompany")
 //	public Company createCompany(Company filter) {
