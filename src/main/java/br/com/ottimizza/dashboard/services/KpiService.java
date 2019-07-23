@@ -4,7 +4,6 @@ import br.com.ottimizza.dashboard.models.Company;
 import br.com.ottimizza.dashboard.models.Kpi;
 import br.com.ottimizza.dashboard.models.KpiShort;
 import br.com.ottimizza.dashboard.repositories.company.CompanyRepository;
-import br.com.ottimizza.dashboard.repositories.company.CompanyRepositoryCustom;
 import br.com.ottimizza.dashboard.repositories.kpi.KpiRepository;
 import br.com.ottimizza.dashboard.repositories.kpi.kpi_short.KpiShortRepository;
 
@@ -27,7 +26,7 @@ public class KpiService {
 
     
     @Inject
-    private CompanyRepositoryCustom companyRepository;
+    private CompanyRepository companyRepository;
 
     
     public Kpi save(Kpi kpi) throws Exception {
@@ -83,12 +82,11 @@ public class KpiService {
 		System.out.println("~~~ a ");
 		Kpi newKpi = new Kpi();
 		Company c = new Company();
-//		Optional<Company> optionalCompany = companyRepository.findById(companyId);
-		Company optionalCompany = companyRepository.findById(companyId);
-		System.out.println("~~~ b1 "+optionalCompany.getId());
+		Optional<Company> optionalCompany = companyRepository.findById(companyId);
+		System.out.println("~~~ b1 "+optionalCompany.get().getId());
 
 		try {
-			c = optionalCompany;
+			c = optionalCompany.get();
 			System.out.println("~~~ b "+c.getId());
 			newKpi.setCompany(c);
 			newKpi.setTitle(kpi.getTitle());

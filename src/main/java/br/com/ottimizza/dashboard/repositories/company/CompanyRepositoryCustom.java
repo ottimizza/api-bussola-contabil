@@ -1,8 +1,6 @@
 package br.com.ottimizza.dashboard.repositories.company;
 
 import br.com.ottimizza.dashboard.models.Company;
-
-import java.math.BigInteger;
 import java.util.List;
 
 public interface CompanyRepositoryCustom {
@@ -11,7 +9,6 @@ public interface CompanyRepositoryCustom {
     
     List<Company> findCompaniesByCNPJ(List<String> cnpj);
     
-    Company findById(BigInteger idCompany);
     
 //    List<Company> findCompanyByName(String name);
 //
