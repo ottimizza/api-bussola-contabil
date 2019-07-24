@@ -47,69 +47,16 @@ public class CompanyMutation {
 	    newCompany.setName(name);
 	    newCompany = companyRepository.save(newCompany);
 	    
-	    if(kpis != null)
+	    if(kpis != null) {
     		for (Kpi kpi : kpis) {
     			try { Kpi newKpi = kpiService.createKpi(newCompany.getId(), kpi); }
     			catch (Exception e) {System.out.printf("Nao foi possivel criar KPI { kpiAlias: %s, title: %s }", kpi.getKpiAlias(), kpi.getTitle());}
 		    }
-	    
+	    }
 	    Optional<Company> optCompany = companyRepository.findById(newCompany.getId());
 	    if (optCompany != null) newCompany = optCompany.get();
 	    
 	    return newCompany;
-	}
-//		System.out.println(">>>1 ");
-//	    Company newCompany = new Company(); 
-//	    
-//	    if(kpis.equals(null) && !kpis.isEmpty()) {
-//	    	System.out.println(">>>3 ");
-//		    
-//		    newCompany.setCnpj(cnpj);
-//		    newCompany.setName(name);
-//		    newCompany = companyRepository.save(newCompany);
-//			
-//		    for (Kpi kpi : kpis) {
-//		    	System.out.println(">>>4 ");
-//			    
-//		    	try {
-//			    	KpiMutation kpiMut = new KpiMutation(em, kpiDetailRepository, kpiRepository, companyRepository);
-//			    	kpiMut.createKpi(newCompany.getId(), kpi);
-//		    	}catch (Exception e) {
-//		    		System.out.println("<><> "+e.getMessage());
-//				}
-//		    }
-//	    } else {
-//	    	System.out.println(">>>2 ");
-//		    
-//		    newCompany.setCnpj(cnpj);
-//		    newCompany.setName(name);
-//		    return companyRepository.save(newCompany);
-//	    
-//	    }
-////	    companyRepository.save(newCompany);
-//	    return newCompany;	
-//	}
-	
-//	@GraphQLMutation(name = "createCompany")
-//	public Company createCompany(Company filter) {
-//	    companyRepository.save(filter);
-//	    return filter;	
-//	}
-	
-	
-	@GraphQLMutation(name = "createCompanies")
-	public JSONObject createCompanies(List<Company> companies) {
-		JSONObject result = new JSONObject();
-		for (Company company : companies) {
-			try{
-				companyRepository.save(company);
-				result.put(company.getCnpj(), "OK");
-			}catch (Exception e) {
-				result.put(company.getCnpj(), "NAO INSERIDO");
-			}
-		}
-		return result;
-	}
-	
+	}	
 
 }
