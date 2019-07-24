@@ -26,7 +26,6 @@ public class CompanyResolver {
 	}
 
 	@GraphQLQuery
-//	public List<Company> findCompany(Company filter) {
 	public List<Company> findCompany(BigInteger id, String cnpj, String name) {
 		JPAQuery<Company> query = new JPAQuery<Company>(em).from(company);
 		
@@ -34,7 +33,7 @@ public class CompanyResolver {
 			query.where(company.id.in(id));
 		
 		if (name != null) 
-			query.where(company.name.contains(name));
+			query.where(company.name.contains(name.toUpperCase()));
 		
 		if (cnpj != null) 
 			query.where(company.cnpj.eq(cnpj));
