@@ -79,15 +79,12 @@ public class KpiService {
     }
 	
 	public Kpi createKpi(BigInteger companyId, Kpi kpi) {
-		System.out.println("~~~ a ");
 		Kpi newKpi = new Kpi();
 		Company c = new Company();
 		Optional<Company> optionalCompany = companyRepository.findById(companyId);
-		System.out.println("~~~ b1 "+optionalCompany.get().getId());
 
 		try {
 			c = optionalCompany.get();
-			System.out.println("~~~ b "+c.getId());
 			newKpi.setCompany(c);
 			newKpi.setTitle(kpi.getTitle());
 			newKpi.setGraphType(kpi.getGraphType());
@@ -102,8 +99,6 @@ public class KpiService {
 			newKpi.setLabel3(kpi.getLabel3());
 			newKpi.setLabel4(kpi.getLabel4());
 		} catch (Exception e) { 
-			System.out.println("~~~ c "+e.getMessage());
-			
 			//new NoSuchElementException(); 
 		}
 		

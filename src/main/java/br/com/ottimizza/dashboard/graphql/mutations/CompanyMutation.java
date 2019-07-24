@@ -50,13 +50,12 @@ public class CompanyMutation {
 	    if(kpis != null)
     		for (Kpi kpi : kpis) {
     			try { Kpi newKpi = kpiService.createKpi(newCompany.getId(), kpi); }
-    			catch (Exception e) {System.out.printf("Nao foi possivel criar KPI { kpiAlias: %s, title: %s }", kpi.getKpiAlias(), kpi.getTitle());}
+    			catch (Exception e) {System.out.printf("Nao foi possivel criar KPI { kpiAlias: %s, title: %s \r\n}", kpi.getKpiAlias(), kpi.getTitle());}
 		    }
 	    
 	    Optional<Company> optCompany = companyRepository.findById(newCompany.getId());
 	    if (optCompany != null) newCompany = optCompany.get();
 	    
-	    //buscar new company pelo id do new company
 	    return newCompany;
 	}
 //		System.out.println(">>>1 ");
