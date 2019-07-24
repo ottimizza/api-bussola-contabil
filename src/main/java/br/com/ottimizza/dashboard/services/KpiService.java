@@ -101,8 +101,6 @@ public class KpiService {
 		} catch (Exception e) { 
 			//new NoSuchElementException(); 
 		}
-		
-		
 		return repository.save(newKpi);	
 	}
 
