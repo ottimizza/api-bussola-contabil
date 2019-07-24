@@ -17,4 +17,5 @@ extends type Query {
 
 extends type Mutation {
 	createCompany(cnpj: String, name: String, kpis: [Kpi]): Company	
+	editCompany(id: BigInteger, cnpj: String, name: String): Company	
 }

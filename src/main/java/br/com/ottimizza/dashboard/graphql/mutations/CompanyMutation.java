@@ -58,5 +58,39 @@ public class CompanyMutation {
 	    
 	    return newCompany;
 	}	
+	
+	@GraphQLMutation(name = "editCompany")
+	public Company editCompany(BigInteger id, String cnpj, String name) {
+		Company company = new Company();
+		Optional<Company> optCompany = companyRepository.findById(id);
+		if(optCompany != null) {
+			company = optCompany.get();
+			company.setCnpj(cnpj);
+			company.setName(name);
+		}
+		return companyRepository.save(company);
+	}
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
