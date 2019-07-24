@@ -2,6 +2,7 @@ package br.com.ottimizza.dashboard.graphql.mutations;
 
 import java.math.BigInteger;
 import java.util.List;
+import java.util.Optional;
 
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
@@ -46,21 +47,16 @@ public class CompanyMutation {
 	    newCompany.setName(name);
 	    newCompany = companyRepository.save(newCompany);
 	    
-	    
-	    System.out.println(">>> >> 0 "+newCompany.getId());
-//	    JSONObject jsArray = new JSONObject();
 	    if(kpis != null)
     		for (Kpi kpi : kpis) {
-    			try {
-//			    	KpiService kpiService = new KpiService();		    	
-			    	Kpi newKpi = kpiService.createKpi(newCompany.getId(), kpi);
-//			    	jsArray.put(kpi.getKpiAlias(), "OK");
-			    	System.out.println(">>> >> 1 "+newKpi.getId());
-    			}catch (Exception e) {
-//			    	jsArray.put(kpi.getKpiAlias(), "NOK");
-			    	System.out.println(">>> >> 2 "+kpi.getKpiAlias().toString());
-				}
+    			try { Kpi newKpi = kpiService.createKpi(newCompany.getId(), kpi); }
+    			catch (Exception e) {System.out.printf("Nao foi possivel criar KPI { kpiAlias: %s, title: %s }", kpi.getKpiAlias(), kpi.getTitle());}
 		    }
+	    
+	    Optional<Company> optCompany = companyRepository.findById(newCompany.getId());
+	    if (optCompany != null) newCompany = optCompany.get();
+	    
+	    //buscar new company pelo id do new company
 	    return newCompany;
 	}
 //		System.out.println(">>>1 ");
