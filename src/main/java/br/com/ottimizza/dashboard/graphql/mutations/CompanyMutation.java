@@ -65,8 +65,8 @@ public class CompanyMutation {
 		Optional<Company> optCompany = companyRepository.findById(id);
 		if(optCompany != null) {
 			company = optCompany.get();
-			company.setCnpj(cnpj);
-			company.setName(name);
+			company.setCnpj(cnpj == null ? company.getCnpj() : cnpj);
+			company.setName(name == null ? company.getName() : name);
 		}
 		return companyRepository.save(company);
 	}
