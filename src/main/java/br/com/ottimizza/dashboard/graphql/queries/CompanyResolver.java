@@ -1,5 +1,6 @@
 package br.com.ottimizza.dashboard.graphql.queries;
 
+import java.math.BigInteger;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -25,27 +26,20 @@ public class CompanyResolver {
 	}
 
 	@GraphQLQuery
-	public List<Company> findCompany(Company filter) {
+//	public List<Company> findCompany(Company filter) {
+	public List<Company> findCompany(BigInteger id, String cnpj, String name) {
 		JPAQuery<Company> query = new JPAQuery<Company>(em).from(company);
 		
-		if (filter.getId() != null) {
-			query.where(company.id.in(filter.getId()));
-		}
+		if (id != null) 
+			query.where(company.id.in(id));
 		
-		if (filter.getName() != null) {
-			query.where(company.name.contains(filter.getName()));
-		}
-
-		if (filter.getCnpj() != null) {
-			query.where(company.cnpj.eq(filter.getCnpj()));
-		}
+		if (name != null) 
+			query.where(company.name.contains(name));
+		
+		if (cnpj != null) 
+			query.where(company.cnpj.eq(cnpj));
 
 		return query.orderBy(company.name.asc()).fetch();
 	}
 	
-
-	public long countCompany() {
-		return companyRepository.count();
-	}
-
 }

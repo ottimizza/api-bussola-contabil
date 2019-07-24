@@ -12,7 +12,7 @@ extends input CompanyFilter {
 }
 
 extends type Query {
-	findCompany(filter: CompanyFilter): [Company]	
+	findCompany(id: BigInteger, cnpj: String, name: String): [Company]
 }
 
 extends type Mutation {
