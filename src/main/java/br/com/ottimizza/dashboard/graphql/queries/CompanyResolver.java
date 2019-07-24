@@ -33,7 +33,7 @@ public class CompanyResolver {
 			query.where(company.id.in(id));
 		
 		if (name != null) 
-			query.where(company.name.contains(name.toUpperCase()));
+			query.where(company.name.toUpperCase().contains(name.toUpperCase()));
 		
 		if (cnpj != null) 
 			query.where(company.cnpj.eq(cnpj));
