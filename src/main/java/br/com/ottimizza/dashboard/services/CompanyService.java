@@ -108,9 +108,6 @@ public class CompanyService {
                 kpiRepository.delete(kpi);
             }
             
-            for (Company company : companies) {
-                repository.delete(company);
-            }
             
             response.put("status","sucess");
             response.put("message","Excluído informações com sucesso!");
