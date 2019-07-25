@@ -50,7 +50,7 @@ public class CompanyController {
     
     @PostMapping("save")
     public ResponseEntity<Company> saveCompany(@RequestBody Company company) throws Exception {
-        
+    	System.out.println(">> > 0");
     	List<Kpi> kpis = company.getKpis();
         company = companyService.save(company);
     	
@@ -62,12 +62,13 @@ public class CompanyController {
 				try { kpi = kpiService.save(kpi); System.out.println(">> > 2");}
 				catch (Exception e) {System.out.println(">> > 3");}
 				
-//				if(!details.isEmpty()) {
-//					for (KpiDetail detail : details) {
-//						try { detail = kpiDetailService.save(detail); }
-//						catch (Exception e) {}
-//					}
-//				}
+				if(!details.isEmpty()) {
+					for (KpiDetail detail : details) {
+						detail.setKpiID(kpi);
+						try { detail = kpiDetailService.save(detail); System.out.println(">> > 4");}
+						catch (Exception e) { System.out.println(">> > 5"); }
+					}
+				}
 			}
     	}
     	return ResponseEntity.ok(company);
