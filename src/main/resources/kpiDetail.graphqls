@@ -1,9 +1,9 @@
 extends type KpiDetail {
-	id: BigInteger
-	columnX:String
-	columnY:String
-	columnZ:String
-	valorKPI:Double
+	id: BigInteger!
+	columnX:String!
+	columnY:String!
+	columnZ:String!
+	valorKPI:Double!
 	valorKPI2:Double
 	valorKPI3:Double
 	valorKPI4:Double
