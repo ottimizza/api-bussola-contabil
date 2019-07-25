@@ -54,7 +54,7 @@ public class CompanyController {
     	List<Kpi> kpis = company.getKpis();
         company = companyService.save(company);
     	
-    	if(!kpis.isEmpty()) {
+    	if(kpis != null && !kpis.isEmpty()) {
     	System.out.println(">> > 1");
     		for (Kpi kpi : kpis) {
     			kpi.setCompany(company);
@@ -62,7 +62,7 @@ public class CompanyController {
 				try { kpi = kpiService.save(kpi); System.out.println(">> > 2");}
 				catch (Exception e) {}
 				
-				if(!details.isEmpty()) {
+				if(details != null && !details.isEmpty()) {
 					System.out.println(">> > 3");
 					for (KpiDetail detail : details) {
 						System.out.println(">> > 3.1");
