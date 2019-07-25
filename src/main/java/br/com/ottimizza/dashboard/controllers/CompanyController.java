@@ -60,10 +60,12 @@ public class CompanyController {
     			kpi.setCompany(company);
     			List<KpiDetail> details = kpi.getKpiDetail();
 				try { kpi = kpiService.save(kpi); System.out.println(">> > 2");}
-				catch (Exception e) {System.out.println(">> > 3");}
+				catch (Exception e) {}
 				
 				if(!details.isEmpty()) {
+					System.out.println(">> > 3");
 					for (KpiDetail detail : details) {
+						System.out.println(">> > 3.1");
 						detail.setKpiID(kpi);
 						try { detail = kpiDetailService.save(detail); System.out.println(">> > 4");}
 						catch (Exception e) { System.out.println(">> > 5"); }
