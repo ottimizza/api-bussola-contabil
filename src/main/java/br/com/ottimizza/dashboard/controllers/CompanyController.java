@@ -55,28 +55,21 @@ public class CompanyController {
         company = companyService.save(company);
     	
     	if(kpis != null && !kpis.isEmpty()) {
-    	System.out.println(">> > 1 "+kpis.size());
     		for (Kpi kpi : kpis) {
     			
     			kpi.setCompany(company);
-//    			System.out.println(">> > 1.2 "+details.size());
-//    			if(details.size() > 0) System.out.println(">> > 1.3 "+details.get(0).getValorKPI());
-    			
-				try { kpi = kpiService.save(kpi); System.out.println(">> > 2");}
+				try { kpi = kpiService.save(kpi); }
 				catch (Exception e) {}
 
-				if (kpi.getKpiDetail() == null) {
-					List<KpiDetail> details = kpi.getKpiDetail();
-					if(details != null && !details.isEmpty()) {
-						System.out.println(">> > 3");
-						for (KpiDetail detail : details) {
-							System.out.println(">> > 3.1");
-							detail.setKpiID(kpi);
-							try { detail = kpiDetailService.save(detail); System.out.println(">> > 4");}
-							catch (Exception e) { System.out.println(">> > 5"); }
-						}
-					}
-				}
+//				List<KpiDetail> details = kpi.getKpiDetail();
+//				if(details != null && !details.isEmpty()) {
+//					for (KpiDetail detail : details) {
+//						detail.setKpiID(kpi);
+//						try { detail = kpiDetailService.save(detail); }
+//						catch (Exception e) {  }
+//					}
+//				}
+				
 			}
     	}
     	return ResponseEntity.ok(company);
