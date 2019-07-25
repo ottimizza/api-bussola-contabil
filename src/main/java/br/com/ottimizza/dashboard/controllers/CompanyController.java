@@ -62,12 +62,12 @@ public class CompanyController {
 				try { kpi = kpiService.save(kpi); System.out.println(">> > 2");}
 				catch (Exception e) {System.out.println(">> > 3");}
 				
-				if(!details.isEmpty()) {
-					for (KpiDetail detail : details) {
-						try { detail = kpiDetailService.save(detail); }
-						catch (Exception e) {}
-					}
-				}
+//				if(!details.isEmpty()) {
+//					for (KpiDetail detail : details) {
+//						try { detail = kpiDetailService.save(detail); }
+//						catch (Exception e) {}
+//					}
+//				}
 			}
     	}
     	return ResponseEntity.ok(company);
