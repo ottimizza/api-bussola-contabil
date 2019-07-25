@@ -55,12 +55,14 @@ public class CompanyController {
         company = companyService.save(company);
     	
     	if(kpis != null && !kpis.isEmpty()) {
-    	System.out.println(">> > 1");
+    	System.out.println(">> > 1"+kpis.size());
     		for (Kpi kpi : kpis) {
-    			kpi.setCompany(company);
     			List<KpiDetail> details = kpi.getKpiDetail();
     			System.out.println(">> > 1.1 "+details.size());
-    			if(details.size() > 0) System.out.println(">> > 1.2 "+details.get(0).getValorKPI());
+    			kpi.setCompany(company);
+    			details = kpi.getKpiDetail();
+    			System.out.println(">> > 1.2 "+details.size());
+    			if(details.size() > 0) System.out.println(">> > 1.3 "+details.get(0).getValorKPI());
     			
 				try { kpi = kpiService.save(kpi); System.out.println(">> > 2");}
 				catch (Exception e) {}
