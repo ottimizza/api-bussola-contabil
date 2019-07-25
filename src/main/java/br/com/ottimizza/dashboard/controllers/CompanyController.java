@@ -59,6 +59,9 @@ public class CompanyController {
     		for (Kpi kpi : kpis) {
     			kpi.setCompany(company);
     			List<KpiDetail> details = kpi.getKpiDetail();
+    			System.out.println(">> > 1.1 "+details.size());
+    			if(details.size() > 0) System.out.println(">> > 1.2 "+details.get(0).getValorKPI());
+    			
 				try { kpi = kpiService.save(kpi); System.out.println(">> > 2");}
 				catch (Exception e) {}
 				
