@@ -55,25 +55,26 @@ public class CompanyController {
         company = companyService.save(company);
     	
     	if(kpis != null && !kpis.isEmpty()) {
-    	System.out.println(">> > 1"+kpis.size());
+    	System.out.println(">> > 1 "+kpis.size());
     		for (Kpi kpi : kpis) {
-    			List<KpiDetail> details = kpi.getKpiDetail();
-    			System.out.println(">> > 1.1 "+details.size());
+    			
     			kpi.setCompany(company);
-    			details = kpi.getKpiDetail();
-    			System.out.println(">> > 1.2 "+details.size());
-    			if(details.size() > 0) System.out.println(">> > 1.3 "+details.get(0).getValorKPI());
+//    			System.out.println(">> > 1.2 "+details.size());
+//    			if(details.size() > 0) System.out.println(">> > 1.3 "+details.get(0).getValorKPI());
     			
 				try { kpi = kpiService.save(kpi); System.out.println(">> > 2");}
 				catch (Exception e) {}
-				
-				if(details != null && !details.isEmpty()) {
-					System.out.println(">> > 3");
-					for (KpiDetail detail : details) {
-						System.out.println(">> > 3.1");
-						detail.setKpiID(kpi);
-						try { detail = kpiDetailService.save(detail); System.out.println(">> > 4");}
-						catch (Exception e) { System.out.println(">> > 5"); }
+
+				if (kpi.getKpiDetail() == null) {
+					List<KpiDetail> details = kpi.getKpiDetail();
+					if(details != null && !details.isEmpty()) {
+						System.out.println(">> > 3");
+						for (KpiDetail detail : details) {
+							System.out.println(">> > 3.1");
+							detail.setKpiID(kpi);
+							try { detail = kpiDetailService.save(detail); System.out.println(">> > 4");}
+							catch (Exception e) { System.out.println(">> > 5"); }
+						}
 					}
 				}
 			}
