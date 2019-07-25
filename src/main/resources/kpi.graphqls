@@ -37,8 +37,7 @@ extends type Query {
 }
 
 extends type Mutation {
-	createKpi(companyId: BigInteger, company: Company, kpiAlias: String, title: String, subtitle: String, description: String, graphType: Short, columnX0Label: String, label: String, label2: String, label3: String, label4: String, visible: Boolean): Kpi
-	editKpi(filter: KpiFilter): Kpi
-	deleteKpi(BigInteger: id): Kpi
-	
+	createKpi(companyId: BigInteger, kpiAlias: String, title: String, subtitle: String, description: String, graphType: Short, columnX0Label: String, label: String, label2: String, label3: String, label4: String, visible: Boolean): Kpi
+	editKpi(id: BigInteger, kpiAlias: String, title: String, subtitle: String, description: String, graphType: Short, columnX0Label: String, label: String, label2: String, label3: String, label4: String, visible: Boolean): Kpi
+
 }

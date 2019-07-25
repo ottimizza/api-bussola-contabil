@@ -37,39 +37,29 @@ public class KpiMutation {
 	}
 
 	@GraphQLMutation(name = "editKpi")
-	public Kpi editKpi(BigInteger id, BigInteger companyId, Company company, String kpiAlias, String title, String subtitle,
-				String description, Short graphType, String columnX0Label, String label, String label2, String label3,
-				String label4, Boolean visible) {
-
-		if (companyId != null) {
-			Optional<Company> optionalCompany = companyRepository.findById(companyId);
-			try { company = optionalCompany.get(); } 
-			catch (Exception e) { new NoSuchElementException(e.getStackTrace().toString()); }
-		}
-
-		Kpi kpi = new Kpi();
+	public Kpi editKpi(BigInteger id, String kpiAlias, String title, String subtitle, String description, Short graphType, 
+						String columnX0Label, String label, String label2, String label3, String label4, Boolean visible) {
 		
-		try { kpi = kpiRepository.findById(id).map(k -> k).orElseThrow(() -> new NotFoundException()); } 
-		catch (Exception e) { }
-
-		if (company.getId() != null) {
-			kpi.setCompany(company);
-			kpi.setKpiAlias(kpiAlias);
-			kpi.setTitle(title);
-			kpi.setSubtitle(subtitle);
-			kpi.setDescription(description);
-			kpi.setGraphType(graphType);
-			kpi.setColumnX0Label(columnX0Label);
-			kpi.setLabel(label);
-			kpi.setLabel2(label2);
-			kpi.setLabel3(label3);
-			kpi.setLabel4(label4);
-			kpi.setVisible(visible);
+		Kpi kpi = new Kpi();
+		kpi = kpiRepository.findById(id).map(k -> k).orElseThrow(() -> new NotFoundException());
+		
+		if (kpi != null) {
+			if(kpiAlias != null)	kpi.setKpiAlias(kpiAlias);
+			if(title != null)		kpi.setTitle(title);
+			if(subtitle != null)	kpi.setSubtitle(subtitle);
+			if(description != null)	kpi.setDescription(description);
+			if(graphType != null)	kpi.setGraphType(graphType);
+			if(columnX0Label != null) kpi.setColumnX0Label(columnX0Label);
+			if(label != null)		kpi.setLabel(label);
+			if(label2 != null)		kpi.setLabel2(label2);
+			if(label3 != null)		kpi.setLabel3(label3);
+			if(label4 != null)		kpi.setLabel4(label4);
+			if(visible != null)		kpi.setVisible(visible);
 		}
 		
 		return kpiRepository.save(kpi);
-		
 	}
+	
 //	public Kpi editKpi(Kpi newKpi) {
 //		Kpi kpi = new Kpi();
 //		try {
@@ -94,10 +84,11 @@ public class KpiMutation {
 //	}
 
 	@GraphQLMutation(name = "createKpi")
-	public Kpi createKpi(BigInteger companyId, Company company, String kpiAlias, String title, String subtitle,
+	public Kpi createKpi(BigInteger companyId, String kpiAlias, String title, String subtitle,
 			String description, Short graphType, String columnX0Label, String label, String label2, String label3,
 			String label4, Boolean visible) {
 
+		Company company = new Company();
 		Kpi kpi = new Kpi();
 
 //		if (!companyId.equals("") && !companyId.equals(null)) {
@@ -126,32 +117,32 @@ public class KpiMutation {
 		return kpiRepository.save(kpi);
 	}
 	
-	@GraphQLMutation(name = "deleteKpi")
-	public Kpi deleteKpi(BigInteger id) {
-		Kpi kpi = new Kpi();
-		try {
-			kpi = kpiRepository.findById(id).map(k -> k).orElseThrow(() -> new NotFoundException());
-		} catch (Exception e) {
-		}
-
-		if (kpi.getKpiDetail().isEmpty()) {
-			kpiRepository.delete(kpi);
-		} else {
-			List<KpiDetail> kpiDetails = kpi.getKpiDetail();
-
-			for (KpiDetail kpiDetail : kpiDetails) {
-				System.out.println("for . " + kpiDetail.getId());
-//				kpiDetailMut.deleteKpiDetail(kpiDetail.getId());
-
-				System.out.println("for ..");
-			}
-//			deleteKpi(kpi.getId());
+//	@GraphQLMutation(name = "deleteKpi")
+//	public Kpi deleteKpi(BigInteger id) {
+//		Kpi kpi = new Kpi();
+//		try {
+//			kpi = kpiRepository.findById(id).map(k -> k).orElseThrow(() -> new NotFoundException());
+//		} catch (Exception e) {
+//		}
+//
+//		if (kpi.getKpiDetail().isEmpty()) {
 //			kpiRepository.delete(kpi);
-
-		}
-
-		return kpi;
-	}
+//		} else {
+//			List<KpiDetail> kpiDetails = kpi.getKpiDetail();
+//
+//			for (KpiDetail kpiDetail : kpiDetails) {
+//				System.out.println("for . " + kpiDetail.getId());
+////				kpiDetailMut.deleteKpiDetail(kpiDetail.getId());
+//
+//				System.out.println("for ..");
+//			}
+////			deleteKpi(kpi.getId());
+////			kpiRepository.delete(kpi);
+//
+//		}
+//
+//		return kpi;
+//	}
 
 //	@GraphQLMutation(name = "deleteKpi")
 //	public Kpi deleteKpi(Kpi newKpi) {

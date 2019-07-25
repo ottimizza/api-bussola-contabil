@@ -22,37 +22,31 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/kpi/detail")
 public class KpiDetailController {
-    
-    @Inject
-    KpiDetailService kpiService;
-    
-    @PostMapping("save")
-    //<editor-fold defaultstate="collapsed" desc="Save kpi">
-        public ResponseEntity<KpiDetail> saveKpi(@RequestBody KpiDetail kpi) throws Exception{
-            return ResponseEntity.ok(kpiService.save(kpi));
-        }
-    //</editor-fold>
-        
-    @GetMapping("find/{id}")
-    //<editor-fold defaultstate="collapsed" desc="Find kpi by id">
-        public ResponseEntity<Optional<KpiDetail>> findKpiByID(@PathVariable("id") BigInteger idKpi) throws Exception{
-            return ResponseEntity.ok(kpiService.findById(idKpi));
-        }
-    //</editor-fold>
-        
-    @RequestMapping(value = "/find/cnpj", method = RequestMethod.POST, consumes = "application/json")
-    //<editor-fold defaultstate="collapsed" desc="Find company by ID">
-        public ResponseEntity<List<KpiDetail>> findKpiDetailByCNPJ(@RequestBody Map<String, List<String>> body) throws Exception{
-            List<String> listaCNPJ = body.get("cnpj");
-            return ResponseEntity.ok(kpiService.findByListCNPJ(listaCNPJ));
-        }
-    //</editor-fold>
-        
-    @DeleteMapping("delete/{id}")
-    //<editor-fold defaultstate="collapsed" desc="Delete kpi">
-        public ResponseEntity<String> removeKpi(@PathVariable("id") BigInteger idKpi) throws Exception{
-            return ResponseEntity.ok(kpiService.delete(idKpi).toString());
-        }
-    //</editor-fold>
-        
+
+	@Inject
+	KpiDetailService kpiService;
+
+	@PostMapping("save")
+	public ResponseEntity<KpiDetail> saveKpi(@RequestBody KpiDetail kpi) throws Exception {
+		return ResponseEntity.ok(kpiService.save(kpi));
+	}
+
+	@GetMapping("find/{id}")
+	public ResponseEntity<Optional<KpiDetail>> findKpiByID(@PathVariable("id") BigInteger idKpi) throws Exception {
+		return ResponseEntity.ok(kpiService.findById(idKpi));
+	}
+
+	@RequestMapping(value = "/find/cnpj", method = RequestMethod.POST, consumes = "application/json")
+	public ResponseEntity<List<KpiDetail>> findKpiDetailByCNPJ(@RequestBody Map<String, List<String>> body)
+			throws Exception {
+		List<String> listaCNPJ = body.get("cnpj");
+		return ResponseEntity.ok(kpiService.findByListCNPJ(listaCNPJ));
+	}
+
+	@DeleteMapping("delete/{id}")
+	public ResponseEntity<String> removeKpi(@PathVariable("id") BigInteger idKpi) throws Exception {
+		return ResponseEntity.ok(kpiService.delete(idKpi).toString());
+	}
+
+	
 }
