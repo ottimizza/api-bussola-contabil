@@ -29,25 +29,18 @@ public class CompanyService {
     @Inject
     private KpiDetailRepository kpiDetailRepository;
     
-    //<editor-fold defaultstate="collapsed" desc="Save">
     public Company save(Company company)throws Exception{
         return repository.save(company);
     }
-    //</editor-fold>
     
-    //<editor-fold defaultstate="collapsed" desc="Find by Id">
     public Optional<Company> findById(BigInteger idCompany)throws Exception{
         return repository.findById(idCompany);
     }
-    //</editor-fold>
     
-    //<editor-fold defaultstate="collapsed" desc="Find by List CNPJ">
     public List<Company> findByListCNPJ(List<String> cnpj)throws Exception{
         return repository.findCompaniesByCNPJ(cnpj);
     }
-    //</editor-fold>
     
-    //<editor-fold defaultstate="collapsed" desc="Update by Id">
     public JSONObject updateById(BigInteger idCompany, Company company) throws Exception{
         JSONObject response = new JSONObject();
         try {
@@ -72,9 +65,7 @@ public class CompanyService {
         }
         return response;
     }
-    //</editor-fold>
     
-    //<editor-fold defaultstate="collapsed" desc="Delete by Id">
     public JSONObject delete(BigInteger idCompany)throws Exception{
         JSONObject response = new JSONObject();
         try {
@@ -88,15 +79,13 @@ public class CompanyService {
         }
         return response;
     }
-    //</editor-fold>
     
-    //<editor-fold defaultstate="collapsed" desc="DELETE all information related to CNPJ">
     public JSONObject deleteAllInformationByCNPJ(String cnpj)throws Exception{
         JSONObject response = new JSONObject();
         List<String> cnpjs = new ArrayList<>();
         cnpjs.add(cnpj);
         try {
-            List<Company> companies = repository.findCompaniesByCNPJ(cnpjs);
+//            List<Company> companies = repository.findCompaniesByCNPJ(cnpjs);
             List<Kpi> kpis = kpiRepository.findKpisByCNPJ(cnpjs);
             List<KpiDetail> kpiDetails = kpiDetailRepository.findKpiDetailsByCNPJ(cnpjs);
             
@@ -108,6 +97,9 @@ public class CompanyService {
                 kpiRepository.delete(kpi);
             }
             
+//            for (Company company : companies) {
+//                repository.delete(company);
+//            }
             
             response.put("status","sucess");
             response.put("message","Excluído informações com sucesso!");
@@ -118,7 +110,6 @@ public class CompanyService {
         }
         return response;
     }
-    //</editor-fold>
     
     
     

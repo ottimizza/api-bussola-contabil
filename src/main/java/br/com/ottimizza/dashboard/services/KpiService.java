@@ -23,7 +23,6 @@ public class KpiService {
 
     @Inject
     private KpiShortRepository kpiShortRepository;
-
     
     @Inject
     private CompanyRepository companyRepository;
