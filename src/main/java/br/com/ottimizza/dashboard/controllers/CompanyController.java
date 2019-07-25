@@ -57,16 +57,17 @@ public class CompanyController {
     	if(!kpis.isEmpty()) {
     	System.out.println(">> > 1");
     		for (Kpi kpi : kpis) {
+    			kpi.setCompany(company);
     			List<KpiDetail> details = kpi.getKpiDetail();
 				try { kpi = kpiService.save(kpi); System.out.println(">> > 2");}
 				catch (Exception e) {System.out.println(">> > 3");}
 				
-//				if(!details.isEmpty()) {
-//					for (KpiDetail detail : details) {
-//						try { detail = kpiDetailService.save(detail); }
-//						catch (Exception e) {}
-//					}
-//				}
+				if(!details.isEmpty()) {
+					for (KpiDetail detail : details) {
+						try { detail = kpiDetailService.save(detail); }
+						catch (Exception e) {}
+					}
+				}
 			}
     	}
     	return ResponseEntity.ok(company);
