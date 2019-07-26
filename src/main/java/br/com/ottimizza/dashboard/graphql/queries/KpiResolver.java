@@ -26,41 +26,30 @@ public class KpiResolver{
 	}
 
 	@GraphQLQuery
-	public List<Kpi> findKpi(BigInteger id, BigInteger companyId, String kpiAlias, String title, String subtitle, 
-			String description, Short graphType, String columnX0Label, String label, String label2, String label3, String label4, 
-			Boolean visible) {
+	public List<Kpi> findKpi(BigInteger id, BigInteger companyId, String kpiAlias, String title, String subtitle, String description, 
+							Short graphType, String columnX0Label, String label, String label2, String label3, String label4, Boolean visible) {
+
 		JPAQuery<Kpi> query = new JPAQuery<Kpi>(em).from(kpi);
 		
 		if(companyId != null)	query.where(kpi.company.id.in(companyId));
-
 		if(id != null)			query.where(kpi.id.in(id));
 		if(kpiAlias != null)	query.where(kpi.kpiAlias.in(kpiAlias));
-		if(title != null)		query.where(kpi.title.in(title));
-		if(subtitle != null)	query.where(kpi.subtitle.in(subtitle));
+		if(title != null)		query.where(kpi.title.toUpperCase().in(title.toUpperCase()));
+		if(subtitle != null)	query.where(kpi.subtitle.toUpperCase().in(subtitle.toUpperCase()));
 		
-		if(description != null)	query.where(kpi.description.in(description));
+		if(description != null)	query.where(kpi.description.toUpperCase().in(description.toUpperCase()));
 		if(graphType != null)	query.where(kpi.graphType.in(graphType));
-		if(columnX0Label != null) query.where(kpi.columnX0Label.in(columnX0Label));
+		if(columnX0Label != null) query.where(kpi.columnX0Label.toUpperCase().in(columnX0Label.toUpperCase()));
 		if(visible != null)		query.where(kpi.visible.in(visible));
 		
-		if(label != null)		query.where(kpi.label.in(label));
-		if(label2 != null)		query.where(kpi.label2.in(label2));
-		if(label3 != null)		query.where(kpi.label3.in(label3));
-		if(label4 != null)		query.where(kpi.label4.in(label4));
+		if(label != null)		query.where(kpi.label.toUpperCase().in(label.toUpperCase()));
+		if(label2 != null)		query.where(kpi.label2.toUpperCase().in(label2.toUpperCase()));
+		if(label3 != null)		query.where(kpi.label3.toUpperCase().in(label3.toUpperCase()));
+		if(label4 != null)		query.where(kpi.label4.toUpperCase().in(label4.toUpperCase()));
 		
-		return query.fetch();		
+		return query.fetch();
 	}
 
-//	public List<Kpi> findKpi(Kpi filter) {
-//		JPAQuery<Kpi> query = new JPAQuery<Kpi>(em).from(kpi);
-//		
-//		if(filter.getId() != null) {
-//			query.where(kpi.id.in(filter.getId()));
-//		}
-//		
-//		return query.fetch();		
-//	}
-	
 }
 
 
