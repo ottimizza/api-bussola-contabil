@@ -72,7 +72,6 @@ public class KpiMutation {
 			try { company = optionalCompany.get(); } 
 			catch (Exception e) { new NoSuchElementException(e.getStackTrace().toString()); }
 		}
-//		company.setName(name == null ? company.getName() : name);
 		if (company != null) {
 			kpi.setCompany(company);
 			kpi.setKpiAlias(kpiAlias);
@@ -100,26 +99,27 @@ public class KpiMutation {
 		
 		Optional<Kpi> kpiOptional = kpiRepository.findById(id);
 
-		try {
-			kpi = kpiOptional.get();
-		}catch (Exception e) {}
+		try { kpi = kpiOptional.get(); }
+		catch (Exception e) {  }
+		
 		System.out.println(">> >1 "+kpi.getId());
 		if (kpi != null) {
 			System.out.println(">> >3 "+kpi.getTitle()+" - "+kpi.getLabel());
 			
 //			company.setName(name == null ? company.getName() : name);
 			
-			kpi.setKpiAlias(kpiAlias);
-			kpi.setTitle(title);
-			kpi.setSubtitle(subtitle);
-			kpi.setDescription(description);
-			kpi.setGraphType(graphType);
-			kpi.setColumnX0Label(columnX0Label);
-			kpi.setLabel(label);
-			kpi.setLabel2(label2);
-			kpi.setLabel3(label3);
-			kpi.setLabel4(label4);
-			kpi.setVisible(visible);
+			if(kpiAlias != null)	kpi.setKpiAlias(kpiAlias);
+			if(title != null)		kpi.setTitle(title);
+			if(subtitle != null)	kpi.setSubtitle(subtitle);
+			if(description != null)	kpi.setDescription(description);
+			if(graphType != null)	kpi.setGraphType(graphType);
+			if(columnX0Label != null) kpi.setColumnX0Label(columnX0Label);
+			if(label != null)		kpi.setLabel(label);
+			if(label2 != null)		kpi.setLabel2(label2);
+			if(label3 != null)		kpi.setLabel3(label3);
+			if(label4 != null)		kpi.setLabel4(label4);
+			if(visible != null)		kpi.setVisible(visible);
+
 		}
 		System.out.println(">> >4 "+kpi.getTitle()+" - "+kpi.getLabel());
 		return kpiRepository.save(kpi);
