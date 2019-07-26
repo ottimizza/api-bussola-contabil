@@ -27,7 +27,7 @@ extends input KpiDetailFilter {
 }
 
 extends type Query {
-	findKpiDetail(id: BigInteger, columnX: String, columnY: String, columnZ: String, valorKPI: Double, valorKPI2: Double, valorKPI3: Double, valorKPI4: Double, columnXSeq: String, xBinding: String): Kpidetail
+	findKpiDetail(id: BigInteger, columnX: String, columnY: String, columnZ: String, valorKPI: Double, valorKPI2: Double, valorKPI3: Double, valorKPI4: Double, columnXSeq: String, xBinding: String): [Kpidetail]
 }
 
 extends type Mutation {
