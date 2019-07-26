@@ -103,8 +103,6 @@ public class KpiMutation {
 			kpi = kpiOptional.get();
 		}catch (Exception e) {}
 		
-		
-		
 		if (kpi != null) {
 			if(kpiAlias != null)	kpi.setKpiAlias(kpiAlias);
 			if(title != null)		kpi.setTitle(title);
