@@ -72,19 +72,20 @@ public class KpiMutation {
 			try { company = optionalCompany.get(); } 
 			catch (Exception e) { new NoSuchElementException(e.getStackTrace().toString()); }
 		}
+//		company.setName(name == null ? company.getName() : name);
 		if (company != null) {
 			kpi.setCompany(company);
 			kpi.setKpiAlias(kpiAlias);
 			kpi.setTitle(title);
-			kpi.setSubtitle(subtitle);
-			kpi.setDescription(description);
+			kpi.setSubtitle(subtitle != null ? subtitle : "");
+			kpi.setDescription(description != null ? description : "");
 			kpi.setGraphType(graphType);
 			kpi.setColumnX0Label(columnX0Label);
-			kpi.setLabel(label);
-			kpi.setLabel2(label2);
-			kpi.setLabel3(label3);
-			kpi.setLabel4(label4);
-			kpi.setVisible(visible);
+			kpi.setLabel(label != null ? label : "");
+			kpi.setLabel2(label2 != null ? label2 : "");
+			kpi.setLabel3(label3 != null ? label3 : "");
+			kpi.setLabel4(label4 != null ? label4 : "");
+			kpi.setVisible(visible != null ? visible : true);
 		}
 		
 		return kpiRepository.save(kpi);
@@ -105,6 +106,9 @@ public class KpiMutation {
 		System.out.println(">> >1 "+kpi.getId());
 		if (kpi != null) {
 			System.out.println(">> >3 "+kpi.getTitle()+" - "+kpi.getLabel());
+			
+//			company.setName(name == null ? company.getName() : name);
+			
 			kpi.setKpiAlias(kpiAlias);
 			kpi.setTitle(title);
 			kpi.setSubtitle(subtitle);
