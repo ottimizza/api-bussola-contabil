@@ -99,7 +99,7 @@ public class KpiMutation {
 			catch (Exception e) { new NoSuchElementException(e.getStackTrace().toString()); }
 		}
 //		if (!company.getId().equals(null)) {
-		if (company.getId() != null) {
+		if (company != null) {
 			kpi.setCompany(company);
 			kpi.setKpiAlias(kpiAlias);
 			kpi.setTitle(title);
