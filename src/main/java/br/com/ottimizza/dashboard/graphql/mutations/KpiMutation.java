@@ -36,30 +36,6 @@ public class KpiMutation {
 		this.companyRepository = companyRepository;
 	}
 
-	
-//	public Kpi editKpi(Kpi newKpi) {
-//		Kpi kpi = new Kpi();
-//		try {
-//			kpi = kpiRepository.findById(newKpi.getId()).map(k -> k).orElseThrow(() -> new NotFoundException());
-//		} catch (Exception e) {
-//		}
-//
-//		kpi.setKpiAlias(newKpi.getKpiAlias());
-//		kpi.setTitle(newKpi.getTitle());
-//		kpi.setSubtitle(newKpi.getSubtitle());
-//		kpi.setDescription(newKpi.getDescription());
-//		kpi.setGraphType(newKpi.getGraphType());
-//		kpi.setColumnX0Label(newKpi.getColumnX0Label());
-//		kpi.setLabel(newKpi.getLabel());
-//		kpi.setLabel2(newKpi.getLabel2());
-//		kpi.setLabel3(newKpi.getLabel3());
-//		kpi.setLabel4(newKpi.getLabel4());
-//		kpi.setVisible(newKpi.getVisible());
-//		kpi.setKpiDetail(newKpi.getKpiDetail());
-//
-//		return kpiRepository.save(kpi);
-//	}
-
 	@GraphQLMutation(name = "createKpi")
 	public Kpi createKpi(BigInteger companyId, String kpiAlias, String title, String subtitle, String description, Short graphType, 
 						String columnX0Label, String label, String label2, String label3, String label4, Boolean visible) {
@@ -96,18 +72,13 @@ public class KpiMutation {
 
 		Kpi kpi = new Kpi();
 //		kpi = kpiRepository.findById(id).map(k -> k).orElseThrow(() -> new NotFoundException());
-		
 		Optional<Kpi> kpiOptional = kpiRepository.findById(id);
 
 		try { kpi = kpiOptional.get(); }
 		catch (Exception e) {  }
 		
-		System.out.println(">> >1 "+kpi.getId());
 		if (kpi != null) {
-			System.out.println(">> >3 "+kpi.getTitle()+" - "+kpi.getLabel());
-			
-//			company.setName(name == null ? company.getName() : name);
-			
+						
 			if(kpiAlias != null)	kpi.setKpiAlias(kpiAlias);
 			if(title != null)		kpi.setTitle(title);
 			if(subtitle != null)	kpi.setSubtitle(subtitle);
@@ -121,7 +92,6 @@ public class KpiMutation {
 			if(visible != null)		kpi.setVisible(visible);
 
 		}
-		System.out.println(">> >4 "+kpi.getTitle()+" - "+kpi.getLabel());
 		return kpiRepository.save(kpi);
 	}
 	
