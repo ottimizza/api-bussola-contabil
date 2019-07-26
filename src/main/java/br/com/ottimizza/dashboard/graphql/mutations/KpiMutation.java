@@ -36,29 +36,6 @@ public class KpiMutation {
 		this.companyRepository = companyRepository;
 	}
 
-	@GraphQLMutation(name = "editKpi")
-	public Kpi editKpi(BigInteger id, String kpiAlias, String title, String subtitle, String description, Short graphType, 
-						String columnX0Label, String label, String label2, String label3, String label4, Boolean visible) {
-		
-		Kpi kpi = new Kpi();
-		kpi = kpiRepository.findById(id).map(k -> k).orElseThrow(() -> new NotFoundException());
-		
-		if (kpi != null) {
-			if(kpiAlias != null)	kpi.setKpiAlias(kpiAlias);
-			if(title != null)		kpi.setTitle(title);
-			if(subtitle != null)	kpi.setSubtitle(subtitle);
-			if(description != null)	kpi.setDescription(description);
-			if(graphType != null)	kpi.setGraphType(graphType);
-			if(columnX0Label != null) kpi.setColumnX0Label(columnX0Label);
-			if(label != null)		kpi.setLabel(label);
-			if(label2 != null)		kpi.setLabel2(label2);
-			if(label3 != null)		kpi.setLabel3(label3);
-			if(label4 != null)		kpi.setLabel4(label4);
-			if(visible != null)		kpi.setVisible(visible);
-		}
-		
-		return kpiRepository.save(kpi);
-	}
 	
 //	public Kpi editKpi(Kpi newKpi) {
 //		Kpi kpi = new Kpi();
@@ -84,21 +61,17 @@ public class KpiMutation {
 //	}
 
 	@GraphQLMutation(name = "createKpi")
-	public Kpi createKpi(BigInteger companyId, String kpiAlias, String title, String subtitle,
-			String description, Short graphType, String columnX0Label, String label, String label2, String label3,
-			String label4, Boolean visible) {
+	public Kpi createKpi(BigInteger companyId, String kpiAlias, String title, String subtitle, String description, Short graphType, 
+						String columnX0Label, String label, String label2, String label3, String label4, Boolean visible) {
 
 		Company company = new Company();
 		Kpi kpi = new Kpi();
 
-//		if (!companyId.equals("") && !companyId.equals(null)) {
 		if (companyId != null) {
 			Optional<Company> optionalCompany = companyRepository.findById(companyId);
-
 			try { company = optionalCompany.get(); } 
 			catch (Exception e) { new NoSuchElementException(e.getStackTrace().toString()); }
 		}
-//		if (!company.getId().equals(null)) {
 		if (company != null) {
 			kpi.setCompany(company);
 			kpi.setKpiAlias(kpiAlias);
@@ -112,6 +85,38 @@ public class KpiMutation {
 			kpi.setLabel3(label3);
 			kpi.setLabel4(label4);
 			kpi.setVisible(visible);
+		}
+		
+		return kpiRepository.save(kpi);
+	}
+	
+	@GraphQLMutation(name = "editKpi")
+	public Kpi editKpi(BigInteger id, String kpiAlias, String title, String subtitle, String description, Short graphType, 
+					String columnX0Label, String label, String label2, String label3, String label4, Boolean visible) {
+		
+		Kpi kpi = new Kpi();
+//		kpi = kpiRepository.findById(id).map(k -> k).orElseThrow(() -> new NotFoundException());
+		
+		Optional<Kpi> kpiOptional = kpiRepository.findById(id);
+		
+		try {
+			kpi = kpiOptional.get();
+		}catch (Exception e) {}
+		
+		
+		
+		if (kpi != null) {
+			if(kpiAlias != null)	kpi.setKpiAlias(kpiAlias);
+			if(title != null)		kpi.setTitle(title);
+			if(subtitle != null)	kpi.setSubtitle(subtitle);
+			if(description != null)	kpi.setDescription(description);
+			if(graphType != null)	kpi.setGraphType(graphType);
+			if(columnX0Label != null) kpi.setColumnX0Label(columnX0Label);
+			if(label != null)		kpi.setLabel(label);
+			if(label2 != null)		kpi.setLabel2(label2);
+			if(label3 != null)		kpi.setLabel3(label3);
+			if(label4 != null)		kpi.setLabel4(label4);
+			if(visible != null)		kpi.setVisible(visible);
 		}
 		
 		return kpiRepository.save(kpi);
