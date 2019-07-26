@@ -5,6 +5,7 @@ import java.math.BigInteger;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -32,10 +33,10 @@ public class KpiDetail implements Serializable {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private BigInteger id;
 
-    @ManyToOne
     @Getter
     @Setter    
     @JsonIgnore
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "fk_kpis_id")
     private Kpi kpiID;
     
