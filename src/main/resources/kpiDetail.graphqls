@@ -8,6 +8,8 @@ extends type KpiDetail {
 	valorKPI3:Double
 	valorKPI4:Double
 	columnXSeq:String
+	xBinding:String
+	kpi:Kpi
 }
 
 extends input KpiDetailFilter {
@@ -20,10 +22,12 @@ extends input KpiDetailFilter {
 	valorKPI3:Double
 	valorKPI4:Double
 	columnXSeq:String
+	xBinding:String
+	kpi:Kpi
 }
 
 extends type Query {
-	findKpiDetail(id: BigInteger, columnX: String, columnY: String, columnZ: String, valorKPI: Double, valorKPI2: Double, valorKPI3: Double, valorKPI4: Double, columnXSeq: String): Kpidetail
+	findKpiDetail(id: BigInteger, columnX: String, columnY: String, columnZ: String, valorKPI: Double, valorKPI2: Double, valorKPI3: Double, valorKPI4: Double, columnXSeq: String, xBinding: String): Kpidetail
 }
 
 extends type Mutation {

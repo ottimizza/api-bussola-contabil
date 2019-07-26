@@ -24,7 +24,8 @@ public class KpiDetailResolver {
 	}
 	
 	@GraphQLQuery
-	public List<KpiDetail> findKpiDetail(BigInteger id, BigInteger kpiId, String columnX, String columnY, String columnZ, Double valorKPI, Double valorKPI2, Double valorKPI3, Double valorKPI4, String columnXSeq) {
+	public List<KpiDetail> findKpiDetail(BigInteger id, BigInteger kpiId, String columnX, String columnY, String columnZ, 
+			Double valorKPI, Double valorKPI2, Double valorKPI3, Double valorKPI4, String columnXSeq, String xBinding) {
 	
 		JPAQuery<KpiDetail> query = new JPAQuery<KpiDetail>(em).from(kpiDetail);
 		
@@ -40,7 +41,8 @@ public class KpiDetailResolver {
 		if(valorKPI4 != null)	query.where(kpiDetail.valorKPI4.in(valorKPI4));
 		
 		if(columnXSeq != null)	query.where(kpiDetail.columnXSeq.toUpperCase().in(columnXSeq.toUpperCase()));
-        
+		if(xBinding != null)	query.where(kpiDetail.xBinding.toUpperCase().in(xBinding.toUpperCase()));
+		
 		return query.fetch();
 		
 	}

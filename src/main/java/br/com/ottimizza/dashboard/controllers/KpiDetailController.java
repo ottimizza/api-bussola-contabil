@@ -5,6 +5,7 @@ import br.com.ottimizza.dashboard.models.KpiDetail;
 import br.com.ottimizza.dashboard.services.KpiDetailService;
 
 import java.math.BigInteger;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -46,6 +47,22 @@ public class KpiDetailController {
 	@DeleteMapping("delete/{id}")
 	public ResponseEntity<String> removeKpi(@PathVariable("id") BigInteger idKpi) throws Exception {
 		return ResponseEntity.ok(kpiService.delete(idKpi).toString());
+	}
+
+	@PostMapping("createMany")
+	public ResponseEntity<List<KpiDetail>> createMany(@RequestBody Map<KpiDetail, List<KpiDetail>> body) throws Exception {
+		List<KpiDetail> listaKpis = body.get("kpisDetail");
+		List<KpiDetail> listaRet = new ArrayList<KpiDetail>();
+		
+		for (KpiDetail kpiDetail : listaKpis) {
+			try {
+				kpiService.save(kpiDetail);
+				listaRet.add(kpiDetail);
+			}catch (Exception e) {
+
+			}
+		}
+		return ResponseEntity.ok(listaRet);
 	}
 
 	
