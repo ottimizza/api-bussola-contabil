@@ -93,18 +93,18 @@ public class KpiMutation {
 	@GraphQLMutation(name = "editKpi")
 	public Kpi editKpi(BigInteger id, String kpiAlias, String title, String subtitle, String description, Short graphType, 
 					String columnX0Label, String label, String label2, String label3, String label4, Boolean visible) {
-		System.out.println(">> >1 ");
+
 		Kpi kpi = new Kpi();
 //		kpi = kpiRepository.findById(id).map(k -> k).orElseThrow(() -> new NotFoundException());
 		
 		Optional<Kpi> kpiOptional = kpiRepository.findById(id);
-		System.out.println(">> >2 ");
+
 		try {
 			kpi = kpiOptional.get();
 		}catch (Exception e) {}
-		System.out.println(">> >2.1 "+kpi.getId());
+		System.out.println(">> >1 "+kpi.getId());
 		if (kpi != null) {
-			System.out.println(">> >3 ");
+			System.out.println(">> >3 "+kpi.getTitle()+" - "+kpi.getLabel());
 			kpi.setKpiAlias(kpiAlias);
 			kpi.setTitle(title);
 			kpi.setSubtitle(subtitle);
@@ -117,7 +117,7 @@ public class KpiMutation {
 			kpi.setLabel4(label4);
 			kpi.setVisible(visible);
 		}
-		System.out.println(">> >4 ");
+		System.out.println(">> >4 "+kpi.getTitle()+" - "+kpi.getLabel());
 		return kpiRepository.save(kpi);
 	}
 	
