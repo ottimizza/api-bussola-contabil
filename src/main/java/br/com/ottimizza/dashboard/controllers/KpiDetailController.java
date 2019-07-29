@@ -51,15 +51,21 @@ public class KpiDetailController {
 
 	@PostMapping("createDetails")
 	public ResponseEntity<List<KpiDetail>> createDetails(@RequestBody Map<KpiDetail, List<KpiDetail>> body) throws Exception {
+		System.out.println(">> 1");
 		List<KpiDetail> listaKpis = body.get("kpisDetail");
+		System.out.println(">> 2");
 		List<KpiDetail> listaRet = new ArrayList<KpiDetail>();
+		System.out.println(">> 3");
 		
 		for (KpiDetail kpiDetail : listaKpis) {
+			System.out.println(">> 4 for");
 			try {
 				kpiService.save(kpiDetail);
 				listaRet.add(kpiDetail);
+				System.out.println(">> 5 try");
 			}catch (Exception e) {
-
+				System.out.println(">> 6 catch");
+				
 			}
 		}
 		return ResponseEntity.ok(listaRet);
