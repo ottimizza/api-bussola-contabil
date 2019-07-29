@@ -49,8 +49,8 @@ public class KpiDetailController {
 		return ResponseEntity.ok(kpiService.delete(idKpi).toString());
 	}
 
-	@PostMapping("createMany")
-	public ResponseEntity<List<KpiDetail>> createMany(@RequestBody Map<KpiDetail, List<KpiDetail>> body) throws Exception {
+	@PostMapping("createDetails")
+	public ResponseEntity<List<KpiDetail>> createDetails(@RequestBody Map<KpiDetail, List<KpiDetail>> body) throws Exception {
 		List<KpiDetail> listaKpis = body.get("kpisDetail");
 		List<KpiDetail> listaRet = new ArrayList<KpiDetail>();
 		

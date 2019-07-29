@@ -69,7 +69,7 @@ public class KpiDetailService {
         try {
             repository.deleteById(idKpi);
             response.put("status","sucess");
-            response.put("message","Excluído kpi com sucesso!");
+            response.put("message","Excluído kpi detail com sucesso!");
         } catch (Exception e) {
             response.put("status","Error");
             response.put("message","Houve um problema ao excluir!");
