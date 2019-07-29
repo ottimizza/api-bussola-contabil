@@ -23,7 +23,8 @@ extends input KpiDetailFilter {
 	valorKPI4:Double
 	columnXSeq:String
 	xBinding:String
-	kpi:Kpi
+	kpi:KpiFilter
+	
 }
 
 extends type Query {
@@ -31,6 +32,6 @@ extends type Query {
 }
 
 extends type Mutation {
-	editKpiDetail(filter: KpiDetailFilter): KpiDetail
-	createKpiDetail(filter: KpiDetailFilter): KpiDetail
+	editKpiDetail(id: BigInteger, kpiId: BigInteger, columnX: String, columnY: String, columnZ: String, valorKPI: Double, valorKPI2: Double, valorKPI3: Double, valorKPI4: Double, columnXSeq: String, xBinding: String): [Kpidetail]
+	createKpiDetail(kpiId: BigInteger, columnX: String, columnY: String, columnZ: String, valorKPI: Double, valorKPI2: Double, valorKPI3: Double, valorKPI4: Double, columnXSeq: String, xBinding: String): [Kpidetail]
 }

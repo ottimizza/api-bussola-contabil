@@ -33,48 +33,65 @@ public class KpiDetailMutation {
 	}
 	
 	@GraphQLMutation(name = "editKpiDetail")
-	public KpiDetail editKpiDetail(KpiDetail filter) throws NoSuchElementException, Exception {
-		KpiDetail detail = new KpiDetail();
+	public KpiDetail editKpiDetail(BigInteger id, BigInteger kpiId, String columnX, String columnY, String columnZ, 
+			Double valorKPI, Double valorKPI2, Double valorKPI3, Double valorKPI4, String columnXSeq, String xBinding) {
 		
-		if(filter.getId() != null) {
-			Optional<KpiDetail> detailOptional = kpiDetailRepository.findById(filter.getId());
+		KpiDetail detail = new KpiDetail();
+
+		if(id != null) {
+			Optional<KpiDetail> detailOptional = kpiDetailRepository.findById(id);
 			try { detail = detailOptional.get(); } 
 			catch (Exception e) {	}
 			
-			if(filter.getColumnXSeq() != null) 	detail.setColumnXSeq(filter.getColumnXSeq());
-			if(filter.getColumnX() != null) 	detail.setColumnX(filter.getColumnX());
-			if(filter.getColumnY() != null) 	detail.setColumnY(filter.getColumnY());
-			if(filter.getColumnZ() != null) 	detail.setColumnZ(filter.getColumnZ());
-			if(filter.getValorKPI() != null) 	detail.setValorKPI(filter.getValorKPI());
-			if(filter.getValorKPI2() != null) 	detail.setValorKPI2(filter.getValorKPI2());
-			if(filter.getValorKPI3() != null) 	detail.setValorKPI3(filter.getValorKPI3());
-			if(filter.getValorKPI4() != null) 	detail.setValorKPI4(filter.getValorKPI4());
+			if(kpiId != null) {
+				Kpi kpi = new Kpi();
+				Optional<Kpi> kpiOptional = kpiRepository.findById(kpiId);
+				try { 
+					kpi = kpiOptional.get(); 
+					detail.setKpiID(kpi);		//validar
+				}catch(Exception ee) { }
+			}
 			
+			if(columnXSeq != null) 	detail.setColumnXSeq(columnXSeq);
+			if(columnX != null) 	detail.setColumnX(columnX);
+			if(columnY != null) 	detail.setColumnY(columnY);
+			if(columnZ != null) 	detail.setColumnZ(columnZ);
+			if(valorKPI != null) 	detail.setValorKPI(valorKPI);
+			if(valorKPI2 != null) 	detail.setValorKPI2(valorKPI2);
+			if(valorKPI3 != null) 	detail.setValorKPI3(valorKPI3);
+			if(valorKPI4 != null) 	detail.setValorKPI4(valorKPI4);
+			if(xBinding != null) 	detail.setXBinding(xBinding);
+			
+
 		}
 		return kpiDetailRepository.save(detail);
 	}
 	
 	@GraphQLMutation(name = "createKpiDetail")
-	public KpiDetail createKpiDetail(KpiDetail filter) {
+	public KpiDetail createKpiDetail(BigInteger kpiId, String columnX, String columnY, String columnZ, 
+				Double valorKPI, Double valorKPI2, Double valorKPI3, Double valorKPI4, String columnXSeq, String xBinding) {
+		
 		KpiDetail detail = new KpiDetail();
+
+		if(kpiId != null) {
+			Kpi kpi = new Kpi();
+			Optional<Kpi> kpiOptional = kpiRepository.findById(kpiId);
+			try { kpi = kpiOptional.get(); }
+			catch(Exception ee) { }
 		
-		detail = filter;
-//		if(columnXSeq != null) 	detail.setColumnXSeq(columnXSeq);
-//		if(columnX != null) 	detail.setColumnX(columnX);
-//		if(columnY != null) 	detail.setColumnY(columnY);
-//		if(columnZ != null) 	detail.setColumnZ(columnZ);
-//		if(valorKPI != null) 	detail.setValorKPI(valorKPI);
-		
+			detail.setKpiID(kpi);
+			detail.setColumnXSeq(columnXSeq != null ? columnXSeq : "");
+			detail.setColumnX(columnX != null ? columnX : "");
+			detail.setColumnY(columnY != null ? columnY : "");
+			detail.setColumnZ(columnZ != null ? columnZ : "");
+			detail.setValorKPI(valorKPI != null ? valorKPI : 0);
+			detail.setValorKPI2(valorKPI2 != null ? valorKPI2 : 0);
+			detail.setValorKPI3(valorKPI3 != null ? valorKPI3 : 0);
+			detail.setValorKPI4(valorKPI4 != null ? valorKPI4 : 0);
+			detail.setXBinding(xBinding != null ? xBinding : "");
+		}
 		return kpiDetailRepository.save(detail);
 	}
-	@GraphQLMutation(name = "deleteDetail")
-	public KpiDetail deleteDetail(BigInteger id) {
-		KpiDetail detail = new KpiDetail();
-//		Optional<KpiDetail> detailOptional = kpiDetailRepository.findById(id);
-//		KpiDetail detail = kpiDetailRepository.findById(id);
-//		System.out.println(">> > "+detail.getValorKPI()); 
-		kpiDetailRepository.deleteById(id);
-		return detail;
-	}
+	
 
 }
