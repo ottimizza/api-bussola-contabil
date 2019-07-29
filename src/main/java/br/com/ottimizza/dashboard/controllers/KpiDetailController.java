@@ -50,7 +50,7 @@ public class KpiDetailController {
 	}
 
 	@PostMapping("createDetails")
-	public ResponseEntity<List<KpiDetail>> createDetails(@RequestBody Map<KpiDetail, List<KpiDetail>> body) throws Exception {
+	public ResponseEntity<List<KpiDetail>> createDetails(@RequestBody Map<String, List<KpiDetail>> body) throws Exception {
 		System.out.println(">> 1");
 		List<KpiDetail> listaKpis = body.get("kpisDetail");
 		System.out.println(">> 2");
