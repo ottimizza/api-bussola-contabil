@@ -1,7 +1,6 @@
 package br.com.ottimizza.dashboard.controllers;
 
 import br.com.ottimizza.dashboard.models.Kpi;
-import br.com.ottimizza.dashboard.models.KpiCreate;
 import br.com.ottimizza.dashboard.models.KpiDetail;
 import br.com.ottimizza.dashboard.models.KpiDetailCreate;
 import br.com.ottimizza.dashboard.services.KpiDetailService;
