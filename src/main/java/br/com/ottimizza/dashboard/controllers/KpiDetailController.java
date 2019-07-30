@@ -53,44 +53,28 @@ public class KpiDetailController {
 
 	@PostMapping("createDetails")
 //	public ResponseEntity<List<KpiDetail>> createDetails(@RequestBody Map<String, List<KpiDetail>> body) throws Exception {
-	public ResponseEntity<List<KpiDetail>> createDetails(@RequestBody Map<String, JSONObject> objBody) throws Exception {
-//	public ResponseEntity<List<KpiDetail>> createDetails(@RequestBody JSONObject objBody) throws Exception {
+	public ResponseEntity<List<KpiDetail>> createDetails(@RequestBody JSONObject objBody) throws Exception {
 
-		System.out.println(">>> 0 "+objBody.size());
+		System.out.println(">>> 0 "+objBody.length());
 		List<KpiDetail> listaRet = new ArrayList<KpiDetail>();
 		
 		try {
-//			String kpiId = (String) objBody.get("nkpi");
 			System.out.println(">>> 1 "+objBody.get("nkpi").toString());
-		}catch (Exception e) {
-			// TODO: handle exception
-		}
-//		try {
-////			String kpiId = (String) objBody.get("nkpi");
-//			System.out.println(">>> 2 "+ objBody.optString("nkpi"));
-//		}catch (Exception e) {
-//			// TODO: handle exception
-//		}
-//		try {
-////			String kpiId = (String) objBody.get("nkpi");
-//			System.out.println(">>> 3 "+ objBody.getString("nkpi"));
-//		}catch (Exception e) {
-//			// TODO: handle exception
-//		}
+		}catch (Exception e) {}
 		
 
-			List<KpiDetail> listaKpis = (List<KpiDetail>) objBody.get("kpisDetail"); 
-			
-			for (KpiDetail kpiDetail : listaKpis) {
-				KpiDetail detail = new KpiDetail();
-//				kpiDetail.
-				if(!kpiDetail.getColumnX().equals("") && kpiDetail.getValorKPI() != 0) {
-					try {
-						kpiService.save(kpiDetail);
-						listaRet.add(kpiDetail);
-					}catch (Exception e) { }
-				}
-			}
+//			List<KpiDetail> listaKpis = (List<KpiDetail>) objBody.get("kpisDetail"); 
+//			
+//			for (KpiDetail kpiDetail : listaKpis) {
+//				KpiDetail detail = new KpiDetail();
+////				kpiDetail.
+//				if(!kpiDetail.getColumnX().equals("") && kpiDetail.getValorKPI() != 0) {
+//					try {
+//						kpiService.save(kpiDetail);
+//						listaRet.add(kpiDetail);
+//					}catch (Exception e) { }
+//				}
+//			}
 		return ResponseEntity.ok(listaRet);
 	}
 
