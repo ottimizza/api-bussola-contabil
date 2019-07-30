@@ -14,7 +14,7 @@ import lombok.Setter;
 @Getter @Setter
 public class KpiDetailCreate implements Serializable{
 
-	private String idKpi;
+	private BigInteger idKpi;
 	private List<KpiDetail> kpisDetail;
 	
 }

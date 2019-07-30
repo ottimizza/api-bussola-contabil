@@ -1,8 +1,9 @@
 package br.com.ottimizza.dashboard.controllers;
 
 import br.com.ottimizza.dashboard.models.Kpi;
-import br.com.ottimizza.dashboard.models.KpiDetailCreate;
+import br.com.ottimizza.dashboard.models.KpiCreate;
 import br.com.ottimizza.dashboard.models.KpiDetail;
+import br.com.ottimizza.dashboard.models.KpiDetailCreate;
 import br.com.ottimizza.dashboard.services.KpiDetailService;
 
 import java.math.BigInteger;
@@ -53,11 +54,13 @@ public class KpiDetailController {
 	}
 
 	@PostMapping("createDetails")
+//	public ResponseEntity<List<KpiDetail>> createDetails(@RequestBody Map<String, List<KpiDetail>> body) throws Exception {
 	public ResponseEntity<List<KpiDetail>> createDetails(@RequestBody KpiDetailCreate body) throws Exception {
-		System.out.println(">>> 0 "+ body.getIdKpi());
 		
+		
+		System.out.println(">>> 0 "+ body.getIdKpi());
 		List<KpiDetail> listaRet = new ArrayList<KpiDetail>();		
-
+		
 		System.out.println(">>> 1 "+ body.getKpisDetail().size()); 
 
 		return ResponseEntity.ok(listaRet);
