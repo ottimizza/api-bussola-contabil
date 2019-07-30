@@ -14,6 +14,6 @@ import lombok.Setter;
 public class KpiCreate implements Serializable{
 
 	private String nkpi;
-	private List<KpiDetail> kpis;
+	private List<KpiDetail> kpisDetail;
 	
 }
