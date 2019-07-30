@@ -1,4 +1,4 @@
-extends type KpiDetail {
+ extends type KpiDetail {
 	id: BigInteger!
 	columnX:String!
 	columnY:String!
