@@ -26,6 +26,10 @@ spring:
         username: ${db.username}
         password: ${db.password}
 
+#        tomcat:
+#            initial-size: 2 
+      
+
     jpa:
         hibernate:
             ddl-auto: update

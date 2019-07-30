@@ -26,7 +26,7 @@ public class KpiDetailRepositoryImpl implements KpiDetailRepositoryCustom {
     private QKpiDetail kpiDetail = QKpiDetail.kpiDetail;
     
     @Override
-    public List<KpiDetail> findKpiDetailsByCNPJ(List<String> cnpj) {
+	public List<KpiDetail> findKpiDetailsByCNPJ(List<String> cnpj) {
         JPAQuery<KpiDetail> query = new JPAQuery<KpiDetail>(em).from(company)
                 .innerJoin(kpi).on(kpi.company.id.eq(company.id))
                 .innerJoin(kpiDetail).on(kpiDetail.kpiID.id.eq(kpi.id))

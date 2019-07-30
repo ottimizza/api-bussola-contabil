@@ -1,36 +1,37 @@
-extends type KpiDetail {
+ extends type KpiDetail {
 	id: BigInteger!
-	kpiID: Kpi!
 	columnX:String!
 	columnY:String!
 	columnZ:String!
-	valorKPI:double!
-	valorKPI2:Double!
-	valorKPI3:Double!
-	valorKPI4:Double!
-	columnXSeq:String!
-	xBinding:String!
-}
-
-extends input KpiDetailfilter {
-	id: BigInteger
-	kpiID: Kpi
-	columnX:String
-	columnY:String
-	columnZ:String
-	valorKPI:double
+	valorKPI:Double!
 	valorKPI2:Double
 	valorKPI3:Double
 	valorKPI4:Double
 	columnXSeq:String
 	xBinding:String
+	kpi:Kpi
 }
 
-
-extends type Query {
+extends input KpiDetailFilter {
+	id: BigInteger
+	columnX:String
+	columnY:String
+	columnZ:String
+	valorKPI:Double
+	valorKPI2:Double
+	valorKPI3:Double
+	valorKPI4:Double
+	columnXSeq:String
+	xBinding:String
+	kpi:KpiFilter
 	
 }
 
+extends type Query {
+	findKpiDetail(id: BigInteger, columnX: String, columnY: String, columnZ: String, valorKPI: Double, valorKPI2: Double, valorKPI3: Double, valorKPI4: Double, columnXSeq: String, xBinding: String): [Kpidetail]
+}
+
 extends type Mutation {
-	deleteKpiDetail(BigInteger: id): KpiDetail
+	editKpiDetail(id: BigInteger, kpiId: BigInteger, columnX: String, columnY: String, columnZ: String, valorKPI: Double, valorKPI2: Double, valorKPI3: Double, valorKPI4: Double, columnXSeq: String, xBinding: String): [Kpidetail]
+	createKpiDetail(kpiId: BigInteger, columnX: String, columnY: String, columnZ: String, valorKPI: Double, valorKPI2: Double, valorKPI3: Double, valorKPI4: Double, columnXSeq: String, xBinding: String): [Kpidetail]
 }
