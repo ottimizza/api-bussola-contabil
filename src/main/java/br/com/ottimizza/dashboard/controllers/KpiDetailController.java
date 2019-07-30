@@ -71,8 +71,14 @@ public class KpiDetailController {
 		
 		for (KpiDetail kpiDetail : listDetails) {
 			KpiDetail detail = new KpiDetail();
-			detail = kpiDetail;
-			detail.setKpiID(kpi);
+			if(!kpiDetail.getColumnX().equals("") && kpiDetail.getValorKPI() != 0) {
+				detail = kpiDetail;
+				detail.setKpiID(kpi);
+			try {
+				detailService.save(detail);
+				listReturn.add(kpiDetail);
+			}catch (Exception e) { }
+			
 		}
 		return ResponseEntity.ok(listReturn);
 	}
