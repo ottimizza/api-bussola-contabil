@@ -1,0 +1,43 @@
+extends type Kpi {
+	id: BigInteger!
+	kpiAlias: String!
+	company: Company
+	title: String!
+	subtitle: String
+	description: String
+	graphType: Short!
+	columnX0Label: String!
+	label: String
+	label2: String
+	label3: String
+	label4: String
+	visible: Boolean
+	kpiDetail: [KpiDetail]
+}
+
+extends input KpiFilter {
+	id: BigInteger
+	kpiAlias: String
+	company: CompanyFilter
+	title: String
+	subtitle: String
+	description: String
+	graphType: Short
+	columnX0Label: String
+	label: String
+	label2: String
+	label3: String
+	label4: String
+	visible: Boolean
+	kpiDetail: [KpiDetail]
+}
+
+extends type Query {
+	findKpi(id: BigInteger, companyId: BigInteger, kpiAlias: String, title: String, subtitle: String, description: String, graphType: Short, columnX0Label: String, label: String, label2: String, label3: String, label4: String, visible: Boolean): [Kpi]
+}
+
+extends type Mutation {
+	createKpi(companyId: BigInteger, kpiAlias: String, title: String, subtitle: String, description: String, graphType: Short, columnX0Label: String, label: String, label2: String, label3: String, label4: String, visible: Boolean): Kpi
+	editKpi(id: BigInteger, kpiAlias: String, title: String, subtitle: String, description: String, graphType: Short, columnX0Label: String, label: String, label2: String, label3: String, label4: String, visible: Boolean): Kpi
+
+}

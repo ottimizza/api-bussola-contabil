@@ -26,6 +26,17 @@ spring:
         username: ${db.username}
         password: ${db.password}
 
+        tomcat:
+            initial-size: 2 
+      # max-active: 2
+      # springboot's initial number 
+      # of connections
+      # max-wait: 20000
+      # max-idle: 150
+      # min-idle: 8
+      # default-auto-commit: true
+
+
     jpa:
         hibernate:
             ddl-auto: update

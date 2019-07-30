@@ -8,6 +8,8 @@ public interface CompanyRepositoryCustom {
     List<Company> findAll(Integer pageSize, Integer pageIndex);
     
     List<Company> findCompaniesByCNPJ(List<String> cnpj);
+    
+    
 //    List<Company> findCompanyByName(String name);
 //
 //    List<Company> findCompanyByName(String name, Integer pageSize, Integer pageIndex);

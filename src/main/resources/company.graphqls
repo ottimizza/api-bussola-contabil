@@ -1,0 +1,21 @@
+extends type Company {
+	id: BigInteger!
+	cnpj: String!
+	name: String!
+	kpis: [Kpi]
+}
+
+extends input CompanyFilter {
+	id: BigInteger
+	cnpj: String
+	name: String
+}
+
+extends type Query {
+	findCompany(id: BigInteger, cnpj: String, name: String): [Company]
+}
+
+extends type Mutation {
+	createCompany(cnpj: String, name: String, kpis: [Kpi]): Company	
+	editCompany(id: BigInteger, cnpj: String, name: String): Company	
+}

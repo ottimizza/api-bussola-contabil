@@ -57,7 +57,7 @@ public class KpiDetail implements Serializable {
     @Getter
     @Setter
     @Column(name = "value_kpi_1", precision = 10, scale = 2, nullable = false)
-    private double valorKPI;
+    private Double valorKPI;
 
     @Getter
     @Setter

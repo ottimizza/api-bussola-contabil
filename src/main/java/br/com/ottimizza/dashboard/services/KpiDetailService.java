@@ -17,29 +17,32 @@ public class KpiDetailService {
     @Inject
     private KpiDetailRepository repository;
     
-    //<editor-fold defaultstate="collapsed" desc="Save">
     public KpiDetail save(KpiDetail kpi) throws Exception{
         return repository.save(kpi);
     }
-    //</editor-fold>
     
-    //<editor-fold defaultstate="collapsed" desc="Find by Id">
-    public Optional<KpiDetail> findById(Long idKpi) throws Exception{
+    public Optional<KpiDetail> findById(BigInteger idKpi) throws Exception{
         return repository.findById(idKpi);
     }
-    //</editor-fold>
     
-    //<editor-fold defaultstate="collapsed" desc="Find by List CNPJ">
     public List<KpiDetail> findByListCNPJ(List<String> cnpj)throws Exception{
         return repository.findKpiDetailsByCNPJ(cnpj);
     }
-    //</editor-fold>
     
-    //<editor-fold defaultstate="collapsed" desc="Update by Id">
+    public Boolean deleteById(BigInteger idKpiDetail)throws Exception{
+        try{
+        	repository.deleteById(idKpiDetail);
+        	return true;
+        }catch (Exception e) {
+			return false;
+		}
+        
+    }
+    
     public JSONObject updateById(BigInteger idKpi, KpiDetail kpi) throws Exception{
         JSONObject response = new JSONObject();
         try {
-            Optional<KpiDetail> kpiOptional = repository.findById(idKpi);
+        	Optional<KpiDetail> kpiOptional = repository.findById(idKpi);
             
             if(!kpiOptional.isPresent()) throw new NoResultException();
                 
@@ -60,15 +63,13 @@ public class KpiDetailService {
         }
         return response;
     }
-    //</editor-fold>
     
-    //<editor-fold defaultstate="collapsed" desc="Delete by Id">
-    public JSONObject delete(Long idKpi)throws Exception{
+    public JSONObject delete(BigInteger idKpi)throws Exception{
         JSONObject response = new JSONObject();
         try {
             repository.deleteById(idKpi);
             response.put("status","sucess");
-            response.put("message","Excluído kpi com sucesso!");
+            response.put("message","Excluído kpi detail com sucesso!");
         } catch (Exception e) {
             response.put("status","Error");
             response.put("message","Houve um problema ao excluir!");
@@ -76,6 +77,5 @@ public class KpiDetailService {
         }
         return response;
     }
-    //</editor-fold>
     
 }

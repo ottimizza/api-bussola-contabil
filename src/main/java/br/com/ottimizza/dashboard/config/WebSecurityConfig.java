@@ -1,5 +1,7 @@
 package br.com.ottimizza.dashboard.config;
 
+import java.util.Arrays;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,48 +18,63 @@ import org.springframework.security.oauth2.provider.token.ResourceServerTokenSer
 @EnableOAuth2Client
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-	@Value("${oauth2-config.oauth2-server-url}")
-	private String OAUTH2_SERVER_URL;
+    @Value("${oauth2-config.oauth2-server-url}")
+    private String OAUTH2_SERVER_URL;
 
-	@Value("${oauth2-config.oauth2-client-id}")
-	private String OAUTH2_CLIENT_ID;
+    @Value("${oauth2-config.oauth2-client-id}")
+    private String OAUTH2_CLIENT_ID;
 
-	@Value("${oauth2-config.oauth2-client-secret}")
-	private String OAUTH2_CLIENT_SECRET;
+    @Value("${oauth2-config.oauth2-client-secret}")
+    private String OAUTH2_CLIENT_SECRET;
 
-	@Override
-	public void configure(HttpSecurity http) throws Exception {
-		http.antMatcher("/**").authorizeRequests().antMatchers("/", "/login", "/login**").permitAll().anyRequest()
-				.authenticated();
-	}
+    @Override //@formatter:off
+    public void configure(HttpSecurity http) throws Exception {
+        String[] allowedResources = Arrays.asList(new String[] {
+                "/oauth/callback*", "/", "/login", "/login**", "/oauth/refresh*"
+        }).toArray(new String[] {});
+        
+        String[] protectedResources = Arrays.asList(new String[] {
+                "/company/**", 
+        }).toArray(new String[] {});
 
-	/**
-	 * The heart of our interaction with the resource; handles redirection for
-	 * authentication, access tokens, etc.
-	 *
-	 * @param oauth2ClientContext
-	 * @return
-	 */
+        http
+            .authorizeRequests()
+                .antMatchers(allowedResources).permitAll();
 
-	@Bean
-	@Primary
-	public ResourceServerTokenServices tokenServices() {
-		RemoteTokenServices tokenServices = new RemoteTokenServices();
+        http
+            .authorizeRequests()
+                .antMatchers(protectedResources).authenticated()
+                .anyRequest().authenticated();
 
-		final String checkTokenEndpointUrl = OAUTH2_SERVER_URL + "/oauth/check_token";
+    }
 
-		tokenServices.setClientId(OAUTH2_CLIENT_ID);
-		tokenServices.setClientSecret(OAUTH2_CLIENT_SECRET);
-		tokenServices.setCheckTokenEndpointUrl(checkTokenEndpointUrl);
+    /**
+     * The heart of our interaction with the resource; handles redirection for
+     * authentication, access tokens, etc.
+     *
+     * @param oauth2ClientContext
+     * @return
+     */
 
-		return tokenServices;
-	}
+    @Bean
+    @Primary
+    public ResourceServerTokenServices tokenServices() {
+        RemoteTokenServices tokenServices = new RemoteTokenServices();
 
-	@Override
-	public AuthenticationManager authenticationManagerBean() throws Exception {
-		OAuth2AuthenticationManager authenticationManager = new OAuth2AuthenticationManager();
-		authenticationManager.setTokenServices(tokenServices());
-		return authenticationManager;
-	}
+        final String checkTokenEndpointUrl = OAUTH2_SERVER_URL + "/oauth/check_token";
+
+        tokenServices.setClientId(OAUTH2_CLIENT_ID);
+        tokenServices.setClientSecret(OAUTH2_CLIENT_SECRET);
+        tokenServices.setCheckTokenEndpointUrl(checkTokenEndpointUrl);
+
+        return tokenServices;
+    }
+
+    @Override
+    public AuthenticationManager authenticationManagerBean() throws Exception {
+        OAuth2AuthenticationManager authenticationManager = new OAuth2AuthenticationManager();
+        authenticationManager.setTokenServices(tokenServices());
+        return authenticationManager;
+    }
 
 }
