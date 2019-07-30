@@ -80,8 +80,7 @@ public class KpiDetailController {
 				try {
 					detailService.save(detail);
 					listReturn.add(detail);
-				} catch (Exception e) {
-				}
+				} catch (Exception e) { }
 			}
 		}
 		return ResponseEntity.ok(listReturn);
