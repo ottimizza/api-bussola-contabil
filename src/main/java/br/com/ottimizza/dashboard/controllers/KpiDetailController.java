@@ -50,14 +50,14 @@ public class KpiDetailController {
 	}
 
 	@PostMapping("createDetails")
-	public ResponseEntity<List<KpiDetail>> createDetails(@RequestBody Map<String, List<KpiDetail>> body, @RequestBody Map<String, BigInteger> kpi) throws Exception {
+	public ResponseEntity<List<KpiDetail>> createDetails(@RequestBody Map<String, List<KpiDetail>> body) throws Exception {
+//	public ResponseEntity<List<KpiDetail>> createDetails(@RequestBody Map<String, List<KpiDetail>> body, @RequestBody Map<String, BigInteger> kpi) throws Exception {
 
 		System.out.println(">>> 0 ");
-		BigInteger kpiId = kpi.get("kpi");
-		System.out.println(">>> 1 "+kpiId);
+//		BigInteger kpiId = kpi.get("kpi");
+//		System.out.println(">>> 1 "+kpiId);
 		BigInteger kpiId2 = (BigInteger) body.get("kpi");
 		System.out.println(">>> 2 "+kpiId2);
-
 		
 		List<KpiDetail> listaKpis = body.get("kpisDetail");
 		List<KpiDetail> listaRet = new ArrayList<KpiDetail>();
