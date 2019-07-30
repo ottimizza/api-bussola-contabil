@@ -53,21 +53,20 @@ public class KpiDetailController {
 
 	@PostMapping("createDetails")
 //	public ResponseEntity<List<KpiDetail>> createDetails(@RequestBody Map<String, List<KpiDetail>> body) throws Exception {
-	public ResponseEntity<List<KpiDetail>> createDetails(@RequestBody JSONObject objBody) throws Exception {
+	public ResponseEntity<List<KpiDetail>> createDetails(@RequestBody Map<JSONObject, JSONObject> objBody) throws Exception {
 
 		System.out.println(">>> 0 ");
 		List<KpiDetail> listaRet = new ArrayList<KpiDetail>();
 		
 		try {
-			String kpiId = objBody.optString("kpi");
+			String kpiId = objBody.get("kpi").optString("id");
 			System.out.println(">>> 1 "+kpiId);
 			
 			List<KpiDetail> listaKpis = (List<KpiDetail>) objBody.get("kpisDetail"); 
 			
-			
 			for (KpiDetail kpiDetail : listaKpis) {
 				KpiDetail detail = new KpiDetail();
-				
+//				kpiDetail.
 				if(!kpiDetail.getColumnX().equals("") && kpiDetail.getValorKPI() != 0) {
 					try {
 						kpiService.save(kpiDetail);
