@@ -1,6 +1,7 @@
 package br.com.ottimizza.dashboard.controllers;
 
 import br.com.ottimizza.dashboard.models.Kpi;
+import br.com.ottimizza.dashboard.models.KpiCreate;
 import br.com.ottimizza.dashboard.models.KpiDetail;
 import br.com.ottimizza.dashboard.services.KpiDetailService;
 
@@ -53,28 +54,14 @@ public class KpiDetailController {
 
 	@PostMapping("createDetails")
 //	public ResponseEntity<List<KpiDetail>> createDetails(@RequestBody Map<String, List<KpiDetail>> body) throws Exception {
-	public ResponseEntity<List<KpiDetail>> createDetails(@RequestBody JSONObject objBody) throws Exception {
-
-		System.out.println(">>> 0 "+objBody.length());
-		List<KpiDetail> listaRet = new ArrayList<KpiDetail>();
+	public ResponseEntity<List<KpiDetail>> createDetails(@RequestBody KpiCreate body) throws Exception {
 		
-		try {
-			System.out.println(">>> 1 "+objBody.get("nkpi").toString());
-		}catch (Exception e) {}
 		
+		System.out.println(">>> 0 "+ body.getNkpi());
+		List<KpiDetail> listaRet = new ArrayList<KpiDetail>();		
+		
+		System.out.println(">>> 1 "+ body.getKpis().size()); 
 
-//			List<KpiDetail> listaKpis = (List<KpiDetail>) objBody.get("kpisDetail"); 
-//			
-//			for (KpiDetail kpiDetail : listaKpis) {
-//				KpiDetail detail = new KpiDetail();
-////				kpiDetail.
-//				if(!kpiDetail.getColumnX().equals("") && kpiDetail.getValorKPI() != 0) {
-//					try {
-//						kpiService.save(kpiDetail);
-//						listaRet.add(kpiDetail);
-//					}catch (Exception e) { }
-//				}
-//			}
 		return ResponseEntity.ok(listaRet);
 	}
 
