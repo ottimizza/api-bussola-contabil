@@ -59,7 +59,7 @@ public class KpiDetailController {
 		List<KpiDetail> listaRet = new ArrayList<KpiDetail>();
 		
 		try {
-			BigInteger kpiId = (BigInteger) objBody.get("kpi"); 
+			String kpiId = objBody.optString("kpi");
 			System.out.println(">>> 1 "+kpiId);
 			
 			List<KpiDetail> listaKpis = (List<KpiDetail>) objBody.get("kpisDetail"); 
