@@ -60,28 +60,29 @@ public class KpiDetailController {
 
 	@PostMapping("createDetails")
 	public ResponseEntity<List<KpiDetail>> createDetails(@RequestBody KpiDetailCreate body) throws Exception {
-		List<KpiDetail> listReturn = new ArrayList<KpiDetail>();		
-		List<KpiDetail> listDetails = new ArrayList<KpiDetail>();		
+		List<KpiDetail> listReturn = new ArrayList<KpiDetail>();
+		List<KpiDetail> listDetails = new ArrayList<KpiDetail>();
 		BigInteger idKpi = body.getIdKpi();
 		Kpi kpi = new Kpi();
-		
+
 		Optional<Kpi> optionalKpi = kpiService.findById(idKpi);
-		try {kpi = optionalKpi.get();}
-		catch(Exception ee) {}
-		
+		try {
+			kpi = optionalKpi.get();
+		} catch (Exception ee) {
+		}
+
 		for (KpiDetail kpiDetail : listDetails) {
 			KpiDetail detail = new KpiDetail();
-			if(!kpiDetail.getColumnX().equals("") && kpiDetail.getValorKPI() != 0) {
+			if (!kpiDetail.getColumnX().equals("") && kpiDetail.getValorKPI() != 0) {
 				detail = kpiDetail;
 				detail.setKpiID(kpi);
-			try {
-				detailService.save(detail);
-				listReturn.add(kpiDetail);
-			}catch (Exception e) { }
-			
+				try {
+					detailService.save(detail);
+					listReturn.add(kpiDetail);
+				} catch (Exception e) {
+				}
+			}
 		}
 		return ResponseEntity.ok(listReturn);
 	}
-
-	
 }
