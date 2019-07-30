@@ -1,6 +1,7 @@
 package br.com.ottimizza.dashboard.models;
 
 import java.io.Serializable;
+import java.math.BigInteger;
 import java.util.List;
 
 import lombok.AllArgsConstructor;
@@ -11,9 +12,9 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter @Setter
-public class KpiCreate implements Serializable{
+public class KpiDetailCreate implements Serializable{
 
-	private String nkpi;
+	private BigInteger idKpi;
 	private List<KpiDetail> kpisDetail;
 	
 }
