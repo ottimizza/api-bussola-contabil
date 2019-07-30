@@ -69,17 +69,13 @@ public class KpiDetailController {
 		try { kpi = optionalKpi.get(); } 
 		catch (Exception ee) {	}
 		
-		System.out.println(">>> 0 "+kpi.getTitle());
 		listDetails = body.getKpisDetail();
 
 		for (KpiDetail kpiDetail : listDetails) {
 			KpiDetail detail = new KpiDetail();
 
-			System.out.println(">>> 2 "+kpiDetail.getColumnX());
-
-			if (!kpiDetail.getColumnX().equals("") && kpiDetail.getValorKPI() != 0) {
+			if (!kpiDetail.getColumnX().equals("")) {
 				detail = kpiDetail;
-				System.out.println(">>> 3 "+detail.getColumnX());
 				detail.setKpiID(kpi);
 				try {
 					detailService.save(detail);
