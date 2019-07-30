@@ -64,15 +64,13 @@ public class KpiDetailController {
 		List<KpiDetail> listDetails = new ArrayList<KpiDetail>();
 		BigInteger idKpi = body.getIdKpi();
 		Kpi kpi = new Kpi();
-		System.out.println(">>> 0 ");
 
 		Optional<Kpi> optionalKpi = kpiService.findById(idKpi);
-		try {
-			kpi = optionalKpi.get();
-		} catch (Exception ee) {
-		}
-		System.out.println(">>> 1 "+kpi.getTitle());
-
+		try { kpi = optionalKpi.get(); } 
+		catch (Exception ee) {	}
+		
+		System.out.println(">>> 0 "+kpi.getTitle());
+		listDetails = body.getKpisDetail();
 
 		for (KpiDetail kpiDetail : listDetails) {
 			KpiDetail detail = new KpiDetail();
