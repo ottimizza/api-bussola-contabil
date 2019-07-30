@@ -53,15 +53,36 @@ public class KpiDetailController {
 
 	@PostMapping("createDetails")
 //	public ResponseEntity<List<KpiDetail>> createDetails(@RequestBody Map<String, List<KpiDetail>> body) throws Exception {
-	public ResponseEntity<List<KpiDetail>> createDetails(@RequestBody Map<JSONObject, JSONObject> objBody) throws Exception {
+	public ResponseEntity<List<KpiDetail>> createDetails(@RequestBody JSONObject objBody) throws Exception {
 
-		System.out.println(">>> 0 ");
+		System.out.println(">>> 0 "+objBody.length());
 		List<KpiDetail> listaRet = new ArrayList<KpiDetail>();
 		
 		try {
-			String kpiId = objBody.get("kpi").optString("id");
-			System.out.println(">>> 1 "+kpiId);
-			
+//			String kpiId = (String) objBody.get("nkpi");
+			System.out.println(">>> 1 "+(String) objBody.get("nkpi"));
+		}catch (Exception e) {
+			// TODO: handle exception
+		}
+		try {
+//			String kpiId = (String) objBody.get("nkpi");
+			System.out.println(">>> 2 "+ objBody.optString("nkpi"));
+		}catch (Exception e) {
+			// TODO: handle exception
+		}
+		try {
+//			String kpiId = (String) objBody.get("nkpi");
+			System.out.println(">>> 3 "+ objBody.getString("nkpi"));
+		}catch (Exception e) {
+			// TODO: handle exception
+		}
+		try {
+//			String kpiId = (String) objBody.get("nkpi");
+			System.out.println(">>> 4 "+ objBody.valueToString("nkpi"));
+		}catch (Exception e) {
+			// TODO: handle exception
+		}
+
 			List<KpiDetail> listaKpis = (List<KpiDetail>) objBody.get("kpisDetail"); 
 			
 			for (KpiDetail kpiDetail : listaKpis) {
@@ -74,9 +95,6 @@ public class KpiDetailController {
 					}catch (Exception e) { }
 				}
 			}
-		}catch (Exception e) {
-			// TODO: handle exception
-		}
 		return ResponseEntity.ok(listaRet);
 	}
 
