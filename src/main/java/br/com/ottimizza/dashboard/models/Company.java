@@ -2,7 +2,6 @@ package br.com.ottimizza.dashboard.models;
 
 import java.io.Serializable;
 import java.math.BigInteger;
-import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -20,10 +19,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @NoArgsConstructor
@@ -48,10 +43,15 @@ public class Company implements Serializable {
     @Column(name = "name", nullable = false)
     private String name;
     
-    @Getter
-    @Setter	
-    @OneToMany(mappedBy = "company", fetch = FetchType.EAGER)
-    private List<Kpi> kpis;
-
-	
+//    @Getter
+//    @Setter
+//    @OneToMany(mappedBy="companies")
+//    private List<Kpi> kpis; 
+//    @Fetch(FetchMode.SELECT)
+//        targetEntity = Kpi.class,
+//        cascade = CascadeType.ALL,
+//        fetch = FetchType.EAGER,
+//        orphanRemoval = true)
+//    //@JoinColumn(name = "fk_company_id")
+    
 }
