@@ -37,6 +37,7 @@ spring:
             hibernate:
                 temp:    
                     use_jdbc_metadata_defaults: false
+        show-sql: true
 
     servlet:
         multipart:

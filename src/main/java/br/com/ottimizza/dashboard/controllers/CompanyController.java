@@ -50,7 +50,7 @@ public class CompanyController {
     
     @PostMapping("save")
     public ResponseEntity<Company> saveCompany(@RequestBody Company company) throws Exception {
-    	List<Kpi> kpis = company.getKpis();
+//    	List<Kpi> kpis = company.getKpis();
     	return ResponseEntity.ok(companyService.save(company));
     	
 //    	if(kpis != null && !kpis.isEmpty()) {

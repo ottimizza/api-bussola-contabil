@@ -2,14 +2,8 @@ package br.com.ottimizza.dashboard.graphql.mutations;
 
 import java.math.BigInteger;
 import java.util.List;
-import java.util.Optional;
 
-import javax.inject.Inject;
 import javax.persistence.EntityManager;
-
-import org.json.JSONArray;
-import org.json.JSONObject;
-import org.springframework.stereotype.Component;
 
 import br.com.ottimizza.dashboard.models.Company;
 import br.com.ottimizza.dashboard.models.Kpi;
@@ -43,31 +37,31 @@ public class CompanyMutation {
 	public Company createCompany(String cnpj, String name, List<Kpi> kpis) {
 		
 		Company newCompany = new Company(); 
-		newCompany.setCnpj(cnpj);
-	    newCompany.setName(name);
-	    newCompany = companyRepository.save(newCompany);
-	    
-	    if(kpis != null) {
-    		for (Kpi kpi : kpis) {
-    			try { Kpi newKpi = kpiService.createKpi(newCompany.getId(), kpi); }
-    			catch (Exception e) {System.out.printf("Nao foi possivel criar KPI { kpiAlias: %s, title: %s }", kpi.getKpiAlias(), kpi.getTitle());}
-		    }
-	    }
-	    Optional<Company> optCompany = companyRepository.findById(newCompany.getId());
-	    if (optCompany != null) newCompany = optCompany.get();
-	    
+//		newCompany.setCnpj(cnpj);
+//	    newCompany.setName(name);
+//	    newCompany = companyRepository.save(newCompany);
+//	    
+//	    if(kpis != null) {
+//    		for (Kpi kpi : kpis) {
+//    			try { Kpi newKpi = kpiService.createKpi(newCompany.getId(), kpi); }
+//    			catch (Exception e) {System.out.printf("Nao foi possivel criar KPI { kpiAlias: %s, title: %s }", kpi.getKpiAlias(), kpi.getTitle());}
+//		    }
+//	    }
+//	    Optional<Company> optCompany = companyRepository.findById(newCompany.getId());
+//	    if (optCompany != null) newCompany = optCompany.get();
+//	    
 	    return newCompany;
 	}	
 	
 	@GraphQLMutation(name = "editCompany")
 	public Company editCompany(BigInteger id, String cnpj, String name) {
 		Company company = new Company();
-		Optional<Company> optCompany = companyRepository.findById(id);
-		if(optCompany != null) {
-			company = optCompany.get();
-			company.setCnpj(cnpj == null ? company.getCnpj() : cnpj);
-			company.setName(name == null ? company.getName() : name);
-		}
+//		Optional<Company> optCompany = companyRepository.findById(id);
+//		if(optCompany != null) {
+//			company = optCompany.get();
+//			company.setCnpj(cnpj == null ? company.getCnpj() : cnpj);
+//			company.setName(name == null ? company.getName() : name);
+//		}
 		return companyRepository.save(company);
 	}
 
