@@ -9,7 +9,6 @@
 	valorKPI4:Double
 	columnXSeq:String
 	xBinding:String
-	kpi:Kpi
 }
 
 extends input KpiDetailFilter {
@@ -23,7 +22,6 @@ extends input KpiDetailFilter {
 	valorKPI4:Double
 	columnXSeq:String
 	xBinding:String
-	kpi:KpiFilter
 	
 }
 
