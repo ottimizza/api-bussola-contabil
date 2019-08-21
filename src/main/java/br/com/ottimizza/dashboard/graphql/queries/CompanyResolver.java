@@ -26,7 +26,7 @@ public class CompanyResolver {
 	}
 
 	@GraphQLQuery
-	public List<Company> findCompany(BigInteger id, String cnpj, String name) {
+	public List<Company> findCompany(BigInteger id, List<String> cnpj, String name) {
 		JPAQuery<Company> query = new JPAQuery<Company>(em).from(company);
 		
 		if (id != null) 
