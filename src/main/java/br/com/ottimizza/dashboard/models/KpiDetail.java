@@ -3,6 +3,7 @@ package br.com.ottimizza.dashboard.models;
 import java.io.Serializable;
 import java.math.BigInteger;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -74,11 +75,26 @@ public class KpiDetail implements Serializable {
     @Column(name = "value_kpi_4", precision = 10, scale = 2, nullable = true)
     private Double valorKPI4;
     
-    @Getter 
+    @Getter
+    @Setter
+    @Column(name = "value_string_array", nullable = true)
+    private String valorStringArray;
+    
     @Setter
     @ElementCollection
-    private List<Double> valorArray = new ArrayList<Double>();
+    @Column(name = "label_array", nullable = true)
+    private List<Double> valorArray;
     
+	public List<Double> getLabelArray() {
+		
+		List<Double> doubles = new ArrayList<Double>();
+		
+		for (String string : valorStringArray.split(";")) 
+			doubles.add(Double.parseDouble(string));
+		
+		return doubles;
+	}
+
     @Getter
     @Setter
     @Column(name = "column_x_seq", nullable = true)

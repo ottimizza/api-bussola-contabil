@@ -96,21 +96,22 @@ public class Kpi implements Serializable {
     @Column(name = "label_4", nullable = true)
     private String label4;
     
+    @Getter
+    @Setter
+    @Column(name = "label_string_array", nullable = true)
+    private String labelStringArray;
     
+    @Setter
     @ElementCollection
     @Column(name = "label_array", nullable = true)
     private List<String> labelArray;
-
-
+    
 	public List<String> getLabelArray() {
-		List<String> a = Arrays.asList(label.split(","));
+		List<String> a = Arrays.asList(labelStringArray.split(";"));
 		return a;
 	}
 
-	public void setLabelArray(List<String> labelArray) {
-		this.labelArray = labelArray;
-	}
-
+	
 //    @Getter
 //    @Setter
 //    @Fetch(FetchMode.SELECT)
