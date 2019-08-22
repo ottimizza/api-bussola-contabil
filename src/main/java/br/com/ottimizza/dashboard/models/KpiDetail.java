@@ -2,6 +2,7 @@ package br.com.ottimizza.dashboard.models;
 
 import java.io.Serializable;
 import java.math.BigInteger;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -70,6 +71,11 @@ public class KpiDetail implements Serializable {
     @Setter
     @Column(name = "value_kpi_4", precision = 10, scale = 2, nullable = true)
     private Double valorKPI4;
+    
+    @Getter 
+    @Setter
+    @Column(name = "value_array", nullable = true)
+    private List<Double> valorArray;
     
     @Getter
     @Setter

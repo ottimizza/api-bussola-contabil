@@ -2,6 +2,7 @@ package br.com.ottimizza.dashboard.models;
 
 import java.io.Serializable;
 import java.math.BigInteger;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -91,6 +92,11 @@ public class Kpi implements Serializable {
     @Setter
     @Column(name = "label_4", nullable = true)
     private String label4;
+    
+    @Getter 
+    @Setter
+    @Column(name = "label_array", nullable = true)
+    private List<String> labelArray;
 
 //    @Getter
 //    @Setter
