@@ -83,15 +83,15 @@ public class KpiDetail implements Serializable {
     
     @Setter
     @Transient
-    private List<String> valorArray;
+    private List<Double> valorArray;
     
-	public List<String> getValorArray() {
-//		List<Double> doubles = new ArrayList<Double>();
-//		
-//		for (String string : valorStringArray.split(";")) 
-//			doubles.add(Double.parseDouble(string));
-//	
-		return Arrays.asList(valorStringArray.split(";"));
+	public List<Double> getValorArray() {
+		List<Double> doubles = new ArrayList<Double>();
+		
+		for (String string : valorStringArray.split(";")) {
+			doubles.add(Double.parseDouble(string));
+		}	
+		return doubles;
 	}
 
     @Getter
