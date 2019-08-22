@@ -2,30 +2,21 @@ package br.com.ottimizza.dashboard.models;
 
 import java.io.Serializable;
 import java.math.BigInteger;
-import java.util.ArrayList;
-import java.util.List;
-import javax.persistence.CascadeType;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Index;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
-
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @NoArgsConstructor
@@ -47,11 +38,10 @@ public class Kpi implements Serializable {
 
     @Getter
     @Setter
-    @JsonIgnore
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "fk_companies_id")
+    @ManyToOne
+    @JoinColumn(name = "fk_companies_id", referencedColumnName = "id", nullable = false)
     private Company company;
-    
+
     @Getter
     @Setter
     @Column(name = "title", nullable = false)
@@ -102,11 +92,15 @@ public class Kpi implements Serializable {
     @Column(name = "label_4", nullable = true)
     private String label4;
 
-    @Getter
-    @Setter	
-    @OneToMany(mappedBy = "kpiID", fetch = FetchType.EAGER)
-    private List<KpiDetail> kpiDetail;
+//    @Getter
+//    @Setter
+//    @Fetch(FetchMode.SELECT)
+//    @OneToMany(mappedBy="kpis",
+//        cascade = CascadeType.ALL,
+//        targetEntity = KpiDetail.class,
+//        fetch = FetchType.EAGER,
+//        orphanRemoval = true)
+//    private List<KpiDetail> kpiDetails;
+//    //@JoinColumn(name = "kpi_id")
     
 }
-
-

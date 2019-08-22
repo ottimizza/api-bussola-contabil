@@ -1,7 +1,6 @@
 extends type Kpi {
 	id: BigInteger!
 	kpiAlias: String!
-	company: Company
 	title: String!
 	subtitle: String
 	description: String
@@ -12,13 +11,11 @@ extends type Kpi {
 	label3: String
 	label4: String
 	visible: Boolean
-	kpiDetail: [KpiDetail]
 }
 
 extends input KpiFilter {
 	id: BigInteger
 	kpiAlias: String
-	company: CompanyFilter
 	title: String
 	subtitle: String
 	description: String
@@ -29,7 +26,6 @@ extends input KpiFilter {
 	label3: String
 	label4: String
 	visible: Boolean
-	kpiDetail: [KpiDetail]
 }
 
 extends type Query {

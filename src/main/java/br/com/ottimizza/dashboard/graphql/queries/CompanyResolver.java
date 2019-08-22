@@ -26,17 +26,17 @@ public class CompanyResolver {
 	}
 
 	@GraphQLQuery
-	public List<Company> findCompany(BigInteger id, String cnpj, String name) {
+	public List<Company> findCompany(BigInteger id, List<String> cnpj, String name) {
 		JPAQuery<Company> query = new JPAQuery<Company>(em).from(company);
 		
 		if (id != null) 
-			query.where(company.id.in(id));
+			query.where(company.id.eq(id));
 		
 		if (name != null) 
-			query.where(company.name.toUpperCase().in(name.toUpperCase()));
+			query.where(company.name.toUpperCase().eq(name.toUpperCase()));
 		
 		if (cnpj != null) 
-			query.where(company.cnpj.eq(cnpj));
+			query.where(company.cnpj.in(cnpj));
 
 		return query.orderBy(company.name.asc()).fetch();
 	}

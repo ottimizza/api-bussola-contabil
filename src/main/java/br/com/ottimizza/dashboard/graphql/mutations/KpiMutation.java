@@ -1,25 +1,11 @@
 package br.com.ottimizza.dashboard.graphql.mutations;
 
-import java.math.BigInteger;
-import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Optional;
-
-import javax.inject.Inject;
 import javax.persistence.EntityManager;
-import javax.ws.rs.NotFoundException;
 
-import br.com.ottimizza.dashboard.models.Company;
-import br.com.ottimizza.dashboard.models.Kpi;
-import br.com.ottimizza.dashboard.models.KpiDetail;
 import br.com.ottimizza.dashboard.models.QKpi;
 import br.com.ottimizza.dashboard.repositories.company.CompanyRepository;
-import br.com.ottimizza.dashboard.repositories.company.CompanyRepositoryCustom;
-import br.com.ottimizza.dashboard.repositories.company.CompanyRepositoryImpl;
 import br.com.ottimizza.dashboard.repositories.kpi.KpiRepository;
 import br.com.ottimizza.dashboard.repositories.kpi_detail.KpiDetailRepository;
-import br.com.ottimizza.dashboard.services.KpiDetailService;
-import io.leangen.graphql.annotations.GraphQLMutation;
 
 public class KpiMutation {
 
@@ -36,64 +22,64 @@ public class KpiMutation {
 		this.companyRepository = companyRepository;
 	}
 
-	@GraphQLMutation(name = "createKpi")
-	public Kpi createKpi(BigInteger companyId, String kpiAlias, String title, String subtitle, String description, Short graphType, 
-						String columnX0Label, String label, String label2, String label3, String label4, Boolean visible) {
-
-		Company company = new Company();
-		Kpi kpi = new Kpi();
-
-		if (companyId != null) {
-			Optional<Company> optionalCompany = companyRepository.findById(companyId);
-			try { company = optionalCompany.get(); } 
-			catch (Exception e) { new NoSuchElementException(e.getStackTrace().toString()); }
-		}
-		if (company != null) {
-			kpi.setCompany(company);
-			kpi.setKpiAlias(kpiAlias);
-			kpi.setTitle(title);
-			kpi.setSubtitle(subtitle != null ? subtitle : "");
-			kpi.setDescription(description != null ? description : "");
-			kpi.setGraphType(graphType);
-			kpi.setColumnX0Label(columnX0Label);
-			kpi.setLabel(label != null ? label : "");
-			kpi.setLabel2(label2 != null ? label2 : "");
-			kpi.setLabel3(label3 != null ? label3 : "");
-			kpi.setLabel4(label4 != null ? label4 : "");
-			kpi.setVisible(visible != null ? visible : true);
-		}
-		
-		return kpiRepository.save(kpi);
-	}
+//	@GraphQLMutation(name = "createKpi")
+//	public Kpi createKpi(BigInteger companyId, String kpiAlias, String title, String subtitle, String description, Short graphType, 
+//						String columnX0Label, String label, String label2, String label3, String label4, Boolean visible) {
+//
+//		Company company = new Company();
+//		Kpi kpi = new Kpi();
+//
+//		if (companyId != null) {
+//			Optional<Company> optionalCompany = companyRepository.findById(companyId);
+//			try { company = optionalCompany.get(); } 
+//			catch (Exception e) { new NoSuchElementException(e.getStackTrace().toString()); }
+//		}
+//		if (company != null) {
+//			kpi.setCompany(company);
+//			kpi.setKpiAlias(kpiAlias);
+//			kpi.setTitle(title);
+//			kpi.setSubtitle(subtitle != null ? subtitle : "");
+//			kpi.setDescription(description != null ? description : "");
+//			kpi.setGraphType(graphType);
+//			kpi.setColumnX0Label(columnX0Label);
+//			kpi.setLabel(label != null ? label : "");
+//			kpi.setLabel2(label2 != null ? label2 : "");
+//			kpi.setLabel3(label3 != null ? label3 : "");
+//			kpi.setLabel4(label4 != null ? label4 : "");
+//			kpi.setVisible(visible != null ? visible : true);
+//		}
+//		
+//		return kpiRepository.save(kpi);
+//	}
 	
-	@GraphQLMutation(name = "editKpi")
-	public Kpi editKpi(BigInteger id, String kpiAlias, String title, String subtitle, String description, Short graphType, 
-					String columnX0Label, String label, String label2, String label3, String label4, Boolean visible) {
-
-		Kpi kpi = new Kpi();
+//	@GraphQLMutation(name = "editKpi")
+//	public Kpi editKpi(BigInteger id, String kpiAlias, String title, String subtitle, String description, Short graphType, 
+//					String columnX0Label, String label, String label2, String label3, String label4, Boolean visible) {
+//
+//		Kpi kpi = new Kpi();
 //		kpi = kpiRepository.findById(id).map(k -> k).orElseThrow(() -> new NotFoundException());
-		Optional<Kpi> kpiOptional = kpiRepository.findById(id);
-
-		try { kpi = kpiOptional.get(); }
-		catch (Exception e) {  }
-		
-		if (kpi != null) {
-						
-			if(kpiAlias != null)	kpi.setKpiAlias(kpiAlias);
-			if(title != null)		kpi.setTitle(title);
-			if(subtitle != null)	kpi.setSubtitle(subtitle);
-			if(description != null)	kpi.setDescription(description);
-			if(graphType != null)	kpi.setGraphType(graphType);
-			if(columnX0Label != null) kpi.setColumnX0Label(columnX0Label);
-			if(label != null)		kpi.setLabel(label);
-			if(label2 != null)		kpi.setLabel2(label2);
-			if(label3 != null)		kpi.setLabel3(label3);
-			if(label4 != null)		kpi.setLabel4(label4);
-			if(visible != null)		kpi.setVisible(visible);
-
-		}
-		return kpiRepository.save(kpi);
-	}
+//		Optional<Kpi> kpiOptional = kpiRepository.findById(id);
+//
+//		try { kpi = kpiOptional.get(); }
+//		catch (Exception e) {  }
+//		
+//		if (kpi != null) {
+//						
+//			if(kpiAlias != null)	kpi.setKpiAlias(kpiAlias);
+//			if(title != null)		kpi.setTitle(title);
+//			if(subtitle != null)	kpi.setSubtitle(subtitle);
+//			if(description != null)	kpi.setDescription(description);
+//			if(graphType != null)	kpi.setGraphType(graphType);
+//			if(columnX0Label != null) kpi.setColumnX0Label(columnX0Label);
+//			if(label != null)		kpi.setLabel(label);
+//			if(label2 != null)		kpi.setLabel2(label2);
+//			if(label3 != null)		kpi.setLabel3(label3);
+//			if(label4 != null)		kpi.setLabel4(label4);
+//			if(visible != null)		kpi.setVisible(visible);
+//
+//		}
+//		return kpiRepository.save(kpi);
+//	}
 	
 //	@GraphQLMutation(name = "deleteKpi")
 //	public Kpi deleteKpi(BigInteger id) {
