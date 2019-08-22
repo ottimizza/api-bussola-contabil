@@ -103,7 +103,7 @@ public class Kpi implements Serializable {
 
 
 	public List<String> getLabelArray() {
-		List<String> a = Arrays.asList(label);
+		List<String> a = Arrays.asList(label.split(","));
 		return a;
 	}
 
