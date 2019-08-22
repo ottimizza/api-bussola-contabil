@@ -83,7 +83,7 @@ public class KpiDetail implements Serializable {
     @Setter
     private List<Double> valorArray;
     
-	public List<Double> getLabelArray() {
+	public List<Double> getValorArray() {
 		
 		List<Double> doubles = new ArrayList<Double>();
 		
