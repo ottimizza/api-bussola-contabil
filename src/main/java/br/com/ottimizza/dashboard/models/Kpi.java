@@ -2,9 +2,11 @@ package br.com.ottimizza.dashboard.models;
 
 import java.io.Serializable;
 import java.math.BigInteger;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -95,8 +97,8 @@ public class Kpi implements Serializable {
     
     @Getter 
     @Setter
-    @Column(name = "label_array", nullable = true)
-    private List<String> labelArray;
+    @ElementCollection
+    private List<String> labelArray = new ArrayList<String>();
 
 //    @Getter
 //    @Setter
