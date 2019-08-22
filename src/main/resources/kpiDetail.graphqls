@@ -7,7 +7,7 @@
 	valorKPI2:Double
 	valorKPI3:Double
 	valorKPI4:Double
-	valorArray:[Double]
+	valorArray:[String]
 	columnXSeq:String
 	xBinding:String
 	
@@ -22,7 +22,7 @@ extends input KpiDetailFilter {
 	valorKPI2:Double
 	valorKPI3:Double
 	valorKPI4:Double
-	valorArray:[Double]
+	valorArray:[String]
 	columnXSeq:String
 	xBinding:String
 	
