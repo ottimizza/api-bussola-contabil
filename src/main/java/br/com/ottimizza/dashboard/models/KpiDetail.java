@@ -16,6 +16,7 @@ import javax.persistence.Index;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -80,20 +81,18 @@ public class KpiDetail implements Serializable {
     @Column(name = "value_string_array", nullable = true)
     private String valorStringArray;
     
-//    @Setter
-//    @ElementCollection
-//    @Column(name = "value_array", nullable = true)
-//    private List<Double> valorArray;
-//    
-//	public List<Double> getValorArray() {
-//		
-//		List<Double> doubles = new ArrayList<Double>();
-//		
-//		for (String string : valorStringArray.split(";")) 
-//			doubles.add(Double.parseDouble(string));
-//		
-//		return doubles;
-//	}
+    @Setter
+    @Transient
+    private List<Double> valorArray;
+    
+	public List<Double> getValorArray() {
+		List<Double> doubles = new ArrayList<Double>();
+		
+		for (String string : valorStringArray.split(";")) 
+			doubles.add(Double.parseDouble(string));
+		
+		return doubles;
+	}
 
     @Getter
     @Setter
