@@ -81,8 +81,6 @@ public class KpiDetail implements Serializable {
     private String valorStringArray;
     
     @Setter
-    @ElementCollection
-    @Column(name = "label_array", nullable = true)
     private List<Double> valorArray;
     
 	public List<Double> getLabelArray() {
