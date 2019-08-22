@@ -80,20 +80,20 @@ public class KpiDetail implements Serializable {
     @Column(name = "value_string_array", nullable = true)
     private String valorStringArray;
     
-    @Setter
-    @ElementCollection
-    @Column(name = "value_array", nullable = true)
-    private List<Double> valorArray;
-    
-	public List<Double> getValorArray() {
-		
-		List<Double> doubles = new ArrayList<Double>();
-		
-		for (String string : valorStringArray.split(";")) 
-			doubles.add(Double.parseDouble(string));
-		
-		return doubles;
-	}
+//    @Setter
+//    @ElementCollection
+//    @Column(name = "value_array", nullable = true)
+//    private List<Double> valorArray;
+//    
+//	public List<Double> getValorArray() {
+//		
+//		List<Double> doubles = new ArrayList<Double>();
+//		
+//		for (String string : valorStringArray.split(";")) 
+//			doubles.add(Double.parseDouble(string));
+//		
+//		return doubles;
+//	}
 
     @Getter
     @Setter
