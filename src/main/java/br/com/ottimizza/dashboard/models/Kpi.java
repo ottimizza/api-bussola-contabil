@@ -99,7 +99,7 @@ public class Kpi implements Serializable {
     @Setter
     @ElementCollection
     @Column(name = "label_array", nullable = true)
-    private List<String> labelArray;
+    private String labelArray[];
 
 //    @Getter
 //    @Setter
