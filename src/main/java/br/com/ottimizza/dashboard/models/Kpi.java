@@ -111,15 +111,4 @@ public class Kpi implements Serializable {
 	}
 
 	
-//    @Getter
-//    @Setter
-//    @Fetch(FetchMode.SELECT)
-//    @OneToMany(mappedBy="kpis",
-//        cascade = CascadeType.ALL,
-//        targetEntity = KpiDetail.class,
-//        fetch = FetchType.EAGER,
-//        orphanRemoval = true)
-//    private List<KpiDetail> kpiDetails;
-//    //@JoinColumn(name = "kpi_id")
-    
 }
