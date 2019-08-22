@@ -98,10 +98,15 @@ public class Kpi implements Serializable {
     private String label4;
     
     @Getter
+	@Setter
+    @Column(name = "value_type", nullable = true)
+	private String valueType;
+
+    @Getter
     @Setter
     @Column(name = "label_string_array", nullable = true)
     private String labelStringArray;
-    
+
     @Setter
     @Transient
     private List<String> labelArray;
@@ -110,5 +115,4 @@ public class Kpi implements Serializable {
 		return Arrays.asList(labelStringArray.split(";"));
 	}
 
-	
 }
