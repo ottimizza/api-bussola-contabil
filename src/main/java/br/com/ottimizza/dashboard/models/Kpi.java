@@ -102,6 +102,8 @@ public class Kpi implements Serializable {
     private String labelStringArray;
     
     @Setter
+    @ElementCollection
+    @Column(name = "label_array", nullable = true)
     private List<String> labelArray;
     
 	public List<String> getLabelArray() {
