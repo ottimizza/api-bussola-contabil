@@ -2,8 +2,12 @@ package br.com.ottimizza.dashboard.models;
 
 import java.io.Serializable;
 import java.math.BigInteger;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -12,6 +16,7 @@ import javax.persistence.Index;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -91,16 +96,19 @@ public class Kpi implements Serializable {
     @Setter
     @Column(name = "label_4", nullable = true)
     private String label4;
-
-//    @Getter
-//    @Setter
-//    @Fetch(FetchMode.SELECT)
-//    @OneToMany(mappedBy="kpis",
-//        cascade = CascadeType.ALL,
-//        targetEntity = KpiDetail.class,
-//        fetch = FetchType.EAGER,
-//        orphanRemoval = true)
-//    private List<KpiDetail> kpiDetails;
-//    //@JoinColumn(name = "kpi_id")
     
+    @Getter
+    @Setter
+    @Column(name = "label_string_array", nullable = true)
+    private String labelStringArray;
+    
+    @Setter
+    @Transient
+    private List<String> labelArray;
+    
+	public List<String> getLabelArray() {
+		return Arrays.asList(labelStringArray.split(";"));
+	}
+
+	
 }
