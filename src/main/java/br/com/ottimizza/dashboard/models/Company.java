@@ -38,15 +38,4 @@ public class Company implements Serializable {
     @Column(name = "name", nullable = false)
     private String name;
     
-//    @Getter
-//    @Setter
-//    @OneToMany(mappedBy="companies")
-//    private List<Kpi> kpis; 
-//    @Fetch(FetchMode.SELECT)
-//        targetEntity = Kpi.class,
-//        cascade = CascadeType.ALL,
-//        fetch = FetchType.EAGER,
-//        orphanRemoval = true)
-//    //@JoinColumn(name = "fk_company_id")
-    
 }
