@@ -30,7 +30,7 @@ public class KpiResolver{
 							Short graphType, String columnX0Label, String label, String label2, String label3, String label4, Boolean visible) {
 		JPAQuery<Kpi> query = new JPAQuery<Kpi>(em).from(kpi);
 	
-//		if(cnpj != null)		query.where(kpi.company.cnpj.in(cnpj));
+		if(cnpj != null)		query.where(kpi.company.cnpj.in(cnpj));
 		
 		if(companyId != null)	query.where(kpi.company.id.in(companyId));
 		if(id != null)			query.where(kpi.id.in(id));
