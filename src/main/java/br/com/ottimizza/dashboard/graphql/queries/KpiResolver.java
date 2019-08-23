@@ -26,7 +26,7 @@ public class KpiResolver{
 	}
 
 	@GraphQLQuery
-	public List<Kpi> findKpi(String cnpj, List<BigInteger> id, BigInteger companyId, String kpiAlias, String title, String subtitle, String description, 
+	public List<Kpi> findKpi(String cnpj, BigInteger id, BigInteger companyId, String kpiAlias, String title, String subtitle, String description, 
 							Short graphType, String columnX0Label, String label, String label2, String label3, String label4, Boolean visible) {
 		JPAQuery<Kpi> query = new JPAQuery<Kpi>(em).from(kpi);
 	
