@@ -12,6 +12,7 @@ extends type Kpi {
 	label4: String
 	labelArray: [String]
 	visible: Boolean
+	kpiDetail: [kpiDetail]
 }
 
 extends input KpiFilter {
@@ -28,6 +29,7 @@ extends input KpiFilter {
 	label4: String
 	labelArray: [String]
 	visible: Boolean
+	kpiDetail: [kpiDetail]
 	
 }
 
