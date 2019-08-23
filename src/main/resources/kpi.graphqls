@@ -1,5 +1,5 @@
 extends type Kpi {
-	id: BigInteger!
+	id: [BigInteger]!
 	kpiAlias: String!
 	title: String!
 	subtitle: String
