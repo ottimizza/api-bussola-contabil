@@ -99,6 +99,7 @@ public class Kpi implements Serializable {
     @Column(name = "label_4", nullable = true)
     private String label4;
     
+    //tipo de dados valor, indice
     @Getter
 	@Setter
     @Column(name = "value_type", nullable = true)
@@ -122,11 +123,13 @@ public class Kpi implements Serializable {
     @OneToMany(mappedBy = "kpiID", fetch = FetchType.EAGER)
     private List<KpiDetail> kpiDetail;
 
+	//column pie line
 	@Getter
 	@Setter
     @Column(name = "chart_type", nullable = true)
 	private String chartType;
 
+	//parametors para o grafico
 	@Getter
 	@Setter
     @Column(name = "chart_options", nullable = true)
