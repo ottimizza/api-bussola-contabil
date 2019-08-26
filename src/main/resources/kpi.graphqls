@@ -15,6 +15,7 @@ extends type Kpi {
 	kpiDetail: [kpiDetail]
 	valueType: String
 	chartType: String
+	chartOptions: String
 }
 
 extends input KpiFilter {
@@ -34,6 +35,7 @@ extends input KpiFilter {
 	kpiDetail: [kpiDetail]
 	valueType: String
 	chartType: String
+	chartOptions: String
 }
 
 extends type Query {
