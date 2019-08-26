@@ -122,4 +122,9 @@ public class Kpi implements Serializable {
     @OneToMany(mappedBy = "kpiID", fetch = FetchType.EAGER)
     private List<KpiDetail> kpiDetail;
 
+	@Getter
+	@Setter
+    @Column(name = "chart_type", nullable = true)
+	private String chartType;
+	
 }
