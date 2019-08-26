@@ -126,5 +126,10 @@ public class Kpi implements Serializable {
 	@Setter
     @Column(name = "chart_type", nullable = true)
 	private String chartType;
+
+	@Getter
+	@Setter
+    @Column(name = "chart_options", nullable = true)
+	private String chartOptions;
 	
 }
