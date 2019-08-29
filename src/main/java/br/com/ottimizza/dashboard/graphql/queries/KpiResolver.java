@@ -49,7 +49,7 @@ public class KpiResolver{
 		
 		query.where(kpi.kpiAlias.notLike("07").and(kpi.kpiAlias.notLike("12")));
 		
-		return query.fetch();
+		return query.orderBy(kpi.graphOrder.asc()).fetch();
 	}
 
 }
