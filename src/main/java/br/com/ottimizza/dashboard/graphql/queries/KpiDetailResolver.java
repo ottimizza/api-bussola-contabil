@@ -43,7 +43,8 @@ public class KpiDetailResolver {
 		if(columnXSeq != null)	query.where(kpiDetail.columnXSeq.toUpperCase().in(columnXSeq.toUpperCase()));
 		if(xBinding != null)	query.where(kpiDetail.xBinding.toUpperCase().in(xBinding.toUpperCase()));
 		
-		return query.fetch();
 		
+		return query.orderBy(kpiDetail.columnXSeq.asc()).fetch();
+
 	}
 }

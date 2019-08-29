@@ -78,6 +78,16 @@ public class KpiDetail implements Serializable {
     
     @Getter
     @Setter
+    @Column(name = "column_x_seq", nullable = true)
+    private String columnXSeq = "";
+
+    @Getter
+    @Setter
+    @Column(name = "column_x_bidding", length = 40, nullable = true)
+    private String xBinding;
+    
+    @Getter
+    @Setter
     @Column(name = "value_string_array", nullable = true)
     private String valorStringArray;
     
@@ -93,15 +103,4 @@ public class KpiDetail implements Serializable {
 		}	
 		return doubles;
 	}
-
-    @Getter
-    @Setter
-    @Column(name = "column_x_seq", nullable = true)
-    private String columnXSeq = "";
-
-    @Getter
-    @Setter
-    @Column(name = "column_x_bidding", length = 40, nullable = true)
-    private String xBinding;
-    
 }
