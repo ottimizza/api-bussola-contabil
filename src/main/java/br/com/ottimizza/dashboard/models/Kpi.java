@@ -138,7 +138,7 @@ public class Kpi implements Serializable {
 	//para ordenacao dos kpis
 	@Getter
 	@Setter
-    @Column(name = "graph order", nullable = true)
+    @Column(name = "graph_order", nullable = true)
 	private int graphOrder;
 	
 }
