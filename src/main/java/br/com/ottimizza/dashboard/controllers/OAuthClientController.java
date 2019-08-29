@@ -31,6 +31,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
+import java.text.MessageFormat;
 import java.util.Arrays;
 
 import org.springframework.http.HttpHeaders;
@@ -61,6 +62,7 @@ public class OAuthClientController {
     @Value("${oauth2-config.oauth2-client-secret}")
     private String OAUTH2_CLIENT_SECRET;
 
+    
     @PostMapping(value = "/callback", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> oauthCallback(@RequestParam("code") String code,
             @RequestParam("redirect_uri") String redirectUri) throws IOException {
@@ -70,14 +72,12 @@ public class OAuthClientController {
 
         try {
             HttpClient httpClient = HttpClientBuilder.create().build();
-
-            URIBuilder uriBuilder = new URIBuilder(OAUTH2_SERVER_URL + "/oauth/token");
-            uriBuilder.addParameter("code", code);
-            uriBuilder.addParameter("grant_type", "authorization_code");
-            uriBuilder.addParameter("redirect_uri", redirectUri);
-
-            HttpPost httpPost = new HttpPost(uriBuilder.build());
-
+            
+            String uri = MessageFormat.format("{0}/oauth/token?grant_type={1}&code={2}&redirect_uri={3}", 
+                    OAUTH2_SERVER_URL, "authorization_code", code, redirectUri
+            );
+            
+            HttpPost httpPost = new HttpPost(uri);
             httpPost.setHeader("Authorization", "Basic " + encodedCredentials);
 
             HttpResponse httpResponse = httpClient.execute(httpPost);
@@ -89,6 +89,7 @@ public class OAuthClientController {
             return ResponseEntity.status(401).body("{}");
         }
     }
+    
     @PostMapping(value = "/refresh", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> oauthRefresh(@RequestParam("refresh_token") String refreshToken,
             @RequestParam("client_id") String clientId) throws IOException {
