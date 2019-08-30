@@ -47,7 +47,7 @@ public class KpiResolver{
 		if(label3 != null)		query.where(kpi.label3.toUpperCase().in(label3.toUpperCase()));
 		if(label4 != null)		query.where(kpi.label4.toUpperCase().in(label4.toUpperCase()));
 		
-		query.where(kpi.kpiAlias.notLike("07").and(kpi.kpiAlias.notLike("12")));
+		if(kpiAlias == null) query.where(kpi.kpiAlias.notLike("07").and(kpi.kpiAlias.notLike("12")));
 		
 		return query.orderBy(kpi.graphOrder.asc()).fetch();
 	}
