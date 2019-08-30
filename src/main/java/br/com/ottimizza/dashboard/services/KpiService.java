@@ -107,10 +107,9 @@ public class KpiService {
 	public KpiDTO kpiValue(BigInteger companyId) throws Exception {
 
 		List<KpiDTO> kpis = repository.findKpiDTOByCompanyId(companyId);
-
 		KpiDTO kpiDto = new KpiDTO();
-		try {kpiDto = kpis.get(0);}
-		catch (Exception e) {System.out.printf("kpiDTO s%",e.getMessage());}
+		try { kpiDto = kpis.get(0); }
+		catch (Exception e) { System.out.println("kpiDTO "+e.getMessage()); }
 		
 		return kpiDto;
 	}
