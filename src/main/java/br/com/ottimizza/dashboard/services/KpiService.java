@@ -1,5 +1,6 @@
 package br.com.ottimizza.dashboard.services;
 
+import br.com.ottimizza.dashboard.dtos.KpiDTO;
 import br.com.ottimizza.dashboard.models.Company;
 import br.com.ottimizza.dashboard.models.Kpi;
 import br.com.ottimizza.dashboard.models.KpiShort;
@@ -101,6 +102,17 @@ public class KpiService {
 			//new NoSuchElementException(); 
 		}
 		return repository.save(newKpi);	
+	}
+
+	public KpiDTO kpiValue(BigInteger companyId) throws Exception {
+
+		List<KpiDTO> kpis = repository.findKpiDTOByCompanyId(companyId);
+
+		KpiDTO kpiDto = new KpiDTO();
+		try {kpiDto = kpis.get(0);}
+		catch (Exception e) {System.out.printf("kpiDTO s%",e.getMessage());}
+		
+		return kpiDto;
 	}
 
 }
