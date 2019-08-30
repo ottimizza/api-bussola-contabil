@@ -10,6 +10,8 @@ import br.com.ottimizza.dashboard.models.QKpiDetail;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import org.springframework.stereotype.Repository;
+
+import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQuery;
 
 import java.math.BigInteger;
@@ -42,6 +44,8 @@ public class KpiRepositoryImpl implements KpiRepositoryCustom {
                 .where(company.id.eq(companyId)
                 .and(kpi.graphType.in(7,12)));
         
+        query.select(Projections.constructor(KpiDTO.class, kpi.title, kpiDetail.valorKPI));
+		
         return query.fetchFirst();
 	}    
 }
