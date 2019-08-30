@@ -105,7 +105,6 @@ public class KpiService {
 	}
 
 	public KpiDTO kpiValue(BigInteger companyId) throws Exception {
-
 		return repository.findKpiDTOByCompanyId(companyId);
 	}
 
