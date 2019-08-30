@@ -34,7 +34,7 @@ public class KpiRepositoryImpl implements KpiRepositoryCustom {
     }
 
 	@Override
-	public List<KpiDTO> findKpiDTOByCompanyId(BigInteger companyId) {
+	public KpiDTO findKpiDTOByCompanyId(BigInteger companyId) {
 		
 		JPAQuery<KpiDTO> query = new JPAQuery<KpiDTO>(em).from(kpi)
                 .innerJoin(company).on(company.id.eq(kpi.company.id))
@@ -42,7 +42,6 @@ public class KpiRepositoryImpl implements KpiRepositoryCustom {
                 .where(company.id.eq(companyId)
                 .and(kpi.graphType.in(7,12)));
         
-        return query.fetch();
-	}
-    
+        return query.fetchFirst();
+	}    
 }

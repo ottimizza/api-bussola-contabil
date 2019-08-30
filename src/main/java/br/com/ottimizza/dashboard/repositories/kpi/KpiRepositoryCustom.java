@@ -10,5 +10,5 @@ public interface KpiRepositoryCustom {
     
     List<Kpi> findKpisByCNPJ(List<String> cnpj);
     
-    List<KpiDTO> findKpiDTOByCompanyId(BigInteger companyId);
+    KpiDTO findKpiDTOByCompanyId(BigInteger companyId);
 }
