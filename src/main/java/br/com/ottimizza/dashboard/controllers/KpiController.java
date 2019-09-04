@@ -1,5 +1,6 @@
 package br.com.ottimizza.dashboard.controllers;
 
+import br.com.ottimizza.dashboard.dtos.KpiDTO;
 import br.com.ottimizza.dashboard.models.Kpi;
 import br.com.ottimizza.dashboard.models.KpiShort;
 import br.com.ottimizza.dashboard.services.KpiService;
@@ -45,6 +46,11 @@ public class KpiController {
 	@DeleteMapping("delete/{id}")
 	public ResponseEntity<String> removeKpi(@PathVariable("id") BigInteger idKpi) throws Exception {
 		return ResponseEntity.ok(kpiService.delete(idKpi).toString());
+	}
+
+	@GetMapping("find/gain/{companyId}")
+	public ResponseEntity<KpiDTO> findKpiValue(@PathVariable("companyId") BigInteger companyId) throws Exception {		
+		return ResponseEntity.ok(kpiService.kpiValue(companyId));
 	}
 
 }
