@@ -94,12 +94,13 @@ public class CompanyService {
             System.out.println(" >> 2.1 delAll "+kpiDetails.size());
             
             for (KpiDetail kpiDetail : kpiDetails) {
-                kpiDetailRepository.delete(kpiDetail);
+//                kpiDetailRepository.delete(kpiDetail);
+            	kpiDetailRepository.deleteById(kpiDetail.getId());
             	System.out.println(" >> 3 del All ");
             }
             
             for (Kpi kpi : kpis) {
-                kpiRepository.delete(kpi);
+                kpiRepository.deleteById(kpi.getId());
             	System.out.println(" >> 4 del All ");
             }
             
