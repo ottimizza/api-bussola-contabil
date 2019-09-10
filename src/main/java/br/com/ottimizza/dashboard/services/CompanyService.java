@@ -115,7 +115,9 @@ public class CompanyService {
         } catch (Exception e) {
             response.put("status","Error");
             response.put("message","Houve um problema ao excluir!");
-           
+
+            e.printStackTrace();
+            
             return response;
         }
         return response;
