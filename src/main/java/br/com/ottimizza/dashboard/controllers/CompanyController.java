@@ -119,8 +119,10 @@ public class CompanyController {
     @RequestMapping(value = "/deleteAllKpi", method = RequestMethod.POST, consumes = "application/json")
     public ResponseEntity<String> deleteAllInformationByCNPJ(@RequestBody Map<String,String> cnpj)
             throws Exception {
-    	System.out.println(" >> 1 del All "+cnpj.get("cnpj"));
-        return ResponseEntity.ok(companyService.deleteAllInformationByCNPJ(cnpj.get("cnpj")).toString());
+    	System.out.println(" >> 1 delAll "+cnpj.get("cnpj"));
+    	String xs = companyService.deleteAllInformationByCNPJ(cnpj.get("cnpj")).toString();
+    	System.out.println(" >> 1.1 delAll "+cnpj.get("cnpj")+ " -- "+xs);
+            return ResponseEntity.ok(companyService.deleteAllInformationByCNPJ(cnpj.get("cnpj")).toString());
     }
     
     @DeleteMapping("delete/{id}")
