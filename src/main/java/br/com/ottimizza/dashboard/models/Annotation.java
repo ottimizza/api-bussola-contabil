@@ -23,7 +23,7 @@ import lombok.Setter;
 @Getter @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "annotations", indexes = {@Index(name = "annotations_index", columnList = "kpi_alias,fk_companies_id", unique = true)})
+@Table(name = "annotations", indexes = {@Index(name = "annotations_index", columnList = "kpi_alias,fk_organizations_id", unique = true)})
 public class Annotation {
 
 	@Id
@@ -38,9 +38,9 @@ public class Annotation {
     @Column(name = "create_at")
    	private LocalDate createAt;
     
-//    @ManyToOne
-//    @JoinColumn(name = "fk_user", referencedColumnName = "id", nullable = false)
-//    private User user;
+    @ManyToOne
+    @JoinColumn(name = "fk_user", referencedColumnName = "id", nullable = false)
+    private User user;
 	
     @Column(name = "kpi_alias", nullable = false)
     private String kpiAlias;
