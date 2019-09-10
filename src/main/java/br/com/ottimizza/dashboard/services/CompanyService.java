@@ -93,6 +93,8 @@ public class CompanyService {
             List<KpiDetail> kpiDetails = kpiDetailRepository.findKpiDetailsByCNPJ(cnpjs);
             System.out.println(" >> 2.1 delAll "+kpiDetails.size());
             
+            
+            
             for (KpiDetail kpiDetail : kpiDetails) {
             	System.out.println("EXCLUSÃO KPIDETAIL: " + new JSONObject(kpiDetail));
                 kpiDetailRepository.delete(kpiDetail);
@@ -113,6 +115,9 @@ public class CompanyService {
         } catch (Exception e) {
             response.put("status","Error");
             response.put("message","Houve um problema ao excluir!");
+
+            e.printStackTrace();
+            
             return response;
         }
         return response;
