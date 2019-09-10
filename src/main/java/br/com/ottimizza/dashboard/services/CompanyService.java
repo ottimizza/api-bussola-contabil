@@ -88,13 +88,16 @@ public class CompanyService {
 //            List<Company> companies = repository.findCompaniesByCNPJ(cnpjs);
             List<Kpi> kpis = kpiRepository.findKpisByCNPJ(cnpjs);
             List<KpiDetail> kpiDetails = kpiDetailRepository.findKpiDetailsByCNPJ(cnpjs);
-            
+        	System.out.println(" >> 2 del All ");
+
             for (KpiDetail kpiDetail : kpiDetails) {
                 kpiDetailRepository.delete(kpiDetail);
+            	System.out.println(" >> 3 del All ");
             }
             
             for (Kpi kpi : kpis) {
                 kpiRepository.delete(kpi);
+            	System.out.println(" >> 4 del All ");
             }
             
 //            for (Company company : companies) {
