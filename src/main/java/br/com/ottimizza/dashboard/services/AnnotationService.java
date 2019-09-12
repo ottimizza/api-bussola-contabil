@@ -4,6 +4,7 @@ import java.math.BigInteger;
 
 import javax.inject.Inject;
 
+import org.json.JSONObject;
 import org.springframework.stereotype.Service;
 
 import br.com.ottimizza.dashboard.models.Annotation;
@@ -26,5 +27,19 @@ public class AnnotationService {
 		}catch (Exception e) { }
 		
 		return note;
+	}
+
+	public JSONObject delete(BigInteger annotationId) {
+		JSONObject response = new JSONObject();
+        try {
+            repository.deleteById(annotationId);
+            response.put("status", "sucess");
+            response.put("message", "Anotação excluída com sucesso!");
+        } catch (Exception e) {
+            response.put("status", "Error");
+            response.put("message", "Houve um problema ao excluir!");
+            return response;
+        }
+        return response;
 	}
 }
