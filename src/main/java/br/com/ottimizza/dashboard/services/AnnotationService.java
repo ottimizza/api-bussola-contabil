@@ -1,6 +1,7 @@
 package br.com.ottimizza.dashboard.services;
 
 import java.math.BigInteger;
+import java.util.Optional;
 
 import javax.inject.Inject;
 
@@ -8,7 +9,10 @@ import org.json.JSONObject;
 import org.springframework.stereotype.Service;
 
 import br.com.ottimizza.dashboard.models.Annotation;
+import br.com.ottimizza.dashboard.models.Company;
+import br.com.ottimizza.dashboard.models.Kpi;
 import br.com.ottimizza.dashboard.repositories.annotation.AnnotationRepository;
+import br.com.ottimizza.dashboard.repositories.company.CompanyRepository;
 
 @Service
 public class AnnotationService {
@@ -16,8 +20,22 @@ public class AnnotationService {
 	@Inject
 	private AnnotationRepository repository;
 	
+	@Inject
+	private CompanyRepository companyRepository;
+	
 	public Annotation save(Annotation annotation) throws Exception {
 		return repository.save(annotation);
+	}
+	
+	public Annotation createAnnotation(BigInteger companyId, Annotation annotation) {
+		Company company = new Company();
+		Optional<Company> optionalCompany = companyRepository.findById(companyId);
+
+		try {
+			company = optionalCompany.get();
+			annotation.setCompany(company);
+		} catch (Exception e) { }
+		return repository.save(annotation);	
 	}
 	
 	public Annotation findById(BigInteger id) throws Exception{

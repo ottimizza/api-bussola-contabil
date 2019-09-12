@@ -33,14 +33,14 @@ public class Annotation {
 
 	@ManyToOne
     @JoinColumn(name = "fk_organizations_id", referencedColumnName = "id", nullable = false)
-    private Company company;
+    private BigInteger companyId;
 	
     @Column(name = "create_at")
    	private LocalDate createAt;
     
     @ManyToOne
     @JoinColumn(name = "fk_user", referencedColumnName = "id", nullable = false)
-    private User user;
+    private BigInteger userId;
 	
     @Column(name = "kpi_alias", nullable = false)
     private String kpiAlias;
