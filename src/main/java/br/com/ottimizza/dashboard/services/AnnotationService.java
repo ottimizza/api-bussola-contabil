@@ -27,16 +27,16 @@ public class AnnotationService {
 		return repository.save(annotation);
 	}
 	
-	public Annotation createAnnotation(BigInteger companyId, Annotation annotation) {
-		Company company = new Company();
-		Optional<Company> optionalCompany = companyRepository.findById(companyId);
-
+//	public Annotation createAnnotation(BigInteger companyId, Annotation annotation) {
+//		Company company = new Company();
+//		Optional<Company> optionalCompany = companyRepository.findById(companyId);
+//
 //		try {
 //			company = optionalCompany.get();
 //			annotation.setCompany(company);
 //		} catch (Exception e) { }
-		return repository.save(annotation);	
-	}
+//		return repository.save(annotation);	
+//	}
 	
 	public Annotation findById(BigInteger id) throws Exception{
 		Annotation note = new Annotation();
