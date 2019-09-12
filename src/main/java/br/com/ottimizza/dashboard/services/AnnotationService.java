@@ -31,10 +31,10 @@ public class AnnotationService {
 		Company company = new Company();
 		Optional<Company> optionalCompany = companyRepository.findById(companyId);
 
-		try {
-			company = optionalCompany.get();
-			annotation.setCompany(company);
-		} catch (Exception e) { }
+//		try {
+//			company = optionalCompany.get();
+//			annotation.setCompany(company);
+//		} catch (Exception e) { }
 		return repository.save(annotation);	
 	}
 	
