@@ -33,8 +33,12 @@ public class AnnotationController {
 	
 	@GetMapping("find/{id}")
 	public ResponseEntity<Annotation> findAnnotationByID(@PathVariable("id") BigInteger annotationId) throws Exception {
-		System.out.println(">>>>>>a1 "+annotationId);
 		return ResponseEntity.ok(annotationService.findById(annotationId));
+	}
+	
+	@GetMapping("find/{kpiAlias}")
+	public ResponseEntity<Annotation> findAnnotationByID(@PathVariable("kpiAlias") String kpiAlias) throws Exception {
+		return ResponseEntity.ok(annotationService.findByKpiAlias(kpiAlias));
 	}
 	
 	@DeleteMapping("delete/{id}")
