@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.Index;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import br.com.ottimizza.dashboard.models.users.User;
@@ -26,11 +27,14 @@ import lombok.Setter;
 @Table(name = "annotations", indexes = {@Index(name = "annotations_index", columnList = "kpi_alias,fk_organizations_id", unique = true)})
 public class Annotation {
 
-	@Id
+	
+    @Id
+    @Getter @Setter
     @Column(name = "id", nullable = false)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @SequenceGenerator(name = "annotations_sequence", sequenceName = "annotations_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "annotations_sequence")
     private BigInteger id;
-
+	
 	@ManyToOne
     @JoinColumn(name = "fk_organizations_id", referencedColumnName = "id", nullable = false)
     private Company company;
