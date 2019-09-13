@@ -1,6 +1,7 @@
 package br.com.ottimizza.dashboard.services;
 
 import java.math.BigInteger;
+import java.util.List;
 import java.util.Optional;
 
 import javax.inject.Inject;
@@ -11,8 +12,10 @@ import org.springframework.stereotype.Service;
 import br.com.ottimizza.dashboard.models.Annotation;
 import br.com.ottimizza.dashboard.models.Company;
 import br.com.ottimizza.dashboard.models.Kpi;
+import br.com.ottimizza.dashboard.models.users.User;
 import br.com.ottimizza.dashboard.repositories.annotation.AnnotationRepository;
 import br.com.ottimizza.dashboard.repositories.company.CompanyRepository;
+import br.com.ottimizza.dashboard.repositories.user.UserRepository;
 
 @Service
 public class AnnotationService {
@@ -23,11 +26,20 @@ public class AnnotationService {
 	@Inject
 	private CompanyRepository companyRepository;
 	
+	@Inject
+	private UserRepository userRepository;
+	
 	public Annotation save(Annotation annotation) throws Exception {
 		try {
 			Company company = companyRepository.findById(annotation.getCompany().getId()).get();
 			annotation.setCompany(company);
 		}catch (Exception e) { }
+		
+		try {
+			User user = userRepository.findById(annotation.getUser().getId()).get();
+			annotation.setUser(user);
+		}catch (Exception e) { }
+		
 		return repository.save(annotation);
 	}
 	
@@ -63,5 +75,9 @@ public class AnnotationService {
             return response;
         }
         return response;
+	}
+
+	public List<Annotation> findAll() {
+		return 	repository.findAll();
 	}
 }

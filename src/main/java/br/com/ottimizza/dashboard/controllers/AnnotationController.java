@@ -1,6 +1,7 @@
 package br.com.ottimizza.dashboard.controllers;
 
 import java.math.BigInteger;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -30,13 +31,17 @@ public class AnnotationController {
 	}
 	
 	@GetMapping("find/{id}")
-	public ResponseEntity<Annotation> findKpiByID(@PathVariable("id") BigInteger annotationId) throws Exception {
+	public ResponseEntity<Annotation> findAnnotationByID(@PathVariable("id") BigInteger annotationId) throws Exception {
 		return ResponseEntity.ok(annotationService.findById(annotationId));
 	}
 	
 	@DeleteMapping("delete/{id}")
 	public ResponseEntity<String> removeAnnotation(@PathVariable("id") BigInteger annotationId) throws Exception {
 		return ResponseEntity.ok(annotationService.delete(annotationId).toString());
+	}
+	@GetMapping("find")
+	public ResponseEntity<List<Annotation>> findAllAnnotations() throws Exception {
+		return ResponseEntity.ok(annotationService.findAll());
 	}
 	
 }
