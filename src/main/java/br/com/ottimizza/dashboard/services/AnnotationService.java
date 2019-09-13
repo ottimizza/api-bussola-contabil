@@ -69,7 +69,8 @@ public class AnnotationService {
 	public JSONObject delete(BigInteger annotationId) {
 		JSONObject response = new JSONObject();
         try {
-            repository.deleteAnnotationById(annotationId);
+            repository.deleteById(annotationId);
+//            repository.deleteAnnotationById(annotationId);
             response.put("status", "sucess");
             response.put("message", "Anotação excluída com sucesso!");
         } catch (Exception e) {
