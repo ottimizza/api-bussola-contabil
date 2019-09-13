@@ -23,7 +23,7 @@ public interface AnnotationRepository extends JpaRepository<Annotation, BigInteg
 
 	@Modifying
 	@Transactional
-	@Query(" DELETE a FROM Annotation a WHERE id = :id ")
+	@Query(" DELETE FROM Annotation WHERE id = :id ")
 	void deleteAnnotationById(@Param("id") BigInteger id);
 
 }
