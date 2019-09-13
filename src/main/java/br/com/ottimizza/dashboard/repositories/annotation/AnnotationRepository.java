@@ -9,6 +9,6 @@ import br.com.ottimizza.dashboard.models.Annotation;
 
 public interface AnnotationRepository extends JpaRepository<Annotation, BigInteger>{
 
-	Optional<Annotation> findById(BigInteger annotationid);
+//	Optional<Annotation> findById(BigInteger annotationid);
 
 }
