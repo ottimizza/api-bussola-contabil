@@ -10,7 +10,4 @@ import org.springframework.data.jpa.repository.Query;
 
 public interface KpiRepository extends JpaRepository<Kpi, BigInteger>, KpiRepositoryCustom{
 
-//	@Query("")
-//	Kpi findById(BigInteger idKpi);
-//    
 }

@@ -10,7 +10,6 @@ import org.springframework.stereotype.Repository;
 
 import br.com.ottimizza.dashboard.models.Annotation;
 
-@Repository
 public interface AnnotationRepository extends JpaRepository<Annotation, BigInteger>, AnnotationRepositoryCustom {
 
 	@Query(" SELECT a FROM Annotation a WHERE id = :id ")
