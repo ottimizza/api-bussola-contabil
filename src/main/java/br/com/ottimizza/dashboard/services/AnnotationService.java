@@ -59,7 +59,7 @@ public class AnnotationService {
 		System.out.println(" ###### ");
 		System.out.println("  >>>>>>> " + id);
 		
-		Annotation annotation = repository.findById(id).get(); //.orElse(null);
+		Annotation annotation = repository.findAnnotationById(id); //.orElse(null);
 		System.out.println("  >>>>>>> " + id);
 		
 		System.out.println(" >>>>>>> " + (annotation == null || annotation.getId() == null));
