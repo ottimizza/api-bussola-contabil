@@ -54,19 +54,8 @@ public class AnnotationService {
 //		return repository.save(annotation);	
 //	}
 	
-	public Optional<Annotation> findById(BigInteger id) throws Exception{
-
-		return repository.findById(id);
-//		try {
-//			Optional
-//			Annotation ann = repository.findById(id).get();
-//			System.out.println(">>>>>>b1 "+ann.getKpiAlias());
-//			return ann;
-//		}catch (Exception e) { 
-//			e.printStackTrace();
-//			System.out.println(">>>>>>b2 ");
-//			return new Annotation();
-//		}
+	public Annotation findById(BigInteger id) throws Exception{
+		return repository.findById(id).orElse(null);
 	}
 
 	public JSONObject delete(BigInteger annotationId) {
