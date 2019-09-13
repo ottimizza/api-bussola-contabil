@@ -57,11 +57,19 @@ public class AnnotationService {
 	public Annotation findById(BigInteger id) throws Exception{
 		return repository.findAnnotationById(id);
 	}
-
+	
+	public Annotation findByKpiAlias(String kpiAlias) {
+		return repository.findByKpiAlias(kpiAlias);
+	}
+	
+	public List<Annotation> findAll() {
+		return 	repository.findAll();
+	}
+	
 	public JSONObject delete(BigInteger annotationId) {
 		JSONObject response = new JSONObject();
         try {
-            repository.deleteById(annotationId);
+            repository.deleteAnnotationById(annotationId);
             response.put("status", "sucess");
             response.put("message", "Anotação excluída com sucesso!");
         } catch (Exception e) {
@@ -72,11 +80,5 @@ public class AnnotationService {
         return response;
 	}
 
-	public List<Annotation> findAll() {
-		return 	repository.findAll();
-	}
-
-	public Annotation findByKpiAlias(String kpiAlias) {
-		return repository.findByKpiAlias(kpiAlias);
-	}
+	
 }

@@ -13,10 +13,12 @@ import br.com.ottimizza.dashboard.models.Annotation;
 @Repository
 public interface AnnotationRepository extends JpaRepository<Annotation, BigInteger>, AnnotationRepositoryCustom {
 
-	// nao mexer
 	@Query(" SELECT a FROM Annotation a WHERE id = :id ")
 	Annotation findAnnotationById(@Param("id") BigInteger id);
 
 	Annotation findByKpiAlias(String kpiAlias);
+
+	@Query(" DELETE a FROM Annotation a WHERE id = :id ")
+	Annotation deleteAnnotationById(@Param("id") BigInteger id);
 
 }
