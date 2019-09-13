@@ -24,6 +24,10 @@ public class AnnotationService {
 	private CompanyRepository companyRepository;
 	
 	public Annotation save(Annotation annotation) throws Exception {
+		try {
+			Company company = companyRepository.findById(annotation.getCompany().getId()).get();
+			annotation.setCompany(company);
+		}catch (Exception e) { }
 		return repository.save(annotation);
 	}
 	
