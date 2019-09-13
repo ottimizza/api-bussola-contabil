@@ -30,16 +30,16 @@ public class AnnotationService {
 	private UserRepository userRepository;
 	
 	public Annotation save(Annotation annotation) throws Exception {
-//		try {
-//			Company company = companyRepository.findById(annotation.getCompany().getId()).get();
-//			annotation.setCompany(company);
-//		}catch (Exception e) { }
-//		
-//		try {
-//			User user = userRepository.findById(annotation.getUser().getId()).get();
-//			annotation.setUser(user);
-//		}catch (Exception e) { }
-//		
+		try {
+			Company company = companyRepository.findById(annotation.getCompany().getId()).get();
+			annotation.setCompany(company);
+		}catch (Exception e) { }
+		
+		try {
+			User user = userRepository.findById(annotation.getUser().getId()).get();
+			annotation.setUser(user);
+		}catch (Exception e) { }
+		
 		return repository.save(annotation);
 	}
 	
@@ -55,12 +55,11 @@ public class AnnotationService {
 //	}
 	
 	public Annotation findById(BigInteger id) throws Exception{
-		Annotation note = new Annotation();
 		try {
-			note = repository.findById(id).get();
-		}catch (Exception e) { }
-		
-		return note;
+			return repository.findById(id).get();
+		}catch (Exception e) { 
+			return new Annotation();
+		}
 	}
 
 	public JSONObject delete(BigInteger annotationId) {
