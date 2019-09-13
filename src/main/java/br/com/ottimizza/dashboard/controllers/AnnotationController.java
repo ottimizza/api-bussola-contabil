@@ -37,7 +37,7 @@ public class AnnotationController {
 	}
 	
 	@GetMapping("find/{kpiAlias}")
-	public ResponseEntity<Annotation> findAnnotationByID(@PathVariable("kpiAlias") String kpiAlias) throws Exception {
+	public ResponseEntity<Annotation> findAnnotationByKpiAlias(@PathVariable("kpiAlias") String kpiAlias) throws Exception {
 		return ResponseEntity.ok(annotationService.findByKpiAlias(kpiAlias));
 	}
 	
