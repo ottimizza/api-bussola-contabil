@@ -2,6 +2,7 @@ package br.com.ottimizza.dashboard.controllers;
 
 import java.math.BigInteger;
 import java.util.List;
+import java.util.Optional;
 
 import javax.inject.Inject;
 
@@ -31,7 +32,7 @@ public class AnnotationController {
 	}
 	
 	@GetMapping("find/{id}")
-	public ResponseEntity<Annotation> findAnnotationByID(@PathVariable("id") BigInteger annotationId) throws Exception {
+	public ResponseEntity<Optional<Annotation>> findAnnotationByID(@PathVariable("id") BigInteger annotationId) throws Exception {
 		System.out.println(">>>>>>a1 "+annotationId);
 		return ResponseEntity.ok(annotationService.findById(annotationId));
 	}
