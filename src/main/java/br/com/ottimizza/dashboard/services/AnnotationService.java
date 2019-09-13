@@ -56,8 +56,11 @@ public class AnnotationService {
 	
 	public Annotation findById(BigInteger id) throws Exception{
 		try {
-			return repository.findById(id).get();
+			Annotation ann = repository.findById(id).get();
+			System.out.println(">>>>>>b1 "+ann.getKpiAlias());
+			return ann;
 		}catch (Exception e) { 
+			System.out.println(">>>>>>b2 ");
 			return new Annotation();
 		}
 	}
