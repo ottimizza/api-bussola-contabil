@@ -2,7 +2,6 @@ package br.com.ottimizza.dashboard.models;
 
 import java.math.BigInteger;
 import java.time.LocalDate;
-import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,8 +13,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 import br.com.ottimizza.dashboard.models.users.User;
 import lombok.AllArgsConstructor;
@@ -39,15 +36,15 @@ public class Annotation {
     private BigInteger id;
 	
 	@ManyToOne
-    @JoinColumn(name = "fk_organizations_id", referencedColumnName = "id", nullable = false, unique = true)
+    @JoinColumn(name = "fk_organizations_id", referencedColumnName = "id", nullable = false)
     private Company company;
 	
     @Column(name = "create_at")
    	private LocalDate createAt;
     
-//    @ManyToOne
-//    @JoinColumn(name = "fk_user", referencedColumnName = "id", nullable = false)
-//    private User user;
+    @ManyToOne
+    @JoinColumn(name = "fk_user", referencedColumnName = "id", nullable = false)
+    private User user;
 	
     @Column(name = "kpi_alias", nullable = false)
     private String kpiAlias;
