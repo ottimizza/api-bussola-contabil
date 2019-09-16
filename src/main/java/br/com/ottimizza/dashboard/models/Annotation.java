@@ -2,6 +2,7 @@ package br.com.ottimizza.dashboard.models;
 
 import java.math.BigInteger;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -40,7 +41,7 @@ public class Annotation {
     private Company company;
 	
     @Column(name = "create_at")
-   	private LocalDate createAt;
+   	private LocalDateTime createAt;
     
 //    @ManyToOne
 //    @JoinColumn(name = "fk_user", referencedColumnName = "id", nullable = false)
