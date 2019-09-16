@@ -43,7 +43,6 @@ public class Annotation {
     private Company company;
 	
     @Column(name = "create_at")
-    @Temporal(TemporalType.TIMESTAMP)
    	private LocalDate createAt;
     
     @ManyToOne
