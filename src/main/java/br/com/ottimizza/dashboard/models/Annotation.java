@@ -44,7 +44,7 @@ public class Annotation {
 	
     @Column(name = "create_at")
     @Temporal(TemporalType.TIMESTAMP)
-   	private Date createAt;
+   	private LocalDate createAt;
     
     @ManyToOne
     @JoinColumn(name = "fk_user", referencedColumnName = "id", nullable = false)
