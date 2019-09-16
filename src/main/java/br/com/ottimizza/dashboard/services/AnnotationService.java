@@ -80,5 +80,9 @@ public class AnnotationService {
         return response;
 	}
 
+	public List<Annotation> findAnnotationList(Annotation annotation) {
+		return repository.findByKpiCompanyAndAlias(annotation.getCompany(), annotation.getKpiAlias());
+	}
+
 	
 }

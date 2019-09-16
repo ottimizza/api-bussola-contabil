@@ -24,7 +24,7 @@ import lombok.Setter;
 @Getter @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "annotations", indexes = {@Index(name = "annotations_index", columnList = "kpi_alias,fk_organizations_id", unique = true)})
+@Table(name = "annotations", indexes = {@Index(name = "annotations_index", columnList = "fk_organizations_id", unique = true)})
 public class Annotation {
 
 	

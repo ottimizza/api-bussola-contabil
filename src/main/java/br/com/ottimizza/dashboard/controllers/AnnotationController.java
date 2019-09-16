@@ -50,4 +50,9 @@ public class AnnotationController {
 		return ResponseEntity.ok(annotationService.findAll());
 	}
 	
+	@PostMapping("findAnnotationList")
+	public ResponseEntity<List<Annotation>> findAnnotationList(@RequestBody Annotation annotation) throws Exception {
+		return ResponseEntity.ok(annotationService.findAnnotationList(annotation));
+	}
+	
 }
