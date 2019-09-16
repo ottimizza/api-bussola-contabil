@@ -26,8 +26,8 @@ public class AnnotationService {
 	@Inject
 	private CompanyRepository companyRepository;
 	
-	@Inject
-	private UserRepository userRepository;
+//	@Inject
+//	private UserRepository userRepository;
 	
 	public Annotation save(Annotation annotation) throws Exception {
 		try {
@@ -35,10 +35,10 @@ public class AnnotationService {
 			annotation.setCompany(company);
 		}catch (Exception e) { }
 		
-		try {
-			User user = userRepository.findById(annotation.getUser().getId()).get();
-			annotation.setUser(user);
-		}catch (Exception e) { }
+//		try {
+//			User user = userRepository.findById(annotation.getUser().getId()).get();
+//			annotation.setUser(user);
+//		}catch (Exception e) { }
 		
 		return repository.save(annotation);
 	}
