@@ -24,7 +24,7 @@ import lombok.Setter;
 @Getter @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "annotations", indexes = {@Index(name = "annotations_index", columnList = "fk_organizations_id", unique = true)})
+@Table(name = "annotations")
 public class Annotation {
 
 	
@@ -36,7 +36,7 @@ public class Annotation {
     private BigInteger id;
 	
 	@ManyToOne
-    @JoinColumn(name = "fk_organizations_id", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "fk_organizations_id", referencedColumnName = "id", nullable = false, unique = true)
     private Company company;
 	
     @Column(name = "create_at")
