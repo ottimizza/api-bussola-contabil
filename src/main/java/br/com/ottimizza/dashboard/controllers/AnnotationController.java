@@ -33,7 +33,9 @@ public class AnnotationController {
 	
 	@GetMapping("find/{id}")
 	public ResponseEntity<Annotation> findAnnotationByID(@PathVariable("id") BigInteger annotationId) throws Exception {
-		return ResponseEntity.ok(annotationService.findById(annotationId));
+//		return ResponseEntity.ok(annotationService.findById(annotationId));
+		return (annotationService.findById(annotationId) != null) ? ResponseEntity.ok(annotationService.findById(annotationId)) : ResponseEntity.notFound().build();
+
 	}
 	
 	@GetMapping("find/alias/{kpiAlias}")
