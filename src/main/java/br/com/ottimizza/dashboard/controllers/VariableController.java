@@ -49,7 +49,6 @@ public class VariableController {
 	@DeleteMapping("delete/{id}")
 	public ResponseEntity<String> removeVariable(@PathVariable("id") BigInteger id) throws Exception {
 		JSONObject response = service.delete(id);
-		
 		return (response.get("status") == "Success") ? ResponseEntity.ok(response.toString()) : ResponseEntity.badRequest().build();
 	}
 }
