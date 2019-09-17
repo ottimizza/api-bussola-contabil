@@ -20,7 +20,7 @@ import br.com.ottimizza.dashboard.models.OrganizationVariable;
 import br.com.ottimizza.dashboard.services.OrganizationVariableService;
 
 @RestController
-@RequestMapping("/variable/organization")
+@RequestMapping("/variables/organization")
 public class OrganizationVariableController {
 
 	@Inject

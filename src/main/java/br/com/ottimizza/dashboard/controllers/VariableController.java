@@ -20,7 +20,7 @@ import br.com.ottimizza.dashboard.models.Variable;
 import br.com.ottimizza.dashboard.services.VariableService;
 
 @RestController
-@RequestMapping("/variable")
+@RequestMapping("/variables")
 public class VariableController {
 
 	@Inject
