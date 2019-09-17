@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import javax.inject.Inject;
 
+import org.json.JSONObject;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.ottimizza.dashboard.models.Kpi;
 import br.com.ottimizza.dashboard.models.Variable;
 import br.com.ottimizza.dashboard.services.VariableService;
 
@@ -28,7 +28,6 @@ public class VariableController {
 	
 	@PostMapping("save")
 	public ResponseEntity<Variable> saveVariable(@RequestBody Variable variable) throws Exception {
-
 		try {
 			variable = service.save(variable);
 			return ResponseEntity.ok(variable);
@@ -49,6 +48,8 @@ public class VariableController {
 
 	@DeleteMapping("delete/{id}")
 	public ResponseEntity<String> removeVariable(@PathVariable("id") BigInteger id) throws Exception {
-		return ResponseEntity.ok(service.delete(id).toString());
+		JSONObject response = service.delete(id);
+		
+		return (response.get("status") == "Success") ? ResponseEntity.ok(response.toString()) : ResponseEntity.badRequest().build();
 	}
 }
