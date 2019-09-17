@@ -16,39 +16,40 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.ottimizza.dashboard.models.Variable;
-import br.com.ottimizza.dashboard.services.VariableService;
+import br.com.ottimizza.dashboard.models.OrganizationVariable;
+import br.com.ottimizza.dashboard.services.OrganizationVariableService;
 
 @RestController
-@RequestMapping("/variable")
-public class VariableController {
+@RequestMapping("/variable/organization")
+public class OrganizationVariableController {
 
 	@Inject
-	VariableService service;
+	OrganizationVariableService service;
 	
 	@PostMapping
-	public ResponseEntity<Variable> saveVariable(@RequestBody Variable variable) throws Exception {
+	public ResponseEntity<OrganizationVariable> saveVariable(@RequestBody OrganizationVariable orgVariable) throws Exception {
 		try {
-			variable = service.save(variable);
-			return ResponseEntity.ok(variable);
+			orgVariable = service.save(orgVariable);
+			return ResponseEntity.ok(orgVariable);
 		} catch (Exception e) { }
 		
 		return ResponseEntity.badRequest().build();		
 	}
 	
 	@GetMapping("{id}")
-	public ResponseEntity<Optional<Variable>> findByID(@PathVariable("id") BigInteger id) throws Exception {
+	public ResponseEntity<Optional<OrganizationVariable>> findByID(@PathVariable("id") BigInteger id) throws Exception {
 		return (service.findById(id) != null) ? ResponseEntity.ok(service.findById(id)) : ResponseEntity.notFound().build();
 	}
 	
 	@GetMapping
-	public ResponseEntity<List<Variable>> findAll() throws Exception {
+	public ResponseEntity<List<OrganizationVariable>> findAll() throws Exception {
 		return ResponseEntity.ok(service.findAll());
 	}
-
+	
 	@DeleteMapping("{id}")
-	public ResponseEntity<String> removeVariable(@PathVariable("id") BigInteger id) throws Exception {
+	public ResponseEntity<String> removeOrgVariable(@PathVariable("id") BigInteger id) throws Exception {
 		JSONObject response = service.delete(id);
 		return (response.get("status") == "Success") ? ResponseEntity.ok(response.toString()) : ResponseEntity.badRequest().build();
 	}
+
 }
