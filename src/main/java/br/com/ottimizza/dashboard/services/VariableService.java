@@ -64,7 +64,7 @@ public class VariableService {
 		JSONObject response = new JSONObject();
 		try {
             repository.deleteById(id);
-            response.put("status", "sucess");
+            response.put("status", "Success");
             response.put("message", "Excluído com sucesso!");
         } catch (Exception e) {
             response.put("status", "Error");
