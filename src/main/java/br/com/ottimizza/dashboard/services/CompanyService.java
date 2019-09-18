@@ -101,7 +101,8 @@ public class CompanyService {
             }
             
             for (Kpi kpi : kpis) {
-                kpiRepository.delete(kpi);
+            	kpiRepository.deleteById(kpi.getId());
+//            	kpiRepository.delete(kpi);
             	System.out.println(" >> 4 del All ");
             }
             
