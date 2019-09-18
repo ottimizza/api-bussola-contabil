@@ -63,9 +63,8 @@ public class KpiService {
         return response;
     }
 
-//    public JSONObject delete(Long idKpi) throws Exception { 
 	public JSONObject delete(BigInteger idKpi) throws Exception {
-    	        JSONObject response = new JSONObject();
+        JSONObject response = new JSONObject();
         try {
             repository.deleteById(idKpi);
             response.put("status", "sucess");
