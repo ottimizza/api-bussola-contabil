@@ -30,7 +30,6 @@ public class Annotation {
 
 	
     @Id
-    @Getter @Setter
     @Column(name = "id", nullable = false)
     @SequenceGenerator(name = "annotations_sequence", sequenceName = "annotations_seq", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "annotations_sequence")

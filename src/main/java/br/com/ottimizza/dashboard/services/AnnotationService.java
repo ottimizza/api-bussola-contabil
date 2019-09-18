@@ -13,7 +13,7 @@ import br.com.ottimizza.dashboard.models.Annotation;
 import br.com.ottimizza.dashboard.models.Company;
 import br.com.ottimizza.dashboard.models.Kpi;
 import br.com.ottimizza.dashboard.models.users.User;
-import br.com.ottimizza.dashboard.repositories.annotation.AnnotationRepository;
+import br.com.ottimizza.dashboard.repositories.AnnotationRepository;
 import br.com.ottimizza.dashboard.repositories.company.CompanyRepository;
 import br.com.ottimizza.dashboard.repositories.user.UserRepository;
 
