@@ -93,16 +93,16 @@ public class CompanyService {
             List<KpiDetail> kpiDetails = kpiDetailRepository.findKpiDetailsByCNPJ(cnpjs);
             System.out.println(" >> 2.1 delAll "+kpiDetails.size());
             
+            
+            
             for (KpiDetail kpiDetail : kpiDetails) {
             	System.out.println("EXCLUSÃO KPIDETAIL: " + new JSONObject(kpiDetail));
-            	kpiDetailRepository.deleteById(kpiDetail.getId());
-//                kpiDetailRepository.delete(kpiDetail);
+                kpiDetailRepository.delete(kpiDetail);
             	System.out.println(" >> 3 del All ");
             }
             
             for (Kpi kpi : kpis) {
-            	kpiRepository.deleteById(kpi.getId());
-//            	kpiRepository.delete(kpi);
+                kpiRepository.delete(kpi);
             	System.out.println(" >> 4 del All ");
             }
             
