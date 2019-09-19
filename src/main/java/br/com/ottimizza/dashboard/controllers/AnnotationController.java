@@ -18,38 +18,38 @@ import br.com.ottimizza.dashboard.models.Annotation;
 import br.com.ottimizza.dashboard.services.AnnotationService;
 
 @RestController
-@RequestMapping("/annotation")
+@RequestMapping("/annotations")
 public class AnnotationController {
 	
 	@Inject
 	AnnotationService annotationService;
 
 
-	@PostMapping("save")
+	@PostMapping
 	public ResponseEntity<Annotation> saveAnnotation(@RequestBody Annotation annotation) throws Exception {
 		return ResponseEntity.ok(annotationService.save(annotation));
 	}
 	
-	@GetMapping("find/{id}")
+	@GetMapping("{id}")
 	public ResponseEntity<Annotation> findAnnotationByID(@PathVariable("id") BigInteger annotationId) throws Exception {
 		return (annotationService.findById(annotationId) != null) ? ResponseEntity.ok(annotationService.findById(annotationId)) : ResponseEntity.notFound().build();
 	}
 	
-	@GetMapping("find/alias/{kpiAlias}")
-	public ResponseEntity<Annotation> findAnnotationByKpiAlias(@PathVariable("kpiAlias") String kpiAlias) throws Exception {
+	@GetMapping("alias/{kpiAlias}")
+	public ResponseEntity<List<Annotation>> findAnnotationByKpiAlias(@PathVariable("kpiAlias") String kpiAlias) throws Exception {
 		return ResponseEntity.ok(annotationService.findByKpiAlias(kpiAlias));
 	}
 	
-	@DeleteMapping("delete/{id}")
+	@DeleteMapping("{id}")
 	public ResponseEntity<String> removeAnnotation(@PathVariable("id") BigInteger annotationId) throws Exception {
 		return ResponseEntity.ok(annotationService.delete(annotationId).toString());
 	}
-	@GetMapping("find")
+	@GetMapping
 	public ResponseEntity<List<Annotation>> findAllAnnotations() throws Exception {
 		return ResponseEntity.ok(annotationService.findAll());
 	}
 	
-	@PostMapping("findAnnotationList")
+	@PostMapping("byAliasAndCompany")
 	public ResponseEntity<List<Annotation>> findAnnotationList(@RequestBody Annotation annotation) throws Exception {
 		return ResponseEntity.ok(annotationService.findAnnotationList(annotation));
 	}

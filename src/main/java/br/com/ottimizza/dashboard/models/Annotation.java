@@ -17,14 +17,13 @@ import javax.persistence.Table;
 
 import br.com.ottimizza.dashboard.models.users.User;
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Getter @Setter
-@NoArgsConstructor
-@AllArgsConstructor
+@Data
 @Table(name = "annotations")
 public class Annotation {
 
@@ -35,16 +34,13 @@ public class Annotation {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "annotations_sequence")
     private BigInteger id;
 	
-	@ManyToOne
-    @JoinColumn(name = "fk_organizations_id", referencedColumnName = "id", nullable = false)
-    private Company company;
+	@Column(name = "fk_organizations_id", nullable = false)
+    private BigInteger companyId;
 	
-    @Column(name = "create_at")
    	private LocalDateTime createAt;
     
-//    @ManyToOne
-//    @JoinColumn(name = "fk_user", referencedColumnName = "id", nullable = false)
-//    private User user;
+    @Column(name = "created_by", nullable = false)
+    private String createdBy;
 	
     @Column(name = "kpi_alias", nullable = false)
     private String kpiAlias;

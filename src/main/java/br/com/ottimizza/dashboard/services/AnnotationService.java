@@ -30,35 +30,15 @@ public class AnnotationService {
 //	private UserRepository userRepository;
 	
 	public Annotation save(Annotation annotation) throws Exception {
-		try {
-			Company company = companyRepository.findById(annotation.getCompany().getId()).get();
-			annotation.setCompany(company);
-		}catch (Exception e) { }
-		
-//		try {
-//			User user = userRepository.findById(annotation.getUser().getId()).get();
-//			annotation.setUser(user);
-//		}catch (Exception e) { }
-		
 		return repository.save(annotation);
 	}
 	
-//	public Annotation createAnnotation(BigInteger companyId, Annotation annotation) {
-//		Company company = new Company();
-//		Optional<Company> optionalCompany = companyRepository.findById(companyId);
-//
-//		try {
-//			company = optionalCompany.get();
-//			annotation.setCompany(company);
-//		} catch (Exception e) { }
-//		return repository.save(annotation);	
-//	}
 	
 	public Annotation findById(BigInteger id) throws Exception{
 		return repository.findAnnotationById(id);
 	}
 	
-	public Annotation findByKpiAlias(String kpiAlias) {
+	public List<Annotation> findByKpiAlias(String kpiAlias) {
 		return repository.findByKpiAlias(kpiAlias);
 	}
 	
@@ -81,7 +61,7 @@ public class AnnotationService {
 	}
 
 	public List<Annotation> findAnnotationList(Annotation annotation) {
-		return repository.findAnnotationByCompanyAndKpiAlias(annotation.getCompany(), annotation.getKpiAlias());
+		return repository.findAnnotationByCompanyAndKpiAlias(annotation.getCompanyId(), annotation.getKpiAlias());
 	}
 
 	
