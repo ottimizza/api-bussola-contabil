@@ -27,7 +27,6 @@ import lombok.Setter;
 @Table(name = "annotations")
 public class Annotation {
 
-	
     @Id
     @Column(name = "id", nullable = false)
     @SequenceGenerator(name = "annotations_sequence", sequenceName = "annotations_seq", allocationSize = 1)

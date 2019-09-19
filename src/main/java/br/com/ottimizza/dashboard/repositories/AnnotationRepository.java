@@ -30,6 +30,6 @@ public interface AnnotationRepository extends JpaRepository<Annotation, BigInteg
 
 	
 	@Query(" SELECT a FROM Annotation a WHERE companyId = :companyId AND kpiAlias = :kpiAlias order by createdAt")
-	List<Annotation> findAnnotationByCompanyAndKpiAlias(@Param("companyId") BigInteger companyId, String kpiAlias);
+	List<Annotation> findAnnotationByCompanyAndKpiAlias(@Param("companyId") BigInteger companyId, @Param("kpiAlias") String kpiAlias);
 	
 }

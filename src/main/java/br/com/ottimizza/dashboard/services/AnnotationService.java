@@ -61,6 +61,7 @@ public class AnnotationService {
 	}
 
 	public List<Annotation> findAnnotationList(Annotation annotation) {
+		System.out.println(">>> C "+annotation.getCompanyId()+" <> "+ annotation.getKpiAlias());
 		return repository.findAnnotationByCompanyAndKpiAlias(annotation.getCompanyId(), annotation.getKpiAlias());
 	}
 
