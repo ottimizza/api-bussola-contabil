@@ -1,10 +1,12 @@
 package br.com.ottimizza.dashboard.services;
 
-import br.com.ottimizza.dashboard.apis.SalesForceApi;
-import br.com.ottimizza.dashboard.repositories.user.UserRepository;
 import javax.inject.Inject;
+
 import org.json.JSONObject;
 import org.springframework.stereotype.Service;
+
+import br.com.ottimizza.dashboard.apis.SalesForceApi;
+import br.com.ottimizza.dashboard.repositories.user.UserRepository;
 
 @Service
 public class SalesForceService {

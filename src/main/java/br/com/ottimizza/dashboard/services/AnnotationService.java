@@ -2,7 +2,6 @@ package br.com.ottimizza.dashboard.services;
 
 import java.math.BigInteger;
 import java.util.List;
-import java.util.Optional;
 
 import javax.inject.Inject;
 
@@ -10,24 +9,13 @@ import org.json.JSONObject;
 import org.springframework.stereotype.Service;
 
 import br.com.ottimizza.dashboard.models.Annotation;
-import br.com.ottimizza.dashboard.models.Company;
-import br.com.ottimizza.dashboard.models.Kpi;
-import br.com.ottimizza.dashboard.models.users.User;
 import br.com.ottimizza.dashboard.repositories.AnnotationRepository;
-import br.com.ottimizza.dashboard.repositories.company.CompanyRepository;
-import br.com.ottimizza.dashboard.repositories.user.UserRepository;
 
 @Service
 public class AnnotationService {
 
 	@Inject
 	private AnnotationRepository repository;
-	
-	@Inject
-	private CompanyRepository companyRepository;
-	
-//	@Inject
-//	private UserRepository userRepository;
 	
 	public Annotation save(Annotation annotation) throws Exception {
 		return repository.save(annotation);

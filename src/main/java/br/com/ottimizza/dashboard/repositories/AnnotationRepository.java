@@ -2,7 +2,6 @@ package br.com.ottimizza.dashboard.repositories;
 
 import java.math.BigInteger;
 import java.util.List;
-import java.util.Optional;
 
 import javax.transaction.Transactional;
 
@@ -13,7 +12,6 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import br.com.ottimizza.dashboard.models.Annotation;
-import br.com.ottimizza.dashboard.models.Company;
 
 @Repository
 public interface AnnotationRepository extends JpaRepository<Annotation, BigInteger> {

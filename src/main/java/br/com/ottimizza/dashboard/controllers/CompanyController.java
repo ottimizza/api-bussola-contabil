@@ -1,22 +1,12 @@
 package br.com.ottimizza.dashboard.controllers;
 
-import br.com.ottimizza.dashboard.models.Company;
-import br.com.ottimizza.dashboard.models.Kpi;
-import br.com.ottimizza.dashboard.models.KpiDetail;
-import br.com.ottimizza.dashboard.models.users.User;
-import br.com.ottimizza.dashboard.services.CompanyService;
-import br.com.ottimizza.dashboard.services.KpiDetailService;
-import br.com.ottimizza.dashboard.services.KpiService;
-import br.com.ottimizza.dashboard.services.SalesForceService;
-import br.com.ottimizza.dashboard.services.UserService;
-
 import java.math.BigInteger;
 import java.security.Principal;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+
 import javax.inject.Inject;
 
 import org.json.JSONArray;
@@ -30,8 +20,15 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import br.com.ottimizza.dashboard.models.Company;
+import br.com.ottimizza.dashboard.models.users.User;
+import br.com.ottimizza.dashboard.services.CompanyService;
+import br.com.ottimizza.dashboard.services.KpiDetailService;
+import br.com.ottimizza.dashboard.services.KpiService;
+import br.com.ottimizza.dashboard.services.SalesForceService;
+import br.com.ottimizza.dashboard.services.UserService;
 
 @RestController
 @RequestMapping("/company")
@@ -50,28 +47,7 @@ public class CompanyController {
     
     @PostMapping("save")
     public ResponseEntity<Company> saveCompany(@RequestBody Company company) throws Exception {
-//    	List<Kpi> kpis = company.getKpis();
     	return ResponseEntity.ok(companyService.save(company));
-    	
-//    	if(kpis != null && !kpis.isEmpty()) {
-//    		for (Kpi kpi : kpis) {
-//    			
-//    			kpi.setCompany(company);
-//				try { kpi = kpiService.save(kpi); }
-//				catch (Exception e) {}
-
-//				List<KpiDetail> details = kpi.getKpiDetail();
-//				if(details != null && !details.isEmpty()) {
-//					for (KpiDetail detail : details) {
-//						detail.setKpiID(kpi);
-//						try { detail = kpiDetailService.save(detail); }
-//						catch (Exception e) {  }
-//					}
-//				}
-
-//			}
-//    	}
-//    	return ResponseEntity.ok(company);
     }
     
     @GetMapping("find/{id}")
@@ -126,11 +102,5 @@ public class CompanyController {
     public ResponseEntity<String> removeCompany(@PathVariable("id") BigInteger idCompany) throws Exception {
         return ResponseEntity.ok(companyService.delete(idCompany).toString());
     }
-    
-//    @PostMapping("saveCompanies")
-//    public ResponseEntity<List<Company>> createCompanies(@RequestBody Map<Company, List<Company>> body) throws Exception {
-//        List<Company> companies = body.get("companies");
-//        return ResponseEntity.ok(companyService.findByListCNPJ(listaCNPJ));
-//    } 
 
 }

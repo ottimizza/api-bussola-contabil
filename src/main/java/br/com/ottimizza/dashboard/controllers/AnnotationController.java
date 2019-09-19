@@ -24,7 +24,6 @@ public class AnnotationController {
 	@Inject
 	AnnotationService annotationService;
 
-
 	@PostMapping
 	public ResponseEntity<Annotation> saveAnnotation(@RequestBody Annotation annotation) throws Exception {
 		return ResponseEntity.ok(annotationService.save(annotation));

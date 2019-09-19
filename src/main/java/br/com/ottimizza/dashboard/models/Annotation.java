@@ -1,7 +1,6 @@
 package br.com.ottimizza.dashboard.models;
 
 import java.math.BigInteger;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import javax.persistence.Column;
@@ -9,18 +8,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Index;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
-import br.com.ottimizza.dashboard.models.users.User;
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @Entity
 @Data
