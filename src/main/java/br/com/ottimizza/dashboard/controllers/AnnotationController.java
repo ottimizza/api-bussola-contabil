@@ -1,6 +1,7 @@
 package br.com.ottimizza.dashboard.controllers;
 
 import java.math.BigInteger;
+import java.security.Principal;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -8,6 +9,7 @@ import javax.inject.Inject;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -44,13 +46,13 @@ public class AnnotationController {
 		return ResponseEntity.ok(annotationService.delete(annotationId).toString());
 	}
 	@GetMapping
-	public ResponseEntity<List<Annotation>> findAllAnnotations() throws Exception {
-		return ResponseEntity.ok(annotationService.findAll());
+	public ResponseEntity<List<Annotation>> findAllAnnotations(@ModelAttribute Annotation filter, Principal principal) throws Exception {
+		return ResponseEntity.ok(annotationService.findAnnotationList(filter));
 	}
 	
-	@PostMapping("byAliasAndCompany")
-	public ResponseEntity<List<Annotation>> findAnnotationList(@RequestBody Annotation annotation) throws Exception {
-		return ResponseEntity.ok(annotationService.findAnnotationList(annotation));
-	}
+//	@GetMapping("byAliasAndCompany")
+//	public ResponseEntity<List<Annotation>> findAnnotationList(@RequestBody Annotation annotation) throws Exception {
+//		return ResponseEntity.ok(annotationService.findAnnotationList(annotation));
+//	}
 	
 }
