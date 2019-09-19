@@ -34,7 +34,7 @@ public class Annotation {
     private BigInteger id;
 	
 	@Column(name = "fk_organizations_id", nullable = false)
-    private BigInteger companyId;
+    private String organizationId;
 	
    	private LocalDateTime createAt;
     
