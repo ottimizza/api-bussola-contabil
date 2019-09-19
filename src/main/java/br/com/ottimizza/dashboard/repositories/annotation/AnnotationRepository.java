@@ -1,4 +1,4 @@
-package br.com.ottimizza.dashboard.repositories;
+package br.com.ottimizza.dashboard.repositories.annotation;
 
 import java.math.BigInteger;
 import java.util.List;

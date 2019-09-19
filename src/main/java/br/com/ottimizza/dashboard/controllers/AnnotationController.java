@@ -49,10 +49,5 @@ public class AnnotationController {
 	public ResponseEntity<List<Annotation>> findAllAnnotations(@ModelAttribute Annotation filter, Principal principal) throws Exception {
 		return ResponseEntity.ok(annotationService.findAnnotationList(filter));
 	}
-	
-//	@GetMapping("byAliasAndCompany")
-//	public ResponseEntity<List<Annotation>> findAnnotationList(@RequestBody Annotation annotation) throws Exception {
-//		return ResponseEntity.ok(annotationService.findAnnotationList(annotation));
-//	}
-	
+		
 }

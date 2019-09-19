@@ -9,7 +9,7 @@ import org.json.JSONObject;
 import org.springframework.stereotype.Service;
 
 import br.com.ottimizza.dashboard.models.Annotation;
-import br.com.ottimizza.dashboard.repositories.AnnotationRepository;
+import br.com.ottimizza.dashboard.repositories.annotation.AnnotationRepository;
 
 @Service
 public class AnnotationService {
@@ -51,8 +51,5 @@ public class AnnotationService {
 	public List<Annotation> findAnnotationList(Annotation annotation) {
 		return repository.findAnnotationByCompanyAndKpiAlias(annotation.getOrganizationId(), annotation.getKpiAlias());
 	}
-
-
-	
 	
 }
