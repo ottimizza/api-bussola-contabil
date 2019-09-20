@@ -8,4 +8,6 @@ import br.com.ottimizza.dashboard.models.Annotation;
 public interface AnnotationRepositoryCustom {
 
 	List<Annotation> findAnnotations(AnnotationDTO annotation);
+	
+	
 }
