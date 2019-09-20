@@ -94,7 +94,7 @@ public class CompanyService {
         }
         
         try {
-        	System.out.println(" >>> 2 => "+kpis.size()+" - "+kpiDetailRepository.findKpiDetailsByCNPJ(cnpjs));
+        	System.out.println(" >>> 2 => "+kpis.size()+" - "+kpiDetailRepository.findKpiDetailsByCNPJ(cnpjs).size());
             
             for (Kpi kpi : kpis) {
             	List<KpiDetail> details = kpi.getKpiDetail();
@@ -102,7 +102,7 @@ public class CompanyService {
             		kpiDetailRepository.delete(kpiDetail);
 				}
             	kpiRepository.delete(kpi);
-                System.out.println(" >>> 3 => "+kpiRepository.findKpisByCNPJ(cnpjs)+" - "+kpiDetailRepository.findKpiDetailsByCNPJ(cnpjs));
+                System.out.println(" >>> 3 => "+kpiRepository.findKpisByCNPJ(cnpjs).size()+" - "+kpiDetailRepository.findKpiDetailsByCNPJ(cnpjs).size());
             }
 
             response.put("status","sucess");
