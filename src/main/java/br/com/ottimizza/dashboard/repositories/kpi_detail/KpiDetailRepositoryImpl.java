@@ -1,6 +1,5 @@
 package br.com.ottimizza.dashboard.repositories.kpi_detail;
 
-import java.math.BigInteger;
 import java.util.List;
 
 import javax.persistence.EntityManager;
