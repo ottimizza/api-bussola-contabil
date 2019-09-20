@@ -27,10 +27,6 @@ public class AnnotationService {
 		return repository.findAnnotationById(id);
 	}
 	
-	public List<Annotation> findByKpiAlias(String kpiAlias) {
-		return repository.findByKpiAlias(kpiAlias);
-	}
-	
 	public List<Annotation> findAll() {
 		return 	repository.findAll();
 	}

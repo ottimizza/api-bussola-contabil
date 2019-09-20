@@ -19,15 +19,9 @@ public interface AnnotationRepository extends JpaRepository<Annotation, BigInteg
 	@Query(" SELECT a FROM Annotation a WHERE id = :id ")
 	Annotation findAnnotationById(@Param("id") BigInteger id);
 
-	List<Annotation> findByKpiAlias(String kpiAlias);
-
 	@Modifying
 	@Transactional
 	@Query(" DELETE FROM Annotation WHERE id = :id ")
 	void deleteAnnotationById(@Param("id") BigInteger id);
 
-	// movida p/ custom
-//	@Query(" SELECT a FROM Annotation a WHERE a.organizationId = :organizationId AND a.kpiAlias = :kpiAlias order by a.createAt desc")
-//	List<Annotation> findAnnotationByCompanyAndKpiAlias(@Param("organizationId") String organizationId, @Param("kpiAlias") String kpiAlias);
-	
 }

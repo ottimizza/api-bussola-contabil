@@ -37,15 +37,11 @@ public class AnnotationController {
 		return (annotationService.findById(annotationId) != null) ? ResponseEntity.ok(annotationService.findById(annotationId)) : ResponseEntity.notFound().build();
 	}
 	
-	@GetMapping("alias/{kpiAlias}")
-	public ResponseEntity<List<Annotation>> findAnnotationByKpiAlias(@PathVariable("kpiAlias") String kpiAlias) throws Exception {
-		return ResponseEntity.ok(annotationService.findByKpiAlias(kpiAlias));
-	}
-	
 	@DeleteMapping("{id}")
 	public ResponseEntity<String> removeAnnotation(@PathVariable("id") BigInteger annotationId) throws Exception {
 		return ResponseEntity.ok(annotationService.delete(annotationId).toString());
 	}
+	
 	@GetMapping
 	public ResponseEntity<List<Annotation>> findAllAnnotations(@ModelAttribute AnnotationDTO filter, Principal principal) throws Exception {
 		return ResponseEntity.ok(annotationService.findAnnotationList(filter));
