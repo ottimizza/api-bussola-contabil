@@ -5,6 +5,8 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import org.json.JSONObject;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import com.querydsl.jpa.impl.JPAQuery;
@@ -32,6 +34,12 @@ public class KpiDetailRepositoryImpl implements KpiDetailRepositoryCustom {
                 .where(company.cnpj.in(cnpj));
         return query.orderBy(company.name.asc()).orderBy(kpi.kpiAlias.asc()).orderBy(kpiDetail.columnXSeq.asc()).fetch();
     }
+
+	@Override
+	public JSONObject deleteKpiDetail(KpiDetail kpiDetail) {
+		
+		return null;
+	}
 
 	
 }
