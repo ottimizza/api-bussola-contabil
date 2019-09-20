@@ -86,11 +86,15 @@ public class CompanyService {
         List<String> cnpjs = new ArrayList<>();
         cnpjs.add(cnpj);
         
+        List<Kpi> kpis = kpiRepository.findKpisByCNPJ(cnpjs);
+        if(kpis.size() == 0) {
+            response.put("status","Error");
+            response.put("message","sem registros para excluir!");
+            return response;            	
+        }
+        
         try {
-            List<Kpi> kpis = kpiRepository.findKpisByCNPJ(cnpjs);
-            
-            List<KpiDetail> kpiDetails = kpiDetailRepository.findKpiDetailsByCNPJ(cnpjs);
-            System.out.println(" >>> 2 => "+kpis.size()+" - "+kpiDetails.size());
+        	System.out.println(" >>> 2 => "+kpis.size()+" - "+kpiDetailRepository.findKpiDetailsByCNPJ(cnpjs));
             
             for (Kpi kpi : kpis) {
             	List<KpiDetail> details = kpi.getKpiDetail();
@@ -106,7 +110,6 @@ public class CompanyService {
         } catch (Exception e) {
             response.put("status","Error");
             response.put("message","Houve um problema ao excluir!");
-            e.getStackTrace();
             return response;
         }
         
