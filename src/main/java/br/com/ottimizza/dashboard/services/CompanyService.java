@@ -88,34 +88,28 @@ public class CompanyService {
         
         List<Kpi> kpis = kpiRepository.findKpisByCNPJ(cnpjs);
         if(kpis.size() == 0) {
-            response.put("status","Error");
+            response.put("status","Not found");
             response.put("message","sem registros para excluir!");
             return response;            	
         }
         
         try {
-        	System.out.println(" >>> 2 => "+kpis.size()+" - "+kpiDetailRepository.findKpiDetailsByCNPJ(cnpjs).size());
-            
             for (Kpi kpi : kpis) {
             	List<KpiDetail> details = kpi.getKpiDetail();
             	for (KpiDetail kpiDetail : details) {
             		kpiDetailRepository.delete(kpiDetail);
 				}
             	kpiRepository.delete(kpi);
-                System.out.println(" >>> 3 => "+kpiRepository.findKpisByCNPJ(cnpjs).size()+" - "+kpiDetailRepository.findKpiDetailsByCNPJ(cnpjs).size());
             }
 
-            response.put("status","sucess");
+            response.put("status","Success");
             response.put("message","Excluído informações com sucesso!");
         } catch (Exception e) {
             response.put("status","Error");
             response.put("message","Houve um problema ao excluir!");
             return response;
         }
-        
         return response;
     }
-    
-    
     
 }
