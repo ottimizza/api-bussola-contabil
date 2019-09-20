@@ -97,7 +97,8 @@ public class CompanyService {
             
             for (KpiDetail kpiDetail : kpiDetails) {
             	System.out.println(" >>> EXCLUSÃO KPIDETAIL: " + new JSONObject(kpiDetail));
-                kpiDetailRepository.delete(kpiDetail);
+//            	kpiDetailRepository.delete(kpiDetail);
+            	kpiDetailRepository.deleteKpiDetailsById(kpiDetail.getId());
             	System.out.println(" >>> 3 del All ");
             }
             
@@ -105,7 +106,7 @@ public class CompanyService {
                 kpiRepository.delete(kpi);
             	System.out.println(" >>> 4 del All ");
             }
-//            System.out.println(" >>> 5 => "+kpis.size() + " / " + kpiDetails.size());
+            System.out.println(" >>> 5 => "+kpis.size() + " / " + kpiDetails.size());
             
             
             response.put("status","sucess");
