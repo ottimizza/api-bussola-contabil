@@ -14,9 +14,9 @@ import org.springframework.data.repository.query.Param;
 
 public interface KpiRepository extends JpaRepository<Kpi, BigInteger>, KpiRepositoryCustom{
 
-	@Modifying
-	@Transactional
-	@Query(" DELETE FROM kpis WHERE id = :id ")
-	void deleteKpiById(@Param("id") BigInteger id);
+//	@Modifying
+//	@Transactional
+//	@Query(" DELETE FROM kpis WHERE id = :id ")
+//	void deleteKpiById(@Param("id") BigInteger id);
 
 }
