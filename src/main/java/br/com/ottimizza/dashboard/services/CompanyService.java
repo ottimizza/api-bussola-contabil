@@ -86,28 +86,46 @@ public class CompanyService {
         List<String> cnpjs = new ArrayList<>();
         cnpjs.add(cnpj);
         try {
-
+        	List<KpiDetail> kpiDetails = kpiDetailRepository.findKpiDetailsByCNPJ(cnpjs);
+        	
+        	for (KpiDetail kpiDetail : kpiDetails) {
+            	kpiDetailRepository.delete(kpiDetail);
+            	response.put("status","sucess");
+                response.put("message","Excluído informações com sucesso!");
+            }
+		} catch (Exception e) {
+            response.put("status","Error");
+            response.put("message","Houve um problema ao excluir!");
+			System.out.println(" >>> x1 "+e.getMessage());
+		}
+        
+        try {
+            List<Kpi> kpis = kpiRepository.findKpisByCNPJ(cnpjs);
+        	
+        	for (Kpi kpi : kpis) {
+                kpiRepository.delete(kpi);
+                response.put("status","sucess");
+                response.put("message","Excluído informações com sucesso!");
+            }
+		} catch (Exception e) {
+            response.put("status","Error");
+            response.put("message","Houve um problema ao excluir!");
+			System.out.println(" >>> x2 "+e.getMessage());
+		}
+        /**
+        try {
             List<Kpi> kpis = kpiRepository.findKpisByCNPJ(cnpjs);
             
             List<KpiDetail> kpiDetails = kpiDetailRepository.findKpiDetailsByCNPJ(cnpjs);
-            
             System.out.println(" >>> 2 => "+kpis.size()+" - "+kpiDetails.size());
             
             
             for (KpiDetail kpiDetail : kpiDetails) {
-            	try {
-                	kpiDetailRepository.delete(kpiDetail);					
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
+            	kpiDetailRepository.deleteKpiDetailsById(kpiDetail.getId());
             }
             
             for (Kpi kpi : kpis) {
-                try {
-                	kpiRepository.delete(kpi);
-                } catch (Exception e) {
-					e.printStackTrace();
-				}
+                kpiRepository.delete(kpi);
             }
             System.out.println(" >>> 5 => "+kpis.size() + " / " + kpiDetails.size());
             
@@ -122,6 +140,7 @@ public class CompanyService {
             
             return response;
         }
+        */
         return response;
     }
     
