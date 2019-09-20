@@ -1,22 +1,18 @@
 package br.com.ottimizza.dashboard.dtos;
 
+import java.io.Serializable;
 import java.math.BigInteger;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.Data;
 
-@Getter @Setter
-@NoArgsConstructor
-@AllArgsConstructor
-public class AnnotationDTO {
-
-	private BigInteger companyId;
-    private BigInteger userId;
-    
-   	private LocalDate createAt;
-    private String kpiAlias;
-    private String description;
+@Data
+public class AnnotationDTO implements Serializable{
+		
+	private String organizationId;
+	private LocalDateTime createAt;
+	private String createdBy;
+	private String kpiAlias;
+	private String description;
+	    
 }

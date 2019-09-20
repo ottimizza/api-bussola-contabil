@@ -1,14 +1,17 @@
 package br.com.ottimizza.dashboard.repositories.kpi.kpi_short;
 
-import br.com.ottimizza.dashboard.models.Kpi;
+import java.util.List;
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
+import org.springframework.stereotype.Repository;
+
+import com.querydsl.jpa.impl.JPAQuery;
+
 import br.com.ottimizza.dashboard.models.KpiShort;
 import br.com.ottimizza.dashboard.models.QCompany;
 import br.com.ottimizza.dashboard.models.QKpi;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import org.springframework.stereotype.Repository;
-import com.querydsl.jpa.impl.JPAQuery;
-import java.util.List;
 
 @Repository
 public class KpiShortRepositoryImpl implements KpiShortRepositoryCustom {

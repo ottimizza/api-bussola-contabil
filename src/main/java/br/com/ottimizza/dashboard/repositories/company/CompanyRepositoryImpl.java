@@ -17,8 +17,6 @@ public class CompanyRepositoryImpl implements CompanyRepositoryCustom {
     EntityManager em;
     
     private QCompany company = QCompany.company;
-    private QKpi kpi = QKpi.kpi;
-    private QKpiDetail kpiDetail = QKpiDetail.kpiDetail;
     
     @Override
     public List<Company> findCompaniesByCNPJ(List<String> cnpj) {

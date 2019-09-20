@@ -1,17 +1,14 @@
 package br.com.ottimizza.dashboard.apis;
 
-import com.sforce.soap.partner.Connector;
+import java.util.ArrayList;
+
+import org.json.JSONObject;
+
 import com.sforce.soap.partner.PartnerConnection;
 import com.sforce.soap.partner.QueryResult;
 import com.sforce.soap.partner.sobject.SObject;
 import com.sforce.ws.ConnectionException;
 import com.sforce.ws.ConnectorConfig;
-
-import javassist.expr.NewArray;
-
-import java.util.ArrayList;
-
-import org.json.JSONObject;
 
 public class SalesForceApi {
     
