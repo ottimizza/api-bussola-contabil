@@ -1,22 +1,24 @@
 package br.com.ottimizza.dashboard.dao;
 
-import br.com.ottimizza.dashboard.constraints.Response;
-import br.com.ottimizza.dashboard.dao.database.DatabaseConnection;
-//import br.com.ottimizza.comunicacao.entities.organizations.Organization;
-import br.com.ottimizza.dashboard.models.users.User;
-import com.fasterxml.jackson.databind.ObjectMapper;
 //import io.sentry.Sentry;
 import java.math.BigInteger;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
+
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.NonUniqueResultException;
 import javax.persistence.Query;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import br.com.ottimizza.dashboard.constraints.Response;
+import br.com.ottimizza.dashboard.dao.database.DatabaseConnection;
+//import br.com.ottimizza.comunicacao.entities.organizations.Organization;
+import br.com.ottimizza.dashboard.models.users.User;
 
 /**
  *

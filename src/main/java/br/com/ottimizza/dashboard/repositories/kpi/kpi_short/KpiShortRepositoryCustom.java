@@ -1,8 +1,8 @@
 package br.com.ottimizza.dashboard.repositories.kpi.kpi_short;
 
-import br.com.ottimizza.dashboard.models.Kpi;
-import br.com.ottimizza.dashboard.models.KpiShort;
 import java.util.List;
+
+import br.com.ottimizza.dashboard.models.KpiShort;
 
 public interface KpiShortRepositoryCustom {
 
