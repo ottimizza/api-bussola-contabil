@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.ottimizza.dashboard.dtos.AnnotationDTO;
 import br.com.ottimizza.dashboard.models.Annotation;
 import br.com.ottimizza.dashboard.services.AnnotationService;
 
@@ -46,8 +47,8 @@ public class AnnotationController {
 		return ResponseEntity.ok(annotationService.delete(annotationId).toString());
 	}
 	@GetMapping
-	public ResponseEntity<List<Annotation>> findAllAnnotations(@ModelAttribute Annotation filter, Principal principal) throws Exception {
+	public ResponseEntity<List<Annotation>> findAllAnnotations(@ModelAttribute AnnotationDTO filter, Principal principal) throws Exception {
 		return ResponseEntity.ok(annotationService.findAnnotationList(filter));
 	}
-		
+	
 }

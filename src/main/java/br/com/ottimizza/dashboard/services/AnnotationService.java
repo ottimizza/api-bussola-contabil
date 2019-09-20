@@ -8,6 +8,7 @@ import javax.inject.Inject;
 import org.json.JSONObject;
 import org.springframework.stereotype.Service;
 
+import br.com.ottimizza.dashboard.dtos.AnnotationDTO;
 import br.com.ottimizza.dashboard.models.Annotation;
 import br.com.ottimizza.dashboard.repositories.annotation.AnnotationRepository;
 
@@ -48,8 +49,8 @@ public class AnnotationService {
         return response;
 	}
 
-	public List<Annotation> findAnnotationList(Annotation annotation) {
-		return repository.findAnnotationByCompanyAndKpiAlias(annotation.getOrganizationId(), annotation.getKpiAlias());
+	public List<Annotation> findAnnotationList(AnnotationDTO annotation) {
+		return repository.findAnnotations(annotation);
 	}
 	
 }

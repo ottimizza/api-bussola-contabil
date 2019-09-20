@@ -14,7 +14,7 @@ import org.springframework.stereotype.Repository;
 import br.com.ottimizza.dashboard.models.Annotation;
 
 @Repository
-public interface AnnotationRepository extends JpaRepository<Annotation, BigInteger> {
+public interface AnnotationRepository extends JpaRepository<Annotation, BigInteger>, AnnotationRepositoryCustom {
 
 	@Query(" SELECT a FROM Annotation a WHERE id = :id ")
 	Annotation findAnnotationById(@Param("id") BigInteger id);
@@ -27,7 +27,7 @@ public interface AnnotationRepository extends JpaRepository<Annotation, BigInteg
 	void deleteAnnotationById(@Param("id") BigInteger id);
 
 	
-	@Query(" SELECT a FROM Annotation a WHERE a.organizationId = :organizationId AND a.kpiAlias = :kpiAlias order by a.createAt desc")
-	List<Annotation> findAnnotationByCompanyAndKpiAlias(@Param("organizationId") String organizationId, @Param("kpiAlias") String kpiAlias);
+//	@Query(" SELECT a FROM Annotation a WHERE a.organizationId = :organizationId AND a.kpiAlias = :kpiAlias order by a.createAt desc")
+//	List<Annotation> findAnnotationByCompanyAndKpiAlias(@Param("organizationId") String organizationId, @Param("kpiAlias") String kpiAlias);
 	
 }
