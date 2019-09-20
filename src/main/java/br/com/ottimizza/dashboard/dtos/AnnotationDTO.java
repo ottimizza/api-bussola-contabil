@@ -1,14 +1,16 @@
 package br.com.ottimizza.dashboard.dtos;
 
+import java.io.Serializable;
 import java.math.BigInteger;
 import java.time.LocalDateTime;
 
 import lombok.Data;
 
 @Data
-public class AnnotationDTO {
-
-	private BigInteger id;
+public class AnnotationDTO implements Serializable{
+	
+	private static final long serialVersionUID = 1L;
+	
 	private String organizationId;
 	private LocalDateTime createAt;
 	private String createdBy;

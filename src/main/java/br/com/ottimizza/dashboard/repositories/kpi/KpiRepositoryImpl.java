@@ -1,21 +1,21 @@
 package br.com.ottimizza.dashboard.repositories.kpi;
 
-import br.com.ottimizza.dashboard.dtos.KpiDTO;
-import br.com.ottimizza.dashboard.models.Kpi;
-import br.com.ottimizza.dashboard.models.KpiShort;
-import br.com.ottimizza.dashboard.models.QCompany;
-import br.com.ottimizza.dashboard.models.QKpi;
-import br.com.ottimizza.dashboard.models.QKpiDetail;
+import java.math.BigInteger;
+import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+
 import org.springframework.stereotype.Repository;
 
 import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQuery;
 
-import java.math.BigInteger;
-import java.util.List;
+import br.com.ottimizza.dashboard.dtos.KpiDTO;
+import br.com.ottimizza.dashboard.models.Kpi;
+import br.com.ottimizza.dashboard.models.QCompany;
+import br.com.ottimizza.dashboard.models.QKpi;
+import br.com.ottimizza.dashboard.models.QKpiDetail;
 
 @Repository
 public class KpiRepositoryImpl implements KpiRepositoryCustom {

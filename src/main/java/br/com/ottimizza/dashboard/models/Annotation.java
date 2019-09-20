@@ -1,5 +1,6 @@
 package br.com.ottimizza.dashboard.models;
 
+import java.io.Serializable;
 import java.math.BigInteger;
 import java.time.LocalDateTime;
 
@@ -13,12 +14,14 @@ import javax.persistence.Table;
 
 import lombok.Data;
 
-@Entity
 @Data
+@Entity
 @Table(name = "annotations")
-public class Annotation {
+public class Annotation implements Serializable {
 
-    @Id
+	private static final long serialVersionUID = 1L;
+
+	@Id
     @Column(name = "id", nullable = false)
     @SequenceGenerator(name = "annotations_sequence", sequenceName = "annotations_seq", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "annotations_sequence")
