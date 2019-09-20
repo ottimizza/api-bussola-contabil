@@ -96,9 +96,9 @@ public class CompanyService {
             	kpiDetailRepository.delete(kpiDetail);
             }
             
-//            for (Kpi kpi : kpis) {
-//                kpiRepository.delete(kpi);
-//            }
+            for (Kpi kpi : kpis) {
+                kpiRepository.delete(kpi);
+            }
             System.out.println(" >>> 5 => "+kpis.size() + " / " + kpiDetails.size());
             
             
