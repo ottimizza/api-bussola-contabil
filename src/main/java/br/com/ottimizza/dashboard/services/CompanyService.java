@@ -86,25 +86,28 @@ public class CompanyService {
         List<String> cnpjs = new ArrayList<>();
         cnpjs.add(cnpj);
         try {
-//            List<Company> companies = repository.findCompaniesByCNPJ(cnpjs);
-            List<Kpi> kpis = kpiRepository.findKpisByCNPJ(cnpjs);
-        	System.out.println(" >>> 2kpis => "+kpis.size());
 
+            List<Kpi> kpis = kpiRepository.findKpisByCNPJ(cnpjs);
             
             List<KpiDetail> kpiDetails = kpiDetailRepository.findKpiDetailsByCNPJ(cnpjs);
-            System.out.println(" >>> 2details => "+kpiDetails.size());
+            
+            System.out.println(" >>> 2 => "+kpis.size()+" - "+kpiDetails.size());
             
             
             for (KpiDetail kpiDetail : kpiDetails) {
-            	System.out.println(" >>> EXCLUSÃO KPIDETAIL: " + new JSONObject(kpiDetail));
-//            	kpiDetailRepository.delete(kpiDetail);
-            	kpiDetailRepository.deleteKpiDetailsById(kpiDetail.getId());
-            	System.out.println(" >>> 3 del All ");
+            	try {
+                	kpiDetailRepository.delete(kpiDetail);					
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
             }
             
             for (Kpi kpi : kpis) {
-                kpiRepository.delete(kpi);
-            	System.out.println(" >>> 4 del All ");
+                try {
+                	kpiRepository.delete(kpi);
+                } catch (Exception e) {
+					e.printStackTrace();
+				}
             }
             System.out.println(" >>> 5 => "+kpis.size() + " / " + kpiDetails.size());
             
