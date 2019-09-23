@@ -11,6 +11,7 @@ import lombok.Data;
 public class KpiDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
+	private BigInteger id;
 	private BigInteger companyId;
 	private String kpiAlias;
 	private String title;
