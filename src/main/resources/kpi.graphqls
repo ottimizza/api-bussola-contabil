@@ -1,4 +1,4 @@
-extends type Kpi {
+extends type KpiDTO {
 	id: BigInteger!
 	kpiAlias: String!
 	title: String!
@@ -39,7 +39,7 @@ extends input KpiFilter {
 }
 
 extends type Query {
-	findKpi(id: BigInteger, companyId: BigInteger, kpiAlias: String, title: String, subtitle: String, description: String, graphType: Short, columnX0Label: String, label: String, label2: String, label3: String, label4: String, visible: Boolean): [Kpi]
+	findKpi(id: BigInteger, companyId: BigInteger, kpiAlias: String, title: String, subtitle: String, description: String, graphType: Short, columnX0Label: String, label: String, label2: String, label3: String, label4: String, visible: Boolean): [KpiDTO]
 }
 
 extends type Mutation {
