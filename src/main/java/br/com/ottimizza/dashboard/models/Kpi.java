@@ -110,13 +110,13 @@ public class Kpi implements Serializable {
     @Column(name = "label_string_array", nullable = true)
     private String labelStringArray;
 
-//    @Setter
-//    @Transient
-//    private List<String> labelArray;
-//    
-//	public List<String> getLabelArray() {
-//		return Arrays.asList(labelStringArray.split(";"));
-//	}
+    @Setter
+    @Transient
+    private List<String> labelArray;
+    
+	public List<String> getLabelArray() {
+		return Arrays.asList(labelStringArray.split(";"));
+	}
 	
 	@Getter
     @Setter	

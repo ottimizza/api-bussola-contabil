@@ -8,7 +8,6 @@ import javax.persistence.EntityManager;
 import com.coxautodev.graphql.tools.GraphQLQueryResolver;
 import com.querydsl.jpa.impl.JPAQuery;
 
-import br.com.ottimizza.dashboard.dtos.KpiDTO;
 import br.com.ottimizza.dashboard.models.Kpi;
 import br.com.ottimizza.dashboard.models.QKpi;
 import br.com.ottimizza.dashboard.repositories.kpi.KpiRepository;
@@ -27,9 +26,9 @@ public class KpiResolver{
 	}
 
 	@GraphQLQuery
-	public List<KpiDTO> findKpi(String cnpj, BigInteger id, BigInteger companyId, String kpiAlias, String title, String subtitle, String description, 
+	public List<Kpi> findKpi(String cnpj, BigInteger id, BigInteger companyId, String kpiAlias, String title, String subtitle, String description, 
 							Short graphType, String columnX0Label, String label, String label2, String label3, String label4, Boolean visible) {
-		JPAQuery<KpiDTO> query = new JPAQuery<KpiDTO>(em).from(kpi);
+		JPAQuery<Kpi> query = new JPAQuery<Kpi>(em).from(kpi);
 	
 		if(companyId != null)	query.where(kpi.company.id.in(companyId));
 		
