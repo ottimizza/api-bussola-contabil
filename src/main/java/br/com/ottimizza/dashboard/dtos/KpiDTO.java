@@ -30,5 +30,5 @@ public class KpiDTO implements Serializable {
 	private String chartType;
 	private String chartOptions;
 	private Integer graphOrder;
-
+	private Boolean visible;
 }
