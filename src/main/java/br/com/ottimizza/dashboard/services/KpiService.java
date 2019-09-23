@@ -1,6 +1,6 @@
 package br.com.ottimizza.dashboard.services;
 
-import br.com.ottimizza.dashboard.dtos.KpiDTO;
+import br.com.ottimizza.dashboard.dtos.KpiTitleAndValueDTO;
 import br.com.ottimizza.dashboard.models.Company;
 import br.com.ottimizza.dashboard.models.Kpi;
 import br.com.ottimizza.dashboard.models.KpiShort;
@@ -103,7 +103,7 @@ public class KpiService {
 		return repository.save(newKpi);	
 	}
 
-	public KpiDTO kpiValue(BigInteger companyId) throws Exception {
+	public KpiTitleAndValueDTO kpiValue(BigInteger companyId) throws Exception {
 		return repository.findKpiDTOByCompanyId(companyId);
 	}
 

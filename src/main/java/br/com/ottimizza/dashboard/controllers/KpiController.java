@@ -1,6 +1,6 @@
 package br.com.ottimizza.dashboard.controllers;
 
-import br.com.ottimizza.dashboard.dtos.KpiDTO;
+import br.com.ottimizza.dashboard.dtos.KpiTitleAndValueDTO;
 import br.com.ottimizza.dashboard.models.Kpi;
 import br.com.ottimizza.dashboard.models.KpiShort;
 import br.com.ottimizza.dashboard.services.KpiService;
@@ -49,7 +49,7 @@ public class KpiController {
 	}
 
 	@GetMapping("find/gain/{companyId}")
-	public ResponseEntity<KpiDTO> findKpiValue(@PathVariable("companyId") BigInteger companyId) throws Exception {		
+	public ResponseEntity<KpiTitleAndValueDTO> findKpiValue(@PathVariable("companyId") BigInteger companyId) throws Exception {		
 		return ResponseEntity.ok(kpiService.kpiValue(companyId));
 	}
 

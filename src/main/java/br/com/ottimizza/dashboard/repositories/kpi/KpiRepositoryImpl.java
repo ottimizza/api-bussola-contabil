@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQuery;
 
-import br.com.ottimizza.dashboard.dtos.KpiDTO;
+import br.com.ottimizza.dashboard.dtos.KpiTitleAndValueDTO;
 import br.com.ottimizza.dashboard.models.Kpi;
 import br.com.ottimizza.dashboard.models.QCompany;
 import br.com.ottimizza.dashboard.models.QKpi;
@@ -36,14 +36,14 @@ public class KpiRepositoryImpl implements KpiRepositoryCustom {
     }
 
 	@Override
-	public KpiDTO findKpiDTOByCompanyId(BigInteger companyId) {
+	public KpiTitleAndValueDTO findKpiDTOByCompanyId(BigInteger companyId) {
 		
-		JPAQuery<KpiDTO> query = new JPAQuery<KpiDTO>(em).from(kpi)
+		JPAQuery<KpiTitleAndValueDTO> query = new JPAQuery<KpiTitleAndValueDTO>(em).from(kpi)
                 .innerJoin(kpiDetail).on(kpiDetail.kpiID.id.eq(kpi.id))
                 .where(kpi.company.id.eq(companyId)
                 .and(kpi.graphType.in(7,12)));
         
-        query.select(Projections.constructor(KpiDTO.class, kpi.title, kpiDetail.valorKPI));
+        query.select(Projections.constructor(KpiTitleAndValueDTO.class, kpi.title, kpiDetail.valorKPI));
 		
         return query.fetchFirst();
 	}
