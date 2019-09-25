@@ -31,6 +31,7 @@ public class KpiResolver{
 		JPAQuery<Kpi> query = new JPAQuery<Kpi>(em).from(kpi);
 	
 		if(companyId != null)	query.where(kpi.company.id.in(companyId));
+		if(cnpj != null && !cnpj.isEmpty())	query.where(kpi.company.cnpj.eq(cnpj));
 		
 		if(id != null)			query.where(kpi.id.in(id));
 		if(kpiAlias != null)	query.where(kpi.kpiAlias.in(kpiAlias));	
