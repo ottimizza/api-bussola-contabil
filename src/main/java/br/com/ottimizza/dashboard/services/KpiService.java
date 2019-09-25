@@ -107,8 +107,5 @@ public class KpiService {
 		return repository.findKpiDTOByCompanyId(companyId);
 	}
 
-//	public KpiDTO kpiValueByCnpj(String cnpj) throws Exception {
-//		return repository.findKpiDTOByCnpj(cnpj);
-//	}
 
 }
