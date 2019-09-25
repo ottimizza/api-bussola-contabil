@@ -48,14 +48,14 @@ public class KpiController {
 		return ResponseEntity.ok(kpiService.delete(idKpi).toString());
 	}
 
-	@GetMapping("find/gain/{companyId}")
+	@GetMapping("gain/{companyId}")
 	public ResponseEntity<KpiDTO> findKpiValue(@PathVariable("companyId") BigInteger companyId) throws Exception {		
 		return ResponseEntity.ok(kpiService.kpiValue(companyId));
 	}
 	
 	@PostMapping("gain")
-	public ResponseEntity<KpiDTO> findKpiValueByCnpj(@RequestBody String cnpj) throws Exception {		
-		return ResponseEntity.ok(kpiService.kpiValueByCnpj(cnpj));
+	public ResponseEntity<KpiDTO> findKpiValueByCnpj(@RequestBody Map<String, String> body) throws Exception {		
+		return ResponseEntity.ok(kpiService.kpiValueByCnpj(body.get("cnpj")));
 	}
 	
 }
