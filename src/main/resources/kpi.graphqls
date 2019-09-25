@@ -16,6 +16,7 @@ extends type Kpi {
 	valueType: String
 	chartType: String
 	chartOptions: String
+	graphOrder: Integer
 }
 
 extends input KpiFilter {
