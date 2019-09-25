@@ -11,6 +11,6 @@ import br.com.ottimizza.dashboard.models.Kpi;
 @Repository
 public interface KpiRepository extends JpaRepository<Kpi, BigInteger>, KpiRepositoryCustom{
 
-	KpiDTO findKpiDTOByCnpj(String cnpj);
+//	KpiDTO findKpiDTOByCnpj(String cnpj);
 
 }
