@@ -3,13 +3,17 @@ package br.com.ottimizza.dashboard.controllers;
 import br.com.ottimizza.dashboard.dtos.KpiTitleAndValueDTO;
 import br.com.ottimizza.dashboard.models.Kpi;
 import br.com.ottimizza.dashboard.models.KpiShort;
+import br.com.ottimizza.dashboard.services.CompanyService;
 import br.com.ottimizza.dashboard.services.KpiService;
+import br.com.ottimizza.dashboard.utils.StringUtil;
 
 import java.math.BigInteger;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import javax.inject.Inject;
+
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,6 +30,9 @@ public class KpiController {
 
 	@Inject
 	KpiService kpiService;
+	
+	@Inject
+	CompanyService companyService;
 
 	@PostMapping("save")
 	public ResponseEntity<Kpi> saveKpi(@RequestBody Kpi kpi) throws Exception {
@@ -48,9 +55,11 @@ public class KpiController {
 		return ResponseEntity.ok(kpiService.delete(idKpi).toString());
 	}
 
-	@GetMapping("find/gain/{companyId}")
-	public ResponseEntity<KpiTitleAndValueDTO> findKpiValue(@PathVariable("companyId") BigInteger companyId) throws Exception {		
+	@GetMapping("gain/{cnpj}")
+	public ResponseEntity<KpiTitleAndValueDTO> findKpiValue(@PathVariable("cnpj") String cnpj) throws Exception {
+		cnpj = StringUtil.formatCnpj(cnpj);
+		BigInteger companyId = companyService.findByCnpj(cnpj).getId();
 		return ResponseEntity.ok(kpiService.kpiValue(companyId));
-	}
-
+	}	
+	
 }
