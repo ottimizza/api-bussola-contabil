@@ -35,16 +35,12 @@ public class KpiDetail implements Serializable {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private BigInteger id;
 
-//    @ManyToOne
-//    @Getter
-//    @Setter
-//    @JoinColumn(name = "fk_kpis_id", referencedColumnName = "id", nullable = false)
-//    private Kpi kpiID;
+    @ManyToOne
+    @Getter
+    @Setter
+    @JoinColumn(name = "fk_kpis_id", referencedColumnName = "id", nullable = false)
+    private Kpi kpiID;
 
-    @Getter @Setter
-    @Column(name = "fk_kpi_id", nullable = false)
-    private BigInteger kpiID;
-	
     @Getter
     @Setter
     @Column(name = "column_x", length = 40, nullable = false)
