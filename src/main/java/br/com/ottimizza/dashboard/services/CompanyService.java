@@ -42,6 +42,10 @@ public class CompanyService {
         return repository.findCompaniesByCNPJ(cnpj);
     }
     
+    public Company findByCnpj(String cnpj) throws Exception {
+        return repository.findCompanyByCnpj(cnpj);
+    }
+    
     public JSONObject updateById(BigInteger idCompany, Company company) throws Exception{
         JSONObject response = new JSONObject();
         try {

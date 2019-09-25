@@ -9,9 +9,5 @@ public interface CompanyRepositoryCustom {
     
     List<Company> findCompaniesByCNPJ(List<String> cnpj);
     
-    
-//    List<Company> findCompanyByName(String name);
-//
-//    List<Company> findCompanyByName(String name, Integer pageSize, Integer pageIndex);
-//    
+
 }
