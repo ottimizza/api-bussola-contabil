@@ -52,5 +52,10 @@ public class KpiController {
 	public ResponseEntity<KpiDTO> findKpiValue(@PathVariable("companyId") BigInteger companyId) throws Exception {		
 		return ResponseEntity.ok(kpiService.kpiValue(companyId));
 	}
-
+	
+	@PostMapping("gain")
+	public ResponseEntity<KpiDTO> findKpiValueByCnpj(@RequestBody String cnpj) throws Exception {		
+		return ResponseEntity.ok(kpiService.kpiValueByCnpj(cnpj));
+	}
+	
 }
