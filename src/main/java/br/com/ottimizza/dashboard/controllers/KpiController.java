@@ -5,12 +5,15 @@ import br.com.ottimizza.dashboard.models.Kpi;
 import br.com.ottimizza.dashboard.models.KpiShort;
 import br.com.ottimizza.dashboard.services.CompanyService;
 import br.com.ottimizza.dashboard.services.KpiService;
+import br.com.ottimizza.dashboard.utils.StringUtil;
 
 import java.math.BigInteger;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import javax.inject.Inject;
+
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -52,16 +55,18 @@ public class KpiController {
 		return ResponseEntity.ok(kpiService.delete(idKpi).toString());
 	}
 
-	@GetMapping("gain/{companyId}")
-	public ResponseEntity<KpiDTO> findKpiValue(@PathVariable("companyId") BigInteger companyId) throws Exception {		
-		return ResponseEntity.ok(kpiService.kpiValue(companyId));
-	}
-	
-	@PostMapping("gain")
-	public ResponseEntity<KpiDTO> findKpiValueByCnpj(@RequestBody Map<String, String> body) throws Exception {	
-		String cnpj = body.get("cnpj");
+	@GetMapping("gain/{cnpj}")
+	public ResponseEntity<KpiDTO> findKpiValue(@PathVariable("cnpj") String cnpj) throws Exception {
+		cnpj = StringUtil.formatCnpj(cnpj);
 		BigInteger companyId = companyService.findByCnpj(cnpj).getId();
 		return ResponseEntity.ok(kpiService.kpiValue(companyId));
 	}
+	
+//	@PostMapping("gain")
+//	public ResponseEntity<KpiDTO> findKpiValueByCnpj(@RequestBody Map<String, String> body) throws Exception {	
+//		String cnpj = body.get("cnpj");
+//		BigInteger companyId = companyService.findByCnpj(cnpj).getId();
+//		return ResponseEntity.ok(kpiService.kpiValue(companyId));
+//	}
 	
 }
