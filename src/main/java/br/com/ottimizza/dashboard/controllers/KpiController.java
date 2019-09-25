@@ -3,6 +3,7 @@ package br.com.ottimizza.dashboard.controllers;
 import br.com.ottimizza.dashboard.dtos.KpiDTO;
 import br.com.ottimizza.dashboard.models.Kpi;
 import br.com.ottimizza.dashboard.models.KpiShort;
+import br.com.ottimizza.dashboard.services.CompanyService;
 import br.com.ottimizza.dashboard.services.KpiService;
 
 import java.math.BigInteger;
@@ -26,6 +27,9 @@ public class KpiController {
 
 	@Inject
 	KpiService kpiService;
+	
+	@Inject
+	CompanyService companyService;
 
 	@PostMapping("save")
 	public ResponseEntity<Kpi> saveKpi(@RequestBody Kpi kpi) throws Exception {
@@ -54,8 +58,10 @@ public class KpiController {
 	}
 	
 	@PostMapping("gain")
-	public ResponseEntity<KpiDTO> findKpiValueByCnpj(@RequestBody Map<String, String> body) throws Exception {		
-		return ResponseEntity.ok(kpiService.kpiValueByCnpj(body.get("cnpj")));
+	public ResponseEntity<KpiDTO> findKpiValueByCnpj(@RequestBody Map<String, String> body) throws Exception {	
+		String cnpj = body.get("cnpj");
+		BigInteger companyId = companyService.findByCnpj(cnpj).getId();
+		return ResponseEntity.ok(kpiService.kpiValue(companyId));
 	}
 	
 }
