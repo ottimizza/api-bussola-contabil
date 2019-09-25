@@ -17,6 +17,8 @@ extends type Kpi {
 	chartType: String
 	chartOptions: String
 	graphOrder: Integer
+	labelStringArray: String
+	company: Company
 }
 
 extends input KpiFilter {
@@ -37,6 +39,9 @@ extends input KpiFilter {
 	valueType: String
 	chartType: String
 	chartOptions: String
+	graphOrder: Integer
+	labelStringArray: String
+	company: Company
 }
 
 extends type Query {
