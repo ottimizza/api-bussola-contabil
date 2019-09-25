@@ -39,7 +39,7 @@ public class KpiRepositoryImpl implements KpiRepositoryCustom {
 	public KpiTitleAndValueDTO findKpiDTOByCompanyId(BigInteger companyId) {
 		
 		JPAQuery<KpiTitleAndValueDTO> query = new JPAQuery<KpiTitleAndValueDTO>(em).from(kpi)
-                .innerJoin(kpiDetail).on(kpiDetail.kpiID.id.eq(kpi.id))
+                .innerJoin(kpiDetail).on(kpiDetail.kpiID.eq(kpi.id))
                 .where(kpi.company.id.eq(companyId)
                 .and(kpi.graphType.in(7,12)));
         

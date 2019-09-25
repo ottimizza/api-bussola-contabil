@@ -74,7 +74,7 @@ public class KpiDetailController {
 
 			if (!kpiDetail.getColumnX().equals("")) {
 				detail = kpiDetail;
-				detail.setKpiID(kpi);
+				detail.setKpiID(kpi.getId());
 				try {
 					detailService.save(detail);
 					listReturn.add(detail);

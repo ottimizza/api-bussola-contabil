@@ -29,7 +29,7 @@ public class KpiDetailResolver {
 	
 		JPAQuery<KpiDetail> query = new JPAQuery<KpiDetail>(em).from(kpiDetail);
 		
-		if(kpiId != null)		query.where(kpiDetail.kpiID.id.in(kpiId));
+		if(kpiId != null)		query.where(kpiDetail.kpiID.in(kpiId));
 		if(id != null)			query.where(kpiDetail.id.in(id));
 		if(columnX != null)		query.where(kpiDetail.columnX.toUpperCase().in(columnX.toUpperCase()));
 		if(columnY != null)		query.where(kpiDetail.columnY.toUpperCase().in(columnY.toUpperCase()));
