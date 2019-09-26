@@ -32,7 +32,12 @@ public class KpiResolver{
 	
 		if(companyId != null)	query.where(kpi.company.id.in(companyId));
 		if(cnpj != null && !cnpj.isEmpty())	query.where(kpi.company.cnpj.eq(cnpj));
+	
+		query.where(kpi.visible.isTrue().and(kpi.kpiAlias.notLike("07")).and(kpi.kpiAlias.notLike("12")));
 		
+		if(companyId != null)	query.where(kpi.company.id.in(companyId));
+		if(cnpj != null && !cnpj.isEmpty())	query.where(kpi.company.cnpj.eq(cnpj));
+
 		if(id != null)			query.where(kpi.id.in(id));
 		if(kpiAlias != null)	query.where(kpi.kpiAlias.in(kpiAlias));	
 		if(title != null)		query.where(kpi.title.toUpperCase().in(title.toUpperCase()));
@@ -47,8 +52,6 @@ public class KpiResolver{
 		if(label2 != null)		query.where(kpi.label2.toUpperCase().in(label2.toUpperCase()));
 		if(label3 != null)		query.where(kpi.label3.toUpperCase().in(label3.toUpperCase()));
 		if(label4 != null)		query.where(kpi.label4.toUpperCase().in(label4.toUpperCase()));
-		
-		query.where(kpi.kpiAlias.notLike("07").and(kpi.kpiAlias.notLike("12")));
 		
 		return query.orderBy(kpi.graphOrder.asc()).fetch();
 	}
