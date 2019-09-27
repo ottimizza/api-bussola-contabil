@@ -30,6 +30,7 @@ public class Annotation implements Serializable {
 	@Column(name = "fk_organizations_id", nullable = false)
     private String organizationId;
 	
+	@Column
    	private LocalDateTime createAt;
     
     @Column(name = "created_by", nullable = false)

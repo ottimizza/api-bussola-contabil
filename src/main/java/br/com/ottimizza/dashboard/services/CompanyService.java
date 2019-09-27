@@ -117,37 +117,4 @@ public class CompanyService {
         return response;
     }
     
-//    public JSONObject deleteAllInformationByCNPJ(String cnpj)throws Exception{
-//        JSONObject response = new JSONObject();
-//        List<String> cnpjs = new ArrayList<>();
-//        cnpjs.add(cnpj);
-//        try {
-////            List<Company> companies = repository.findCompaniesByCNPJ(cnpjs);
-//            List<Kpi> kpis = kpiRepository.findKpisByCNPJ(cnpjs);
-//            List<KpiDetail> kpiDetails = kpiDetailRepository.findKpiDetailsByCNPJ(cnpjs);
-//            
-//            for (KpiDetail kpiDetail : kpiDetails) {
-//                kpiDetailRepository.delete(kpiDetail);
-//            }
-//            
-//            for (Kpi kpi : kpis) {
-//                kpiRepository.delete(kpi);
-//            }
-//            
-////            for (Company company : companies) {
-////                repository.delete(company);
-////            }
-//            
-//            response.put("status","sucess");
-//            response.put("message","Excluído informações com sucesso!");
-//        } catch (Exception e) {
-//            response.put("status","Error");
-//            response.put("message","Houve um problema ao excluir!");
-//            return response;
-//        }
-//        return response;
-//    }
-    
-    
-    
 }
