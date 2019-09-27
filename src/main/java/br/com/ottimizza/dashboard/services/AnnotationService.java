@@ -12,6 +12,7 @@ import br.com.ottimizza.dashboard.dtos.AnnotationDTO;
 import br.com.ottimizza.dashboard.models.Annotation;
 import br.com.ottimizza.dashboard.repositories.annotation.AnnotationRepository;
 import br.com.ottimizza.dashboard.repositories.company.CompanyRepository;
+import br.com.ottimizza.dashboard.utils.StringUtil;
 
 @Service
 public class AnnotationService {
@@ -51,7 +52,9 @@ public class AnnotationService {
 
 	public List<Annotation> findAnnotationList(AnnotationDTO annotation) {
 		if(annotation.getCnpj() != null) {
-			BigInteger companyId = companyRepository.findCompanyByCnpj(annotation.getCnpj()).getId();
+			String cnpj = annotation.getCnpj();
+			cnpj = StringUtil.formatCnpj(cnpj);
+			BigInteger companyId = companyRepository.findCompanyByCnpj(cnpj).getId();
 			annotation.setOrganizationId(companyId.toString());
 		}
 		return repository.findAnnotations(annotation);
