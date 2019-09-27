@@ -99,6 +99,7 @@ public class CompanyService {
         
         try {
             for (Kpi kpi : kpis) {
+            	// mudar delete details pra nativequery como pra melhor desempenho
             	List<KpiDetail> details = kpi.getKpiDetail();
             	for (KpiDetail kpiDetail : details) {
             		kpiDetailRepository.delete(kpiDetail);

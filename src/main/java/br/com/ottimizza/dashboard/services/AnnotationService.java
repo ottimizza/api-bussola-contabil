@@ -11,12 +11,16 @@ import org.springframework.stereotype.Service;
 import br.com.ottimizza.dashboard.dtos.AnnotationDTO;
 import br.com.ottimizza.dashboard.models.Annotation;
 import br.com.ottimizza.dashboard.repositories.annotation.AnnotationRepository;
+import br.com.ottimizza.dashboard.repositories.company.CompanyRepository;
 
 @Service
 public class AnnotationService {
 
 	@Inject
 	private AnnotationRepository repository;
+	
+	@Inject
+	private CompanyRepository companyRepository;
 	
 	public Annotation save(Annotation annotation) throws Exception {
 		return repository.save(annotation);
@@ -46,6 +50,10 @@ public class AnnotationService {
 	}
 
 	public List<Annotation> findAnnotationList(AnnotationDTO annotation) {
+		if(annotation.getCnpj() != null) {
+			BigInteger companyId = companyRepository.findCompanyByCnpj(annotation.getCnpj()).getId();
+			annotation.setOrganizationId(companyId.toString());
+		}
 		return repository.findAnnotations(annotation);
 	}
 	
