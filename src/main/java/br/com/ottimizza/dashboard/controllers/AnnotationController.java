@@ -31,11 +31,7 @@ public class AnnotationController {
 
 	@PostMapping
 	public ResponseEntity<Annotation> saveAnnotation(@RequestBody Annotation annotation) throws Exception {
-		ZoneId zone = ZoneId.of("Brazil/East");
-		LocalDateTime ldt = LocalDateTime.now(zone);
-		System.out.println(">>>A> "+ldt);
-		
-		annotation.setCreateAt(ldt);
+		annotation.setCreateAt(LocalDateTime.now(ZoneId.of("Brazil/East")));
 		return ResponseEntity.ok(annotationService.save(annotation));
 	}
 	
