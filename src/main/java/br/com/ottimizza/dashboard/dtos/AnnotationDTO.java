@@ -8,11 +8,12 @@ import lombok.Data;
 
 @Data
 public class AnnotationDTO implements Serializable{
-		
+	private static final long serialVersionUID = 1L;
+
 	private String organizationId;
 	private LocalDateTime createAt;
 	private String createdBy;
 	private String kpiAlias;
-	private String description;
+	private String description;	
 	    
 }

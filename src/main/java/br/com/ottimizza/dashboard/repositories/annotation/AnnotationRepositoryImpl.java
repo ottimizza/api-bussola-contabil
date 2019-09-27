@@ -25,10 +25,11 @@ public class AnnotationRepositoryImpl implements AnnotationRepositoryCustom{
 	public List<Annotation> findAnnotations(AnnotationDTO annotationDTO) {
 		
 		JPAQuery<Annotation> query = new JPAQuery<Annotation>(em).from(annotation);
+		
+		if(annotationDTO.getKpiAlias() != null)			query.where(annotation.kpiAlias.eq(annotationDTO.getKpiAlias()));
 		if(annotationDTO.getOrganizationId() != null)	query.where(annotation.organizationId.eq(annotationDTO.getOrganizationId()));
 		if(annotationDTO.getCreateAt() != null)			query.where(annotation.createAt.eq(annotationDTO.getCreateAt()));
 		if(annotationDTO.getCreatedBy() != null)		query.where(annotation.createdBy.eq(annotationDTO.getCreatedBy()));
-		if(annotationDTO.getKpiAlias() != null)			query.where(annotation.kpiAlias.eq(annotationDTO.getKpiAlias()));
 		if(annotationDTO.getDescription() != null)		query.where(annotation.description.containsIgnoreCase(annotationDTO.getDescription()));
 			
 		return query.orderBy(annotation.createAt.desc()).fetch();
