@@ -2,6 +2,7 @@ package br.com.ottimizza.dashboard.controllers;
 
 import java.math.BigInteger;
 import java.security.Principal;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -29,6 +30,7 @@ public class AnnotationController {
 
 	@PostMapping
 	public ResponseEntity<Annotation> saveAnnotation(@RequestBody Annotation annotation) throws Exception {
+		annotation.setCreateAt(LocalDateTime.now());
 		return ResponseEntity.ok(annotationService.save(annotation));
 	}
 	
