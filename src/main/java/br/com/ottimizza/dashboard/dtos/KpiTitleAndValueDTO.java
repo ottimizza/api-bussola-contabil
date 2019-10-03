@@ -10,11 +10,11 @@ import lombok.Setter;
 @Getter @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class KpiDTO implements Serializable{
+public class KpiTitleAndValueDTO implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	
 	private String title;
 	private Double value;
-
+	private String kpiAlias;
 }
