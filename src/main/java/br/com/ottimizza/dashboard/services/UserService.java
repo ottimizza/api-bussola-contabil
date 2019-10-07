@@ -1,13 +1,15 @@
 package br.com.ottimizza.dashboard.services;
 
-import br.com.ottimizza.dashboard.models.users.User;
-import br.com.ottimizza.dashboard.repositories.user.UserRepository;
-
 import java.math.BigInteger;
 import java.util.List;
 import java.util.Optional;
+
 import javax.inject.Inject;
+
 import org.springframework.stereotype.Service;
+
+import br.com.ottimizza.dashboard.models.users.User;
+import br.com.ottimizza.dashboard.repositories.user.UserRepository;
 
 @Service
 public class UserService {

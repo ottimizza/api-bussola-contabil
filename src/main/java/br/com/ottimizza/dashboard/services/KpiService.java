@@ -1,5 +1,15 @@
 package br.com.ottimizza.dashboard.services;
 
+import java.math.BigInteger;
+import java.util.List;
+import java.util.Optional;
+
+import javax.inject.Inject;
+import javax.persistence.NoResultException;
+
+import org.json.JSONObject;
+import org.springframework.stereotype.Service;
+
 import br.com.ottimizza.dashboard.dtos.KpiTitleAndValueDTO;
 import br.com.ottimizza.dashboard.models.Company;
 import br.com.ottimizza.dashboard.models.Kpi;
@@ -7,14 +17,6 @@ import br.com.ottimizza.dashboard.models.KpiShort;
 import br.com.ottimizza.dashboard.repositories.company.CompanyRepository;
 import br.com.ottimizza.dashboard.repositories.kpi.KpiRepository;
 import br.com.ottimizza.dashboard.repositories.kpi.kpi_short.KpiShortRepository;
-
-import java.math.BigInteger;
-import java.util.List;
-import java.util.Optional;
-import javax.inject.Inject;
-import javax.persistence.NoResultException;
-import org.json.JSONObject;
-import org.springframework.stereotype.Service;
 
 @Service
 public class KpiService {
