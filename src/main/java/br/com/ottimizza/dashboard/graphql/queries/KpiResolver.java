@@ -30,15 +30,15 @@ public class KpiResolver{
 	public List<Kpi> findKpi(String cnpj, BigInteger id, BigInteger companyId, String kpiAlias, String title, String subtitle, String description, 
 							Short graphType, String columnX0Label, String label, String label2, String label3, String label4, Boolean visible) {
 		JPAQuery<Kpi> query = new JPAQuery<Kpi>(em).from(kpi);
-		
+		String formatCnpj = StringUtil.formatCnpj(cnpj);
+
 		query.where(kpi.visible.isTrue().and(kpi.kpiAlias.notLike("07")).and(kpi.kpiAlias.notLike("12")));
 		
 		if(companyId != null)	query.where(kpi.company.id.in(companyId));
 		if(cnpj != null && !cnpj.isEmpty())	{
-			cnpj = StringUtil.formatCnpj(cnpj);
-			query.where(kpi.company.cnpj.eq(cnpj));
+			query.where(kpi.company.cnpj.in(cnpj,formatCnpj));
 		}
-
+		
 		if(id != null)			query.where(kpi.id.in(id));
 		if(kpiAlias != null)	query.where(kpi.kpiAlias.in(kpiAlias));	
 		if(title != null)		query.where(kpi.title.toUpperCase().in(title.toUpperCase()));
