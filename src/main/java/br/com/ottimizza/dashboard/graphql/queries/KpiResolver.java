@@ -35,12 +35,8 @@ public class KpiResolver{
 		
 		if(companyId != null)	query.where(kpi.company.id.in(companyId));
 		if(cnpj != null && !cnpj.isEmpty())	{
-			try {
-				query.where(kpi.company.cnpj.eq(cnpj));
-			} catch (Exception e) {
-				cnpj = StringUtil.formatCnpj(cnpj);
-				query.where(kpi.company.cnpj.eq(cnpj));
-			}
+			cnpj = StringUtil.formatCnpj(cnpj);
+			query.where(kpi.company.cnpj.eq(cnpj));
 		}
 
 		if(id != null)			query.where(kpi.id.in(id));
