@@ -35,9 +35,7 @@ public class KpiResolver{
 		query.where(kpi.visible.isTrue().and(kpi.kpiAlias.notLike("07")).and(kpi.kpiAlias.notLike("12")));
 		
 		if(companyId != null)	query.where(kpi.company.id.in(companyId));
-		if(cnpj != null && !cnpj.isEmpty())	{
-			query.where(kpi.company.cnpj.in(cnpj,formatCnpj));
-		}
+		if(cnpj != null && !cnpj.isEmpty())	query.where(kpi.company.cnpj.in(cnpj,formatCnpj));
 		
 		if(id != null)			query.where(kpi.id.in(id));
 		if(kpiAlias != null)	query.where(kpi.kpiAlias.in(kpiAlias));	
