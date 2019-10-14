@@ -1,6 +1,7 @@
 package br.com.ottimizza.dashboard.services;
 
 import java.math.BigInteger;
+import java.security.Principal;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -48,5 +49,10 @@ public class AnnotationService {
 	public List<Annotation> findAnnotationList(AnnotationDTO annotation) {
 		return repository.findAnnotations(annotation);
 	}
-	
+
+	public Annotation patch(BigInteger id, AnnotationDTO annotationDTO, Principal principal) throws Exception {
+		Annotation current = findById(id);
+		current = annotationDTO.patch(current);
+		return repository.save(current);
+	}
 }

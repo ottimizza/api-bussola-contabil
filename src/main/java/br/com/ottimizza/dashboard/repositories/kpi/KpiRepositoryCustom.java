@@ -7,8 +7,8 @@ import br.com.ottimizza.dashboard.dtos.KpiTitleAndValueDTO;
 import br.com.ottimizza.dashboard.models.Kpi;
 
 public interface KpiRepositoryCustom {
+    	    
+    List<Kpi> findKpisByCNPJ(List<String> cnpj);
     
-	List<Kpi> findKpisByCNPJ(List<String> cnpj);
-	    
     KpiTitleAndValueDTO findKpiDTOByCompanyId(BigInteger companyId);
 }

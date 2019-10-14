@@ -16,5 +16,5 @@ public class KpiTitleAndValueDTO implements Serializable{
 	
 	private String title;
 	private Double value;
-
+	private String kpiAlias;
 }

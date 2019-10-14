@@ -28,8 +28,8 @@ public class Variable {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "variables_sequence")
 	private BigInteger id;
 	
-	@Column(name = "fk_organizations_id", nullable = false)
-    private BigInteger companyId;
+	@Column(name = "fk_organizations_id", nullable = true)
+    private BigInteger organizationId;
 	
 	private String externalId;
 	

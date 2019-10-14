@@ -11,6 +11,7 @@ import com.querydsl.jpa.impl.JPAQuery;
 import br.com.ottimizza.dashboard.models.Kpi;
 import br.com.ottimizza.dashboard.models.QKpi;
 import br.com.ottimizza.dashboard.repositories.kpi.KpiRepository;
+import br.com.ottimizza.dashboard.utils.StringUtil;
 import io.leangen.graphql.annotations.GraphQLMutation;
 import io.leangen.graphql.annotations.GraphQLQuery;
 
@@ -29,15 +30,14 @@ public class KpiResolver{
 	public List<Kpi> findKpi(String cnpj, BigInteger id, BigInteger companyId, String kpiAlias, String title, String subtitle, String description, 
 							Short graphType, String columnX0Label, String label, String label2, String label3, String label4, Boolean visible) {
 		JPAQuery<Kpi> query = new JPAQuery<Kpi>(em).from(kpi);
-	
-		if(companyId != null)	query.where(kpi.company.id.in(companyId));
-		if(cnpj != null && !cnpj.isEmpty())	query.where(kpi.company.cnpj.eq(cnpj));
-	
+
+		String formatCnpj = StringUtil.formatCnpj(cnpj);
+
 		query.where(kpi.visible.isTrue().and(kpi.kpiAlias.notLike("07")).and(kpi.kpiAlias.notLike("12")));
 		
 		if(companyId != null)	query.where(kpi.company.id.in(companyId));
-		if(cnpj != null && !cnpj.isEmpty())	query.where(kpi.company.cnpj.eq(cnpj));
-
+		if(cnpj != null && !cnpj.isEmpty())	query.where(kpi.company.cnpj.in(cnpj,formatCnpj));
+		
 		if(id != null)			query.where(kpi.id.in(id));
 		if(kpiAlias != null)	query.where(kpi.kpiAlias.in(kpiAlias));	
 		if(title != null)		query.where(kpi.title.toUpperCase().in(title.toUpperCase()));

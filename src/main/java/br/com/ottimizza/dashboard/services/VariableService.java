@@ -38,10 +38,10 @@ public class VariableService {
 			newVariable = repository.findById(variable.getId()).get();
 			try {
 				if (variable.getAccountingCode() != null) newVariable.setAccountingCode(variable.getAccountingCode());
-				if (variable.getCompanyId() != null) 	newVariable.setCompanyId(variable.getCompanyId());
-				if (variable.getDescription() != null) 	newVariable.setDescription(variable.getDescription());
-				if (variable.getExternalId() != null)	newVariable.setExternalId(variable.getExternalId());
-				if (variable.getName() != null) 		newVariable.setName(variable.getName());
+				if (variable.getOrganizationId() != null) newVariable.setOrganizationId(variable.getOrganizationId());
+				if (variable.getDescription() != null)	  newVariable.setDescription(variable.getDescription());
+				if (variable.getExternalId() != null)	  newVariable.setExternalId(variable.getExternalId());
+				if (variable.getName() != null) 		  newVariable.setName(variable.getName());
 
 				repository.save(newVariable);
 				

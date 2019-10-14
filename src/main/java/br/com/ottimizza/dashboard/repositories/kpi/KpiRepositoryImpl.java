@@ -43,7 +43,7 @@ public class KpiRepositoryImpl implements KpiRepositoryCustom {
                 .where(kpi.company.id.eq(companyId)
                 .and(kpi.graphType.in(7,12)));
         
-        query.select(Projections.constructor(KpiTitleAndValueDTO.class, kpi.title, kpiDetail.valorKPI));
+        query.select(Projections.constructor(KpiTitleAndValueDTO.class, kpi.title, kpiDetail.valorKPI, kpi.kpiAlias));
 		
         return query.fetchFirst();
 	}
