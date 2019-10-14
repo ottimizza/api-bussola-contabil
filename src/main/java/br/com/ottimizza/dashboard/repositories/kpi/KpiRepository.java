@@ -10,5 +10,9 @@ import br.com.ottimizza.dashboard.models.Kpi;
 @Repository
 public interface KpiRepository extends JpaRepository<Kpi, BigInteger>, KpiRepositoryCustom{
 
+//	@Modifying
+//	@Transactional
+//	@Query(" DELETE FROM kpis WHERE id = :id ")
+//	void deleteKpiById(@Param("id") BigInteger id);
 
 }

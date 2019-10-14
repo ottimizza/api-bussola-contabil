@@ -93,9 +93,8 @@ public class CompanyController {
     }
 
     @RequestMapping(value = "/deleteAllKpi", method = RequestMethod.POST, consumes = "application/json")
-    public ResponseEntity<String> deleteAllInformationByCNPJ(@RequestBody Map<String,String> cnpj)
-            throws Exception {
-        return ResponseEntity.ok(companyService.deleteAllInformationByCNPJ(cnpj.get("cnpj")).toString());
+    public ResponseEntity<String> deleteAllInformationByCNPJ(@RequestBody Map<String,String> cnpj) throws Exception {
+    	return ResponseEntity.ok(companyService.deleteAllInformationByCNPJ(cnpj.get("cnpj")).toString());
     }
     
     @DeleteMapping("delete/{id}")

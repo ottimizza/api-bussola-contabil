@@ -9,6 +9,6 @@ import br.com.ottimizza.dashboard.models.KpiDetail;
 
 public interface KpiDetailRepository extends JpaRepository<KpiDetail, BigInteger>, KpiDetailRepositoryCustom{
 
-//	Optional <KpiDetail> findById(BigInteger idKpi);    
+	Optional <KpiDetail> findById(BigInteger idKpi);  
 	
 }

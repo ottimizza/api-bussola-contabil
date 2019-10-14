@@ -60,7 +60,6 @@ public class KpiController {
 		cnpj = StringUtil.formatCnpj(cnpj);
 		BigInteger companyId = companyService.findByCnpj(cnpj).getId();
 		return ResponseEntity.ok(kpiService.kpiValue(companyId));
-	}
-	
+	}	
 	
 }

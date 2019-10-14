@@ -10,7 +10,7 @@
 	valorArray:[Double]
 	columnXSeq:String
 	xBinding:String
-	
+	valorStringArray: String 
 }
 
 extends input KpiDetailFilter {
@@ -25,7 +25,7 @@ extends input KpiDetailFilter {
 	valorArray:[Double]
 	columnXSeq:String
 	xBinding:String
-	
+	valorStringArray: String
 }
 
 extends type Query {

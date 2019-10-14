@@ -1,11 +1,11 @@
 package br.com.ottimizza.dashboard.repositories.kpi_detail;
 
-import java.math.BigInteger;
 import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import org.json.JSONObject;
 import org.springframework.stereotype.Repository;
 
 import com.querydsl.jpa.impl.JPAQuery;
@@ -33,6 +33,12 @@ public class KpiDetailRepositoryImpl implements KpiDetailRepositoryCustom {
                 .where(company.cnpj.in(cnpj));
         return query.orderBy(company.name.asc()).orderBy(kpi.kpiAlias.asc()).orderBy(kpiDetail.columnXSeq.asc()).fetch();
     }
+
+	@Override
+	public JSONObject deleteKpiDetail(KpiDetail kpiDetail) {
+		
+		return null;
+	}
 
 	
 }

@@ -46,5 +46,7 @@ public class KpiRepositoryImpl implements KpiRepositoryCustom {
         query.select(Projections.constructor(KpiTitleAndValueDTO.class, kpi.title, kpiDetail.valorKPI, kpi.kpiAlias));
 		
         return query.fetchFirst();
-	}    
+	}
+
+	   
 }
