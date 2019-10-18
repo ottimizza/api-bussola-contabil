@@ -70,9 +70,9 @@ public class OrganizationVariableController {
 		System.out.println(userInfo.getUsername());
 //		System.out.println(userInfo.getOrganizationId());
 		System.out.println(userInfo.getId());
-		if(userInfo.getOrganizationDTO() != null) {
-			System.out.println(userInfo.getOrganizationDTO().getOrganizationId());
-			System.out.println(userInfo.getOrganizationDTO().getName());
+		if(userInfo.getOrganization() != null) {
+			System.out.println(userInfo.getOrganization().getId());
+			System.out.println(userInfo.getOrganization().getName());
 		}
 		return ResponseEntity.ok(service.findVariableByOrganizationId(organizationId, userInfo));
 	}
