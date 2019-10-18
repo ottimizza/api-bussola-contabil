@@ -9,6 +9,6 @@ import br.com.ottimizza.dashboard.models.Variable;
 
 public interface OrganizationVariableRepositoryCustom {
 
-	List<VariableDTO> findVariablesByOrganizationId(BigInteger organizationId, Principal principal);
+	List<VariableDTO> findVariablesByOrganizationId(BigInteger organizationId);
 
 }

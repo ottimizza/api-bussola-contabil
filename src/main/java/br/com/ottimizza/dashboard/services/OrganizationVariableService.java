@@ -74,7 +74,7 @@ public class OrganizationVariableService {
 		return response;
 	}
 
-	public List<VariableDTO> findVariableByOrganizationId(BigInteger organizationId, Principal principal) {
-		return repository.findVariablesByOrganizationId(organizationId, principal);
+	public List<VariableDTO> findVariableByOrganizationId(BigInteger organizationId) {
+		return repository.findVariablesByOrganizationId(organizationId);
 	}
 }

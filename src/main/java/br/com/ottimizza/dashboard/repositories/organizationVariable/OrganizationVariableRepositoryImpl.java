@@ -25,7 +25,7 @@ public class OrganizationVariableRepositoryImpl implements OrganizationVariableR
 	QOrganizationVariable organizationVariable = QOrganizationVariable.organizationVariable;
 	
 	@Override
-	public List<VariableDTO> findVariablesByOrganizationId(BigInteger organizationId, Principal principal) {
+	public List<VariableDTO> findVariablesByOrganizationId(BigInteger organizationId) {
 		JPAQuery<VariableDTO> query = new JPAQuery<VariableDTO>(em).from(organizationVariable)
 				.innerJoin(variable).on(variable.id.eq(organizationVariable.variableId)/*.and(variable.organizationId.eq(principal.))*/)
 				.where(organizationVariable.organizationId.eq(organizationId));
