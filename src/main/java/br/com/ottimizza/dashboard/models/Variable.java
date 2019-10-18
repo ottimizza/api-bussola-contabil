@@ -30,7 +30,7 @@ public class Variable implements Serializable{
 	private BigInteger id;
 	
 	@Column(name = "fk_organizations_id", nullable = true)
-    private BigInteger organizationId;
+    private BigInteger companyId;
 	
 	private String externalId;
 	

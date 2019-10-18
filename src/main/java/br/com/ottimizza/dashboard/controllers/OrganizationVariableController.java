@@ -17,8 +17,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.ottimizza.dashboard.dtos.VariableDTO;
 import br.com.ottimizza.dashboard.models.OrganizationVariable;
-import br.com.ottimizza.dashboard.models.Variable;
 import br.com.ottimizza.dashboard.services.OrganizationVariableService;
 
 @RestController
@@ -56,7 +56,7 @@ public class OrganizationVariableController {
 
 	
 	@GetMapping("byOrganization/{id}")
-	public ResponseEntity<List<Variable>> findByOrganizationId(@PathVariable("id") BigInteger organizationId, Principal principal) throws Exception {
+	public ResponseEntity<List<VariableDTO>> findByOrganizationId(@PathVariable("id") BigInteger organizationId, Principal principal) throws Exception {
 		return ResponseEntity.ok(service.findVariableByOrganizationId(organizationId, principal));
 	}
 }
