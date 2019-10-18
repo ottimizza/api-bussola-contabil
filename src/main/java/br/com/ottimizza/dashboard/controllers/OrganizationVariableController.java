@@ -64,7 +64,12 @@ public class OrganizationVariableController {
 	public ResponseEntity<List<VariableDTO>> findByOrganizationId(@PathVariable("id") BigInteger organizationId, @RequestHeader("Authorization") String authorization) throws Exception {
 		UserDTO userInfo = oauthClient.getUserInfo(authorization).getBody().getRecord();
 		
-		System.out.println(userInfo.toString());
+		System.out.println("###################");
+		System.out.println(userInfo.getEmail());
+		System.out.println(userInfo.getFirstName());
+		System.out.println(userInfo.getUsername());
+		System.out.println(userInfo.getOrganizationId());
+		System.out.println(userInfo.getId());
 		return ResponseEntity.ok(service.findVariableByOrganizationId(organizationId));
 	}
 	
