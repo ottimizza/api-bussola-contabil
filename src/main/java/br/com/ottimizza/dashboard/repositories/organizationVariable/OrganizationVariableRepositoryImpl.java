@@ -29,9 +29,7 @@ public class OrganizationVariableRepositoryImpl implements OrganizationVariableR
 		JPAQuery<VariableDTO> query = new JPAQuery<VariableDTO>(em).from(organizationVariable)
 				.innerJoin(variable).on(variable.id.eq(organizationVariable.variableId)/*.and(variable.organizationId.eq(principal.))*/)
 				.where(organizationVariable.organizationId.eq(organizationId));
-        
-		new VariableDTO();
-        
+                
 		query.select(Projections.constructor(VariableDTO.class, variable.companyId, variable.externalId, variable.name, variable.id, organizationVariable.organizationId, organizationVariable.accountingCode));
 		
 		return query.fetch();
