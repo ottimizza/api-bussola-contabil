@@ -65,15 +65,13 @@ public class OrganizationVariableController {
 		UserDTO userInfo = oauthClient.getUserInfo(authorization).getBody().getRecord();
 		
 		System.out.println("###################");
-		System.out.println(userInfo.getEmail());
-		System.out.println(userInfo.getFirstName());
-		System.out.println(userInfo.getUsername());
-//		System.out.println(userInfo.getOrganizationId());
+		System.out.println(userInfo.getOrganizationId());
 		System.out.println(userInfo.getId());
 		if(userInfo.getOrganization() != null) {
 			System.out.println(userInfo.getOrganization().getId());
-			System.out.println(userInfo.getOrganization().getName());
+			System.out.println(userInfo.getOrganization().getOrganizationId());
 		}
+		System.out.println("###################");
 		return ResponseEntity.ok(service.findVariableByOrganizationId(organizationId, userInfo));
 	}
 	
