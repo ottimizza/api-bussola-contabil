@@ -32,18 +32,6 @@ public class OrganizationVariableRepositoryImpl implements OrganizationVariableR
         
 		query.select(Projections.constructor(VariableDTO.class, variable.companyId, variable.externalId, variable.name, variable.id, organizationVariable.organizationId, organizationVariable.accountingCode));
 		
-		//KpiTitleAndValueDTO.class, kpi.title, kpiDetail.valorKPI, kpi.kpiAlias
-		
-		/*
-		companyId;
-		externalId;
-		name;
-		variableId;
-		organizationId;
-		accountingCode;
-		*/
-		
-		
 		return query.fetch();
 	}
 }

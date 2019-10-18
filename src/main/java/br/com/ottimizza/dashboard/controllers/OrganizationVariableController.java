@@ -53,7 +53,6 @@ public class OrganizationVariableController {
 		JSONObject response = service.delete(id);
 		return (response.get("status") == "Success") ? ResponseEntity.ok(response.toString()) : ResponseEntity.badRequest().build();
 	}
-
 	
 	@GetMapping("byOrganization/{id}")
 	public ResponseEntity<List<VariableDTO>> findByOrganizationId(@PathVariable("id") BigInteger organizationId, Principal principal) throws Exception {

@@ -1,13 +1,12 @@
 package br.com.ottimizza.dashboard.dtos;
 
+import java.io.Serializable;
 import java.math.BigInteger;
 
 import lombok.Data;
 
 @Data
-public class VariableDTO {
-
-	private BigInteger id;
+public class VariableDTO implements Serializable{
 
 	// from Variables
 	private BigInteger companyId;		//empresa
