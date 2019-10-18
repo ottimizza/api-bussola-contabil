@@ -57,6 +57,6 @@ public class OrganizationVariableController {
 	
 	@GetMapping("byOrganization/{id}")
 	public ResponseEntity<List<Variable>> findByOrganizationId(@PathVariable("id") BigInteger organizationId, Principal principal) throws Exception {
-		return ResponseEntity.ok(service.findVariableByOrganizationId(organizationId));
+		return ResponseEntity.ok(service.findVariableByOrganizationId(organizationId, principal));
 	}
 }
