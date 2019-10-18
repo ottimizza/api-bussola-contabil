@@ -1,4 +1,4 @@
-package br.com.ottimizza.dashboard.repositoriesorganizationVariable;
+package br.com.ottimizza.dashboard.repositories.organizationVariable;
 
 import java.math.BigInteger;
 import java.util.List;

@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 import br.com.ottimizza.dashboard.models.OrganizationVariable;
 import br.com.ottimizza.dashboard.models.Variable;
 import br.com.ottimizza.dashboard.repositories.VariableRepository;
-import br.com.ottimizza.dashboard.repositoriesorganizationVariable.OrganizationVariableRepository;
+import br.com.ottimizza.dashboard.repositories.organizationVariable.OrganizationVariableRepository;
 
 @Service
 public class OrganizationVariableService {
