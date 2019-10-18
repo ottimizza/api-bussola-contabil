@@ -68,7 +68,7 @@ public class OrganizationVariableController {
 		System.out.println(userInfo.getEmail());
 		System.out.println(userInfo.getFirstName());
 		System.out.println(userInfo.getUsername());
-		System.out.println(userInfo.getOrganizationId());
+//		System.out.println(userInfo.getOrganizationId());
 		System.out.println(userInfo.getId());
 		if(userInfo.getOrganizationDTO() != null) {
 			System.out.println(userInfo.getOrganizationDTO().getOrganizationId());
