@@ -17,11 +17,11 @@ public class OrganizationDTO implements Serializable{
 	BigInteger id;
 	String externalId;
 	String name;
-	String type;
+	Integer type;
 	String cnpj;
 	String codigoERP;
 	String email;
 	String avatar;
-	String organizationId;
+	BigInteger organizationId;
 
 }
