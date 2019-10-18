@@ -19,6 +19,7 @@ public class OrganizationVariableRepositoryImpl implements OrganizationVariableR
 	
 	@Override
 	public List<Variable> findVariablesByOrganizationId(BigInteger organizationId) {
+		System.out.println(">>> > "+organizationId);
 		JPAQuery<Variable> query = new JPAQuery<Variable>(em).from(variable)
 				.innerJoin(organizationVariable).on(organizationVariable.accountingCode.eq(variable.accountingCode))
 				.where(organizationVariable.organizationId.eq(variable.id));
