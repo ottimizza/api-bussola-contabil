@@ -1,6 +1,7 @@
 package br.com.ottimizza.dashboard.controllers;
 
 import java.math.BigInteger;
+import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.ottimizza.dashboard.models.OrganizationVariable;
+import br.com.ottimizza.dashboard.models.Variable;
 import br.com.ottimizza.dashboard.services.OrganizationVariableService;
 
 @RestController
@@ -52,4 +54,9 @@ public class OrganizationVariableController {
 		return (response.get("status") == "Success") ? ResponseEntity.ok(response.toString()) : ResponseEntity.badRequest().build();
 	}
 
+	
+	@GetMapping("byOrganization/{id}")
+	public ResponseEntity<List<Variable>> findByOrganizationId(@PathVariable("id") BigInteger organizationId, Principal principal) throws Exception {
+		return ResponseEntity.ok(service.findVariableByOrganizationId(organizationId));
+	}
 }

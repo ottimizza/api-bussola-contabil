@@ -1,4 +1,4 @@
-package br.com.ottimizza.dashboard.repositories;
+package br.com.ottimizza.dashboard.repositoriesorganizationVariable;
 
 import java.math.BigInteger;
 
@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 import br.com.ottimizza.dashboard.models.OrganizationVariable;
 
 @Repository
-public interface OrganizationVariableRepository extends JpaRepository<OrganizationVariable, BigInteger>{
+public interface OrganizationVariableRepository extends JpaRepository<OrganizationVariable, BigInteger>, OrganizationVariableRepositoryCustom {
+
 
 }

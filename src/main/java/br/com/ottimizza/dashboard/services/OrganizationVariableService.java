@@ -11,7 +11,9 @@ import org.json.JSONObject;
 import org.springframework.stereotype.Service;
 
 import br.com.ottimizza.dashboard.models.OrganizationVariable;
-import br.com.ottimizza.dashboard.repositories.OrganizationVariableRepository;
+import br.com.ottimizza.dashboard.models.Variable;
+import br.com.ottimizza.dashboard.repositories.VariableRepository;
+import br.com.ottimizza.dashboard.repositoriesorganizationVariable.OrganizationVariableRepository;
 
 @Service
 public class OrganizationVariableService {
@@ -52,7 +54,7 @@ public class OrganizationVariableService {
 			newOrgVariable = repository.findById(organizationVariable.getId()).get();
 			try {
 				if (organizationVariable.getAccountingCode() != null) newOrgVariable.setAccountingCode(organizationVariable.getAccountingCode());
-				if (organizationVariable.getCompanyId() != null) 	newOrgVariable.setCompanyId(organizationVariable.getCompanyId());
+				if (organizationVariable.getOrganizationId() != null) 	newOrgVariable.setOrganizationId(organizationVariable.getOrganizationId());
 				if (organizationVariable.getVariableId() != null) 	newOrgVariable.setVariableId(organizationVariable.getVariableId());
 				
 				repository.save(newOrgVariable);
@@ -70,5 +72,10 @@ public class OrganizationVariableService {
 			throw new NoResultException(response.toString());
 		}
 		return response;
+	}
+
+
+	public List<Variable> findVariableByOrganizationId(BigInteger organizationId) {
+		return repository.findVariablesByOrganizationId(organizationId);
 	}
 }

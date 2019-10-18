@@ -1,5 +1,6 @@
 package br.com.ottimizza.dashboard.models;
 
+import java.io.Serializable;
 import java.math.BigInteger;
 
 import javax.persistence.Column;
@@ -20,7 +21,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "variables")
-public class Variable {
+public class Variable implements Serializable{
 
 	@Id
     @Column(name = "id", nullable = false)

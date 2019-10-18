@@ -1,5 +1,6 @@
 package br.com.ottimizza.dashboard.models;
 
+import java.io.Serializable;
 import java.math.BigInteger;
 
 import javax.persistence.Column;
@@ -20,7 +21,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name= "organizations_variables")
-public class OrganizationVariable {
+public class OrganizationVariable implements Serializable {
 
 	@Id
     @Column(name = "id", nullable = false)
@@ -32,7 +33,7 @@ public class OrganizationVariable {
 	private BigInteger variableId;
 
 	@Column(name = "fk_organizations_id", nullable = false)
-	private BigInteger companyId;
+	private BigInteger organizationId;
 	
 	private String  accountingCode;
 
