@@ -70,7 +70,7 @@ public class OrganizationVariableController {
 		System.out.println(userInfo.getUsername());
 		System.out.println(userInfo.getOrganizationId());
 		System.out.println(userInfo.getId());
-		return ResponseEntity.ok(service.findVariableByOrganizationId(organizationId));
+		return ResponseEntity.ok(service.findVariableByOrganizationId(organizationId, userInfo));
 	}
 	
 	

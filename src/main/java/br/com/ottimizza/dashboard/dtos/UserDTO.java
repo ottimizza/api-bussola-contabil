@@ -28,5 +28,7 @@ public class UserDTO implements Serializable {
 	Integer type;
 	
 	BigInteger organizationId;
+	
+	OrganizationDTO organizationDTO;
 
 }

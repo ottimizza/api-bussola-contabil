@@ -11,6 +11,7 @@ import javax.persistence.NoResultException;
 import org.json.JSONObject;
 import org.springframework.stereotype.Service;
 
+import br.com.ottimizza.dashboard.dtos.UserDTO;
 import br.com.ottimizza.dashboard.dtos.VariableDTO;
 import br.com.ottimizza.dashboard.models.OrganizationVariable;
 import br.com.ottimizza.dashboard.repositories.organizationVariable.OrganizationVariableRepository;
@@ -74,7 +75,7 @@ public class OrganizationVariableService {
 		return response;
 	}
 
-	public List<VariableDTO> findVariableByOrganizationId(BigInteger organizationId) {
-		return repository.findVariablesByOrganizationId(organizationId);
+	public List<VariableDTO> findVariableByOrganizationId(BigInteger organizationId, UserDTO userInfo) {
+		return repository.findVariablesByOrganizationId(organizationId, userInfo);
 	}
 }
