@@ -35,6 +35,18 @@ public class OrganizationVariableRepositoryImpl implements OrganizationVariableR
 		query.select(Projections.constructor(
 				VariableDTO.class, variable.companyId, variable.externalId, variable.name, variable.id, organizationVariable.organizationId, organizationVariable.accountingCode));
 		
+		return query.fetch();
+	}
+
+	@Override
+	public List<VariableDTO> findVariablesByCompanyId(BigInteger companyId, UserDTO userInfo) {
+		JPAQuery<VariableDTO> query = new JPAQuery<VariableDTO>(em).from(organizationVariable)
+				.innerJoin(variable).on(
+						variable.id.eq(organizationVariable.variableId).and(organizationVariable.organizationId.eq(userInfo.getOrganization().getId())))
+				.where(variable.companyId.eq(companyId));
+		                
+		query.select(Projections.constructor(
+				VariableDTO.class, variable.companyId, variable.externalId, variable.name, variable.id, organizationVariable.organizationId, organizationVariable.accountingCode));
 		
 		return query.fetch();
 	}

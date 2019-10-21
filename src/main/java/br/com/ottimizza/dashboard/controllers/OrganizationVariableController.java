@@ -64,12 +64,14 @@ public class OrganizationVariableController {
 	public ResponseEntity<List<VariableDTO>> findByOrganizationId(@PathVariable("id") BigInteger organizationId, @RequestHeader("Authorization") String authorization) throws Exception {
 		UserDTO userInfo = oauthClient.getUserInfo(authorization).getBody().getRecord();
 		
-		System.out.println("###################");
-		System.out.println(userInfo.getId());
-		System.out.println(userInfo.getOrganization().getId());
-		System.out.println("###################");
-	
 		return ResponseEntity.ok(service.findVariableByOrganizationId(organizationId, userInfo));
+	}
+	
+	@GetMapping("byCompany/{id}")
+	public ResponseEntity<List<VariableDTO>> findByCompanyId(@PathVariable("id") BigInteger companyId, @RequestHeader("Authorization") String authorization) throws Exception {
+		UserDTO userInfo = oauthClient.getUserInfo(authorization).getBody().getRecord();
+		
+		return ResponseEntity.ok(service.findVariableByCompanyId(companyId, userInfo));
 	}
 	
 	

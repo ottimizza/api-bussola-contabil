@@ -1,7 +1,6 @@
 package br.com.ottimizza.dashboard.services;
 
 import java.math.BigInteger;
-import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 
@@ -77,5 +76,9 @@ public class OrganizationVariableService {
 
 	public List<VariableDTO> findVariableByOrganizationId(BigInteger organizationId, UserDTO userInfo) {
 		return repository.findVariablesByOrganizationId(organizationId, userInfo);
+	}
+
+	public List<VariableDTO> findVariableByCompanyId(BigInteger companyId, UserDTO userInfo) {
+		return repository.findVariablesByCompanyId(companyId, userInfo);
 	}
 }
