@@ -50,4 +50,17 @@ public class OrganizationVariableRepositoryImpl implements OrganizationVariableR
 		
 		return query.fetch();
 	}
+
+	@Override
+	public List<VariableDTO> findMissingByOrganizationId(BigInteger organizationId, UserDTO userInfo) {
+		JPAQuery<VariableDTO> query = new JPAQuery<VariableDTO>(em).from(organizationVariable)
+				.innerJoin(variable).on(
+						variable.id.ne(organizationVariable.variableId).and(organizationVariable.organizationId.eq(userInfo.getOrganization().getId())))
+				.where(organizationVariable.organizationId.eq(organizationId));
+		                
+		query.select(Projections.constructor(
+				VariableDTO.class, variable.companyId, variable.externalId, variable.name, variable.id, organizationVariable.organizationId, organizationVariable.accountingCode));
+		
+		return query.fetch();
+	}
 }

@@ -74,5 +74,12 @@ public class OrganizationVariableController {
 		return ResponseEntity.ok(service.findVariableByCompanyId(companyId, userInfo));
 	}
 	
+	@GetMapping("missing/{id}")
+	public ResponseEntity<List<VariableDTO>> findMissing(@PathVariable("id") BigInteger organizationId, @RequestHeader("Authorization") String authorization) throws Exception {
+		UserDTO userInfo = oauthClient.getUserInfo(authorization).getBody().getRecord();
+		
+		return ResponseEntity.ok(service.findMissingByOrganizationId(organizationId, userInfo));
+	}
+	
 	
 }

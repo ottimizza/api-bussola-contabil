@@ -9,6 +9,5 @@ import br.com.ottimizza.dashboard.models.OrganizationVariable;
 
 public interface OrganizationVariableRepository extends JpaRepository<OrganizationVariable, BigInteger>, OrganizationVariableRepositoryCustom {
 
-
-
+	
 }
