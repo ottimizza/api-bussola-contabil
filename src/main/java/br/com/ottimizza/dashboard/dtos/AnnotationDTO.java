@@ -4,9 +4,15 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 import br.com.ottimizza.dashboard.models.Annotation;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@Data
+@Setter @Getter
+@NoArgsConstructor
+@AllArgsConstructor
 public class AnnotationDTO implements Serializable{
 	private static final long serialVersionUID = 1L;
 

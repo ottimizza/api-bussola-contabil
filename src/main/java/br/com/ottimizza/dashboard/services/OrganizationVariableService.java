@@ -10,8 +10,10 @@ import javax.persistence.NoResultException;
 import org.json.JSONObject;
 import org.springframework.stereotype.Service;
 
+import br.com.ottimizza.dashboard.dtos.UserDTO;
+import br.com.ottimizza.dashboard.dtos.VariableDTO;
 import br.com.ottimizza.dashboard.models.OrganizationVariable;
-import br.com.ottimizza.dashboard.repositories.OrganizationVariableRepository;
+import br.com.ottimizza.dashboard.repositories.organizationVariable.OrganizationVariableRepository;
 
 @Service
 public class OrganizationVariableService {
@@ -52,8 +54,8 @@ public class OrganizationVariableService {
 			newOrgVariable = repository.findById(organizationVariable.getId()).get();
 			try {
 				if (organizationVariable.getAccountingCode() != null) newOrgVariable.setAccountingCode(organizationVariable.getAccountingCode());
-				if (organizationVariable.getCompanyId() != null) 	newOrgVariable.setCompanyId(organizationVariable.getCompanyId());
-				if (organizationVariable.getVariableId() != null) 	newOrgVariable.setVariableId(organizationVariable.getVariableId());
+				if (organizationVariable.getOrganizationId() != null) newOrgVariable.setOrganizationId(organizationVariable.getOrganizationId());
+				if (organizationVariable.getVariableId() != null) 	  newOrgVariable.setVariableId(organizationVariable.getVariableId());
 				
 				repository.save(newOrgVariable);
 				
@@ -71,4 +73,18 @@ public class OrganizationVariableService {
 		}
 		return response;
 	}
+
+	public List<VariableDTO> findVariableByOrganizationId(BigInteger organizationId, UserDTO userInfo) {
+		return repository.findVariablesByOrganizationId(organizationId, userInfo);
+	}
+
+	
+	public List<VariableDTO> findVariableByCompanyId(BigInteger companyId, UserDTO userInfo) {
+		return repository.findVariablesByCompanyId(companyId, userInfo);
+	}
+
+	public List<VariableDTO> findMissingByOrganizationId(BigInteger organizationId, UserDTO userInfo) {
+		return repository.findMissingByOrganizationId(organizationId, userInfo);
+	}
+	
 }

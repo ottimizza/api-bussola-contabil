@@ -10,8 +10,10 @@ import javax.persistence.NoResultException;
 import org.json.JSONObject;
 import org.springframework.stereotype.Service;
 
+import br.com.ottimizza.dashboard.dtos.UserDTO;
+import br.com.ottimizza.dashboard.dtos.VariableDTO;
 import br.com.ottimizza.dashboard.models.Variable;
-import br.com.ottimizza.dashboard.repositories.VariableRepository;
+import br.com.ottimizza.dashboard.repositories.variable.VariableRepository;
 
 @Service
 public class VariableService {
@@ -38,7 +40,7 @@ public class VariableService {
 			newVariable = repository.findById(variable.getId()).get();
 			try {
 				if (variable.getAccountingCode() != null) newVariable.setAccountingCode(variable.getAccountingCode());
-				if (variable.getOrganizationId() != null) newVariable.setOrganizationId(variable.getOrganizationId());
+				if (variable.getCompanyId() != null) 	  newVariable.setCompanyId(variable.getCompanyId());
 				if (variable.getDescription() != null)	  newVariable.setDescription(variable.getDescription());
 				if (variable.getExternalId() != null)	  newVariable.setExternalId(variable.getExternalId());
 				if (variable.getName() != null) 		  newVariable.setName(variable.getName());
@@ -74,5 +76,4 @@ public class VariableService {
 		return response;
 	}
 
-	
 }

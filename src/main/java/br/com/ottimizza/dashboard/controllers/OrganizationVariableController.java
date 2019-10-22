@@ -1,6 +1,7 @@
 package br.com.ottimizza.dashboard.controllers;
 
 import java.math.BigInteger;
+import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 
@@ -13,9 +14,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.ottimizza.dashboard.client.OAuthClient;
+import br.com.ottimizza.dashboard.dtos.UserDTO;
+import br.com.ottimizza.dashboard.dtos.VariableDTO;
 import br.com.ottimizza.dashboard.models.OrganizationVariable;
 import br.com.ottimizza.dashboard.services.OrganizationVariableService;
 
@@ -25,6 +30,9 @@ public class OrganizationVariableController {
 
 	@Inject
 	OrganizationVariableService service;
+	
+	@Inject
+	OAuthClient oauthClient;
 	
 	@PostMapping
 	public ResponseEntity<OrganizationVariable> saveVariable(@RequestBody OrganizationVariable orgVariable) throws Exception {
@@ -51,5 +59,27 @@ public class OrganizationVariableController {
 		JSONObject response = service.delete(id);
 		return (response.get("status") == "Success") ? ResponseEntity.ok(response.toString()) : ResponseEntity.badRequest().build();
 	}
-
+	
+	@GetMapping("byOrganization/{id}")
+	public ResponseEntity<List<VariableDTO>> findByOrganizationId(@PathVariable("id") BigInteger organizationId, @RequestHeader("Authorization") String authorization) throws Exception {
+		UserDTO userInfo = oauthClient.getUserInfo(authorization).getBody().getRecord();
+		
+		return ResponseEntity.ok(service.findVariableByOrganizationId(organizationId, userInfo));
+	}
+	
+	@GetMapping("byCompany/{id}")
+	public ResponseEntity<List<VariableDTO>> findByCompanyId(@PathVariable("id") BigInteger companyId, @RequestHeader("Authorization") String authorization) throws Exception {
+		UserDTO userInfo = oauthClient.getUserInfo(authorization).getBody().getRecord();
+		
+		return ResponseEntity.ok(service.findVariableByCompanyId(companyId, userInfo));
+	}
+	
+	@GetMapping("missing/{id}")
+	public ResponseEntity<List<VariableDTO>> findMissing(@PathVariable("id") BigInteger organizationId, @RequestHeader("Authorization") String authorization) throws Exception {
+		UserDTO userInfo = oauthClient.getUserInfo(authorization).getBody().getRecord();
+		
+		return ResponseEntity.ok(service.findMissingByOrganizationId(organizationId, userInfo));
+	}
+	
+	
 }
