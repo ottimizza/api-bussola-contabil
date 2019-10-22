@@ -67,11 +67,10 @@ public class OrganizationVariableController {
 		return ResponseEntity.ok(service.findVariableByOrganizationId(organizationId, userInfo));
 	}
 	
-	@GetMapping("byCompany/{id}")
+	@GetMapping("byOrganization/{id}")
 	public ResponseEntity<List<VariableDTO>> findByCompanyId(@PathVariable("id") BigInteger companyId, @RequestHeader("Authorization") String authorization) throws Exception {
 		UserDTO userInfo = oauthClient.getUserInfo(authorization).getBody().getRecord();
-		System.out.println("loggerInfo 2");
-
+		
 		return ResponseEntity.ok(service.findVariableByCompanyId(companyId, userInfo));
 	}
 	

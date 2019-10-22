@@ -79,7 +79,7 @@ public class OrganizationVariableService {
 	}
 
 	public List<VariableDTO> findVariableByCompanyId(BigInteger companyId, UserDTO userInfo) {
-		System.out.println("loggerInfo 3");
 		return repository.findVariablesByCompanyId(companyId, userInfo);
 	}
+	
 }

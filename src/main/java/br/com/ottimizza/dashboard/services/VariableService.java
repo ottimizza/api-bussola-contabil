@@ -10,8 +10,10 @@ import javax.persistence.NoResultException;
 import org.json.JSONObject;
 import org.springframework.stereotype.Service;
 
+import br.com.ottimizza.dashboard.dtos.UserDTO;
+import br.com.ottimizza.dashboard.dtos.VariableDTO;
 import br.com.ottimizza.dashboard.models.Variable;
-import br.com.ottimizza.dashboard.repositories.VariableRepository;
+import br.com.ottimizza.dashboard.repositories.variable.VariableRepository;
 
 @Service
 public class VariableService {
@@ -74,5 +76,4 @@ public class VariableService {
 		return response;
 	}
 
-	
 }
