@@ -44,7 +44,7 @@ public class OrganizationVariableRepositoryImpl implements OrganizationVariableR
 		System.out.println("loggerInfo 4");
 		JPAQuery<VariableDTO> query = new JPAQuery<VariableDTO>(em).from(organizationVariable)
 				.innerJoin(variable).on(
-						variable.id.eq(organizationVariable.variableId).and(organizationVariable.organizationId.eq(userInfo.getOrganization().getId())))
+						variable.id.eq(organizationVariable.variableId)/*.and(organizationVariable.organizationId.eq(userInfo.getOrganization().getId()))*/)
 				.where(variable.companyId.eq(companyId));
 		                
 		query.select(Projections.constructor(
