@@ -59,7 +59,7 @@ public class OrganizationVariableRepositoryImpl implements OrganizationVariableR
 				.where(organizationVariable.organizationId.eq(organizationId));
 		                
 		query.select(Projections.constructor(
-				VariableDTO.class, variable.companyId, variable.externalId, variable.name, variable.id, null, null));
+				VariableDTO.class, variable.companyId, variable.externalId, variable.name, variable.id, organizationVariable.organizationId, organizationVariable.accountingCode));
 		
 		return query.fetch();
 	}
