@@ -54,7 +54,7 @@ public class OrganizationVariableRepositoryImpl implements OrganizationVariableR
 	@Override
 	public List<VariableDTO> findMissingByOrganizationId(BigInteger organizationId, UserDTO userInfo) {
 		JPAQuery<VariableDTO> query = new JPAQuery<VariableDTO>(em).from(variable)
-				.rightJoin(organizationVariable).on(
+				.leftJoin(organizationVariable).on(
 						organizationVariable.variableId.eq(variable.id).and(organizationVariable.organizationId.eq(userInfo.getOrganization().getId())))
 				.where(organizationVariable.id.isNull());
 				
