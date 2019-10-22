@@ -10,6 +10,6 @@ public interface OrganizationVariableRepositoryCustom {
 
 	List<VariableDTO> findVariablesByOrganizationId(BigInteger organizationId, UserDTO userInfo);
 
-//	List<VariableDTO> findVariablesByCompanyId(BigInteger companyId, UserDTO userInfo);
+	List<VariableDTO> findVariablesByCompanyId(BigInteger companyId, UserDTO userInfo);
 
 }
