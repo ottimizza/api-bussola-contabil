@@ -78,8 +78,8 @@ public class OrganizationVariableService {
 		return repository.findVariablesByOrganizationId(organizationId, userInfo);
 	}
 
-	public List<VariableDTO> findVariableByCompanyId(BigInteger companyId, UserDTO userInfo) {
-		return repository.findVariablesByCompanyId(companyId, userInfo);
-	}
+//	public List<VariableDTO> findVariableByCompanyId(BigInteger companyId, UserDTO userInfo) {
+//		return repository.findVariablesByCompanyId(companyId, userInfo);
+//	}
 	
 }
