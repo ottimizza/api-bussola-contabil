@@ -39,7 +39,10 @@ public class OrganizationVariableController {
 		UserDTO userInfo = oauthClient.getUserInfo(authorization).getBody().getRecord();
 		try {
 			orgVariable = service.save(orgVariable, userInfo);
-			if(orgVariable == null) return ResponseEntity.badRequest().build();		
+			if(orgVariable == null) {
+				System.out.println("ja existe");
+				return ResponseEntity.badRequest().build();		
+			}
 
 			return ResponseEntity.ok(orgVariable);
 		} catch (Exception e) {  }
