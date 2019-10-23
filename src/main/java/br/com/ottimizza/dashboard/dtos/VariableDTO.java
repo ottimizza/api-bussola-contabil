@@ -16,6 +16,9 @@ public class VariableDTO implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	// from Variables
+	
+	private BigInteger id;		//empresa
+	
 	private BigInteger companyId;		//empresa
 	private String externalId;
 	private String  name;
