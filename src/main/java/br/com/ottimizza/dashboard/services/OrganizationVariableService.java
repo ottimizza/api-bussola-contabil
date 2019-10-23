@@ -29,17 +29,13 @@ public class OrganizationVariableService {
 	
 	public OrganizationVariable save(OrganizationVariable organizationVariable, UserDTO userInfo) throws Exception {
 
-		Variable variable = variableRepository.findVariableByAccountingCode(organizationVariable.getAccountingCode(), userInfo);
-		
-		//System.out.println("SAS "+variable.getAccountingCode()+" - "+variable.getId());
-		
-		if(variable == null) System.out.println("SAS isnull");
-		else System.out.println("SAS not isnull "+variable.getAccountingCode()+" - "+variable.getId());
-//		if(variableRepository.findVariableByAccountingCode(organizationVariable.getAccountingCode()) == null) System.out.println("SAS isnull");
-//		else System.out.println("SAS Not isnull");
-		
-//		return repository.saveOrganizationVariable(organizationVariable);
-		return repository.save(organizationVariable);
+//		Variable variable = variableRepository.findVariableByAccountingCode(organizationVariable.getAccountingCode(), userInfo);
+//		if(variable == null) System.out.println("SAS isnull");
+//		else System.out.println("SAS not isnull "+variable.getAccountingCode()+" - "+variable.getId());
+
+		if(variableRepository.findVariableByAccountingCode(organizationVariable.getAccountingCode(), userInfo) == null)
+			return repository.save(organizationVariable);
+		return null;
 	}
 	
 	public Optional<OrganizationVariable> findById(BigInteger id) throws Exception {
