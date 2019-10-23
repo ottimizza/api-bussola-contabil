@@ -29,6 +29,10 @@ public class OrganizationVariableService {
 	
 	public OrganizationVariable save(OrganizationVariable organizationVariable, UserDTO userInfo) throws Exception {
 
+		if(organizationVariable.getOrganizationId() == null) {
+			System.out.println("tava nulllll");
+			organizationVariable.setOrganizationId(userInfo.getOrganization().getId());
+		}
 		if(variableRepository.findVariableByAccountingCode(organizationVariable.getAccountingCode(), userInfo) == null)
 			return repository.save(organizationVariable);
 		return null;
