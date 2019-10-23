@@ -31,7 +31,7 @@ public class OrganizationVariableService {
 
 		Variable variable = variableRepository.findVariableByAccountingCode(organizationVariable.getAccountingCode(), userInfo);
 		
-		System.out.println("SAS "+variable.getAccountingCode()+" - "+variable.getId());
+		//System.out.println("SAS "+variable.getAccountingCode()+" - "+variable.getId());
 		
 		if(variable == null) System.out.println("SAS isnull");
 		else System.out.println("SAS not isnull");
