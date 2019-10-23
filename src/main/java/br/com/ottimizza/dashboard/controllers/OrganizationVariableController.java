@@ -39,7 +39,7 @@ public class OrganizationVariableController {
 		try {
 			orgVariable = service.save(orgVariable);
 			return ResponseEntity.ok(orgVariable);
-		} catch (Exception e) { }
+		} catch (Exception e) { e.printStackTrace(); }
 		
 		return ResponseEntity.badRequest().build();		
 	}
