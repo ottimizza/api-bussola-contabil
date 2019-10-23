@@ -23,6 +23,8 @@ import lombok.Setter;
 @Table(name= "organizations_variables")
 public class OrganizationVariable implements Serializable {
 
+	private static final long serialVersionUID = 1L;
+
 	@Id
     @Column(name = "id", nullable = false)
     @SequenceGenerator(name = "org_variables_sequence", sequenceName = "org_variables_seq", allocationSize = 1)

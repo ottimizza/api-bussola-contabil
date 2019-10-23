@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import br.com.ottimizza.dashboard.dtos.UserDTO;
 import br.com.ottimizza.dashboard.dtos.VariableDTO;
 import br.com.ottimizza.dashboard.models.OrganizationVariable;
+import br.com.ottimizza.dashboard.models.Variable;
 import br.com.ottimizza.dashboard.repositories.organizationVariable.OrganizationVariableRepository;
 import br.com.ottimizza.dashboard.repositories.variable.VariableRepository;
 
@@ -26,11 +27,14 @@ public class OrganizationVariableService {
 	VariableRepository variableRepository;
 	
 	
-	public OrganizationVariable save(OrganizationVariable organizationVariable) throws Exception {
-//		if(organizationVariable.getAccountingCode().equals() 
+	public OrganizationVariable save(OrganizationVariable organizationVariable, UserDTO userInfo) throws Exception {
 
-		if(variableRepository.findByAccountingCode(organizationVariable.getAccountingCode()) == null) System.out.println("SAS isnull");
-		else System.out.println("SAS Not isnull");
+		Variable variable = variableRepository.findVariableByAccountingCode(organizationVariable.getAccountingCode(), userInfo);
+		
+		if(variable == null) System.out.println("SAS isnull");
+		else System.out.println("SAS not isnull");
+//		if(variableRepository.findVariableByAccountingCode(organizationVariable.getAccountingCode()) == null) System.out.println("SAS isnull");
+//		else System.out.println("SAS Not isnull");
 		
 //		return repository.saveOrganizationVariable(organizationVariable);
 		return repository.save(organizationVariable);
