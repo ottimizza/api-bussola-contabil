@@ -1,7 +1,6 @@
 package br.com.ottimizza.dashboard.controllers;
 
 import java.math.BigInteger;
-import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 

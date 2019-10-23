@@ -29,10 +29,6 @@ public class OrganizationVariableService {
 	
 	public OrganizationVariable save(OrganizationVariable organizationVariable, UserDTO userInfo) throws Exception {
 
-//		Variable variable = variableRepository.findVariableByAccountingCode(organizationVariable.getAccountingCode(), userInfo);
-//		if(variable == null) System.out.println("SAS isnull");
-//		else System.out.println("SAS not isnull "+variable.getAccountingCode()+" - "+variable.getId());
-
 		if(variableRepository.findVariableByAccountingCode(organizationVariable.getAccountingCode(), userInfo) == null)
 			return repository.save(organizationVariable);
 		return null;

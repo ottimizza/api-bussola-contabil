@@ -13,7 +13,6 @@ import com.querydsl.jpa.impl.JPAQuery;
 
 import br.com.ottimizza.dashboard.dtos.UserDTO;
 import br.com.ottimizza.dashboard.dtos.VariableDTO;
-import br.com.ottimizza.dashboard.models.OrganizationVariable;
 import br.com.ottimizza.dashboard.models.QOrganizationVariable;
 import br.com.ottimizza.dashboard.models.QVariable;
 
@@ -65,9 +64,4 @@ public class OrganizationVariableRepositoryImpl implements OrganizationVariableR
 		return query.fetch();
 	}
 
-//	@Override
-//	public OrganizationVariable saveOrganizationVariable(OrganizationVariable organizationVariable) {
-//		if(organizationVariable.getAccountingCode().equals(variable.accountingCode)) return save(organizationVariable);
-//		return null;
-//	}
 }
