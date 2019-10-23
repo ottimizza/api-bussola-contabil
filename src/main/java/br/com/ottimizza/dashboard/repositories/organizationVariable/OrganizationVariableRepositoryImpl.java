@@ -8,7 +8,11 @@ import javax.persistence.PersistenceContext;
 
 import org.springframework.stereotype.Repository;
 
+import com.querydsl.core.types.EntityPath;
 import com.querydsl.core.types.Projections;
+import com.querydsl.core.types.dsl.NumberExpression;
+import com.querydsl.core.types.dsl.NumberPath;
+import com.querydsl.core.types.dsl.PathBuilder;
 import com.querydsl.jpa.impl.JPAQuery;
 
 import br.com.ottimizza.dashboard.dtos.UserDTO;

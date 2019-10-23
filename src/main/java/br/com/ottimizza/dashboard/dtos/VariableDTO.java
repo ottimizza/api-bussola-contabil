@@ -5,9 +5,11 @@ import java.math.BigInteger;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@Data
+@Getter @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class VariableDTO implements Serializable{
@@ -23,6 +25,6 @@ public class VariableDTO implements Serializable{
 	//from organizationVariable
 	private BigInteger organizationId;	//contabilidade
 	private String  accountingCode;
-
-
+	
+	
 }
