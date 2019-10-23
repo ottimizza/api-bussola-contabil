@@ -14,6 +14,7 @@ import br.com.ottimizza.dashboard.dtos.UserDTO;
 import br.com.ottimizza.dashboard.dtos.VariableDTO;
 import br.com.ottimizza.dashboard.models.OrganizationVariable;
 import br.com.ottimizza.dashboard.repositories.organizationVariable.OrganizationVariableRepository;
+import br.com.ottimizza.dashboard.repositories.variable.VariableRepository;
 
 @Service
 public class OrganizationVariableService {
@@ -21,7 +22,17 @@ public class OrganizationVariableService {
 	@Inject
 	OrganizationVariableRepository repository;
 	
+	@Inject
+	VariableRepository variableRepository;
+	
+	
 	public OrganizationVariable save(OrganizationVariable organizationVariable) throws Exception {
+//		if(organizationVariable.getAccountingCode().equals() 
+
+		if(variableRepository.findByAccountingCode(organizationVariable.getAccountingCode()) == null) System.out.println("SAS isnull");
+		else System.out.println("SAS Not isnull");
+		
+//		return repository.saveOrganizationVariable(organizationVariable);
 		return repository.save(organizationVariable);
 	}
 	
