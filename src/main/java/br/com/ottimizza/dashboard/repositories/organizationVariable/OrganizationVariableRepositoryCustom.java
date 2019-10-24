@@ -12,7 +12,7 @@ public interface OrganizationVariableRepositoryCustom {
 
 	List<VariableDTO> findVariablesByCompanyId(BigInteger companyId, UserDTO userInfo);
 
-	List<VariableDTO> findMissingByOrganizationId(BigInteger companyId, UserDTO userInfo);
+	List<VariableDTO> findMissingByCompanyId(BigInteger companyId, UserDTO userInfo);
 	
 //	OrganizationVariable saveOrganizationVariable(OrganizationVariable organizationVariable);
 

@@ -95,7 +95,7 @@ public class OrganizationVariableService {
 	}
 
 	public List<VariableDTO> findMissingByOrganizationId(BigInteger companyId, UserDTO userInfo) {
-		return repository.findMissingByOrganizationId(companyId, userInfo);
+		return repository.findMissingByCompanyId(companyId, userInfo);
 	}
 	
 }
