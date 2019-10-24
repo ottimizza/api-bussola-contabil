@@ -14,6 +14,7 @@ import br.com.ottimizza.dashboard.dtos.UserDTO;
 import br.com.ottimizza.dashboard.dtos.VariableDTO;
 import br.com.ottimizza.dashboard.models.OrganizationVariable;
 import br.com.ottimizza.dashboard.repositories.organizationVariable.OrganizationVariableRepository;
+import br.com.ottimizza.dashboard.repositories.variable.VariableRepository;
 
 @Service
 public class OrganizationVariableService {
@@ -21,8 +22,18 @@ public class OrganizationVariableService {
 	@Inject
 	OrganizationVariableRepository repository;
 	
-	public OrganizationVariable save(OrganizationVariable organizationVariable) throws Exception {
-		return repository.save(organizationVariable);
+	@Inject
+	VariableRepository variableRepository;
+	
+	
+	public OrganizationVariable save(OrganizationVariable organizationVariable, UserDTO userInfo) throws Exception {
+
+		if(organizationVariable.getOrganizationId() == null) {
+			organizationVariable.setOrganizationId(userInfo.getOrganization().getId());
+		}
+		if(variableRepository.findVariableByAccountingCode(organizationVariable.getAccountingCode(), userInfo) == null)
+			return repository.save(organizationVariable);
+		return null;
 	}
 	
 	public Optional<OrganizationVariable> findById(BigInteger id) throws Exception {

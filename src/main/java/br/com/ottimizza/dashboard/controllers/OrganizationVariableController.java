@@ -1,7 +1,6 @@
 package br.com.ottimizza.dashboard.controllers;
 
 import java.math.BigInteger;
-import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 
@@ -35,11 +34,12 @@ public class OrganizationVariableController {
 	OAuthClient oauthClient;
 	
 	@PostMapping
-	public ResponseEntity<OrganizationVariable> saveVariable(@RequestBody OrganizationVariable orgVariable) throws Exception {
+	public ResponseEntity<OrganizationVariable> saveVariable(@RequestBody OrganizationVariable orgVariable, @RequestHeader("Authorization") String authorization) throws Exception {
+		UserDTO userInfo = oauthClient.getUserInfo(authorization).getBody().getRecord();
 		try {
-			orgVariable = service.save(orgVariable);
+			orgVariable = service.save(orgVariable, userInfo);
 			return ResponseEntity.ok(orgVariable);
-		} catch (Exception e) { }
+		} catch (Exception e) {  }
 		
 		return ResponseEntity.badRequest().build();		
 	}

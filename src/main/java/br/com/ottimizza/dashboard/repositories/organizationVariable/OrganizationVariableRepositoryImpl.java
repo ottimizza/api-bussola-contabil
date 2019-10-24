@@ -8,11 +8,7 @@ import javax.persistence.PersistenceContext;
 
 import org.springframework.stereotype.Repository;
 
-import com.querydsl.core.types.EntityPath;
 import com.querydsl.core.types.Projections;
-import com.querydsl.core.types.dsl.NumberExpression;
-import com.querydsl.core.types.dsl.NumberPath;
-import com.querydsl.core.types.dsl.PathBuilder;
 import com.querydsl.jpa.impl.JPAQuery;
 
 import br.com.ottimizza.dashboard.dtos.UserDTO;
@@ -37,7 +33,7 @@ public class OrganizationVariableRepositoryImpl implements OrganizationVariableR
 				.where(organizationVariable.organizationId.eq(organizationId));
 		                
 		query.select(Projections.constructor(
-				VariableDTO.class, variable.accountingId, variable.externalId, variable.name, variable.id, organizationVariable.organizationId, organizationVariable.accountingCode));
+				VariableDTO.class, organizationVariable.id, variable.accountingId, variable.externalId, variable.name, variable.id, organizationVariable.organizationId, organizationVariable.accountingCode));
 		
 		return query.fetch();
 	}
@@ -50,7 +46,7 @@ public class OrganizationVariableRepositoryImpl implements OrganizationVariableR
 				.where(organizationVariable.organizationId.eq(companyId));
 		                
 		query.select(Projections.constructor(
-				VariableDTO.class, variable.accountingId, variable.externalId, variable.name, variable.id, organizationVariable.organizationId, organizationVariable.accountingCode));
+				VariableDTO.class, organizationVariable.id, variable.accountingId, variable.externalId, variable.name, variable.id, organizationVariable.organizationId, organizationVariable.accountingCode));
 		
 		return query.fetch();
 	}
@@ -63,8 +59,9 @@ public class OrganizationVariableRepositoryImpl implements OrganizationVariableR
 				.where(organizationVariable.id.isNull().and(variable.accountingId.eq(userInfo.getOrganization().getId())));
 				
 		query.select(Projections.constructor(
-				VariableDTO.class, variable.accountingId, variable.externalId, variable.name, variable.id, organizationVariable.organizationId, variable.accountingCode));
+				VariableDTO.class, organizationVariable.id, variable.accountingId, variable.externalId, variable.name, variable.id, organizationVariable.organizationId, variable.accountingCode));
 		
 		return query.fetch();
 	}
+
 }
