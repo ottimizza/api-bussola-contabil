@@ -13,10 +13,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.ottimizza.dashboard.client.OAuthClient;
+import br.com.ottimizza.dashboard.dtos.UserDTO;
+import br.com.ottimizza.dashboard.dtos.VariableDTO;
 import br.com.ottimizza.dashboard.models.Variable;
 import br.com.ottimizza.dashboard.services.VariableService;
 
@@ -57,6 +60,13 @@ public class VariableController {
 		return (response.get("status") == "Success") ? ResponseEntity.ok(response.toString()) : ResponseEntity.badRequest().build();
 	}
 	
+
+	@GetMapping("byOrganization/{id}")
+	public ResponseEntity<List<VariableDTO>> findByOrganizationId(@PathVariable("id") BigInteger organizationId, @RequestHeader("Authorization") String authorization) throws Exception {
+		UserDTO userInfo = oauthClient.getUserInfo(authorization).getBody().getRecord();
+		
+		return ResponseEntity.ok(service.findVariableByOrganizationId(organizationId, userInfo));
+	}
 	
 	
 }

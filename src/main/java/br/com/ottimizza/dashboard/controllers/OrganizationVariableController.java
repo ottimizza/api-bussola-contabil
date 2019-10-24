@@ -60,13 +60,6 @@ public class OrganizationVariableController {
 		return (response.get("status") == "Success") ? ResponseEntity.ok(response.toString()) : ResponseEntity.badRequest().build();
 	}
 	
-	@GetMapping("byOrganization/{id}")
-	public ResponseEntity<List<VariableDTO>> findByOrganizationId(@PathVariable("id") BigInteger organizationId, @RequestHeader("Authorization") String authorization) throws Exception {
-		UserDTO userInfo = oauthClient.getUserInfo(authorization).getBody().getRecord();
-		
-		return ResponseEntity.ok(service.findVariableByOrganizationId(organizationId, userInfo));
-	}
-	
 	@GetMapping("byCompany/{id}")
 	public ResponseEntity<List<VariableDTO>> findByCompanyId(@PathVariable("id") BigInteger companyId, @RequestHeader("Authorization") String authorization) throws Exception {
 		UserDTO userInfo = oauthClient.getUserInfo(authorization).getBody().getRecord();
