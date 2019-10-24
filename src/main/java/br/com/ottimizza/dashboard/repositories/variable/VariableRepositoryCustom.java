@@ -11,6 +11,6 @@ public interface VariableRepositoryCustom {
 	
 	Variable findVariableByAccountingCode(String accountingCode, UserDTO userInfo);
 
-	List<VariableDTO> findVariablesByOrganizationId(BigInteger organizationId, UserDTO userInfo);
+	List<Variable> findVariablesByOrganizationId(BigInteger organizationId, UserDTO userInfo);
 
 }

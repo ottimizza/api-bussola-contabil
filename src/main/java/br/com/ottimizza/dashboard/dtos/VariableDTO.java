@@ -3,6 +3,7 @@ package br.com.ottimizza.dashboard.dtos;
 import java.io.Serializable;
 import java.math.BigInteger;
 
+import br.com.ottimizza.dashboard.models.Variable;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -28,5 +29,25 @@ public class VariableDTO implements Serializable{
 	private BigInteger organizationId;	//contabilidade
 	private String  accountingCode;
 	
-	
+	public Variable variableDtoToVariable(VariableDTO variableDto) {
+		Variable variable = new Variable();
+
+		if(variableDto.getId() != null)				variable.setId(variableDto.getId());
+		if(variableDto.getExternalId() != null)		variable.setExternalId(variableDto.getExternalId());
+		if(variableDto.getName() != null)			variable.setName(variableDto.getName());
+		if(variableDto.getAccountingCode() != null)	variable.setAccountingCode(variableDto.getAccountingCode());
+		
+		return variable;
+	}
+
+	public VariableDTO variableToVariableDto(Variable variable) {
+		VariableDTO variableDto = new VariableDTO();
+		
+		if(variable.getId() != null)	variableDto.setId(variable.getId());
+		if(variable.getExternalId() != null)	variableDto.setExternalId(variable.getExternalId());
+		if(variable.getName() != null)	variableDto.setName(variable.getName());
+		if(variable.getAccountingCode() != null)	variableDto.setAccountingCode(variable.getAccountingCode());
+
+		return variableDto;
+	}
 }

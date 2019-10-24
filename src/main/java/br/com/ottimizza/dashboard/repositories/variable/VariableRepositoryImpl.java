@@ -34,18 +34,19 @@ public class VariableRepositoryImpl implements VariableRepositoryCustom {
 	}
 	
 	@Override
-	public List<VariableDTO> findVariablesByOrganizationId(BigInteger organizationId, UserDTO userInfo) {
+	public List<Variable> findVariablesByOrganizationId(BigInteger organizationId, UserDTO userInfo) {
 				
-		JPAQuery<VariableDTO> query = new JPAQuery<VariableDTO>(em).from(variable)
-				.where(variable.accountingId.eq(organizationId).and(variable.accountingId.eq(userInfo.getOrganization().getId())));
+		JPAQuery<Variable> query = new JPAQuery<Variable>(em).from(variable)
+				.where(variable.accountingId.eq(organizationId)/*.and(variable.accountingId.eq(userInfo.getOrganization().getId()))*/);
 
 //		JPAQuery<VariableDTO> query = new JPAQuery<VariableDTO>(em).from(organizationVariable)
 //				.innerJoin(variable).on(
 //						variable.id.eq(organizationVariable.variableId).and(variable.accountingId.eq(userInfo.getOrganization().getId())))
 //				.where(organizationVariable.organizationId.eq(organizationId));
 		                
-		query.select(Projections.constructor(
-				VariableDTO.class, organizationVariable.id, variable.accountingId, variable.externalId, variable.name, variable.id, organizationVariable.organizationId, organizationVariable.accountingCode));
+//		query.select(Projections.constructor(
+//				VariableDTO.class, organizationVariable.id, variable.accountingId, variable.externalId, variable.name, variable.id, organizationVariable.organizationId, organizationVariable.accountingCode));
+		
 		
 		return query.fetch();
 	}

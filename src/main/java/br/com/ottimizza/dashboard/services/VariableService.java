@@ -76,7 +76,7 @@ public class VariableService {
 		return response;
 	}
 
-	public List<VariableDTO> findVariableByOrganizationId(BigInteger organizationId, UserDTO userInfo) {
+	public List<Variable> findVariableByOrganizationId(BigInteger organizationId, UserDTO userInfo) {
 		return repository.findVariablesByOrganizationId(organizationId, userInfo);
 	}
 
