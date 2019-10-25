@@ -36,6 +36,11 @@ public class OrganizationVariableController {
 	@PostMapping
 	public ResponseEntity<OrganizationVariable> saveVariable(@RequestBody OrganizationVariable orgVariable, @RequestHeader("Authorization") String authorization) throws Exception {
 		UserDTO userInfo = oauthClient.getUserInfo(authorization).getBody().getRecord();
+		if((orgVariable.getAccountingCode() == null || orgVariable.getAccountingCode().equals("")) && orgVariable.getId() != null) {
+			service.delete(orgVariable.getId());
+			return null;
+		}
+			
 		try {
 			orgVariable = service.save(orgVariable, userInfo);
 			return ResponseEntity.ok(orgVariable);
