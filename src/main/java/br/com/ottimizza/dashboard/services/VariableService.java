@@ -87,6 +87,7 @@ public class VariableService {
 		if(variable.getId() != null && !variable.getId().equals("") && var != null) {
 			
 			var.setDescription((variable.getDescription() != null) ? variable.getDescription() : "");
+			var.setAccountingCode((variable.getAccountingCode() != null) ? variable.getAccountingCode() : "");
 
 			if(variable.getAccountingId() != null)	var.setAccountingId(variable.getAccountingId());
 			if(variable.getExternalId() != null)	var.setExternalId(variable.getExternalId());
