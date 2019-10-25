@@ -8,8 +8,6 @@ import br.com.ottimizza.dashboard.dtos.VariableDTO;
 
 public interface OrganizationVariableRepositoryCustom {
 
-	List<VariableDTO> findVariablesByOrganizationId(BigInteger organizationId, UserDTO userInfo);
-
 	List<VariableDTO> findVariablesByCompanyId(BigInteger companyId, UserDTO userInfo);
 
 	List<VariableDTO> findMissingByCompanyId(BigInteger companyId, UserDTO userInfo);

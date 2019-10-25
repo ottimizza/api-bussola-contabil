@@ -15,15 +15,17 @@ sentry-config:
     
 spring: 
     datasource:
-        url: jdbc:postgresql://ec2-174-129-209-212.compute-1.amazonaws.com:5432/d89e5rk47moe37
+        url: jdbc:postgresql://ec2-174-129-209-212.compute-1.amazonaws.com:5432/d89e5rk47moe37?sslmode=require
         username: ewsyvvzmhlpuvo
         password: fc6957372fad05695b8f78d5c4706a4c70bb1c3f7a63c23f5f80eead9558b9e9
+        driver-class-name: org.postgresql.Driver
 
         tomcat:
             initial-size: 2 
       
 
     jpa:
+        database-platform: org.hibernate.dialect.PostgreSQLDialect
 #        show-sql: true
         hibernate:
             ddl-auto: update
