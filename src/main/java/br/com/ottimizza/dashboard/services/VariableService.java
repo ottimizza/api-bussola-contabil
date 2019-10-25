@@ -95,7 +95,6 @@ public class VariableService {
 
 			return repository.save(var);
 		}
-
 		return repository.save(variable);
 	}
 
