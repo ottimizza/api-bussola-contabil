@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.ottimizza.dashboard.client.OAuthClient;
 import br.com.ottimizza.dashboard.dtos.UserDTO;
-import br.com.ottimizza.dashboard.dtos.VariableDTO;
 import br.com.ottimizza.dashboard.models.Variable;
 import br.com.ottimizza.dashboard.services.VariableService;
 
@@ -36,7 +35,7 @@ public class VariableController {
 	@PostMapping
 	public ResponseEntity<Variable> saveVariable(@RequestBody Variable variable) throws Exception {
 		try {
-			variable = service.save(variable);
+			variable = service.upsert(variable);
 			return ResponseEntity.ok(variable);
 		} catch (Exception e) { }
 		
