@@ -14,6 +14,7 @@ import br.com.ottimizza.dashboard.dtos.UserDTO;
 import br.com.ottimizza.dashboard.dtos.VariableDTO;
 import br.com.ottimizza.dashboard.models.Variable;
 import br.com.ottimizza.dashboard.repositories.variable.VariableRepository;
+import lombok.experimental.var;
 
 @Service
 public class VariableService {
@@ -80,4 +81,23 @@ public class VariableService {
 		return repository.findVariablesByOrganizationId(organizationId, userInfo);
 	}
 
+	public Variable upsert(Variable variable) {
+		Variable var = repository.findById(variable.getId()).orElse(null);
+		
+		if(variable.getId() != null && !variable.getId().equals("") && var != null) {
+			
+			var.setDescription((variable.getDescription() != null) ? variable.getDescription() : "");
+
+			if(variable.getAccountingId() != null)	var.setAccountingId(variable.getAccountingId());
+			if(variable.getExternalId() != null)	var.setExternalId(variable.getExternalId());
+			if(variable.getName() != null)			var.setName(variable.getName());
+//			if(variable.getAccountingCode() != null) var.setAccountingCode(variable.getAccountingCode());
+
+			return repository.save(var);
+		}
+
+		return repository.save(variable);
+	}
+
+	
 }
