@@ -97,10 +97,11 @@ public class KpiDetail implements Serializable {
     
 	public List<Double> getValorArray() {
 		List<Double> doubles = new ArrayList<Double>();
-		
-		for (String string : valorStringArray.split(";")) {
-			doubles.add(Double.parseDouble(string));
-		}	
+		if(valorStringArray != null && !valorStringArray.isEmpty()) {
+			for (String string : valorStringArray.split(";")) {
+				doubles.add(Double.parseDouble(string));
+			}	
+		}
 		return doubles;
 	}
 }
