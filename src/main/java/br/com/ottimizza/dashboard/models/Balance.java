@@ -30,7 +30,7 @@ public class Balance implements Serializable{
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@Column(scale = 0, nullable = false)
+	@Column(nullable = false)
 	@SequenceGenerator(name = "balance_sequence", sequenceName = "balance_seq", allocationSize = 1)
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "balance_sequence")
 	private BigInteger id;
@@ -41,20 +41,18 @@ public class Balance implements Serializable{
 	@Column(length = 40, nullable = false)
 	private String analyticId;
 	
-	@Column
+	@Column(length = 40)
 	private String description;
 	
 	@Column(nullable = false)
 	private Double initialValue;
 	
-	@Column(precision = 10, scale = 2)
-	private Double debitValue;
-
-	@Basic
-	private Double creditValue;
-	
 	@Column(nullable = false)
 	private Double finalValue;
+	
+	private Double debitValue;
+	
+	private Double creditValue;
 	
 	private LocalDate dateBalance;
 
