@@ -16,26 +16,26 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
+@Getter @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "companies")
 public class Company implements Serializable {
     
-    @Id
-    @Getter
-    @Setter
+	private static final long serialVersionUID = 1L;
+
+	@Id
     @Column(name = "id", nullable = false)
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private BigInteger id;
     
-    @Getter
-    @Setter
     @Column(name = "cnpj", unique = true, nullable = false)
     private String cnpj;
 
-    @Getter
-    @Setter
     @Column(name = "name", nullable = false)
     private String name;
+    
+    @Column(name = "sector", nullable = true)
+    private Integer sector;
     
 }

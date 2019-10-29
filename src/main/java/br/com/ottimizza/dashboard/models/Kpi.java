@@ -2,12 +2,10 @@ package br.com.ottimizza.dashboard.models;
 
 import java.io.Serializable;
 import java.math.BigInteger;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import javax.persistence.Column;
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -31,7 +29,9 @@ import lombok.Setter;
 @Table(name = "kpis", indexes = {@Index(name = "kpi_index", columnList = "kpi_alias,fk_companies_id", unique = true)})
 public class Kpi implements Serializable {
 
-    @Id
+	private static final long serialVersionUID = 1L;
+
+	@Id
     @Getter
     @Setter
     @Column(name = "id", nullable = false)
