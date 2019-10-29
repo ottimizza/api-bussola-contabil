@@ -19,8 +19,10 @@ import lombok.Setter;
 @NoArgsConstructor @AllArgsConstructor
 public class Accounting implements Serializable {
 
-    @Id 
-    @Getter @Setter //
+	private static final long serialVersionUID = 1L;
+
+	@Id 
+    @Getter @Setter
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "id", nullable = false)
     private BigInteger id;
