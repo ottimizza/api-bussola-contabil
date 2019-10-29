@@ -40,7 +40,7 @@ public class Balance implements Serializable{
 	@Column(length = 40, nullable = false)
 	private String analyticId;
 	
-	@Column(length = 40)
+	@Column
 	private String description;
 	
 	@Column(nullable = false)
