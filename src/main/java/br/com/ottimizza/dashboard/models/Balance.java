@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.math.BigInteger;
 import java.time.LocalDate;
 
+import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -48,16 +49,15 @@ public class Balance implements Serializable{
 	
 	@Column(precision = 10, scale = 2)
 	private Double debitValue;
-	
-	@Column(precision = 10, scale = 2)
+
+	@Basic
 	private Double creditValue;
 	
-	@Column(precision = 10, scale = 2, nullable = false)
+	@Column(nullable = false)
 	private Double finalValue;
 	
-	@Column
 	private LocalDate dateBalance;
 
-	@Column(precision = 0, name = "fk_company_id")
+	@Column(name = "fk_company_id")
 	private BigInteger companyId;
 }
