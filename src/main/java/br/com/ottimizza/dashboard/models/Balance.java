@@ -43,7 +43,7 @@ public class Balance implements Serializable{
 	@Column(length = 40)
 	private String description;
 	
-	@Column(precision = 10, scale = 2, nullable = false)
+	@Column(nullable = false)
 	private Double initialValue;
 	
 	@Column(precision = 10, scale = 2)
