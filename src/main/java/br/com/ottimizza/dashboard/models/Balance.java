@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.math.BigInteger;
 import java.time.LocalDate;
 
-import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -41,7 +40,6 @@ public class Balance implements Serializable{
 	@Column(length = 40, nullable = false)
 	private String analyticId;
 	
-	@Column(length = 40)
 	private String description;
 	
 	@Column(nullable = false)
