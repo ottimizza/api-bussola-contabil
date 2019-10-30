@@ -1,6 +1,7 @@
 package br.com.ottimizza.dashboard.services;
 
 import java.math.BigInteger;
+import java.time.LocalDate;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -45,6 +46,25 @@ public class BalanceService {
         return response;
 	}
 
+	public JSONObject deleteByCnpjAndDate(String cnpj, LocalDate dateBalance) throws Exception {
+		JSONObject response = new JSONObject();
+		List<Balance> balances = repository.findBalanceByCnpjAndData(cnpj, dateBalance);
+
+		for (Balance balance : balances) {
+			try {
+				repository.delete(balance);
+				if(response.has("status") && !response.optString("status").contains("Error")) {
+					response.put("status", "sucess");
+					response.put("message", "Excluído com sucesso!");
+				}
+			} catch (Exception e) {
+				response.put("status", "Error");
+				response.put("message", "Houve um problema ao excluir!");
+			}
+		}
+		return response;
+	}
+	
 //	public Balance patch(BigInteger id, BalanceDTO balanceDTO, Principal principal) throws Exception {
 //		Balance current = findById(id);
 //		current = balanceDTO.patch(current);

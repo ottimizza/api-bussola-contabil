@@ -18,7 +18,7 @@ public class BalanceDTO implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 
-	private BigInteger idOrganization;
+	private BigInteger companyId;
 	private List<Balance> balances;
 	
 	private String cnpj;

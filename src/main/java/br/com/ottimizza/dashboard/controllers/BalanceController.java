@@ -21,20 +21,26 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.ottimizza.dashboard.dtos.AnnotationDTO;
+import br.com.ottimizza.dashboard.dtos.BalanceDTO;
 import br.com.ottimizza.dashboard.models.Annotation;
 import br.com.ottimizza.dashboard.models.Balance;
+import br.com.ottimizza.dashboard.models.Company;
 import br.com.ottimizza.dashboard.services.BalanceService;
+import br.com.ottimizza.dashboard.services.CompanyService;
 
 @RestController
 @RequestMapping("balance")
 public class BalanceController {
 	
 	@Inject
-	BalanceService balanceService;
+	BalanceService service;
+	
+	@Inject
+	CompanyService companyService;
 	
 	@PostMapping
 	public ResponseEntity<Balance> save(@RequestBody Balance balance) throws Exception {
-		return ResponseEntity.ok(balanceService.save(balance));
+		return ResponseEntity.ok(service.save(balance));
 	}
 	
 //	@PatchMapping("{id}")
@@ -45,46 +51,44 @@ public class BalanceController {
 	
 	@GetMapping("{id}")
 	public ResponseEntity<Balance> findByID(@PathVariable("id") BigInteger balanceId) throws Exception {
-		Balance balance = balanceService.findById(balanceId);
+		Balance balance = service.findById(balanceId);
 		return (balance != null) ? ResponseEntity.ok(balance) : ResponseEntity.notFound().build();
 	}
 	
 	@DeleteMapping("{id}")
 	public ResponseEntity<String> remove(@PathVariable("id") BigInteger balanceId) throws Exception {
-		return ResponseEntity.ok(balanceService.delete(balanceId).toString());
+		return ResponseEntity.ok(service.delete(balanceId).toString());
 	}
 	
 
-//	@PostMapping("delete_cnpj_date")
-//	public ResponseEntity<String> removeAllBalances(@RequestBody CreateBalanceDTO body) throws Exception{
-//		
-//		return ResponseEntity.ok(balanceService.deleteByCnpjAndDate(body.getCnpj(), body.getDateBalance()).toString());
-//
-//	}
-//	
-//	@PostMapping("createBalances")
-//	public ResponseEntity<List<Balance>> createBalances(@RequestBody CreateBalanceDTO body) throws Exception {
-//		
-//		List<Balance> listReturn = new ArrayList<Balance>();
-//		List<Balance> listBalances = new ArrayList<Balance>();
-//		BigInteger idOganization = body.getIdOrganization();
-//		Organization organization = new Organization();
-//		
-//		try { organization = organizationService.findById(idOganization); } 
-//		catch (Exception ee) {	}
-//		
-//		listBalances = body.getBalances();
-//
-//		for (Balance balance : listBalances) {
-//			balance.setOrganization(organization);
-//			try {
-//				balanceService.save(balance);
-//				listReturn.add(balance);
-//			} catch (Exception e) { }
-//		}
-//		return ResponseEntity.ok(listReturn);
-//	}
-//	
+	@PostMapping("deleteAllBalances")
+	public ResponseEntity<String> removeAllBalances(@RequestBody BalanceDTO body) throws Exception{
+		return ResponseEntity.ok(service.deleteByCnpjAndDate(body.getCnpj(), body.getDateBalance()).toString());
+	}
+	
+	@PostMapping("createBalances")
+	public ResponseEntity<List<Balance>> createBalances(@RequestBody BalanceDTO body) throws Exception {
+		
+		List<Balance> listReturn = new ArrayList<Balance>();
+		List<Balance> listBalances = new ArrayList<Balance>();
+		BigInteger companyId = body.getCompanyId();
+		Company company = new Company();
+		
+		try { company = companyService.findById(companyId).orElse(null); } 
+		catch (Exception ee) {	}
+		
+		listBalances = body.getBalances();
+
+		for (Balance balance : listBalances) {
+			balance.setCompanyId(companyId);
+			try {
+				service.save(balance);
+				listReturn.add(balance);
+			} catch (Exception e) { }
+		}
+		return ResponseEntity.ok(listReturn);
+	}
+	
 //	@PostMapping("createBalancesByCNPJ")
 //	public ResponseEntity<List<Balance>> createBalancesCnpj(@RequestBody CreateBalanceDTO body) throws Exception {
 //		
