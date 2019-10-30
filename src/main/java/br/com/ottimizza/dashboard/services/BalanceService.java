@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.persistence.NoResultException;
 
 import org.json.JSONObject;
 import org.springframework.stereotype.Service;
@@ -26,8 +27,6 @@ public class BalanceService {
 		return repository.findById(id).orElse(null);
 	}
 	
-	
-
 	public List<Balance> findAll() {
 		return 	repository.findAll();
 	}
@@ -70,4 +69,52 @@ public class BalanceService {
 //		current = balanceDTO.patch(current);
 //		return repository.save(current);
 //	}
+
+	public JSONObject updateById(BigInteger balanceId, Balance balance) throws NoResultException, Exception {
+		JSONObject response = new JSONObject();
+		try {
+			balance.setId(repository.findById(balanceId).get().getId());
+			repository.save(balance);
+
+			response.put("status", "Success");
+			response.put("message", "Atualizado com sucesso!");
+
+		} catch (NoResultException e0) {
+			response.put("status", "error");
+			response.put("message", "Problema ao encontrar!");
+			throw new NoResultException(response.toString());
+		} catch (Exception e1) {
+			response.put("status", "Error");
+			response.put("message", "Houve um problema ao atualizar!");
+			throw new Exception(response.toString());
+		}
+		return response;
+	}
+
+	
+//	public Balance createBalance(BigInteger organizationId, Balance balance) {
+//		Optional<Organization> optionalOrganization = orgRepository.findById(organizationId);
+//
+//		try {
+//			balance.setOrganization(optionalOrganization.get());
+//			return repository.save(balance);	
+//		} catch (Exception e) { }
+//		
+//		return new Balance();
+//	}
+//	
+//	
+//	public List<Balance> findByOrganizationId(BigInteger organizationId) throws Exception {
+//		Optional<List<Balance>> optOrganization = repository.findByOrganizationId(organizationId);
+//
+//		try {
+//			return optOrganization.get();
+//		} catch (Exception e) {
+//			System.out.println(e.getMessage());
+//		}
+//
+//		return new ArrayList<Balance>();
+//	}
+
+	
 }
