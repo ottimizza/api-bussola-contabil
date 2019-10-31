@@ -14,19 +14,22 @@ import org.json.JSONObject;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.ottimizza.dashboard.client.OAuthClient;
+import br.com.ottimizza.dashboard.dtos.CompanyDTO;
+import br.com.ottimizza.dashboard.dtos.UserDTO;
 import br.com.ottimizza.dashboard.models.Company;
 import br.com.ottimizza.dashboard.models.users.User;
 import br.com.ottimizza.dashboard.services.CompanyService;
-import br.com.ottimizza.dashboard.services.KpiDetailService;
-import br.com.ottimizza.dashboard.services.KpiService;
 import br.com.ottimizza.dashboard.services.SalesForceService;
 import br.com.ottimizza.dashboard.services.UserService;
 
@@ -35,19 +38,17 @@ import br.com.ottimizza.dashboard.services.UserService;
 public class CompanyController {
 
     @Inject
-    CompanyService companyService;
+    CompanyService service;
  
     @Inject
     UserService userService;
 
-    @Inject
-    KpiService kpiService;
-    @Inject
-    KpiDetailService kpiDetailService;
-    
+	@Inject
+	OAuthClient oauthClient;
+	
     @PostMapping("save")
     public ResponseEntity<Company> saveCompany(@RequestBody Company company) throws Exception {
-    	return ResponseEntity.ok(companyService.save(company));
+    	return ResponseEntity.ok(service.save(company));
     }
     
     @GetMapping("find/{id}")
@@ -57,14 +58,14 @@ public class CompanyController {
         // Get Authorized User by Username.
         User authorized = userService.findByUsername(principal.getName());
 
-        return ResponseEntity.ok(companyService.findById(idCompany));
+        return ResponseEntity.ok(service.findById(idCompany));
     }
 
     @RequestMapping(value = "/find/cnpj", method = RequestMethod.POST, consumes = "application/json")
     public ResponseEntity<List<Company>> findCompaniesByCNPJ(@RequestBody Map<String, List<String>> body)
             throws Exception {
         List<String> listaCNPJ = body.get("cnpj");
-        return ResponseEntity.ok(companyService.findByListCNPJ(listaCNPJ));
+        return ResponseEntity.ok(service.findByListCNPJ(listaCNPJ));
     }
     
     @RequestMapping(value = "/find/email", method = RequestMethod.POST, consumes = "application/json")
@@ -80,7 +81,7 @@ public class CompanyController {
             for (int i = 0; i < listaJson.length(); i++) {
             	listaCNPJ.add(listaJson.get(i).toString());
 			}
-            resposta = companyService.findByListCNPJ(listaCNPJ);
+            resposta = service.findByListCNPJ(listaCNPJ);
         } catch (Exception e) { }
         return ResponseEntity.ok(resposta);
 
@@ -89,17 +90,24 @@ public class CompanyController {
     @PutMapping("update/{id}")
     public ResponseEntity<String> updateCompany(@PathVariable("id") BigInteger idCompany, @RequestBody Company company)
             throws Exception {
-        return ResponseEntity.ok(companyService.updateById(idCompany, company).toString());
+        return ResponseEntity.ok(service.updateById(idCompany, company).toString());
     }
 
     @RequestMapping(value = "/deleteAllKpi", method = RequestMethod.POST, consumes = "application/json")
     public ResponseEntity<String> deleteAllInformationByCNPJ(@RequestBody Map<String,String> cnpj) throws Exception {
-    	return ResponseEntity.ok(companyService.deleteAllInformationByCNPJ(cnpj.get("cnpj")).toString());
+    	return ResponseEntity.ok(service.deleteAllInformationByCNPJ(cnpj.get("cnpj")).toString());
     }
     
     @DeleteMapping("delete/{id}")
     public ResponseEntity<String> removeCompany(@PathVariable("id") BigInteger idCompany) throws Exception {
-        return ResponseEntity.ok(companyService.delete(idCompany).toString());
+        return ResponseEntity.ok(service.delete(idCompany).toString());
     }
 
+	@PatchMapping
+    public ResponseEntity<Company> patch(@RequestBody CompanyDTO companyDTO, @RequestHeader("Authorization") String authorization) throws Exception {
+		UserDTO userInfo = oauthClient.getUserInfo(authorization).getBody().getRecord();
+        return ResponseEntity.ok(service.patch(companyDTO, userInfo));
+    }
+	
+    
 }

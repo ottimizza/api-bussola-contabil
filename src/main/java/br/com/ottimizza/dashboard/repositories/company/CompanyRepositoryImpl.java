@@ -1,14 +1,16 @@
 package br.com.ottimizza.dashboard.repositories.company;
 
-import br.com.ottimizza.dashboard.models.Company;
-import br.com.ottimizza.dashboard.models.QCompany;
-import br.com.ottimizza.dashboard.models.QKpi;
-import br.com.ottimizza.dashboard.models.QKpiDetail;
-import com.querydsl.jpa.impl.JPAQuery;
 import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+
 import org.springframework.stereotype.Repository;
+
+import com.querydsl.jpa.impl.JPAQuery;
+
+import br.com.ottimizza.dashboard.models.Company;
+import br.com.ottimizza.dashboard.models.QCompany;
 
 @Repository
 public class CompanyRepositoryImpl implements CompanyRepositoryCustom {

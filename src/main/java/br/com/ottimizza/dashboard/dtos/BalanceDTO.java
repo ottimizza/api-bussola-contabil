@@ -23,4 +23,27 @@ public class BalanceDTO implements Serializable{
 	
 	private String cnpj;
 	private LocalDate dateBalance;
+	
+	private String syntheticId;
+	private String analyticId;
+	private String description;
+	private Double initialValue;
+	private Double finalValue;
+	private Double debitValue;
+	private Double creditValue;
+
+	
+	public Balance patch(Balance balance) {
+		if (this.syntheticId != null && !this.syntheticId.equals(""))	balance.setSyntheticId(this.syntheticId);
+		if (this.analyticId != null && !this.analyticId.equals(""))		balance.setAnalyticId(this.analyticId);
+		if (this.description != null && !this.description.equals(""))	balance.setDescription(this.description);
+		if (this.initialValue != null)	balance.setInitialValue(this.initialValue);
+		if (this.finalValue != null)	balance.setFinalValue(this.finalValue);
+		if (this.debitValue != null)	balance.setDebitValue(this.debitValue);
+		if (this.creditValue != null)	balance.setCreditValue(this.creditValue);
+		if (this.dateBalance != null)	balance.setDateBalance(this.dateBalance);
+		if (this.companyId != null)		balance.setCompanyId(this.companyId);
+
+		return balance;
+	}
 }

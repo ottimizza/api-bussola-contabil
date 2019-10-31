@@ -11,6 +11,8 @@ import javax.persistence.NoResultException;
 import org.json.JSONObject;
 import org.springframework.stereotype.Service;
 
+import br.com.ottimizza.dashboard.dtos.CompanyDTO;
+import br.com.ottimizza.dashboard.dtos.UserDTO;
 import br.com.ottimizza.dashboard.models.Company;
 import br.com.ottimizza.dashboard.models.Kpi;
 import br.com.ottimizza.dashboard.models.KpiDetail;
@@ -116,5 +118,12 @@ public class CompanyService {
         }
         return response;
     }
+
+	public Company patch(CompanyDTO companyDTO, UserDTO userInfo) throws Exception {
+		Company current = findByCnpj(companyDTO.getCnpj());
+		current = companyDTO.patch(current);
+		
+		return repository.save(current);
+	}
     
 }

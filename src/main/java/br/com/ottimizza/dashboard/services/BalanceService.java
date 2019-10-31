@@ -2,7 +2,9 @@ package br.com.ottimizza.dashboard.services;
 
 import java.math.BigInteger;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import javax.inject.Inject;
 import javax.persistence.NoResultException;
@@ -12,12 +14,16 @@ import org.springframework.stereotype.Service;
 
 import br.com.ottimizza.dashboard.models.Balance;
 import br.com.ottimizza.dashboard.repositories.balance.BalanceRepository;
+import br.com.ottimizza.dashboard.repositories.company.CompanyRepository;
 
 @Service
 public class BalanceService {
 
 	@Inject
 	private BalanceRepository repository;
+	
+	@Inject
+	private CompanyRepository companyRepository;
 	
 	public Balance save(Balance balance) throws Exception {
 		return repository.save(balance);
@@ -92,29 +98,27 @@ public class BalanceService {
 	}
 
 	
-//	public Balance createBalance(BigInteger organizationId, Balance balance) {
-//		Optional<Organization> optionalOrganization = orgRepository.findById(organizationId);
-//
-//		try {
-//			balance.setOrganization(optionalOrganization.get());
-//			return repository.save(balance);	
-//		} catch (Exception e) { }
-//		
-//		return new Balance();
-//	}
-//	
-//	
-//	public List<Balance> findByOrganizationId(BigInteger organizationId) throws Exception {
-//		Optional<List<Balance>> optOrganization = repository.findByOrganizationId(organizationId);
-//
-//		try {
-//			return optOrganization.get();
-//		} catch (Exception e) {
-//			System.out.println(e.getMessage());
-//		}
-//
-//		return new ArrayList<Balance>();
-//	}
-
+	public Balance createBalance(BigInteger companyId, Balance balance) {
+		
+		try {
+			balance.setCompanyId(companyId);
+			return repository.save(balance);
+		} catch (Exception e) { }
+		
+		return new Balance();
+	}
 	
+	
+	public List<Balance> findByCompanyId(BigInteger companyId) throws Exception {
+		Optional<List<Balance>> optCompany = repository.findBalancesByCompanyId(companyId);
+
+		try {
+			return optCompany.get();
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+
+		return new ArrayList<Balance>();
+	}
+
 }
