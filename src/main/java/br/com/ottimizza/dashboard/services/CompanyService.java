@@ -121,9 +121,7 @@ public class CompanyService {
     }
 
 	public Company patch(CompanyDTO companyDTO, UserDTO userInfo) throws Exception {
-		String formatedCnpj = StringUtil.formatCnpj(companyDTO.getCnpj());
-System.out.println(">>>>"+ companyDTO.getCnpj() +" > "+formatedCnpj);
-		Company current = findByCnpj(formatedCnpj);
+		Company current = findByCnpj(StringUtil.formatCnpj(companyDTO.getCnpj()));
 		current = companyDTO.patch(current);
 		
 		return repository.save(current);

@@ -22,7 +22,6 @@ public class CompanyDTO implements Serializable{
 	
 	public Company patch(Company company) {
 		
-		if (this.cnpj != null && !this.cnpj.equals(""))	company.setCnpj(this.cnpj);
 		if (this.name != null && !this.name.equals(""))	company.setName(this.name);
 		if (this.sector != null) company.setSector(this.sector);
 		
