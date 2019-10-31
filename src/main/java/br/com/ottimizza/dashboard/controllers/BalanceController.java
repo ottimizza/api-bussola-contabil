@@ -93,6 +93,7 @@ public class BalanceController {
 		return ResponseEntity.ok(listReturn);
 	}
 	
+	
 	@PostMapping("createBalancesByCNPJ")
 	public ResponseEntity<List<Balance>> createBalancesCnpj(@RequestBody BalanceDTO body, @RequestHeader("Authorization") String authorization) throws Exception {
 		UserDTO userInfo = oauthClient.getUserInfo(authorization).getBody().getRecord();

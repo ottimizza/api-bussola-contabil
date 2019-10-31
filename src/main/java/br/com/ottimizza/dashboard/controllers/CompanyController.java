@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import javax.inject.Inject;
 
@@ -32,6 +33,7 @@ import br.com.ottimizza.dashboard.models.users.User;
 import br.com.ottimizza.dashboard.services.CompanyService;
 import br.com.ottimizza.dashboard.services.SalesForceService;
 import br.com.ottimizza.dashboard.services.UserService;
+import br.com.ottimizza.dashboard.utils.StringUtil;
 
 @RestController
 @RequestMapping("/company")
@@ -64,7 +66,7 @@ public class CompanyController {
     @RequestMapping(value = "/find/cnpj", method = RequestMethod.POST, consumes = "application/json")
     public ResponseEntity<List<Company>> findCompaniesByCNPJ(@RequestBody Map<String, List<String>> body)
             throws Exception {
-        List<String> listaCNPJ = body.get("cnpj");
+        List<String> listaCNPJ = body.get("cnpj").stream().map(StringUtil::formatCnpj).collect(Collectors.toList());
         return ResponseEntity.ok(service.findByListCNPJ(listaCNPJ));
     }
     
