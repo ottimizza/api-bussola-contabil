@@ -66,8 +66,9 @@ public class CompanyController {
     @RequestMapping(value = "/find/cnpj", method = RequestMethod.POST, consumes = "application/json")
     public ResponseEntity<List<Company>> findCompaniesByCNPJ(@RequestBody Map<String, List<String>> body)
             throws Exception {
-        List<String> listaCNPJ = body.get("cnpj").stream().map(StringUtil::formatCnpj).collect(Collectors.toList());
-        return ResponseEntity.ok(service.findByListCNPJ(listaCNPJ));
+//        List<String> listaCNPJ = ;
+//        		body.get("cnpj").stream().map(StringUtil::formatCnpj).collect(Collectors.toList());
+        return ResponseEntity.ok(service.findByListCNPJ(StringUtil.formatCnpj(body.get("cnpj"))));
     }
     
     @RequestMapping(value = "/find/email", method = RequestMethod.POST, consumes = "application/json")
