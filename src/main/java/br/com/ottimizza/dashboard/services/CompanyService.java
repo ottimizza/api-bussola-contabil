@@ -19,6 +19,7 @@ import br.com.ottimizza.dashboard.models.KpiDetail;
 import br.com.ottimizza.dashboard.repositories.company.CompanyRepository;
 import br.com.ottimizza.dashboard.repositories.kpi.KpiRepository;
 import br.com.ottimizza.dashboard.repositories.kpi_detail.KpiDetailRepository;
+import br.com.ottimizza.dashboard.utils.StringUtil;
 
 @Service
 public class CompanyService {
@@ -120,7 +121,8 @@ public class CompanyService {
     }
 
 	public Company patch(CompanyDTO companyDTO, UserDTO userInfo) throws Exception {
-		Company current = findByCnpj(companyDTO.getCnpj());
+		
+		Company current = findByCnpj(StringUtil.formatCnpj(companyDTO.getCnpj()));
 		current = companyDTO.patch(current);
 		
 		return repository.save(current);
