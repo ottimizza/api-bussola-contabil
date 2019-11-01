@@ -12,6 +12,7 @@ import javax.persistence.NoResultException;
 import org.json.JSONObject;
 import org.springframework.stereotype.Service;
 
+import br.com.ottimizza.dashboard.dtos.BalanceDTO;
 import br.com.ottimizza.dashboard.models.Balance;
 import br.com.ottimizza.dashboard.repositories.balance.BalanceRepository;
 import br.com.ottimizza.dashboard.repositories.company.CompanyRepository;
@@ -113,8 +114,8 @@ public class BalanceService {
 		return new ArrayList<Balance>();
 	}
 
-	public List<Balance> findBalancesByCnpj(String cnpj) {
-		return repository.findBalancesByCnpj(cnpj);
+	public List<Balance> findBalancesByCnpj(BalanceDTO balanceDTO) {
+		return repository.findBalancesByCnpj(balanceDTO);
 	}
 
 //	public Balance patch(BigInteger id, BalanceDTO balanceDTO, Principal principal) throws Exception {

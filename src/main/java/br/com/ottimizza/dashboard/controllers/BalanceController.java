@@ -114,8 +114,8 @@ public class BalanceController {
 	@PostMapping("byCnpj")
 	public ResponseEntity<List<Balance>> findByCnpj(@RequestBody BalanceDTO body, @RequestHeader("Authorization") String authorization) throws Exception {
 		UserDTO userInfo = oauthClient.getUserInfo(authorization).getBody().getRecord();
-		System.out.println(">>> "+body.getCnpj()+" >> "+StringUtil.formatCnpj(body.getCnpj()));
-		return ResponseEntity.ok(service.findBalancesByCnpj(StringUtil.formatCnpj(body.getCnpj())));
+		
+		return ResponseEntity.ok(service.findBalancesByCnpj(body));
 	}
 
 }

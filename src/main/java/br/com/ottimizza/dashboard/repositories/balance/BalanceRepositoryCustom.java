@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
+import br.com.ottimizza.dashboard.dtos.BalanceDTO;
 import br.com.ottimizza.dashboard.models.Balance;
 
 public interface BalanceRepositoryCustom {
@@ -13,6 +14,6 @@ public interface BalanceRepositoryCustom {
 
 	Optional<List<Balance>> findBalancesByCompanyId(BigInteger id);
 
-	List<Balance> findBalancesByCnpj(String cnpj);
+	List<Balance> findBalancesByCnpj(BalanceDTO balanceDTO);
 
 }
