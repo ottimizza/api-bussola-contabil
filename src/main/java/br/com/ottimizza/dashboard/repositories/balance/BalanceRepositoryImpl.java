@@ -37,4 +37,12 @@ public class BalanceRepositoryImpl implements BalanceRepositoryCustom{
 		return null;
 	}
 
+	@Override
+	public List<Balance> findByCnpj(String cnpj) {
+		JPAQuery<Balance> query = new JPAQuery<Balance>(em).from(balance)
+                .innerJoin(company).on(company.id.eq(balance.companyId))
+                .where(company.cnpj.in(cnpj));
+        return query.fetch();
+	}
+
 }

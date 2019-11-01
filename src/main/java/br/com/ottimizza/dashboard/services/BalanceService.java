@@ -70,12 +70,6 @@ public class BalanceService {
 		return response;
 	}
 	
-//	public Balance patch(BigInteger id, BalanceDTO balanceDTO, Principal principal) throws Exception {
-//		Balance current = findById(id);
-//		current = balanceDTO.patch(current);
-//		return repository.save(current);
-//	}
-
 	public JSONObject updateById(BigInteger balanceId, Balance balance) throws NoResultException, Exception {
 		JSONObject response = new JSONObject();
 		try {
@@ -96,7 +90,6 @@ public class BalanceService {
 		}
 		return response;
 	}
-
 	
 	public Balance createBalance(BigInteger companyId, Balance balance) {
 		
@@ -107,7 +100,6 @@ public class BalanceService {
 		
 		return new Balance();
 	}
-	
 	
 	public List<Balance> findByCompanyId(BigInteger companyId) throws Exception {
 		Optional<List<Balance>> optCompany = repository.findBalancesByCompanyId(companyId);
@@ -120,5 +112,15 @@ public class BalanceService {
 
 		return new ArrayList<Balance>();
 	}
+
+	public List<Balance> findByCnpj(String cnpj) {
+		return repository.findByCnpj(cnpj);
+	}
+
+//	public Balance patch(BigInteger id, BalanceDTO balanceDTO, Principal principal) throws Exception {
+//	Balance current = findById(id);
+//	current = balanceDTO.patch(current);
+//	return repository.save(current);
+//}
 
 }

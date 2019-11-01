@@ -8,9 +8,11 @@ import java.util.Optional;
 import br.com.ottimizza.dashboard.models.Balance;
 
 public interface BalanceRepositoryCustom {
-	
+//	BalanceRepositoryImpl
     List<Balance> findBalanceByCnpjAndData(String cnpj, LocalDate dateBalance);
 
 	Optional<List<Balance>> findBalancesByCompanyId(BigInteger id);
+
+	List<Balance> findByCnpj(String cnpj);
 
 }
