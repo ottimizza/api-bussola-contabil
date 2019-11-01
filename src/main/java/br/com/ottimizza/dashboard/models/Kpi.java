@@ -132,7 +132,7 @@ public class Kpi implements Serializable {
 	//parametors para o grafico
 	@Getter
 	@Setter
-    @Column(name = "chart_options", nullable = true)
+    @Column(name = "chart_options", nullable = true, length = 600)
 	private String chartOptions;
 	
 	//para ordenacao dos kpis

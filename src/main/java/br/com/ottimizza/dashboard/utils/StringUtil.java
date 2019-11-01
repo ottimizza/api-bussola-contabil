@@ -1,7 +1,9 @@
 package br.com.ottimizza.dashboard.utils;
 
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -18,5 +20,11 @@ public class StringUtil {
 			return matcher.replaceAll("$1.$2.$3/$4-$5");
 		}
 		return cnpj;
+	}
+	
+	public static List<String> formatCnpj(List<String> cnpjs){
+		
+		return cnpjs.stream().map(StringUtil::formatCnpj).collect(Collectors.toList());
+		
 	}
 }
