@@ -9,6 +9,7 @@ import javax.inject.Inject;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -110,11 +111,11 @@ public class BalanceController {
 		return ResponseEntity.ok(listReturn);
 	}
 	
-	@PostMapping("byCnpj")
-	public ResponseEntity<List<Balance>> findByCnpj(@RequestBody BalanceDTO body, @RequestHeader("Authorization") String authorization) throws Exception {
+	@GetMapping
+	public ResponseEntity<List<Balance>> findAll(@ModelAttribute BalanceDTO body, @RequestHeader("Authorization") String authorization) throws Exception {
 		UserDTO userInfo = oauthClient.getUserInfo(authorization).getBody().getRecord();
 		
-		return ResponseEntity.ok(service.findBalancesByCnpj(body));
+		return ResponseEntity.ok(service.findAll(body));
 	}
 
 }

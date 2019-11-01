@@ -112,8 +112,8 @@ public class BalanceService {
 //		return new ArrayList<Balance>();
 //	}
 
-	public List<Balance> findBalancesByCnpj(BalanceDTO balanceDTO) {
-		return repository.findBalancesByCnpj(balanceDTO);
+	public List<Balance> findAll(BalanceDTO balanceDTO) {
+		return repository.findAll(balanceDTO);
 	}
 
 }

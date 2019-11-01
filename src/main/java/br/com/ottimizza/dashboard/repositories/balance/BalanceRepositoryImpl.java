@@ -31,7 +31,7 @@ public class BalanceRepositoryImpl implements BalanceRepositoryCustom{
 	}
 
 	@Override
-	public List<Balance> findBalancesByCnpj(BalanceDTO balanceDTO) {
+	public List<Balance> findAll(BalanceDTO balanceDTO) {
 
 		JPAQuery<Balance> query = new JPAQuery<Balance>(em).from(balance)
                 .innerJoin(company).on(company.id.eq(balance.companyId));

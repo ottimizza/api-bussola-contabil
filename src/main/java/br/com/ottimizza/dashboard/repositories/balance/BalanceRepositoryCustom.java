@@ -12,6 +12,6 @@ public interface BalanceRepositoryCustom {
 
 //	Optional<List<Balance>> findBalancesByCompanyId(BigInteger id);
 
-	List<Balance> findBalancesByCnpj(BalanceDTO balanceDTO);
+	List<Balance> findAll(BalanceDTO balanceDTO);
 
 }
