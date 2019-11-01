@@ -5,6 +5,9 @@ import java.math.BigInteger;
 import java.time.LocalDate;
 import java.util.List;
 
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.DateTimeFormat.ISO;
+
 import br.com.ottimizza.dashboard.models.Balance;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -22,6 +25,8 @@ public class BalanceDTO implements Serializable{
 	private List<Balance> balances;
 	
 	private String cnpj;
+	
+	@DateTimeFormat(iso = ISO.DATE)
 	private LocalDate dateBalance;
 	
 	private String syntheticId;
