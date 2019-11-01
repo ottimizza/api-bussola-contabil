@@ -113,8 +113,8 @@ public class BalanceService {
 		return new ArrayList<Balance>();
 	}
 
-	public List<Balance> findByCnpj(String cnpj) {
-		return repository.findByCnpj(cnpj);
+	public List<Balance> findBalancesByCnpj(String cnpj) {
+		return repository.findBalancesByCnpj(cnpj);
 	}
 
 //	public Balance patch(BigInteger id, BalanceDTO balanceDTO, Principal principal) throws Exception {

@@ -111,10 +111,10 @@ public class BalanceController {
 		return ResponseEntity.ok(listReturn);
 	}
 	
-	@GetMapping("{cnpj}")
-	public ResponseEntity<List<Balance>> findByCnpj(@PathVariable("cnpj") String cnpj, @RequestHeader("Authorization") String authorization) throws Exception {
+	@PostMapping("byCnpj")
+	public ResponseEntity<List<Balance>> findByCnpj(@RequestBody BalanceDTO body, @RequestHeader("Authorization") String authorization) throws Exception {
 		UserDTO userInfo = oauthClient.getUserInfo(authorization).getBody().getRecord();
-		return ResponseEntity.ok(service.findByCnpj(StringUtil.formatCnpj(cnpj)));
+		return ResponseEntity.ok(service.findBalancesByCnpj(StringUtil.formatCnpj(body.getCnpj())));
 	}
 
 }

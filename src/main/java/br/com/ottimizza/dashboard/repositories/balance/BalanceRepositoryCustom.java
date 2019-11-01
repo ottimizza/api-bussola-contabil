@@ -13,6 +13,6 @@ public interface BalanceRepositoryCustom {
 
 	Optional<List<Balance>> findBalancesByCompanyId(BigInteger id);
 
-	List<Balance> findByCnpj(String cnpj);
+	List<Balance> findBalancesByCnpj(String cnpj);
 
 }
