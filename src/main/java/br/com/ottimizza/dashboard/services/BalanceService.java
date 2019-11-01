@@ -2,9 +2,7 @@ package br.com.ottimizza.dashboard.services;
 
 import java.math.BigInteger;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import javax.inject.Inject;
 import javax.persistence.NoResultException;
@@ -102,17 +100,17 @@ public class BalanceService {
 		return new Balance();
 	}
 	
-	public List<Balance> findByCompanyId(BigInteger companyId) throws Exception {
-		Optional<List<Balance>> optCompany = repository.findBalancesByCompanyId(companyId);
-
-		try {
-			return optCompany.get();
-		} catch (Exception e) {
-			System.out.println(e.getMessage());
-		}
-
-		return new ArrayList<Balance>();
-	}
+//	public List<Balance> findByCompanyId(BigInteger companyId) throws Exception {
+//		Optional<List<Balance>> optCompany = repository.findBalancesByCompanyId(companyId);
+//
+//		try {
+//			return optCompany.get();
+//		} catch (Exception e) {
+//			System.out.println(e.getMessage());
+//		}
+//
+//		return new ArrayList<Balance>();
+//	}
 
 	public List<Balance> findBalancesByCnpj(BalanceDTO balanceDTO) {
 		return repository.findBalancesByCnpj(balanceDTO);
