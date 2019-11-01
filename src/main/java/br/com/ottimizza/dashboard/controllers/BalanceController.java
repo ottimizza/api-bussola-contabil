@@ -23,7 +23,6 @@ import br.com.ottimizza.dashboard.models.Balance;
 import br.com.ottimizza.dashboard.models.Company;
 import br.com.ottimizza.dashboard.services.BalanceService;
 import br.com.ottimizza.dashboard.services.CompanyService;
-import br.com.ottimizza.dashboard.utils.StringUtil;
 
 @RestController
 @RequestMapping("balance")

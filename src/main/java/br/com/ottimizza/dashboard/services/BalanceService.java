@@ -118,10 +118,4 @@ public class BalanceService {
 		return repository.findBalancesByCnpj(balanceDTO);
 	}
 
-//	public Balance patch(BigInteger id, BalanceDTO balanceDTO, Principal principal) throws Exception {
-//	Balance current = findById(id);
-//	current = balanceDTO.patch(current);
-//	return repository.save(current);
-//}
-
 }

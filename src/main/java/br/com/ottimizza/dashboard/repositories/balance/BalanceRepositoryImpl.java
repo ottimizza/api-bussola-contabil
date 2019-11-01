@@ -1,9 +1,7 @@
 package br.com.ottimizza.dashboard.repositories.balance;
 
-import java.math.BigInteger;
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -30,12 +28,6 @@ public class BalanceRepositoryImpl implements BalanceRepositoryCustom{
 	                .where(company.cnpj.in(cnpj)
             		.and(balance.dateBalance.eq(dateBalance)));
 	        return query.fetch();
-	}
-
-	@Override
-	public Optional<List<Balance>> findBalancesByCompanyId(BigInteger id) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	@Override
