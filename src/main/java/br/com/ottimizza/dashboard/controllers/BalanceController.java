@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.ottimizza.dashboard.client.OAuthClient;
@@ -112,10 +113,11 @@ public class BalanceController {
 	}
 	
 	@GetMapping
-	public ResponseEntity<List<Balance>> findAll(@ModelAttribute BalanceDTO body, @RequestHeader("Authorization") String authorization) throws Exception {
-		UserDTO userInfo = oauthClient.getUserInfo(authorization).getBody().getRecord();
-		
-		return ResponseEntity.ok(service.findAll(body));
+	public ResponseEntity<List<BalanceDTO>> findAll(@ModelAttribute BalanceDTO filter, 
+												 @RequestParam(name = "page_index", defaultValue = "0") int pageIndex,
+									             @RequestParam(name = "page_size", defaultValue = "10") int pageSize, 
+									             @RequestHeader("Authorization") String authorization) throws Exception {
+		return ResponseEntity.ok(service.findAll(filter, pageIndex, pageSize, authorization));
 	}
 
 }

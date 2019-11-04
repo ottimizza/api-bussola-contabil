@@ -21,6 +21,8 @@ public class BalanceDTO implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 
+	private BigInteger id;
+	
 	private BigInteger companyId;
 	private List<Balance> balances;
 	
@@ -51,4 +53,73 @@ public class BalanceDTO implements Serializable{
 
 		return balance;
 	}
+	
+	public static BalanceDTO fromEntity(Balance balance) {
+	    // @formatter:off
+		BalanceDTO dto = new BalanceDTO()
+	        .withId(balance.getId())
+	        .withSyntheticId(balance.getSyntheticId())
+	        .withAnalyticId(balance.getAnalyticId())
+	        .withDescription(balance.getDescription())
+	        .withInitialValue(balance.getInitialValue())
+	        .withFinalValue(balance.getFinalValue())
+	        .withDebitValue(balance.getDebitValue())
+	        .withCreditValue(balance.getCreditValue())
+	        .withDateBalance(balance.getDateBalance())
+	        .withCompanyId(balance.getCompanyId());
+	    // @formatter:on
+	    return dto;
+	}
+	
+	BalanceDTO withId(BigInteger id) {
+        this.id = id;
+        return this;
+    }
+	
+	BalanceDTO withSyntheticId(String syntheticId) {
+        this.syntheticId = syntheticId;
+        return this;
+    }
+	
+	BalanceDTO withAnalyticId(String analyticId) {
+        this.analyticId = analyticId;
+        return this;
+    }
+	
+	BalanceDTO withDescription(String description) {
+        this.description = description;
+        return this;
+    }
+	
+	BalanceDTO withInitialValue(Double initialValue) {
+        this.initialValue = initialValue;
+        return this;
+    }
+	
+	BalanceDTO withFinalValue(Double finalValue) {
+        this.finalValue = finalValue;
+        return this;
+    }
+	
+	BalanceDTO withDebitValue(Double debitValue) {
+        this.debitValue = debitValue;
+        return this;
+    }
+	
+	BalanceDTO withCreditValue(Double creditValue) {
+        this.creditValue = creditValue;
+        return this;
+    }
+	
+	BalanceDTO withDateBalance(LocalDate dateBalance) {
+        this.dateBalance = dateBalance;
+        return this;
+    }
+	
+	BalanceDTO withCompanyId(BigInteger companyId) {
+        this.companyId = companyId;
+        return this;
+    }
+	
+	
 }

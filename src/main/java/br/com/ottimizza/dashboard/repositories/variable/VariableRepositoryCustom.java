@@ -8,7 +8,7 @@ import br.com.ottimizza.dashboard.dtos.VariableDTO;
 import br.com.ottimizza.dashboard.models.Variable;
 
 public interface VariableRepositoryCustom {
-	
+//	VariableRepositoryImpl
 	Variable findVariableByAccountingCode(String accountingCode, UserDTO userInfo);
 
 	List<Variable> findVariablesByOrganizationId(BigInteger organizationId, UserDTO userInfo);
