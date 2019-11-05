@@ -20,7 +20,12 @@ import lombok.Setter;
 @Table(name = "kpis")
 public class KpiShort implements Serializable {
 
-    @Id
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	@Id
     @Getter
     @Setter
     @Column(name = "id", nullable = false)

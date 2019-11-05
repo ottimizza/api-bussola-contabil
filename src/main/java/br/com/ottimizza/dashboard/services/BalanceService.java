@@ -14,10 +14,8 @@ import org.springframework.stereotype.Service;
 
 import br.com.ottimizza.dashboard.client.OAuthClient;
 import br.com.ottimizza.dashboard.dtos.BalanceDTO;
-import br.com.ottimizza.dashboard.dtos.UserDTO;
 import br.com.ottimizza.dashboard.models.Balance;
 import br.com.ottimizza.dashboard.repositories.balance.BalanceRepository;
-import br.com.ottimizza.dashboard.repositories.company.CompanyRepository;
 
 @Service
 public class BalanceService {
@@ -120,7 +118,7 @@ public class BalanceService {
 //	}
 
 	public Page<BalanceDTO> findAll(BalanceDTO filter, int pageIndex, int pageSize, String authorization) {
-		UserDTO userInfo = oauthClient.getUserInfo(authorization).getBody().getRecord();
+//		UserDTO userInfo = oauthClient.getUserInfo(authorization).getBody().getRecord();
 		return repository.findAll(filter, PageRequest.of(pageIndex, pageSize)).map(BalanceDTO::fromEntity);
 	}
 }

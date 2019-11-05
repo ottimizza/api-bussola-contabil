@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import javax.inject.Inject;
 
@@ -58,7 +57,7 @@ public class CompanyController {
             throws Exception {
 
         // Get Authorized User by Username.
-        User authorized = userService.findByUsername(principal.getName());
+//        User authorized = userService.findByUsername(principal.getName());
 
         return ResponseEntity.ok(service.findById(idCompany));
     }
