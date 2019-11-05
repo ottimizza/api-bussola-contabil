@@ -6,12 +6,13 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 
 import com.querydsl.jpa.impl.JPAQuery;
 
 import br.com.ottimizza.dashboard.dtos.BalanceDTO;
-import br.com.ottimizza.dashboard.dtos.UserDTO;
 import br.com.ottimizza.dashboard.models.Balance;
 import br.com.ottimizza.dashboard.models.QBalance;
 import br.com.ottimizza.dashboard.models.QCompany;
@@ -35,8 +36,8 @@ public class BalanceRepositoryImpl implements BalanceRepositoryCustom{
 	}
 
 	@Override
-	public List<Balance> findAll(BalanceDTO filter, Pageable pageable, UserDTO userInfo) {
-
+	public Page<Balance> findAll(BalanceDTO filter, Pageable pageable) {
+		long totalElements = 0;
 		JPAQuery<Balance> query = new JPAQuery<Balance>(em).from(balance)
                 .innerJoin(company).on(company.id.eq(balance.companyId));
 		
@@ -46,7 +47,10 @@ public class BalanceRepositoryImpl implements BalanceRepositoryCustom{
 		if(filter.getAnalyticId() != null)	query.where(balance.analyticId.eq(filter.getAnalyticId()));
 		if(filter.getDescription() != null)	query.where(balance.description.eq(filter.getDescription()));
 
-        return query.fetch();
+		totalElements = query.fetchCount();
+		query.limit(pageable.getPageSize());
+		query.offset(pageable.getPageSize() * pageable.getPageNumber());
+        return new PageImpl<Balance>(query.fetch(), pageable, totalElements);
 	}
 
 }

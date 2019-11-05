@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.ottimizza.dashboard.client.OAuthClient;
 import br.com.ottimizza.dashboard.dtos.BalanceDTO;
-import br.com.ottimizza.dashboard.dtos.UserDTO;
 import br.com.ottimizza.dashboard.models.Balance;
 import br.com.ottimizza.dashboard.models.Company;
 import br.com.ottimizza.dashboard.services.BalanceService;
@@ -41,32 +40,28 @@ public class BalanceController {
 	
 	@PostMapping
 	public ResponseEntity<Balance> save(@RequestBody Balance balance, @RequestHeader("Authorization") String authorization) throws Exception {
-		UserDTO userInfo = oauthClient.getUserInfo(authorization).getBody().getRecord();
+//		UserDTO userInfo = oauthClient.getUserInfo(authorization).getBody().getRecord();
 		return ResponseEntity.ok(service.save(balance));
 	}
 	
 	@GetMapping("{id}")
 	public ResponseEntity<Balance> findByID(@PathVariable("id") BigInteger balanceId, @RequestHeader("Authorization") String authorization) throws Exception {
-		UserDTO userInfo = oauthClient.getUserInfo(authorization).getBody().getRecord();
 		Balance balance = service.findById(balanceId);
 		return (balance != null) ? ResponseEntity.ok(balance) : ResponseEntity.notFound().build();
 	}
 	
 	@DeleteMapping("{id}")
 	public ResponseEntity<String> remove(@PathVariable("id") BigInteger balanceId, @RequestHeader("Authorization") String authorization) throws Exception {
-		UserDTO userInfo = oauthClient.getUserInfo(authorization).getBody().getRecord();
 		return ResponseEntity.ok(service.delete(balanceId).toString());
 	}
 
 	@PostMapping("delete_all")
 	public ResponseEntity<String> removeAllBalances(@RequestBody BalanceDTO body, @RequestHeader("Authorization") String authorization) throws Exception {
-		UserDTO userInfo = oauthClient.getUserInfo(authorization).getBody().getRecord();
 		return ResponseEntity.ok(service.deleteByCnpjAndDate(body.getCnpj(), body.getDateBalance()).toString());
 	}
 	
 	@PostMapping("new")
 	public ResponseEntity<List<Balance>> createBalance(@RequestBody BalanceDTO body, @RequestHeader("Authorization") String authorization) throws Exception {
-		UserDTO userInfo = oauthClient.getUserInfo(authorization).getBody().getRecord();
 		
 		List<Balance> listReturn = new ArrayList<Balance>();
 		List<Balance> listBalances = new ArrayList<Balance>();
@@ -90,7 +85,6 @@ public class BalanceController {
 	
 	@PostMapping("new/balances")
 	public ResponseEntity<List<Balance>> createBalancesCnpj(@RequestBody BalanceDTO body, @RequestHeader("Authorization") String authorization) throws Exception {
-		UserDTO userInfo = oauthClient.getUserInfo(authorization).getBody().getRecord();
 		
 		List<Balance> listReturn = new ArrayList<Balance>();
 		List<Balance> listBalances = new ArrayList<Balance>();
@@ -113,7 +107,7 @@ public class BalanceController {
 	}
 	
 	@GetMapping
-	public ResponseEntity<List<BalanceDTO>> findAll(@ModelAttribute BalanceDTO filter, 
+	public ResponseEntity<?> findAll(@ModelAttribute BalanceDTO filter, 
 												 @RequestParam(name = "page_index", defaultValue = "0") int pageIndex,
 									             @RequestParam(name = "page_size", defaultValue = "10") int pageSize, 
 									             @RequestHeader("Authorization") String authorization) throws Exception {

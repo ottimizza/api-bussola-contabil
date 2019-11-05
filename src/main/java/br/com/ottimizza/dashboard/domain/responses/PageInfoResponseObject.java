@@ -2,7 +2,7 @@ package br.com.ottimizza.dashboard.domain.responses;
 
 import java.io.Serializable;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import org.springframework.data.domain.Page;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -12,7 +12,7 @@ import lombok.Setter;
 @Getter @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class BalanceInfoResponseObject implements Serializable{
+public class PageInfoResponseObject implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	
@@ -21,18 +21,22 @@ public class BalanceInfoResponseObject implements Serializable{
 	private boolean hasPrevious;
 
 	private int pageIndex;
+	
+	private int pageSize;
     
 	private int totalPages;
     
 	private long totalElements;
 
-	public BalanceInfoResponseObject(Page<T> page) {
-		super();
-		this.hasNext = page.hasNext;
-		this.hasPrevious = page.hasPrevious;
-		this.pageIndex = page.getPageIndex;
-		this.totalPages = totalPages;
-		this.totalElements = totalElements;
+	public PageInfoResponseObject(Page<?> page) {
+		this.hasNext = page.hasNext();
+		this.hasPrevious = page.hasPrevious();
+		
+		this.pageSize = page.getSize();
+		this.pageIndex = page.getNumber();
+
+		this.totalPages = page.getTotalPages();
+		this.totalElements = page.getTotalElements();
 	}
 
 }

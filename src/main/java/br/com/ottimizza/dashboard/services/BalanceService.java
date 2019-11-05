@@ -8,6 +8,7 @@ import javax.inject.Inject;
 import javax.persistence.NoResultException;
 
 import org.json.JSONObject;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
@@ -24,8 +25,8 @@ public class BalanceService {
 	@Inject
 	private BalanceRepository repository;
 	
-	@Inject
-	private CompanyRepository companyRepository;
+//	@Inject
+//	private CompanyRepository companyRepository;
 	
 	@Inject
 	OAuthClient oauthClient;
@@ -118,8 +119,8 @@ public class BalanceService {
 //		return new ArrayList<Balance>();
 //	}
 
-	public List<BalanceDTO> findAll(BalanceDTO filter, int pageIndex, int pageSize, String authorization) {
+	public Page<BalanceDTO> findAll(BalanceDTO filter, int pageIndex, int pageSize, String authorization) {
 		UserDTO userInfo = oauthClient.getUserInfo(authorization).getBody().getRecord();
-		return repository.findAll(filter, PageRequest.of(pageIndex, pageSize), userInfo).map(BalanceDTO::fromEntity);
+		return repository.findAll(filter, PageRequest.of(pageIndex, pageSize)).map(BalanceDTO::fromEntity);
 	}
 }

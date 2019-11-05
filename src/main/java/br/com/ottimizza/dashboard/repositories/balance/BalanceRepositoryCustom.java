@@ -7,7 +7,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import br.com.ottimizza.dashboard.dtos.BalanceDTO;
-import br.com.ottimizza.dashboard.dtos.UserDTO;
 import br.com.ottimizza.dashboard.models.Balance;
 
 public interface BalanceRepositoryCustom {
@@ -16,6 +15,6 @@ public interface BalanceRepositoryCustom {
 
 //	Optional<List<Balance>> findBalancesByCompanyId(BigInteger id);
 
-	Page<Balance> findAll(BalanceDTO filter, Pageable pageable, UserDTO userInfo);
+	Page<Balance> findAll(BalanceDTO filter, Pageable pageable);
 
 }
