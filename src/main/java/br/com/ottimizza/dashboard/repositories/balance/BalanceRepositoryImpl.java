@@ -45,7 +45,7 @@ public class BalanceRepositoryImpl implements BalanceRepositoryCustom{
 		if(filter.getDateBalance() != null)	query.where(balance.dateBalance.eq(filter.getDateBalance()));
 		if(filter.getSyntheticId() != null) query.where(balance.syntheticId.eq(filter.getSyntheticId()));
 		if(filter.getAnalyticId() != null)	query.where(balance.analyticId.eq(filter.getAnalyticId()));
-		if(filter.getDescription() != null)	query.where(balance.description.eq(filter.getDescription()));
+		if(filter.getDescription() != null)	query.where(balance.description.contains(filter.getDescription()));
 
 		totalElements = query.fetchCount();
 		query.limit(pageable.getPageSize());
