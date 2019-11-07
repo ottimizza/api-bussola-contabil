@@ -6,6 +6,10 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
+
 import com.querydsl.jpa.impl.JPAQuery;
 
 import br.com.ottimizza.dashboard.dtos.BalanceDTO;
@@ -32,18 +36,21 @@ public class BalanceRepositoryImpl implements BalanceRepositoryCustom{
 	}
 
 	@Override
-	public List<Balance> findAll(BalanceDTO balanceDTO) {
-
+	public Page<Balance> findAll(BalanceDTO filter, Pageable pageable) {
+		long totalElements = 0;
 		JPAQuery<Balance> query = new JPAQuery<Balance>(em).from(balance)
                 .innerJoin(company).on(company.id.eq(balance.companyId));
 		
-		if(balanceDTO.getCnpj() != null)		query.where(company.cnpj.eq(StringUtil.formatCnpj(balanceDTO.getCnpj())));
-		if(balanceDTO.getDateBalance() != null)	query.where(balance.dateBalance.eq(balanceDTO.getDateBalance()));
-		if(balanceDTO.getSyntheticId() != null) query.where(balance.syntheticId.eq(balanceDTO.getSyntheticId()));
-		if(balanceDTO.getAnalyticId() != null)	query.where(balance.analyticId.eq(balanceDTO.getAnalyticId()));
-		if(balanceDTO.getDescription() != null)	query.where(balance.description.eq(balanceDTO.getDescription()));
+		if(filter.getCnpj() != null)		query.where(company.cnpj.eq(StringUtil.formatCnpj(filter.getCnpj())));
+		if(filter.getDateBalance() != null)	query.where(balance.dateBalance.eq(filter.getDateBalance()));
+		if(filter.getSyntheticId() != null) query.where(balance.syntheticId.eq(filter.getSyntheticId()));
+		if(filter.getAnalyticId() != null)	query.where(balance.analyticId.eq(filter.getAnalyticId()));
+		if(filter.getDescription() != null)	query.where(balance.description.contains(filter.getDescription()));
 
-        return query.fetch();
+		totalElements = query.fetchCount();
+		query.limit(pageable.getPageSize());
+		query.offset(pageable.getPageSize() * pageable.getPageNumber());
+        return new PageImpl<Balance>(query.fetch(), pageable, totalElements);
 	}
 
 }

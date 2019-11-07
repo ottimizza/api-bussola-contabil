@@ -8,12 +8,14 @@ import javax.inject.Inject;
 import javax.persistence.NoResultException;
 
 import org.json.JSONObject;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import br.com.ottimizza.dashboard.client.OAuthClient;
 import br.com.ottimizza.dashboard.dtos.BalanceDTO;
 import br.com.ottimizza.dashboard.models.Balance;
 import br.com.ottimizza.dashboard.repositories.balance.BalanceRepository;
-import br.com.ottimizza.dashboard.repositories.company.CompanyRepository;
 
 @Service
 public class BalanceService {
@@ -21,8 +23,11 @@ public class BalanceService {
 	@Inject
 	private BalanceRepository repository;
 	
+//	@Inject
+//	private CompanyRepository companyRepository;
+	
 	@Inject
-	private CompanyRepository companyRepository;
+	OAuthClient oauthClient;
 	
 	public Balance save(Balance balance) throws Exception {
 		return repository.save(balance);
@@ -32,9 +37,9 @@ public class BalanceService {
 		return repository.findById(id).orElse(null);
 	}
 	
-	public List<Balance> findAll() {
-		return 	repository.findAll();
-	}
+//	public List<Balance> findAll() {
+//		return 	repository.findAll();
+//	}
 	
 	public JSONObject delete(BigInteger balanceId) {
 		JSONObject response = new JSONObject();
@@ -112,8 +117,8 @@ public class BalanceService {
 //		return new ArrayList<Balance>();
 //	}
 
-	public List<Balance> findAll(BalanceDTO balanceDTO) {
-		return repository.findAll(balanceDTO);
+	public Page<BalanceDTO> findAll(BalanceDTO filter, int pageIndex, int pageSize, String authorization) {
+//		UserDTO userInfo = oauthClient.getUserInfo(authorization).getBody().getRecord();
+		return repository.findAll(filter, PageRequest.of(pageIndex, pageSize)).map(BalanceDTO::fromEntity);
 	}
-
 }

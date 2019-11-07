@@ -14,6 +14,10 @@ import lombok.Setter;
 @Getter @Setter
 public class KpiDetailCreate implements Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private BigInteger idKpi;
 	private List<KpiDetail> kpisDetail;
 	
