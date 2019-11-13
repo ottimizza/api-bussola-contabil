@@ -38,7 +38,6 @@ public class VariableController {
 			variable = service.upsert(variable);
 			return ResponseEntity.ok(variable);
 		} catch (Exception e) { }
-		
 		return ResponseEntity.badRequest().build();		
 	}
 	
