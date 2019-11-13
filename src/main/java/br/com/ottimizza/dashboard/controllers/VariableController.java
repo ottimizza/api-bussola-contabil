@@ -35,11 +35,9 @@ public class VariableController {
 	@PostMapping
 	public ResponseEntity<Variable> saveVariable(@RequestBody Variable variable) throws Exception {
 		try {
-			System.out.println(">>> A "+variable.getName());
 			variable = service.upsert(variable);
 			return ResponseEntity.ok(variable);
 		} catch (Exception e) { }
-		System.out.println(">>> Bad "+variable.getName());
 		return ResponseEntity.badRequest().build();		
 	}
 	

@@ -11,10 +11,8 @@ import org.json.JSONObject;
 import org.springframework.stereotype.Service;
 
 import br.com.ottimizza.dashboard.dtos.UserDTO;
-import br.com.ottimizza.dashboard.dtos.VariableDTO;
 import br.com.ottimizza.dashboard.models.Variable;
 import br.com.ottimizza.dashboard.repositories.variable.VariableRepository;
-import lombok.experimental.var;
 
 @Service
 public class VariableService {
@@ -82,11 +80,9 @@ public class VariableService {
 	}
 
 	public Variable upsert(Variable variable) throws Exception {
-		System.out.println(">>> C "+variable.getName());
 		Variable var = new Variable();
 		try{ var = repository.findById(variable.getId()).orElse(null); }
 		catch (Exception e) { }
-		System.out.println(">>> D "+var.getId());
 		
 		if(variable.getId() != null && !variable.getId().equals("") && var != null) {
 			
