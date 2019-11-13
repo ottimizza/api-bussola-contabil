@@ -81,7 +81,7 @@ public class VariableService {
 		return repository.findVariablesByOrganizationId(organizationId, userInfo);
 	}
 
-	public Variable upsert(Variable variable) {
+	public Variable upsert(Variable variable) throws Exception {
 		System.out.println(">>> C "+variable.getName());
 		
 		Variable var = repository.findById(variable.getId()).orElse(null);
