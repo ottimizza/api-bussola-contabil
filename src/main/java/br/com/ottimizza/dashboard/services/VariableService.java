@@ -82,7 +82,10 @@ public class VariableService {
 	}
 
 	public Variable upsert(Variable variable) {
+		System.out.println(">>> C "+variable.getName());
+		
 		Variable var = repository.findById(variable.getId()).orElse(null);
+		System.out.println(">>> D "+var.getId());
 		
 		if(variable.getId() != null && !variable.getId().equals("") && var != null) {
 			
