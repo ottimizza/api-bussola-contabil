@@ -83,8 +83,9 @@ public class VariableService {
 
 	public Variable upsert(Variable variable) throws Exception {
 		System.out.println(">>> C "+variable.getName());
-		
-		Variable var = repository.findById(variable.getId()).orElse(null);
+		Variable var = new Variable();
+		try{ var = repository.findById(variable.getId()).orElse(null); }
+		catch (Exception e) { }
 		System.out.println(">>> D "+var.getId());
 		
 		if(variable.getId() != null && !variable.getId().equals("") && var != null) {
