@@ -24,7 +24,7 @@ import lombok.Setter;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "kpis_details", indexes = {@Index(name = "kpi_detail_index", columnList = "fk_kpis_id,column_x,column_y", unique = true)})
+@Table(name = "kpis_details", indexes = {@Index(name = "kpi_detail_index_seq", columnList = "fk_kpis_id,column_x_seq", unique = false)})
 public class KpiDetail implements Serializable {
 
     private static final long serialVersionUID = 1L;
