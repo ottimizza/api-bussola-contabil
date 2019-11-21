@@ -28,7 +28,7 @@ public class KpiResolver{
 
 	@GraphQLQuery
 	public List<Kpi> findKpi(String cnpj, BigInteger id, BigInteger companyId, String kpiAlias, String title, String subtitle, String description, 
-							Short graphType, String columnX0Label, String label, String label2, String label3, String label4, Boolean visible, Short kind) {
+							Short graphType, String columnX0Label, String label, String label2, String label3, String label4, Boolean visible, String kind) {
 		JPAQuery<Kpi> query = new JPAQuery<Kpi>(em).from(kpi);
 
 		String formatCnpj = StringUtil.formatCnpj(cnpj);
@@ -53,8 +53,8 @@ public class KpiResolver{
 		if(label3 != null)		query.where(kpi.label3.toUpperCase().in(label3.toUpperCase()));
 		if(label4 != null)		query.where(kpi.label4.toUpperCase().in(label4.toUpperCase()));
 		System.out.println(">>> "+kind);
-		if(kind != null && kind == 1) query.where(kpi.kpiAlias.lt("60"));	//indicadores normais
-		if(kind != null && kind == 2) query.where(kpi.kpiAlias.goe("60"));	//comparativos
+//		if(kind != null && kind == 1) query.where(kpi.kpiAlias.lt("60"));	//indicadores normais
+//		if(kind != null && kind == 2) query.where(kpi.kpiAlias.goe("60"));	//comparativos
 		
 		return query.orderBy(kpi.graphOrder.asc()).fetch();
 	}

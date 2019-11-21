@@ -19,7 +19,7 @@ extends type Kpi {
 	graphOrder: Integer
 	labelStringArray: String
 	company: Company
-	kind: Short
+	
 }
 
 extends input KpiFilter {
@@ -43,12 +43,12 @@ extends input KpiFilter {
 	graphOrder: Integer
 	labelStringArray: String
 	company: Company
-	kind: Short
+	
 	
 }
 
 extends type Query {
-	findKpi(cnpj: String, id: BigInteger, companyId: BigInteger, kpiAlias: String, title: String, subtitle: String, description: String, graphType: Short, columnX0Label: String, label: String, label2: String, label3: String, label4: String, visible: Boolean, kind: Short): [Kpi]
+	findKpi(cnpj: String, id: BigInteger, companyId: BigInteger, kpiAlias: String, title: String, subtitle: String, description: String, graphType: Short, columnX0Label: String, label: String, label2: String, label3: String, label4: String, visible: Boolean, kind: String): [Kpi]
 }
 
 extends type Mutation {
