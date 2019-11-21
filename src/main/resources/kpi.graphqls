@@ -48,7 +48,7 @@ extends input KpiFilter {
 }
 
 extends type Query {
-	findKpi(cnpj: String, id: BigInteger, companyId: BigInteger, kpiAlias: String, title: String, subtitle: String, description: String, graphType: Short, columnX0Label: String, label: String, label2: String, label3: String, label4: String, visible: Boolean, kind: String): [Kpi]
+	findKpi(cnpj: String, id: BigInteger, companyId: BigInteger, kpiAlias: String, title: String, subtitle: String, description: String, graphType: Short, columnX0Label: String, label: String, label2: String, label3: String, label4: String, visible: Boolean, kind: Short): [Kpi]
 }
 
 extends type Mutation {
