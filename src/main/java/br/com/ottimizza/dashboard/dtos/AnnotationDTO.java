@@ -1,6 +1,7 @@
 package br.com.ottimizza.dashboard.dtos;
 
 import java.io.Serializable;
+import java.math.BigInteger;
 import java.time.LocalDateTime;
 
 import br.com.ottimizza.dashboard.models.Annotation;
@@ -15,7 +16,7 @@ import lombok.Setter;
 public class AnnotationDTO implements Serializable{
 	private static final long serialVersionUID = 1L;
 
-	private String organizationId;
+	private BigInteger organizationId;
 	private LocalDateTime createAt;
 	private String createdBy;
 	private String kpiAlias;
@@ -23,7 +24,7 @@ public class AnnotationDTO implements Serializable{
 	
 	
 	public Annotation patch(Annotation annotation) {
-		if (this.organizationId != null && !this.organizationId.equals(""))
+		if (this.organizationId != null)
             annotation.setOrganizationId(this.organizationId);
 		
 		if (this.createAt != null)
