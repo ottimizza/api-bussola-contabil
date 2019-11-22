@@ -99,6 +99,7 @@ public class KpiDetail implements Serializable {
 		List<Double> doubles = new ArrayList<Double>();
 		if(valorStringArray != null && !valorStringArray.isEmpty()) {
 			for (String string : valorStringArray.split(";")) {
+				if (string.trim().equals("")) continue;
 				doubles.add(Double.parseDouble(string));
 			}	
 		}

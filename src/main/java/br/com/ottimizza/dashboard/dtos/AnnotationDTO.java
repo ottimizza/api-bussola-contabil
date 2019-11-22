@@ -1,6 +1,7 @@
 package br.com.ottimizza.dashboard.dtos;
 
 import java.io.Serializable;
+import java.math.BigInteger;
 import java.time.LocalDateTime;
 
 import br.com.ottimizza.dashboard.models.Annotation;
@@ -21,10 +22,9 @@ public class AnnotationDTO implements Serializable{
 	private String kpiAlias;
 	private String description;
 	
-	
 	public Annotation patch(Annotation annotation) {
-		if (this.organizationId != null && !this.organizationId.equals(""))
-            annotation.setOrganizationId(this.organizationId);
+		if (this.organizationId != null)
+            annotation.setOrganizationId(this.organizationId.toString());
 		
 		if (this.createAt != null)
             annotation.setCreateAt(this.createAt);

@@ -12,6 +12,7 @@ import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.util.EntityUtils;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -52,8 +53,15 @@ public class OAuthClientController {
 
             HttpResponse httpResponse = httpClient.execute(httpPost);
             HttpEntity responseEntity = httpResponse.getEntity();
-
-            return ResponseEntity.ok(EntityUtils.toString(responseEntity, "UTF-8"));
+            	
+    		String response = EntityUtils.toString(responseEntity, "UTF-8");
+    		HttpStatus status = HttpStatus.valueOf(httpResponse.getStatusLine().getStatusCode());
+            
+            System.out.println(" ***** ");
+            System.out.println("Response ..: " + response);
+            System.out.println("Status ....:   " + status.toString());
+            
+            return ResponseEntity.status(status).body(response);
         } catch (Exception ex) {
             ex.printStackTrace();
             return ResponseEntity.status(401).body("{}");
