@@ -22,10 +22,9 @@ public class AnnotationDTO implements Serializable{
 	private String kpiAlias;
 	private String description;
 	
-	
 	public Annotation patch(Annotation annotation) {
 		if (this.organizationId != null)
-            annotation.setOrganizationId(this.organizationId);
+            annotation.setOrganizationId(this.organizationId.toString());
 		
 		if (this.createAt != null)
             annotation.setCreateAt(this.createAt);

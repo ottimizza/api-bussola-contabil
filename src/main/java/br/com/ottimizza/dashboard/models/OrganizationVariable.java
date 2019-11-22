@@ -23,6 +23,7 @@ import lombok.Setter;
 @Table(name= "organizations_variables")
 public class OrganizationVariable implements Serializable {
 
+	
 	private static final long serialVersionUID = 1L;
 
 	@Id
