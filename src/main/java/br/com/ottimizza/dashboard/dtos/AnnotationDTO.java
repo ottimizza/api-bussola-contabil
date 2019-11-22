@@ -16,7 +16,7 @@ import lombok.Setter;
 public class AnnotationDTO implements Serializable{
 	private static final long serialVersionUID = 1L;
 
-	private BigInteger organizationId;
+	private String organizationId;
 	private LocalDateTime createAt;
 	private String createdBy;
 	private String kpiAlias;
