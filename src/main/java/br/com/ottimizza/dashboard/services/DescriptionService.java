@@ -38,6 +38,7 @@ public class DescriptionService {
 	}
 	
 	public List<DescriptionDTO> findAll(DescriptionDTO descriptionDto, String authorization) {
+		System.out.println("aaaa 02");
 		return DescriptionDTO.descriptionToDto(repository.findAll(descriptionDto));
 	}
 
