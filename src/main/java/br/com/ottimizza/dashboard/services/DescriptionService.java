@@ -23,7 +23,7 @@ public class DescriptionService {
 		return DescriptionDTO.descriptionToDto(repository.save(description));
 	}
 	
-	public JSONObject delete(BigInteger descriptionId) {
+	public JSONObject delete(BigInteger descriptionId) throws Exception {
 		JSONObject response = new JSONObject();
         try {
             repository.deleteById(descriptionId);
