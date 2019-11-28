@@ -18,18 +18,9 @@ public class DescriptionService {
 	@Inject
 	DescriptionRepository repository;
 	
-	@Inject
-	DescriptionDTO dto;
-	
-	//*******************************
-	//receber e devolver somente DTO
-	//*******************************
-	
-	
-	
 	public DescriptionDTO save(DescriptionDTO descriptionDTO) throws Exception {
-		Description description = dto.dtoToDescription(descriptionDTO);
-		return dto.descriptionToDto(repository.save(description));
+		Description description = DescriptionDTO.dtoToDescription(descriptionDTO);
+		return DescriptionDTO.descriptionToDto(repository.save(description));
 	}
 	
 	public JSONObject delete(BigInteger descriptionId) {
@@ -47,7 +38,7 @@ public class DescriptionService {
 	}
 	
 	public List<DescriptionDTO> findAll(DescriptionDTO descriptionDto, String authorization) {
-		return dto.descriptionToDto(repository.findAll(descriptionDto));
+		return DescriptionDTO.descriptionToDto(repository.findAll(descriptionDto));
 	}
 
 
