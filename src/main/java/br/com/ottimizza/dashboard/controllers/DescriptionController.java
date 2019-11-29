@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.ottimizza.dashboard.dtos.DescriptionDTO;
-import br.com.ottimizza.dashboard.models.Description;
 import br.com.ottimizza.dashboard.services.DescriptionService;
 
 @RestController
@@ -36,13 +35,13 @@ public class DescriptionController {
 	}
 	
 	@PutMapping
-	public ResponseEntity<DescriptionDTO> alter(@RequestBody DescriptionDTO descriptionDto, 
-											   @RequestHeader("Authorization") String authorization) 
-											   throws Exception {
+	public ResponseEntity<DescriptionDTO> update(@RequestBody DescriptionDTO descriptionDto, 
+												@RequestHeader("Authorization") String authorization) 
+								  				throws Exception {
 		return ResponseEntity.ok(service.save(descriptionDto));
 	}
 	
-	@PatchMapping
+	@PatchMapping("{id}")
 	public ResponseEntity<DescriptionDTO> patch(@PathVariable("id") BigInteger id, 
 												@RequestBody DescriptionDTO descriptionDTO,
 												@RequestHeader("Authorization") String authorization) 
