@@ -39,7 +39,15 @@ public class DescriptionService {
 	
 	public List<DescriptionDTO> findAll(DescriptionDTO descriptionDto, String authorization) {
 		System.out.println("aaaa 02");
-		return DescriptionDTO.descriptionToDto(repository.findAll(descriptionDto));
+		List<Description> response = repository.findAll(descriptionDto);
+		for (Description description : response) {
+			System.out.println("bbb "+description.getId());
+		}
+		List<DescriptionDTO> response2 = DescriptionDTO.descriptionToDto(response);
+		for (DescriptionDTO description : response2) {
+			System.out.println("ccc "+description.getId());
+		}
+		return response2;
 	}
 
 

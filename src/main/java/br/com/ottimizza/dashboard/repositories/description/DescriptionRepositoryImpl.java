@@ -23,10 +23,10 @@ public class DescriptionRepositoryImpl implements DescriptionRepositoryCustom {
 		System.out.println("aaaa 03");
 
 		JPAQuery<Description> query = new JPAQuery<Description>(em).from(description);
-		if(descriptionDto.getId() != null)				query.where(description.id.eq(descriptionDto.getId()));
-		if(descriptionDto.getKpiAlias() != null)		query.where(description.kpiAlias.eq(descriptionDto.getKpiAlias()));
-		if(descriptionDto.getOrganizationId() != null)	query.where(description.organizationId.eq(descriptionDto.getOrganizationId()));
-		if(descriptionDto.getDescription() != null)		query.where(description.description.eq(descriptionDto.getDescription()));
+//		if(descriptionDto.getId() != null)				query.where(description.id.eq(descriptionDto.getId()));
+//		if(descriptionDto.getKpiAlias() != null)		query.where(description.kpiAlias.eq(descriptionDto.getKpiAlias()));
+//		if(descriptionDto.getOrganizationId() != null)	query.where(description.organizationId.eq(descriptionDto.getOrganizationId()));
+//		if(descriptionDto.getDescription() != null)		query.where(description.description.eq(descriptionDto.getDescription()));
 		
 		return query.fetch();
 	}
