@@ -56,8 +56,9 @@ public class DescriptionDTO implements Serializable {
     
     
     public Description patch(Description description) {
-    	
-    	//implementar
+    	if (this.organizationId != null)  description.setOrganizationId(this.organizationId);
+    	if (this.kpiAlias != null)		description.setKpiAlias(this.kpiAlias);
+    	if (this.description != null)	description.setDescription(this.description);
     	
     	return description;
     }

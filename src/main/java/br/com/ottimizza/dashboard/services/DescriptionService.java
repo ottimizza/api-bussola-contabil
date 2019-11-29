@@ -2,6 +2,7 @@ package br.com.ottimizza.dashboard.services;
 
 import java.math.BigInteger;
 import java.util.List;
+import java.util.Optional;
 
 import javax.inject.Inject;
 
@@ -37,9 +38,18 @@ public class DescriptionService {
         return response;
 	}
 	
+	public Description findById(BigInteger id) {
+		return repository.findById(id).orElse(null);
+	}
+
 	public List<DescriptionDTO> findAll(DescriptionDTO descriptionDto) {
 		return DescriptionDTO.descriptionToDto(repository.findAll(descriptionDto));
 	}
 
+	public Description patch(BigInteger id, DescriptionDTO descriptionDTO) throws Exception {
+		Description current = findById(id);
+		return repository.save(descriptionDTO.patch(current));
+	}
+	
 
 }

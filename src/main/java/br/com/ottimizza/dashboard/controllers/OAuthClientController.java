@@ -82,9 +82,7 @@ public class OAuthClientController {
             uriBuilder.addParameter("refresh_token", refreshToken);
             uriBuilder.addParameter("grant_type", "refresh_token");
 
-            
             HttpPost httpPost = new HttpPost(uriBuilder.build());
-
             httpPost.setHeader("Authorization", "Basic " + encodedCredentials);
 
             HttpResponse httpResponse = httpClient.execute(httpPost);
