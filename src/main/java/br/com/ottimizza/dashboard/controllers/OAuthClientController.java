@@ -53,7 +53,7 @@ public class OAuthClientController {
 
             HttpResponse httpResponse = httpClient.execute(httpPost);
             HttpEntity responseEntity = httpResponse.getEntity();
-            	
+            
     		String response = EntityUtils.toString(responseEntity, "UTF-8");
     		HttpStatus status = HttpStatus.valueOf(httpResponse.getStatusLine().getStatusCode());
             
@@ -82,6 +82,7 @@ public class OAuthClientController {
             uriBuilder.addParameter("refresh_token", refreshToken);
             uriBuilder.addParameter("grant_type", "refresh_token");
 
+            
             HttpPost httpPost = new HttpPost(uriBuilder.build());
 
             httpPost.setHeader("Authorization", "Basic " + encodedCredentials);
@@ -89,7 +90,14 @@ public class OAuthClientController {
             HttpResponse httpResponse = httpClient.execute(httpPost);
             HttpEntity responseEntity = httpResponse.getEntity();
 
-            return ResponseEntity.ok(EntityUtils.toString(responseEntity, "UTF-8"));
+            String response = EntityUtils.toString(responseEntity, "UTF-8");
+            HttpStatus status = HttpStatus.valueOf(httpResponse.getStatusLine().getStatusCode());
+
+            System.out.println(" ***** ");
+            System.out.println("Response ..: " + response);
+            System.out.println("Status ....:   " + status.toString());
+            
+            return ResponseEntity.status(status).body(response);
         } catch (Exception ex) {
             ex.printStackTrace();
             return ResponseEntity.status(401).body("{}");
