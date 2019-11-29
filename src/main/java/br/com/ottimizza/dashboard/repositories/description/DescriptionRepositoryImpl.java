@@ -3,6 +3,7 @@ package br.com.ottimizza.dashboard.repositories.description;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
 import org.springframework.stereotype.Repository;
 
@@ -15,7 +16,9 @@ import br.com.ottimizza.dashboard.models.QDescription;
 @Repository
 public class DescriptionRepositoryImpl implements DescriptionRepositoryCustom {
 	
+	@PersistenceContext
 	EntityManager em;
+	
 	private QDescription description = QDescription.description1;
 
 	@Override
