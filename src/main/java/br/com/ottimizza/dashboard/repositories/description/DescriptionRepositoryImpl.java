@@ -29,6 +29,8 @@ public class DescriptionRepositoryImpl implements DescriptionRepositoryCustom {
 		if(descriptionDto.getKpiAlias() != null)		query.where(description.kpiAlias.eq(descriptionDto.getKpiAlias()));
 		if(descriptionDto.getOrganizationId() != null)	query.where(description.organizationId.eq(descriptionDto.getOrganizationId()));
 		if(descriptionDto.getDescription() != null)		query.where(description.description.eq(descriptionDto.getDescription()));
+//		inner
+//		if(descriptionDto.getCnpj() != null)			query.where(company.cnpj.eq(descriptionDto.getCnpj()));
 
 		return query.fetch();
 	}

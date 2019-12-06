@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.querydsl.jpa.impl.JPAQuery;
 
+import br.com.ottimizza.dashboard.dtos.CompanyDTO;
 import br.com.ottimizza.dashboard.models.Company;
 import br.com.ottimizza.dashboard.models.QCompany;
 
@@ -30,9 +31,11 @@ public class CompanyRepositoryImpl implements CompanyRepositoryCustom {
     }
     
     @Override
-    public List<Company> findAll(Integer pageSize, Integer pageIndex) {
+    public List<Company> findAll(CompanyDTO filter, Integer pageSize, Integer pageIndex) {
         JPAQuery<Company> query = new JPAQuery<Company>(em).from(company);
-
+        
+        if(filter.getCnpj() != null) query.where(company.cnpj.eq(filter.getCnpj()));
+        
         if (pageSize != null && pageSize > 0) {
             query.limit(pageSize);
             if (pageIndex != null && pageIndex > 0) {

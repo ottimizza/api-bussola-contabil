@@ -8,8 +8,11 @@ import javax.inject.Inject;
 import org.json.JSONObject;
 import org.springframework.stereotype.Service;
 
+import br.com.ottimizza.dashboard.dtos.CompanyDTO;
 import br.com.ottimizza.dashboard.dtos.DescriptionDTO;
+import br.com.ottimizza.dashboard.models.Company;
 import br.com.ottimizza.dashboard.models.Description;
+import br.com.ottimizza.dashboard.repositories.company.CompanyRepository;
 import br.com.ottimizza.dashboard.repositories.description.DescriptionRepository;
 
 @Service
@@ -17,8 +20,22 @@ public class DescriptionService {
 	
 	@Inject
 	DescriptionRepository repository;
+
+	@Inject
+	CompanyRepository companyRepository;
 	
 	public DescriptionDTO save(DescriptionDTO descriptionDTO) throws Exception {
+		CompanyDTO filter = new CompanyDTO(descriptionDTO.getCnpj(), null, null);
+		Company c = new Company();
+		List<Company> cs = companyRepository.findAll(filter, null, null);
+		
+		if(cs != null) {
+			c = cs.get(0);
+			
+		} else {
+			
+		}
+		System.out.println("A >>> "+c.getName());
 		Description description = DescriptionDTO.dtoToDescription(descriptionDTO);
 		return DescriptionDTO.descriptionToDto(repository.save(description));
 	}
