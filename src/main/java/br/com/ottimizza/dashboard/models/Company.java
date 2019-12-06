@@ -37,5 +37,8 @@ public class Company implements Serializable {
     
     @Column(name = "sector", nullable = true)
     private Integer sector;
-    
+
+    @Column(name = "fk_organization_id")
+    private String organizationId;
+
 }

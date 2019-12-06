@@ -25,17 +25,23 @@ public class DescriptionService {
 	CompanyRepository companyRepository;
 	
 	public DescriptionDTO save(DescriptionDTO descriptionDTO) throws Exception {
-		CompanyDTO filter = new CompanyDTO(descriptionDTO.getCnpj(), null, null);
-		Company c = new Company();
-		List<Company> cs = companyRepository.findAll(filter, null, null);
+		CompanyDTO filter = new CompanyDTO(null, descriptionDTO.getOrganizationId(), null);
+		Company company = new Company();
+		List<Company> companies = companyRepository.findAll(filter, null, null);
 		
-		if(cs != null) {
-			c = cs.get(0);
-			
+		if(companies != null) {
+			company = companies.get(0);
 		} else {
-			
+			try {
+				filter = new CompanyDTO(descriptionDTO.getCnpj(), null, null);
+				company = companyRepository.findAll(filter, null, null).get(0);
+				if(company != null) {
+					company.setOrganizationId(descriptionDTO.getOrganizationId());
+					companyRepository.save(company);
+				}
+			} catch (Exception e) {	}
 		}
-		System.out.println("A >>> "+c.getName());
+
 		Description description = DescriptionDTO.dtoToDescription(descriptionDTO);
 		return DescriptionDTO.descriptionToDto(repository.save(description));
 	}
