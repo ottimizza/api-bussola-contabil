@@ -40,5 +40,8 @@ public class Company implements Serializable {
 
     @Column(name = "fk_organization_id")
     private String organizationId;
-
+    
+    @Column(name = "fk_Script_Type")
+    private String ScriptType;
+    
 }

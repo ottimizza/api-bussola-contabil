@@ -37,11 +37,15 @@ public class DescriptionService {
 				company = companyRepository.findAll(filter, null, null).get(0);
 				if(company != null) {
 					company.setOrganizationId(descriptionDTO.getOrganizationId());
-					companyRepository.save(company);
+					company = companyRepository.save(company);
 				}
 			} catch (Exception e) {	}
 		}
-
+		if (company.getScriptType() == null) {
+			// cria tipo roteiro padrao
+			// gravar fk na company
+		}
+			
 		Description description = DescriptionDTO.dtoToDescription(descriptionDTO);
 		return DescriptionDTO.descriptionToDto(repository.save(description));
 	}

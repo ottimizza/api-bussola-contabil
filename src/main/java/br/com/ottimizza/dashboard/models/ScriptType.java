@@ -20,26 +20,21 @@ import lombok.Setter;
 @Getter @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "description")
-public class Description implements Serializable{
+@Table(name = "script_type")
+public class ScriptType implements Serializable{
 
 	private static final long serialVersionUID = 1L;
-
+	
 	@Id
-    @Column(name = "id", nullable = false)
-    @SequenceGenerator(name = "descriptions_sequence", sequenceName = "descriptions_seq", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "descriptions_sequence")
-    private BigInteger id;
+	@Column(name = "id", nullable = false)
+	@SequenceGenerator(name = "scriptType_sequence", sequenceName = "scriptType_seq", allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "scriptType_sequence")
+	private BigInteger id;
 	
-	@Column(nullable = false)
-	private String organizationId;
+	@Column(name = "fk_accounting_id")
+	private BigInteger accounting;
 	
-	@Column(nullable = false)
-    private String kpiAlias;
-
 	private String description;
 	
-	private BigInteger scriptType;
-    
-    
+	
 }
