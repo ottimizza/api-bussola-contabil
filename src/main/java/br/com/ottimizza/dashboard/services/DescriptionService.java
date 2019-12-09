@@ -25,23 +25,19 @@ public class DescriptionService {
 	CompanyRepository companyRepository;
 	
 	public DescriptionDTO save(DescriptionDTO descriptionDTO) throws Exception {
-//	new CompanyDTO(id, cnpj, name, sector, organizationId, ScriptType)
 		CompanyDTO filter = new CompanyDTO(null, null, null, null, descriptionDTO.getOrganizationId(), null);
 		Company company = new Company();
 		List<Company> companies = companyRepository.findAll(filter, null, null);
 
 		System.out.println(">>> ******************************************");
-		System.out.println(">>> A "+companies.size());
-		System.out.println(">>> A "+" -> "+" -> "+companies.isEmpty());
+		System.out.println(">>> A "+companies.size()+" -> "+companies.isEmpty());
 		System.out.println(">>> ******************************************");
 		
 		if(!companies.isEmpty()) {
 			company = companies.get(0);
 
 			System.out.println(">>> ******************************************");
-			System.out.println(">>> B0 "+companies.get(0).getName()+" -> "+companies.get(0).getCnpj()+" -> "+companies.get(0).getOrganizationId());
-			System.out.println(">>> B1 "+companies.get(1).getName()+" -> "+companies.get(1).getCnpj()+" -> "+companies.get(1).getOrganizationId());
-			System.out.println(">>> B2 "+companies.get(2).getName()+" -> "+companies.get(2).getCnpj()+" -> "+companies.get(2).getOrganizationId());
+			System.out.println(">>> B "+company.getName()+" -> "+company.getCnpj()+" -> "+company.getOrganizationId());
 			System.out.println(">>> ******************************************");
 
 		} else {
