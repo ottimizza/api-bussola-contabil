@@ -15,7 +15,6 @@ import javax.persistence.Index;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OrderBy;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -122,7 +121,6 @@ public class Kpi implements Serializable {
 	@Getter
     @Setter	
     @OneToMany(mappedBy = "kpiID", fetch = FetchType.EAGER)
-	@OrderBy("column_x_seq ASC")
     private List<KpiDetail> kpiDetail;
 
 	//column pie line
