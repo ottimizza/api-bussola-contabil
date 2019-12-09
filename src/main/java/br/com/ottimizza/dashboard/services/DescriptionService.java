@@ -32,7 +32,9 @@ public class DescriptionService {
 		List<Company> companies = companyRepository.findAll(filter, null, null);
 
 		System.out.println(">>> ******************************************");
-		System.out.println(">>> A "+companies.size()+" -> "+companies == null+" -> "+companies.isEmpty());
+		System.out.println(">>> A "+companies.size());
+		System.out.println(">>> A "+" -> "+companies == null);
+		System.out.println(">>> A "+" -> "+" -> "+companies.isEmpty());
 		System.out.println(">>> ******************************************");
 		
 		if(companies != null) {
