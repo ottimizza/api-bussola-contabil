@@ -34,7 +34,9 @@ public class DescriptionService {
 		System.out.println(">>> A "+filter.getName()+" -> "+filter.getCnpj()+" -> "+filter.getOrganizationId());
 		System.out.println(">>> ******************************************");
 
-		if(companies != null) {
+		System.out.println(">>> ax "+companies.isEmpty()+" -> "+companies == null +" -> "+companies.size());
+		
+		if(!companies.isEmpty()) {
 			company = companies.get(0);
 
 			System.out.println(">>> ******************************************");
