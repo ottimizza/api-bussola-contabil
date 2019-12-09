@@ -42,6 +42,6 @@ public class Company implements Serializable {
     private String organizationId;
     
     @Column(name = "fk_Script_Type")
-    private String ScriptType;
+    private BigInteger ScriptType;
     
 }
