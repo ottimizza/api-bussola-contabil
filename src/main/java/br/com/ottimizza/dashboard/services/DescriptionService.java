@@ -24,6 +24,7 @@ public class DescriptionService {
 	@Inject
 	CompanyRepository companyRepository;
 	
+	@SuppressWarnings("unused")
 	public DescriptionDTO save(DescriptionDTO descriptionDTO) throws Exception {
 //	new CompanyDTO(id, cnpj, name, sector, organizationId, ScriptType)
 		CompanyDTO filter = new CompanyDTO(null, null, null, null, descriptionDTO.getOrganizationId(), null);
@@ -31,12 +32,10 @@ public class DescriptionService {
 		List<Company> companies = companyRepository.findAll(filter, null, null);
 
 		System.out.println(">>> ******************************************");
-		System.out.println(">>> A "+filter.getName()+" -> "+filter.getCnpj()+" -> "+filter.getOrganizationId());
+		System.out.println(">>> A "+companies.size()+" -> "+companies == null+" -> "+companies.isEmpty());
 		System.out.println(">>> ******************************************");
-
-		System.out.println(">>> ax "+companies.isEmpty()+" -> "+companies == null +" -> "+companies.size());
 		
-		if(!companies.isEmpty()) {
+		if(companies != null) {
 			company = companies.get(0);
 
 			System.out.println(">>> ******************************************");
