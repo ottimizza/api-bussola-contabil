@@ -25,23 +25,49 @@ public class DescriptionService {
 	CompanyRepository companyRepository;
 	
 	public DescriptionDTO save(DescriptionDTO descriptionDTO) throws Exception {
-		CompanyDTO filter = new CompanyDTO(null, descriptionDTO.getOrganizationId(), null);
+//	new CompanyDTO(id, cnpj, name, sector, organizationId, ScriptType)
+		CompanyDTO filter = new CompanyDTO(null, null, null, null, descriptionDTO.getOrganizationId(), null);
 		Company company = new Company();
 		List<Company> companies = companyRepository.findAll(filter, null, null);
-		
+
+		System.out.println(">>> ******************************************");
+		System.out.println(">>> A "+filter.getName()+" -> "+filter.getCnpj()+" -> "+filter.getOrganizationId());
+		System.out.println(">>> ******************************************");
+
 		if(companies != null) {
 			company = companies.get(0);
+
+			System.out.println(">>> ******************************************");
+			System.out.println(">>> B "+company.getName()+" -> "+company.getCnpj()+" -> "+company.getOrganizationId());
+			System.out.println(">>> ******************************************");
+
 		} else {
 			try {
-				filter = new CompanyDTO(descriptionDTO.getCnpj(), null, null);
+				filter = new CompanyDTO(null, descriptionDTO.getCnpj(), null, null, null, null);
+				
+				System.out.println(">>> ******************************************");
+				System.out.println(">>> C "+filter.getName()+" -> "+filter.getCnpj()+" -> "+filter.getOrganizationId());
+				System.out.println(">>> ******************************************");
+
 				company = companyRepository.findAll(filter, null, null).get(0);
 				if(company != null) {
 					company.setOrganizationId(descriptionDTO.getOrganizationId());
+
+					System.out.println(">>> ******************************************");
+					System.out.println(">>> D "+company.getName()+" -> "+company.getCnpj()+" -> "+company.getOrganizationId());
+					System.out.println(">>> ******************************************");
+
 					company = companyRepository.save(company);
 				}
 			} catch (Exception e) {	}
 		}
+		System.out.println(">>> ******************************************");
+		System.out.println(">>> E "+company.getName()+" -> "+company.getCnpj()+" -> "+company.getOrganizationId() +" -> "+ company.getScriptType());
+		System.out.println(">>> ******************************************");
+
 		if (company.getScriptType() == null) {
+			
+			
 			// cria tipo roteiro padrao
 			// gravar fk na company
 		}
