@@ -20,7 +20,7 @@ public class CompanyDTO implements Serializable{
 	private String cnpj;
 	private String name;
 	private Integer sector;
-	private BigInteger organizationId;
+	private String organizationId;
 	private BigInteger ScriptType;
 	
 	

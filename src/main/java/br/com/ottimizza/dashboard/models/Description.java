@@ -32,7 +32,7 @@ public class Description implements Serializable{
     private BigInteger id;
 	
 	@Column(nullable = false)
-	private BigInteger organizationId;
+	private String organizationId;
 	
 	@Column(nullable = false)
     private String kpiAlias;

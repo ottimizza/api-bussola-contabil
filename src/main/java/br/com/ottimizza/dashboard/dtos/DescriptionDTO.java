@@ -19,7 +19,7 @@ public class DescriptionDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	private BigInteger id;
-	private BigInteger organizationId;
+	private String organizationId;
 	private String kpiAlias;
     private String cnpj;
     private String description;

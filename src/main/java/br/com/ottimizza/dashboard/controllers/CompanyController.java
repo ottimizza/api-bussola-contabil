@@ -61,7 +61,7 @@ public class CompanyController {
 			System.out.println("*************************");
 			System.out.println("* "+response.getCnpj()+" -> "+response.getName()+" -> "+response.getOrganizationId());
 			System.out.println("*************************");
-			company.setOrganizationId(response.getOrganizationId());
+			company.setAccountingId(response.getOrganizationId());
 			return ResponseEntity.ok(service.save(company));
     	}
     	return ResponseEntity.badRequest().build();
