@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.ottimizza.dashboard.client.OAuthClient;
 import br.com.ottimizza.dashboard.dtos.CompanyDTO;
+import br.com.ottimizza.dashboard.dtos.OrganizationDTO;
 import br.com.ottimizza.dashboard.dtos.UserDTO;
 import br.com.ottimizza.dashboard.models.Company;
 import br.com.ottimizza.dashboard.models.users.User;
@@ -33,6 +34,7 @@ import br.com.ottimizza.dashboard.services.CompanyService;
 import br.com.ottimizza.dashboard.services.SalesForceService;
 import br.com.ottimizza.dashboard.services.UserService;
 import br.com.ottimizza.dashboard.utils.StringUtil;
+import javassist.NotFoundException;
 
 @RestController
 @RequestMapping("/company")
@@ -48,8 +50,22 @@ public class CompanyController {
 	OAuthClient oauthClient;
 	
     @PostMapping("save")
-    public ResponseEntity<Company> saveCompany(@RequestBody Company company) throws Exception {
-    	return ResponseEntity.ok(service.save(company));
+    public ResponseEntity<Company> saveCompany(@RequestBody Company company,  @RequestHeader String authorization) throws Exception {
+    	OrganizationDTO filter = new OrganizationDTO();
+    	filter.setCnpj(company.getCnpj());
+    	List<OrganizationDTO>dtos = service.findOrganizationInfo(authorization, filter);
+    	OrganizationDTO response = new OrganizationDTO();
+    	
+    	if(dtos.size() > 0)	{
+    		response = dtos.get(0);
+			System.out.println("*************************");
+			System.out.println("* "+response.getCnpj()+" -> "+response.getName()+" -> "+response.getOrganizationId());
+			System.out.println("*************************");
+			company.setOrganizationId(response.getOrganizationId());
+			return ResponseEntity.ok(service.save(company));
+    	}
+    	return ResponseEntity.badRequest().build();
+    	
     }
     
     @GetMapping("find/{id}")

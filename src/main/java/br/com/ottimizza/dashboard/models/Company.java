@@ -39,7 +39,7 @@ public class Company implements Serializable {
     private Integer sector;
 
     @Column(name = "fk_organization_id")
-    private String organizationId;
+    private BigInteger organizationId;
     
     @Column(name = "fk_Script_Type")
     private BigInteger ScriptType;
