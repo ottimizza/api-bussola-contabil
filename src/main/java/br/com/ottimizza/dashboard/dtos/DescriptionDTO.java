@@ -21,6 +21,7 @@ public class DescriptionDTO implements Serializable {
 	private BigInteger id;
 	private String organizationId;
 	private String kpiAlias;
+    private String cnpj;
     private String description;
 
     public static DescriptionDTO descriptionToDto(Description description) {

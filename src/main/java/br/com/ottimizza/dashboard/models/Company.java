@@ -37,5 +37,11 @@ public class Company implements Serializable {
     
     @Column(name = "sector", nullable = true)
     private Integer sector;
+
+    @Column(name = "fk_organization_id")
+    private String organizationId;
+    
+    @Column(name = "fk_Script_Type")
+    private BigInteger ScriptType;
     
 }

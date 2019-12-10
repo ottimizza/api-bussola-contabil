@@ -8,8 +8,11 @@ import javax.inject.Inject;
 import org.json.JSONObject;
 import org.springframework.stereotype.Service;
 
+import br.com.ottimizza.dashboard.dtos.CompanyDTO;
 import br.com.ottimizza.dashboard.dtos.DescriptionDTO;
+import br.com.ottimizza.dashboard.models.Company;
 import br.com.ottimizza.dashboard.models.Description;
+import br.com.ottimizza.dashboard.repositories.company.CompanyRepository;
 import br.com.ottimizza.dashboard.repositories.description.DescriptionRepository;
 
 @Service
@@ -17,8 +20,33 @@ public class DescriptionService {
 	
 	@Inject
 	DescriptionRepository repository;
+
+	@Inject
+	CompanyRepository companyRepository;
 	
 	public DescriptionDTO save(DescriptionDTO descriptionDTO) throws Exception {
+		CompanyDTO filter = new CompanyDTO(null, null, null, null, descriptionDTO.getOrganizationId(), null);
+		Company company = new Company();
+		List<Company> companies = companyRepository.findAll(filter, null, null);
+
+		if(!companies.isEmpty()) {
+			company = companies.get(0);
+
+		} else {
+			try {
+				filter = new CompanyDTO(null, descriptionDTO.getCnpj(), null, null, null, null);
+				company = companyRepository.findAll(filter, null, null).get(0);
+				if(company != null) {
+					company.setOrganizationId(descriptionDTO.getOrganizationId());
+					company = companyRepository.save(company);
+				}
+			} catch (Exception e) {	}
+		}
+		if (company.getScriptType() == null) {
+			// cria tipo roteiro padrao
+			// gravar fk na company
+		}
+			
 		Description description = DescriptionDTO.dtoToDescription(descriptionDTO);
 		return DescriptionDTO.descriptionToDto(repository.save(description));
 	}
