@@ -138,27 +138,17 @@ public class CompanyService {
 	
 	public List<OrganizationDTO> findOrganizationInfo(String authorization, OrganizationDTO filter) throws Exception {
 		String cnpj = StringUtils.leftPad(filter.getCnpj().replaceAll("\\D", ""), 14, "0");
-		HttpEntity<GenericResponse<OrganizationDTO>> teste = oauthCliente.getOrganizationInfo(authorization, cnpj);
-		System.out.println("TOKEN:" + authorization);
-		System.out.println("CNPJ:" + cnpj);
-		
-		for (OrganizationDTO organizationDTO : teste.getBody().getRecords()) {
-			System.out.println("ORGANIZATION: " + organizationDTO.getName());
-		}
-		
-
-		
+//		HttpEntity<GenericResponse<OrganizationDTO>> teste = oauthCliente.getOrganizationInfo(authorization, cnpj);
 //		System.out.println("**************************");
 //		System.out.println("A1 >>> "+teste.getBody().toString());
 		
+		List<OrganizationDTO> dtos = oauthCliente.getOrganizationInfo(authorization, cnpj).getBody().getRecords();
+		System.out.println("**************************");
+		System.out.println("B1 >>> "+cnpj);
+		System.out.println("B2 >>> "+dtos.size());
+		System.out.println("**************************");
 		
-//		List<OrganizationDTO> dtos = oauthCliente.getOrganizationInfo(authorization, cnpj).getBody().getRecords();
-//		System.out.println("**************************");
-//		System.out.println("B1 >>> "+cnpj);
-//		System.out.println("B2 >>> "+dtos.size());
-//		System.out.println("**************************");
-//		
-		return null;
+		return dtos;
 	}
     
 }
