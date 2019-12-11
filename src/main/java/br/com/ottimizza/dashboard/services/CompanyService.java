@@ -137,7 +137,17 @@ public class CompanyService {
 	}
 	
 	public List<OrganizationDTO> findOrganizationInfo(String authorization, OrganizationDTO filter) throws Exception {
+		System.out.println(">>>***********************");
 		String cnpj = StringUtils.leftPad(filter.getCnpj().replaceAll("\\D", ""), 14, "0");
+		HttpEntity<?> busca = oauthCliente.getOrganizationInfo(authorization, cnpj);
+		System.out.println("A1 >>> "+busca.toString());
+		
+		JSONObject obj = (JSONObject) busca.getBody();
+		System.out.println("A2 >>> "+obj.toString());
+		
+		String str = obj.optString("records");
+		System.out.println("A3 >>> "+str);
+		
 		List<OrganizationDTO> dtos = oauthCliente.getOrganizationInfo(authorization, cnpj).getBody().getRecords();
 		System.out.println("**************************");
 		System.out.println("B1 >>> "+cnpj);
