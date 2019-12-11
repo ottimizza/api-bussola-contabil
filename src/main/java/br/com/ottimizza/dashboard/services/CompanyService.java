@@ -138,7 +138,7 @@ public class CompanyService {
 	
 	public List<OrganizationDTO> findOrganizationInfo(String authorization, OrganizationDTO filter) throws Exception {
 		String cnpj = StringUtils.leftPad(filter.getCnpj().replaceAll("\\D", ""), 14, "0");
-		HttpEntity<GenericResponse<List<OrganizationDTO>>> teste = oauthCliente.getOrganizationInfo(authorization, cnpj);
+		HttpEntity<GenericResponse<OrganizationDTO>> teste = oauthCliente.getOrganizationInfo(authorization, cnpj);
 		System.out.println("TOKEN:" + authorization);
 		System.out.println("CNPJ:" + cnpj);
 		
