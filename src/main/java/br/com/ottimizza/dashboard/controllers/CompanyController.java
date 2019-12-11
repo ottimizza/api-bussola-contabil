@@ -55,7 +55,10 @@ public class CompanyController {
     	filter.setCnpj(company.getCnpj());
     	List<OrganizationDTO>dtos = service.findOrganizationInfo(authorization, filter);
     	OrganizationDTO response = new OrganizationDTO();
-    	
+    	System.out.println("*************************");
+		System.out.println("* "+dtos.size());
+		System.out.println("*************************");
+		
     	if(dtos.size() > 0)	{
     		response = dtos.get(0);
 			System.out.println("*************************");
