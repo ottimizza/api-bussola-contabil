@@ -141,7 +141,7 @@ public class CompanyService {
 		HttpEntity<GenericResponse<OrganizationDTO>> teste = oauthCliente.getOrganizationInfo(authorization, cnpj);
 		
 		System.out.println("**************************");
-		System.out.println("A1 >>> "+teste.toString());
+		System.out.println("A1 >>> "+teste.getBody().toString());
 		
 		
 		List<OrganizationDTO> dtos = oauthCliente.getOrganizationInfo(authorization, cnpj).getBody().getRecords();
