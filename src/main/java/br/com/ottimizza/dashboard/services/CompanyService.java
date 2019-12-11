@@ -142,7 +142,10 @@ public class CompanyService {
 		System.out.println("TOKEN:" + authorization);
 		System.out.println("CNPJ:" + cnpj);
 		
-		System.out.println("BODY:" + teste.getBody().getRecords().toString());
+		for (OrganizationDTO organizationDTO : teste.getBody().getRecords()) {
+			System.out.println("ORGANIZATION: " + organizationDTO.getName());
+		}
+		
 
 		
 //		System.out.println("**************************");
