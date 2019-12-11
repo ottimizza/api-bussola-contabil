@@ -19,6 +19,6 @@ public interface OAuthClient {
 	HttpEntity<GenericResponse<UserDTO>> getUserInfo(@RequestHeader("Authorization") String authorization);
 	
 	@GetMapping("/api/v1/organizations")
-	HttpEntity<GenericResponse<String>> getOrganizationInfo(@RequestHeader("Authorization") String authorization, @RequestParam String cnpj);
+	HttpEntity<GenericResponse<String>> getOrganizationInfo(@RequestHeader("Authorization") String authorization, @RequestParam(name = "cnpj") String cnpj);
 	
 }
