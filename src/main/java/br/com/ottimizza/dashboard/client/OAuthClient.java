@@ -1,5 +1,7 @@
 package br.com.ottimizza.dashboard.client;
 
+import java.util.List;
+
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.HttpEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,6 +19,6 @@ public interface OAuthClient {
 	HttpEntity<GenericResponse<UserDTO>> getUserInfo(@RequestHeader("Authorization") String authorization);
 	
 	@GetMapping("/api/v1/organizations")
-	HttpEntity<GenericResponse<OrganizationDTO>> getOrganizationInfo(@RequestHeader("Authorization") String authorization, @RequestParam String cnpj);
+	HttpEntity<GenericResponse<List<OrganizationDTO>>> getOrganizationInfo(@RequestHeader("Authorization") String authorization, @RequestParam String cnpj);
 	
 }
