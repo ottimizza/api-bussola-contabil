@@ -27,11 +27,13 @@ import org.springframework.web.bind.annotation.RestController;
 import br.com.ottimizza.dashboard.client.OAuthClient;
 import br.com.ottimizza.dashboard.dtos.CompanyDTO;
 import br.com.ottimizza.dashboard.dtos.OrganizationDTO;
+import br.com.ottimizza.dashboard.dtos.ScriptTypeDTO;
 import br.com.ottimizza.dashboard.dtos.UserDTO;
 import br.com.ottimizza.dashboard.models.Company;
 import br.com.ottimizza.dashboard.models.users.User;
 import br.com.ottimizza.dashboard.services.CompanyService;
 import br.com.ottimizza.dashboard.services.SalesForceService;
+import br.com.ottimizza.dashboard.services.ScriptTypeService;
 import br.com.ottimizza.dashboard.services.UserService;
 import br.com.ottimizza.dashboard.utils.StringUtil;
 import javassist.NotFoundException;
@@ -46,6 +48,9 @@ public class CompanyController {
     @Inject
     UserService userService;
 
+    @Inject
+    ScriptTypeService scriptTypeService;
+    
 	@Inject
 	OAuthClient oauthClient;
 	
@@ -53,18 +58,19 @@ public class CompanyController {
     public ResponseEntity<Company> saveCompany(@RequestBody Company company,  @RequestHeader String authorization) throws Exception {
     	OrganizationDTO filter = new OrganizationDTO();
     	filter.setCnpj(company.getCnpj());
-    	List<OrganizationDTO>dtos = service.findOrganizationInfo(authorization, filter);
-    	OrganizationDTO response = new OrganizationDTO();
-    	System.out.println("*************************");
-		System.out.println("* C "+dtos.size());
-		System.out.println("*************************");
+    	List<OrganizationDTO>orgDtos = service.findOrganizationInfo(authorization, filter);
+//    	OrganizationDTO response = new OrganizationDTO();
 		
-    	if(dtos.size() > 0)	{
-    		response = dtos.get(0);
-			System.out.println("*************************");
-			System.out.println("* D "+response.getCnpj()+" -> "+response.getName()+" -> "+response.getOrganizationId());
-			System.out.println("*************************");
+    	if(orgDtos.size() > 0)	{
+    		OrganizationDTO response = orgDtos.get(0);
 			company.setAccountingId(response.getOrganizationId());
+			
+//			ScriptTypeDTO scriptDto = new ScriptTypeDTO(null, response.getOrganizationId(), null);
+			List<ScriptTypeDTO> scripts = scriptTypeService.findAll(new ScriptTypeDTO(null, response.getOrganizationId(), null));
+			if(scripts.size() == 0) {
+//				scriptDto.setDescription("default");
+				company.setScriptType(scriptTypeService.save(new ScriptTypeDTO(null, response.getOrganizationId(), "default")).getId());
+			}
 			return ResponseEntity.ok(service.save(company));
     	}
     	return ResponseEntity.badRequest().build();
