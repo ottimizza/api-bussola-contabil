@@ -64,9 +64,18 @@ public class CompanyController {
     	if(orgDtos.size() > 0)	{
     		OrganizationDTO response = orgDtos.get(0);
 			company.setAccountingId(response.getOrganizationId());
+
 			
+			System.out.println("**********************");
+			System.out.println("** C "+System.currentTimeMillis());
+			System.out.println("** D "+response.toString());
+			System.out.println("**********************");
+
 //			ScriptTypeDTO scriptDto = new ScriptTypeDTO(null, response.getOrganizationId(), null);
 			List<ScriptTypeDTO> scripts = scriptTypeService.findAll(new ScriptTypeDTO(null, response.getOrganizationId(), null));
+			System.out.println("**********************");
+			System.out.println("** A "+scripts.size()+" -- "+System.currentTimeMillis());
+			System.out.println("**********************");
 			if(scripts.size() == 0) {
 //				scriptDto.setDescription("default");
 				company.setScriptType(scriptTypeService.save(new ScriptTypeDTO(null, response.getOrganizationId(), "default")).getId());
