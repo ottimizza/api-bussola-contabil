@@ -30,13 +30,11 @@ import br.com.ottimizza.dashboard.dtos.OrganizationDTO;
 import br.com.ottimizza.dashboard.dtos.ScriptTypeDTO;
 import br.com.ottimizza.dashboard.dtos.UserDTO;
 import br.com.ottimizza.dashboard.models.Company;
-import br.com.ottimizza.dashboard.models.users.User;
 import br.com.ottimizza.dashboard.services.CompanyService;
 import br.com.ottimizza.dashboard.services.SalesForceService;
 import br.com.ottimizza.dashboard.services.ScriptTypeService;
 import br.com.ottimizza.dashboard.services.UserService;
 import br.com.ottimizza.dashboard.utils.StringUtil;
-import javassist.NotFoundException;
 
 @RestController
 @RequestMapping("/company")
@@ -64,10 +62,12 @@ public class CompanyController {
     		OrganizationDTO response = orgDtos.get(0);
 			company.setAccountingId(response.getOrganizationId());
 
-//			List<ScriptTypeDTO> scripts = scriptTypeService.findAll(new ScriptTypeDTO(null, response.getOrganizationId(), null));
-//			if(scripts.size() == 0) {
+			List<ScriptTypeDTO> scripts = scriptTypeService.findAll(new ScriptTypeDTO(null, response.getOrganizationId(), null));
+			if(scripts.size() == 0) {
 				company.setScriptType(scriptTypeService.save(new ScriptTypeDTO(null, response.getOrganizationId(), "default")).getId());
-//			}
+			}else if(scripts.size() == 1) {
+				company.setScriptType(scripts.get(0).getId());
+			}
 			return ResponseEntity.ok(service.save(company));
     	}
     	return ResponseEntity.badRequest().build();

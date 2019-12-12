@@ -1,7 +1,5 @@
 package br.com.ottimizza.dashboard.client;
 
-import java.util.List;
-
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.HttpEntity;
 import org.springframework.web.bind.annotation.GetMapping;

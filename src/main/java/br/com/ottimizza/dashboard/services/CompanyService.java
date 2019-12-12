@@ -10,14 +10,12 @@ import javax.persistence.NoResultException;
 
 import org.apache.commons.lang3.StringUtils;
 import org.json.JSONObject;
-import org.springframework.http.HttpEntity;
 import org.springframework.stereotype.Service;
 
 import br.com.ottimizza.dashboard.client.OAuthClient;
 import br.com.ottimizza.dashboard.dtos.CompanyDTO;
 import br.com.ottimizza.dashboard.dtos.OrganizationDTO;
 import br.com.ottimizza.dashboard.dtos.UserDTO;
-import br.com.ottimizza.dashboard.dtos.responses.GenericResponse;
 import br.com.ottimizza.dashboard.models.Company;
 import br.com.ottimizza.dashboard.models.Kpi;
 import br.com.ottimizza.dashboard.models.KpiDetail;
@@ -25,7 +23,6 @@ import br.com.ottimizza.dashboard.repositories.company.CompanyRepository;
 import br.com.ottimizza.dashboard.repositories.kpi.KpiRepository;
 import br.com.ottimizza.dashboard.repositories.kpi_detail.KpiDetailRepository;
 import br.com.ottimizza.dashboard.utils.StringUtil;
-import javassist.NotFoundException;
 
 @Service
 public class CompanyService {
@@ -138,16 +135,7 @@ public class CompanyService {
 	
 	public List<OrganizationDTO> findOrganizationInfo(String authorization, OrganizationDTO filter) throws Exception {
 		String cnpj = StringUtils.leftPad(filter.getCnpj().replaceAll("\\D", ""), 14, "0");
-//		HttpEntity<GenericResponse<OrganizationDTO>> teste = oauthCliente.getOrganizationInfo(authorization, cnpj);
-//		System.out.println("**************************");
-//		System.out.println("A1 >>> "+teste.getBody().toString());
-		
 		List<OrganizationDTO> dtos = oauthCliente.getOrganizationInfo(authorization, cnpj).getBody().getRecords();
-		System.out.println("**************************");
-		System.out.println("B1 >>> "+cnpj);
-		System.out.println("B2 >>> "+dtos.size());
-		System.out.println("**************************");
-		
 		return dtos;
 	}
     
