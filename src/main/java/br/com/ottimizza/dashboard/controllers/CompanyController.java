@@ -65,7 +65,7 @@ public class CompanyController {
 			List<ScriptTypeDTO> scripts = scriptTypeService.findAll(new ScriptTypeDTO(null, response.getOrganizationId(), null));
 			if(scripts.size() == 0) {
 				company.setScriptType(scriptTypeService.save(new ScriptTypeDTO(null, response.getOrganizationId(), "default")).getId());
-			}else if(scripts.size() == 1) {
+			}else if(scripts.size() > 1) {
 				company.setScriptType(scripts.get(0).getId());
 			}
 			return ResponseEntity.ok(service.save(company));
