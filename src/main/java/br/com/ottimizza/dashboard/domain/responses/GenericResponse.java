@@ -1,4 +1,4 @@
-package br.com.ottimizza.dashboard.dtos.responses;
+package br.com.ottimizza.dashboard.domain.responses;
 
 import java.io.Serializable;
 import java.util.List;

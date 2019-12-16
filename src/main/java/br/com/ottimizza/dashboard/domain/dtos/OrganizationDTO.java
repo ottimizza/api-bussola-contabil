@@ -1,4 +1,4 @@
-package br.com.ottimizza.dashboard.dtos;
+package br.com.ottimizza.dashboard.domain.dtos;
 
 import java.io.Serializable;
 import java.math.BigInteger;

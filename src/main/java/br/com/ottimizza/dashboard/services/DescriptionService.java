@@ -8,8 +8,8 @@ import javax.inject.Inject;
 import org.json.JSONObject;
 import org.springframework.stereotype.Service;
 
-import br.com.ottimizza.dashboard.dtos.CompanyDTO;
-import br.com.ottimizza.dashboard.dtos.DescriptionDTO;
+import br.com.ottimizza.dashboard.domain.dtos.CompanyDTO;
+import br.com.ottimizza.dashboard.domain.dtos.DescriptionDTO;
 import br.com.ottimizza.dashboard.models.Company;
 import br.com.ottimizza.dashboard.models.Description;
 import br.com.ottimizza.dashboard.repositories.company.CompanyRepository;

@@ -11,8 +11,8 @@ import org.springframework.stereotype.Repository;
 import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQuery;
 
-import br.com.ottimizza.dashboard.dtos.UserDTO;
-import br.com.ottimizza.dashboard.dtos.VariableDTO;
+import br.com.ottimizza.dashboard.domain.dtos.UserDTO;
+import br.com.ottimizza.dashboard.domain.dtos.VariableDTO;
 import br.com.ottimizza.dashboard.models.QOrganizationVariable;
 import br.com.ottimizza.dashboard.models.QVariable;
 

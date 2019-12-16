@@ -13,9 +13,9 @@ import org.json.JSONObject;
 import org.springframework.stereotype.Service;
 
 import br.com.ottimizza.dashboard.client.OAuthClient;
-import br.com.ottimizza.dashboard.dtos.CompanyDTO;
-import br.com.ottimizza.dashboard.dtos.OrganizationDTO;
-import br.com.ottimizza.dashboard.dtos.UserDTO;
+import br.com.ottimizza.dashboard.domain.dtos.CompanyDTO;
+import br.com.ottimizza.dashboard.domain.dtos.OrganizationDTO;
+import br.com.ottimizza.dashboard.domain.dtos.UserDTO;
 import br.com.ottimizza.dashboard.models.Company;
 import br.com.ottimizza.dashboard.models.Kpi;
 import br.com.ottimizza.dashboard.models.KpiDetail;

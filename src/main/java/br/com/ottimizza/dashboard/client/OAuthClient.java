@@ -6,9 +6,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import br.com.ottimizza.dashboard.dtos.OrganizationDTO;
-import br.com.ottimizza.dashboard.dtos.UserDTO;
-import br.com.ottimizza.dashboard.dtos.responses.GenericResponse;
+import br.com.ottimizza.dashboard.domain.dtos.OrganizationDTO;
+import br.com.ottimizza.dashboard.domain.dtos.UserDTO;
+import br.com.ottimizza.dashboard.domain.responses.GenericResponse;
 
 @FeignClient(name = "OAuthClient", url = "${oauth2-config.oauth2-server-url}")
 public interface OAuthClient {
