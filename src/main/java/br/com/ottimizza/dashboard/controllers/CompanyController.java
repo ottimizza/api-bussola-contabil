@@ -42,7 +42,7 @@ public class CompanyController {
 
     @Inject
     CompanyService service;
- 
+    
     @Inject
     UserService userService;
 
@@ -53,21 +53,45 @@ public class CompanyController {
 	OAuthClient oauthClient;
 	
     @PostMapping("save")
-    public ResponseEntity<Company> saveCompany(@RequestBody Company company,  @RequestHeader String authorization) throws Exception {
+    public ResponseEntity<Company> saveCompany(@RequestBody CompanyDTO companyDto,  @RequestHeader String authorization) throws Exception {
     	OrganizationDTO filter = new OrganizationDTO();
+    	
+    	Company company = CompanyDTO.dtoToEntity(companyDto);
+    	
     	filter.setCnpj(company.getCnpj());
-    	List<OrganizationDTO>orgDtos = service.findOrganizationInfo(authorization, filter);
+    	List<OrganizationDTO> orgDtos = service.findOrganizationInfo(authorization, filter);
 		
     	if(orgDtos.size() > 0)	{
     		OrganizationDTO response = orgDtos.get(0);
-			company.setAccountingId(response.getOrganizationId());
+    		
+			BigInteger idContabilidade = response.getOrganizationId();
+			
+			company.setAccountingId(idContabilidade);
 
-			List<ScriptTypeDTO> scripts = scriptTypeService.findAll(new ScriptTypeDTO(null, response.getOrganizationId(), null));
-			if(scripts.size() == 0) {
-				company.setScriptType(scriptTypeService.save(new ScriptTypeDTO(null, response.getOrganizationId(), "default")).getId());
-			}else if(scripts.size() > 1) {
-				company.setScriptType(scripts.get(0).getId());
+			List<ScriptTypeDTO> scripts = scriptTypeService.findAll(new ScriptTypeDTO(null, idContabilidade, null));
+
+			if(companyDto.getScriptDescription() == null) {
+				if(scripts.size() == 0) {
+					company.setScriptType(scriptTypeService.save(new ScriptTypeDTO(null, idContabilidade, "default")).getId());
+				} else if(scripts.size() == 1) {
+					company.setScriptType(scripts.get(0).getId());
+				} else if(scripts.size() > 1) {
+					company.setScriptType(scripts.get(0).getId());
+				}
 			}
+			if(companyDto.getScriptDescription() != null) {
+				if(scripts.size() == 0) {
+					company.setScriptType(scriptTypeService.save(new ScriptTypeDTO(null, idContabilidade, companyDto.getScriptDescription())).getId());
+//				}else if(scripts.size() > 0) {
+//					List<ScriptTypeDTO> scripts2 = scriptTypeService.findAll(new ScriptTypeDTO(null, null, companyDto.getScriptDescription()));
+//					if (scripts2.size() == 0){
+//						company.setScriptType(scriptTypeService.save(new ScriptTypeDTO(null, idContabilidade, companyDto.getScriptDescription())).getId());
+//					}else {
+//						company.setScriptType(scripts2.get(0).getId());
+//					}
+				}
+			}
+			
 			return ResponseEntity.ok(service.save(company));
     	}
     	return ResponseEntity.badRequest().build();

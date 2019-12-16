@@ -47,6 +47,6 @@ public class Company implements Serializable {
     private BigInteger accountingId;
     
     @Column(name = "fk_Script_Type")
-    private BigInteger ScriptType;
+    private BigInteger scriptType;
     
 }

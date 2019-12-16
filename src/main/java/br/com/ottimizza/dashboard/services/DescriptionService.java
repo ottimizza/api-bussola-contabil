@@ -25,7 +25,7 @@ public class DescriptionService {
 	CompanyRepository companyRepository;
 	
 	public DescriptionDTO save(DescriptionDTO descriptionDTO) throws Exception {
-		CompanyDTO filter = new CompanyDTO(null, null, null, null, descriptionDTO.getOrganizationId(), null);
+		CompanyDTO filter = new CompanyDTO(null, null, null, null, descriptionDTO.getOrganizationId(), null, null, null);
 		Company company = new Company();
 		List<Company> companies = companyRepository.findAll(filter, null, null);
 
@@ -34,7 +34,7 @@ public class DescriptionService {
 
 		} else {
 			try {
-				filter = new CompanyDTO(null, descriptionDTO.getCnpj(), null, null, null, null);
+				filter = new CompanyDTO(null, descriptionDTO.getCnpj(), null, null, null, null, null, null);
 				company = companyRepository.findAll(filter, null, null).get(0);
 				if(company != null) {
 					company.setOrganizationId(descriptionDTO.getOrganizationId());
