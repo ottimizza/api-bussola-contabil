@@ -5,8 +5,6 @@ import java.math.BigInteger;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import javax.persistence.Column;
-
 import br.com.ottimizza.dashboard.models.Company;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
