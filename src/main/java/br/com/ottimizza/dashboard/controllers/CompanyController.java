@@ -104,8 +104,8 @@ public class CompanyController {
 				}else {
 					System.out.println("F2 >>> ");
 
-					List<ScriptTypeDTO> scripts2 = scriptTypeService.findAll(new ScriptTypeDTO(null, null, companyDto.getScriptDescription()));
-					company.setScriptType(scripts2.get(0).getId());
+//					List<ScriptTypeDTO> scripts2 = scriptTypeService.findAll(new ScriptTypeDTO(null, null, companyDto.getScriptDescription()));
+					company.setScriptType(scripts.get(0).getId());
 				}
 //				}
 			}
