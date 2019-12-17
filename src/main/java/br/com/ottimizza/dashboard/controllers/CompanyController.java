@@ -54,37 +54,30 @@ public class CompanyController {
 	
     @PostMapping("save")
     public ResponseEntity<Company> saveCompany(@RequestBody CompanyDTO companyDto,  @RequestHeader String authorization) throws Exception {
-    	OrganizationDTO filter = new OrganizationDTO();
+    	OrganizationDTO organizationDto = new OrganizationDTO();
     	
     	Company company = CompanyDTO.dtoToEntity(companyDto);
     	
     	
-    	filter.setCnpj(company.getCnpj());
-    	List<OrganizationDTO> orgDtos = service.findOrganizationInfo(authorization, filter);
-    	System.out.println("A >>> "+orgDtos.size());
+    	organizationDto.setCnpj(company.getCnpj());
+    	List<OrganizationDTO> orgDtos = service.findOrganizationInfo(authorization, organizationDto);
     	if(orgDtos.size() > 0)	{
     		OrganizationDTO response = orgDtos.get(0);
-    		System.out.println("B >>> "+response.getName()+" -- "+response.getOrganizationId());
 			
     		BigInteger idContabilidade = response.getOrganizationId();
 			company.setAccountingId(idContabilidade);
-
+			
+//			mover toda essa parte pro ScriptTypeService
+//			companyDto = scriptTypeService.trataRoteiroParaEmpresa(companyDto, authorization);
+			
 			List<ScriptTypeDTO> scripts = scriptTypeService.findAll(new ScriptTypeDTO(null, idContabilidade, null));
 
 			if(companyDto.getScriptDescription() == null) {
-	    		System.out.println("E >>> ");
-
 				if(scripts.size() == 0) {
-					System.out.println("E1 >>> ");
-
 					company.setScriptType(scriptTypeService.save(new ScriptTypeDTO(null, idContabilidade, "padrao")).getId());
 				} else if(scripts.size() == 1) {
-					System.out.println("E2 >>> ");
-
 					company.setScriptType(scripts.get(0).getId());
 				} else if(scripts.size() > 1) {
-					System.out.println("E3 >>> ");
-
 					company.setScriptType(scripts.get(0).getId());
 				}
 			}
