@@ -6,7 +6,7 @@ import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-import br.com.ottimizza.dashboard.dtos.BalanceDTO;
+import br.com.ottimizza.dashboard.domain.dtos.BalanceDTO;
 import br.com.ottimizza.dashboard.models.Balance;
 
 public interface BalanceRepositoryCustom {

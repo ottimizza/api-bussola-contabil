@@ -10,7 +10,7 @@ import javax.persistence.NoResultException;
 import org.json.JSONObject;
 import org.springframework.stereotype.Service;
 
-import br.com.ottimizza.dashboard.dtos.KpiTitleAndValueDTO;
+import br.com.ottimizza.dashboard.domain.dtos.KpiTitleAndValueDTO;
 import br.com.ottimizza.dashboard.models.Company;
 import br.com.ottimizza.dashboard.models.Kpi;
 import br.com.ottimizza.dashboard.models.KpiShort;

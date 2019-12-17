@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.querydsl.jpa.impl.JPAQuery;
 
-import br.com.ottimizza.dashboard.dtos.CompanyDTO;
+import br.com.ottimizza.dashboard.domain.dtos.CompanyDTO;
 import br.com.ottimizza.dashboard.models.Company;
 import br.com.ottimizza.dashboard.models.QCompany;
 
@@ -39,7 +39,7 @@ public class CompanyRepositoryImpl implements CompanyRepositoryCustom {
         if(filter.getName() != null)	query.where(company.name.eq(filter.getName()));
         if(filter.getSector() != null)	query.where(company.sector.eq(filter.getSector()));
         if(filter.getOrganizationId() != null)	query.where(company.organizationId.eq(filter.getOrganizationId()));
-        if(filter.getScriptType() != null)		query.where(company.ScriptType.eq(filter.getScriptType()));
+        if(filter.getScriptType() != null)		query.where(company.scriptType.eq(filter.getScriptType()));
         
         if (pageSize != null && pageSize > 0) {
             query.limit(pageSize);

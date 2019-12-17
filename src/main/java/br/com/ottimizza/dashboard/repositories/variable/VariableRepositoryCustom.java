@@ -3,7 +3,7 @@ package br.com.ottimizza.dashboard.repositories.variable;
 import java.math.BigInteger;
 import java.util.List;
 
-import br.com.ottimizza.dashboard.dtos.UserDTO;
+import br.com.ottimizza.dashboard.domain.dtos.UserDTO;
 import br.com.ottimizza.dashboard.models.Variable;
 
 public interface VariableRepositoryCustom {

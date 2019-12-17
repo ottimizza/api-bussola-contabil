@@ -1,4 +1,4 @@
-package br.com.ottimizza.dashboard.dtos;
+package br.com.ottimizza.dashboard.domain.dtos;
 
 import java.math.BigInteger;
 import java.util.List;

@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.querydsl.jpa.impl.JPAQuery;
 
-import br.com.ottimizza.dashboard.dtos.AnnotationDTO;
+import br.com.ottimizza.dashboard.domain.dtos.AnnotationDTO;
 import br.com.ottimizza.dashboard.models.Annotation;
 import br.com.ottimizza.dashboard.models.QAnnotation;
 

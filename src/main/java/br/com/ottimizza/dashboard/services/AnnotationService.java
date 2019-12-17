@@ -9,7 +9,7 @@ import javax.inject.Inject;
 import org.json.JSONObject;
 import org.springframework.stereotype.Service;
 
-import br.com.ottimizza.dashboard.dtos.AnnotationDTO;
+import br.com.ottimizza.dashboard.domain.dtos.AnnotationDTO;
 import br.com.ottimizza.dashboard.models.Annotation;
 import br.com.ottimizza.dashboard.repositories.annotation.AnnotationRepository;
 

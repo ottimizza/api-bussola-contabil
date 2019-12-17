@@ -10,8 +10,8 @@ import javax.persistence.NoResultException;
 import org.json.JSONObject;
 import org.springframework.stereotype.Service;
 
-import br.com.ottimizza.dashboard.dtos.UserDTO;
-import br.com.ottimizza.dashboard.dtos.VariableDTO;
+import br.com.ottimizza.dashboard.domain.dtos.UserDTO;
+import br.com.ottimizza.dashboard.domain.dtos.VariableDTO;
 import br.com.ottimizza.dashboard.models.OrganizationVariable;
 import br.com.ottimizza.dashboard.repositories.organizationVariable.OrganizationVariableRepository;
 import br.com.ottimizza.dashboard.repositories.variable.VariableRepository;

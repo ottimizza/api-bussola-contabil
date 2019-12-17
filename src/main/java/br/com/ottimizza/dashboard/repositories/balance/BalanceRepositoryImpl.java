@@ -12,7 +12,7 @@ import org.springframework.data.domain.Pageable;
 
 import com.querydsl.jpa.impl.JPAQuery;
 
-import br.com.ottimizza.dashboard.dtos.BalanceDTO;
+import br.com.ottimizza.dashboard.domain.dtos.BalanceDTO;
 import br.com.ottimizza.dashboard.models.Balance;
 import br.com.ottimizza.dashboard.models.QBalance;
 import br.com.ottimizza.dashboard.models.QCompany;

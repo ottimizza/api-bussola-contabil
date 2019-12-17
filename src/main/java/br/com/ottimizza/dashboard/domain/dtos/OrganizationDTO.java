@@ -1,4 +1,4 @@
-package br.com.ottimizza.dashboard.dtos;
+package br.com.ottimizza.dashboard.domain.dtos;
 
 import java.io.Serializable;
 import java.math.BigInteger;
@@ -14,14 +14,14 @@ import lombok.Setter;
 public class OrganizationDTO implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
-	BigInteger id;
-	String externalId;
-	String name;
-	Integer type;
-	String cnpj;
-	String codigoERP;
-	String email;
-	String avatar;
-	BigInteger organizationId;
+	private BigInteger id;
+	private String externalId;
+	private String name;
+	private Integer type;
+	private String cnpj;
+	private String codigoERP;
+	private String email;
+	private String avatar;
+	private BigInteger organizationId;
 
 }

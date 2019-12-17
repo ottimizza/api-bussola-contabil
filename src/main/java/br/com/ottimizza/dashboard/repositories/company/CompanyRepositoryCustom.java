@@ -1,6 +1,6 @@
 package br.com.ottimizza.dashboard.repositories.company;
 
-import br.com.ottimizza.dashboard.dtos.CompanyDTO;
+import br.com.ottimizza.dashboard.domain.dtos.CompanyDTO;
 import br.com.ottimizza.dashboard.models.Company;
 import java.util.List;
 

@@ -25,12 +25,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.ottimizza.dashboard.client.OAuthClient;
-import br.com.ottimizza.dashboard.dtos.CompanyDTO;
-import br.com.ottimizza.dashboard.dtos.UserDTO;
+import br.com.ottimizza.dashboard.domain.dtos.CompanyDTO;
+import br.com.ottimizza.dashboard.domain.dtos.OrganizationDTO;
+import br.com.ottimizza.dashboard.domain.dtos.ScriptTypeDTO;
+import br.com.ottimizza.dashboard.domain.dtos.UserDTO;
 import br.com.ottimizza.dashboard.models.Company;
-import br.com.ottimizza.dashboard.models.users.User;
 import br.com.ottimizza.dashboard.services.CompanyService;
 import br.com.ottimizza.dashboard.services.SalesForceService;
+import br.com.ottimizza.dashboard.services.ScriptTypeService;
 import br.com.ottimizza.dashboard.services.UserService;
 import br.com.ottimizza.dashboard.utils.StringUtil;
 
@@ -40,16 +42,56 @@ public class CompanyController {
 
     @Inject
     CompanyService service;
- 
+    
     @Inject
     UserService userService;
 
+    @Inject
+    ScriptTypeService scriptTypeService;
+    
 	@Inject
 	OAuthClient oauthClient;
 	
     @PostMapping("save")
-    public ResponseEntity<Company> saveCompany(@RequestBody Company company) throws Exception {
-    	return ResponseEntity.ok(service.save(company));
+    public ResponseEntity<Company> saveCompany(@RequestBody CompanyDTO companyDto,  @RequestHeader String authorization) throws Exception {
+    	OrganizationDTO organizationDto = new OrganizationDTO();
+    	
+    	Company company = CompanyDTO.dtoToEntity(companyDto);
+    	
+    	
+    	organizationDto.setCnpj(company.getCnpj());
+    	List<OrganizationDTO> orgDtos = service.findOrganizationInfo(authorization, organizationDto);
+    	if(orgDtos.size() > 0)	{
+    		OrganizationDTO response = orgDtos.get(0);
+			
+    		BigInteger idContabilidade = response.getOrganizationId();
+			company.setAccountingId(idContabilidade);
+			
+//			mover toda essa parte pro ScriptTypeService
+//			companyDto = scriptTypeService.trataRoteiroParaEmpresa(companyDto, authorization);
+			
+			List<ScriptTypeDTO> scripts = scriptTypeService.findAll(new ScriptTypeDTO(null, idContabilidade, null));
+
+			if(companyDto.getScriptDescription() == null) {
+				if(scripts.size() == 0) {
+					company.setScriptType(scriptTypeService.save(new ScriptTypeDTO(null, idContabilidade, "padrao")).getId());
+				} else if(scripts.size() == 1) {
+					company.setScriptType(scripts.get(0).getId());
+				} else if(scripts.size() > 1) {
+					company.setScriptType(scripts.get(0).getId());
+				}
+			}
+			if(companyDto.getScriptDescription() != null) {
+				if(scripts.size() == 0) {
+					company.setScriptType(scriptTypeService.save(new ScriptTypeDTO(null, idContabilidade, companyDto.getScriptDescription())).getId());
+				}else {
+					company.setScriptType(scripts.get(0).getId());
+				}
+			}
+			return ResponseEntity.ok(service.save(company));
+    	}
+    	return ResponseEntity.badRequest().build();
+    	
     }
     
     @GetMapping("find/{id}")

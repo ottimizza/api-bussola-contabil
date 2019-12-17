@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.ottimizza.dashboard.client.OAuthClient;
-import br.com.ottimizza.dashboard.dtos.BalanceDTO;
+import br.com.ottimizza.dashboard.domain.dtos.BalanceDTO;
 import br.com.ottimizza.dashboard.models.Balance;
 import br.com.ottimizza.dashboard.models.Company;
 import br.com.ottimizza.dashboard.services.BalanceService;
