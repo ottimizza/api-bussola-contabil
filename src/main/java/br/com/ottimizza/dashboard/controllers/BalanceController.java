@@ -116,7 +116,6 @@ public class BalanceController {
 	
 	@PostMapping("active")
 	public ResponseEntity<?> setNotActive(@ModelAttribute BalanceDTO filter, @RequestHeader("Authorization") String authorization) throws Exception {
-
 		return ResponseEntity.ok(service.notActive(filter, authorization));
 	}
 }
