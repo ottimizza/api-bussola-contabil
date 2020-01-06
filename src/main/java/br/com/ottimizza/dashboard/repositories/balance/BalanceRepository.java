@@ -18,9 +18,9 @@ public interface BalanceRepository extends PagingAndSortingRepository<Balance, B
 
 	Optional<Balance> findById(BigInteger id);
 	
-	@Modifying
-	@Transactional
-	@Query("UPDATE Balance SET active = false WHERE companyId = :companyId and dateBalance = :dateBalance")
-	String notActive(@Param("companyId") BigInteger companyId, @Param("dateBalance") LocalDate dateBalance , String authorization);
+//	@Modifying
+//	@Transactional
+//	@Query("UPDATE Balance b SET active = false WHERE b.companyId = :companyId and b.dateBalance = :dateBalance")
+//	void notActive(@Param("companyId") BigInteger companyId, @Param("dateBalance") LocalDate dateBalance , String authorization);
 	
 }

@@ -119,9 +119,14 @@ public class BalanceService {
 		return repository.findAll(filter, PageRequest.of(pageIndex, pageSize)).map(BalanceDTO::fromEntity);
 	}
 
-	public String notActive(BalanceDTO filter, String authorization) {
-		BigInteger companyId = companyRepository.findByCnpj(filter.getCnpj()).getId();
-		
-		return repository.notActive(companyId, filter.getDateBalance(), authorization);
-	}
+//	public boolean notActive(BalanceDTO filter, String authorization) {
+//		BigInteger companyId = companyRepository.findByCnpj(filter.getCnpj()).getId();
+//		try {
+//			repository.notActive(companyId, filter.getDateBalance(), authorization);
+//			return true;
+//		}catch (Exception e) {
+//			return false;
+//		}
+//		
+//	}
 }
