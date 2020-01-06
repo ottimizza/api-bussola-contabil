@@ -16,6 +16,7 @@ import br.com.ottimizza.dashboard.client.OAuthClient;
 import br.com.ottimizza.dashboard.domain.dtos.BalanceDTO;
 import br.com.ottimizza.dashboard.models.Balance;
 import br.com.ottimizza.dashboard.repositories.balance.BalanceRepository;
+import br.com.ottimizza.dashboard.repositories.company.CompanyRepository;
 
 @Service
 public class BalanceService {
@@ -23,8 +24,8 @@ public class BalanceService {
 	@Inject
 	private BalanceRepository repository;
 	
-//	@Inject
-//	private CompanyRepository companyRepository;
+	@Inject
+	private CompanyRepository companyRepository;
 	
 	@Inject
 	OAuthClient oauthClient;
@@ -36,10 +37,6 @@ public class BalanceService {
 	public Balance findById(BigInteger id) throws Exception{
 		return repository.findById(id).orElse(null);
 	}
-	
-//	public List<Balance> findAll() {
-//		return 	repository.findAll();
-//	}
 	
 	public JSONObject delete(BigInteger balanceId) {
 		JSONObject response = new JSONObject();
@@ -120,5 +117,11 @@ public class BalanceService {
 	public Page<BalanceDTO> findAll(BalanceDTO filter, int pageIndex, int pageSize, String authorization) {
 //		UserDTO userInfo = oauthClient.getUserInfo(authorization).getBody().getRecord();
 		return repository.findAll(filter, PageRequest.of(pageIndex, pageSize)).map(BalanceDTO::fromEntity);
+	}
+
+	public String notActive(BalanceDTO filter, String authorization) {
+		BigInteger companyId = companyRepository.findByCnpj(filter.getCnpj()).getId();
+		
+		return repository.notActive(companyId, filter.getDateBalance(), authorization);
 	}
 }

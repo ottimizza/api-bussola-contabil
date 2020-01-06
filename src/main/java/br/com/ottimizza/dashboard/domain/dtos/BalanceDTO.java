@@ -38,7 +38,7 @@ public class BalanceDTO implements Serializable{
 	private Double finalValue;
 	private Double debitValue;
 	private Double creditValue;
-
+	private boolean active;
 	
 	public Balance patch(Balance balance) {
 		if (this.syntheticId != null && !this.syntheticId.equals(""))	balance.setSyntheticId(this.syntheticId);
@@ -50,6 +50,7 @@ public class BalanceDTO implements Serializable{
 		if (this.creditValue != null)	balance.setCreditValue(this.creditValue);
 		if (this.dateBalance != null)	balance.setDateBalance(this.dateBalance);
 		if (this.companyId != null)		balance.setCompanyId(this.companyId);
+		balance.setActive(this.active);
 
 		return balance;
 	}
@@ -66,7 +67,8 @@ public class BalanceDTO implements Serializable{
 	        .withDebitValue(balance.getDebitValue())
 	        .withCreditValue(balance.getCreditValue())
 	        .withDateBalance(balance.getDateBalance())
-	        .withCompanyId(balance.getCompanyId());
+	        .withCompanyId(balance.getCompanyId())
+			.withActive(balance.isActive());
 	    // @formatter:on
 	    return dto;
 	}
@@ -118,6 +120,11 @@ public class BalanceDTO implements Serializable{
 	
 	BalanceDTO withCompanyId(BigInteger companyId) {
         this.companyId = companyId;
+        return this;
+    }
+	
+	BalanceDTO withActive(boolean active) {
+        this.active = active;
         return this;
     }
 	
