@@ -13,6 +13,6 @@ public interface CompanyRepositoryCustom {
     
     List<Company> findCompaniesByCNPJ(List<String> cnpj);
     
-//    Company findByCnpj(String cnpj);
+    Company findByCnpj(String cnpj);
 
 }

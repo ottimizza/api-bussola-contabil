@@ -10,11 +10,10 @@ import org.springframework.format.annotation.DateTimeFormat.ISO;
 
 import br.com.ottimizza.dashboard.models.Balance;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
-@Getter @Setter
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class BalanceDTO implements Serializable{

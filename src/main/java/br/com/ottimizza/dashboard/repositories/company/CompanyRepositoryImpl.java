@@ -53,11 +53,10 @@ public class CompanyRepositoryImpl implements CompanyRepositoryCustom {
         return query.orderBy(company.name.asc()).fetch();
     }
 
-//	@Override
-//	public Company findByCnpj(String cnpj) {
-//		JPAQuery<Company> query = new JPAQuery<Company>(em).from(company).where(company.cnpj.eq(cnpj));
-//		//select c from Company c where cnpj = :cnpj limit 1")
-//
-//		return null;
-//	}
+	@Override
+	public Company findByCnpj(String cnpj) {
+		JPAQuery<Company> query = new JPAQuery<Company>(em).from(company).where(company.cnpj.eq(cnpj));
+	
+		return query.fetchFirst();
+	}
 }
