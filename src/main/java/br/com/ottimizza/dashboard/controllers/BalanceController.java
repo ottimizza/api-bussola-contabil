@@ -116,10 +116,6 @@ public class BalanceController {
 	
 	@PostMapping("active")
 	public boolean setNotActive(@RequestBody BalanceDTO filter, @RequestHeader("Authorization") String authorization) throws Exception {
-		System.out.println("###********************");
-		System.out.println("### A "+filter.toString());
-		System.out.println("###********************");
-		
 		return service.notActive(filter, authorization);
 	}
 }
