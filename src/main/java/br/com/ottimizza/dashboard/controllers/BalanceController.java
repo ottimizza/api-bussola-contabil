@@ -113,5 +113,9 @@ public class BalanceController {
 						             @RequestHeader("Authorization") String authorization) throws Exception {
 		return ResponseEntity.ok(service.findAll(filter, pageIndex, pageSize, authorization));
 	}
-
+	
+	@PostMapping("inactive")
+	public ResponseEntity<String> setNotActive(@RequestBody BalanceDTO filter, @RequestHeader("Authorization") String authorization) throws Exception {
+		return ResponseEntity.ok(service.notActive(filter, authorization).toString());
+	}
 }
