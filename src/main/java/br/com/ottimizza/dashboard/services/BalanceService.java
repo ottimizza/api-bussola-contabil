@@ -25,9 +25,6 @@ public class BalanceService {
 	private BalanceRepository repository;
 	
 	@Inject
-	private CompanyRepository companyRepository;
-	
-	@Inject
 	OAuthClient oauthClient;
 	
 	public Balance save(Balance balance) throws Exception {
@@ -119,14 +116,14 @@ public class BalanceService {
 		return repository.findAll(filter, PageRequest.of(pageIndex, pageSize)).map(BalanceDTO::fromEntity);
 	}
 
-//	public boolean notActive(BalanceDTO filter, String authorization) {
-//		BigInteger companyId = companyRepository.findByCnpj(filter.getCnpj()).getId();
-//		try {
-//			repository.notActive(companyId, filter.getDateBalance(), authorization);
-//			return true;
-//		}catch (Exception e) {
-//			return false;
-//		}
-//		
-//	}
+	public boolean notActive(BalanceDTO filter, String authorization) {
+		BigInteger companyId = companyRepository.findByCnpj(filter.getCnpj()).getId();
+		try {
+			repository.notActive(companyId, filter.getDateBalance());
+			return true;
+		}catch (Exception e) {
+			return false;
+		}
+		
+	}
 }
