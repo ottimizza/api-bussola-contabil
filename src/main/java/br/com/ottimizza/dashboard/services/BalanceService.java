@@ -121,7 +121,6 @@ public class BalanceService {
 
 	public boolean notActive(BalanceDTO filter, String authorization) {
 		BigInteger companyId = companyRepository.findByCnpj(filter.getCnpj()).getId();
-		
 		try {
 			repository.notActive(companyId, filter.getDateBalance());
 			return true;
