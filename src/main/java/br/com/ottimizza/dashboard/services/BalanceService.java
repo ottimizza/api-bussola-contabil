@@ -25,6 +25,9 @@ public class BalanceService {
 	private BalanceRepository repository;
 	
 	@Inject
+	private CompanyRepository companyRepository;
+	
+	@Inject
 	OAuthClient oauthClient;
 	
 	public Balance save(Balance balance) throws Exception {
