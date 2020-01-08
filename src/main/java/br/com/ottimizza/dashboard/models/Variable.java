@@ -34,12 +34,15 @@ public class Variable implements Serializable{
 	@Column(name = "fk_organizations_id", nullable = true)
     private BigInteger accountingId;
 	
-	private String externalId;
+	@Column(length = 20)	
+	private String variableCode;	//era externalId
 	
-	private String  name;
+	@Column(length = 100)	
+	private String name;
 
 	private String  description;
 	
-	private String  accountingCode;
+	@Column(name = "fk_script_id", nullable = true)
+	private BigInteger  scriptId;	//accountingCode
 
 }
