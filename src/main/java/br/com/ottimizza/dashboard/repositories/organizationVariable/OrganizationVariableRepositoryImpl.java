@@ -32,7 +32,8 @@ public class OrganizationVariableRepositoryImpl implements OrganizationVariableR
 				.where(organizationVariable.organizationId.eq(companyId));
 		                
 		query.select(Projections.constructor(
-				VariableDTO.class, organizationVariable.id, variable.accountingId, variable.externalId, variable.name, variable.id, organizationVariable.organizationId, organizationVariable.accountingCode));
+				VariableDTO.class, organizationVariable.id, variable.accountingId, variable.variableCode, variable.name,  
+								   variable.id, organizationVariable.accountingCode, organizationVariable.organizationId));
 		
 		return query.fetch();
 	}
@@ -45,8 +46,9 @@ public class OrganizationVariableRepositoryImpl implements OrganizationVariableR
 				.where(organizationVariable.id.isNull().and(variable.accountingId.eq(userInfo.getOrganization().getId())));
 				
 		query.select(Projections.constructor(
-				VariableDTO.class, organizationVariable.id, variable.accountingId, variable.externalId, variable.name, variable.id, organizationVariable.organizationId, variable.accountingCode));
-		
+				VariableDTO.class, organizationVariable.id, variable.accountingId, variable.variableCode, variable.name, variable.id, variable.scriptId, organizationVariable.organizationId));
+//new VariableDTO(id, companyId, externalId, name, variableId, organizationId, accountingCode)
+//new VariableDTO(id, companyId, variableCode, name, variableId, scriptId, organizationId)
 		return query.fetch();
 	}
 

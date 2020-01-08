@@ -5,11 +5,10 @@ import java.math.BigInteger;
 
 import br.com.ottimizza.dashboard.models.Variable;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
-@Getter @Setter
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class VariableDTO implements Serializable{
@@ -17,25 +16,27 @@ public class VariableDTO implements Serializable{
 	private static final long serialVersionUID = 1L;
 	// from Variables
 	
-	private BigInteger id;		//empresa
+	private BigInteger id;				//empresa
 	
 	private BigInteger companyId;		//empresa
-	private String externalId;
+	private String variableCode;
 	private String  name;
 	
-	private BigInteger variableId;		//
+	private BigInteger variableId;
 
+	//from script
+	private BigInteger scriptId;
+	
 	//from organizationVariable
-	private BigInteger organizationId;	//contabilidade
-	private String  accountingCode;
+	private BigInteger accountingId;	//contabilidade  accounting
 	
 	public Variable variableDtoToVariable(VariableDTO variableDto) {
 		Variable variable = new Variable();
 
 		if(variableDto.getId() != null)				variable.setId(variableDto.getId());
-		if(variableDto.getExternalId() != null)		variable.setExternalId(variableDto.getExternalId());
+		if(variableDto.getVariableCode() != null)	variable.setVariableCode(variableDto.getVariableCode());
 		if(variableDto.getName() != null)			variable.setName(variableDto.getName());
-		if(variableDto.getAccountingCode() != null)	variable.setAccountingCode(variableDto.getAccountingCode());
+		if(variableDto.getScriptId() != null)		variable.setScriptId(variableDto.getScriptId());
 		
 		return variable;
 	}
@@ -43,10 +44,10 @@ public class VariableDTO implements Serializable{
 	public VariableDTO variableToVariableDto(Variable variable) {
 		VariableDTO variableDto = new VariableDTO();
 		
-		if(variable.getId() != null)	variableDto.setId(variable.getId());
-		if(variable.getExternalId() != null)	variableDto.setExternalId(variable.getExternalId());
-		if(variable.getName() != null)	variableDto.setName(variable.getName());
-		if(variable.getAccountingCode() != null)	variableDto.setAccountingCode(variable.getAccountingCode());
+		if(variable.getId() != null)			variableDto.setId(variable.getId());
+		if(variable.getVariableCode() != null)	variableDto.setVariableCode(variable.getVariableCode());
+		if(variable.getName() != null)			variableDto.setName(variable.getName());
+		if(variable.getScriptId() != null)		variableDto.setScriptId(variable.getScriptId());
 
 		return variableDto;
 	}
