@@ -23,6 +23,7 @@ public class VariableRepositoryImpl implements VariableRepositoryCustom {
 	QVariable variable = QVariable.variable;
 	QOrganizationVariable organizationVariable = QOrganizationVariable.organizationVariable;
 	
+	
 	@Override
 	public Variable findVariableByAccountingCode(String accountingCode, UserDTO userInfo) {
 		JPAQuery<Variable> query = new JPAQuery<Variable>(em).from(variable)

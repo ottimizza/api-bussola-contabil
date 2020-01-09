@@ -56,4 +56,7 @@ public class Balance implements Serializable{
 
 	@Column(name = "fk_company_id")
 	private BigInteger companyId;
+	
+	@Column(columnDefinition = "boolean default false")
+	private boolean active = false;
 }

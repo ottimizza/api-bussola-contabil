@@ -12,14 +12,13 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
-@Entity
-@Getter @Setter
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Entity
 @Table(name = "variables")
 public class Variable implements Serializable{
 
@@ -34,12 +33,14 @@ public class Variable implements Serializable{
 	@Column(name = "fk_organizations_id", nullable = true)
     private BigInteger accountingId;
 	
-	private String externalId;
-	
-	private String  name;
+	@Column(name = "fk_script_id")
+	private BigInteger scriptId;	
 
-	private String  description;
+	private String variableCode;	// codigo da variavel CRM ("40","41"...)
 	
-	private String  accountingCode;
+	private String name;
 
+	private String description;
+	
+	private String  accountingCode;	// contacontabil(1.1.002)
 }
