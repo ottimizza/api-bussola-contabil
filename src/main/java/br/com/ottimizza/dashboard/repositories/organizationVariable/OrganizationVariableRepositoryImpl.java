@@ -32,8 +32,8 @@ public class OrganizationVariableRepositoryImpl implements OrganizationVariableR
 				.where(organizationVariable.organizationId.eq(companyId));
 
 		query.select(Projections.constructor(
-				VariableDTO.class, organizationVariable.id, variable.accountingId, variable.variableCode, variable.name,  
-									variable.id, variable.scriptId, organizationVariable.organizationId, organizationVariable.accountingCode));
+				VariableDTO.class, organizationVariable.id, variable.accountingId, variable.variableCode, variable.name, variable.id, variable.scriptId, variable.originValue, variable.typeValue, 
+								   organizationVariable.organizationId, organizationVariable.accountingCode));
 
 		return query.fetch();
 	}
@@ -46,9 +46,10 @@ public class OrganizationVariableRepositoryImpl implements OrganizationVariableR
 				.where(organizationVariable.id.isNull().and(variable.accountingId.eq(userInfo.getOrganization().getId())));
 				
 		query.select(Projections.constructor(
-				VariableDTO.class, organizationVariable.id, variable.accountingId, variable.variableCode, variable.name, variable.id, variable.scriptId, organizationVariable.organizationId, variable.accountingCode));
+				VariableDTO.class, organizationVariable.id, variable.accountingId, variable.variableCode, variable.name, variable.id, variable.scriptId, variable.originValue, variable.typeValue, 
+								   organizationVariable.organizationId, variable.accountingCode));
 // 				VariableDTO.class, organizationVariable.id, variable.accountingId, variable.externalId, variable.name, variable.id, organizationVariable.organizationId, variable.accountingCode));
-//new VariableDTO(id, companyId, variableCode, name, variableId, scriptId, accountingId, accountingCode)		                
+//new VariableDTO(id, companyId, variableCode, name, variableId, scriptId, originValue, typeValue, accountingId, accountingCode)
 		return query.fetch();
 	}
 
