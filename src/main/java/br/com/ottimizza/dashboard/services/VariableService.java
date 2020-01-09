@@ -43,7 +43,8 @@ public class VariableService {
 				if (variable.getDescription() != null)	newVariable.setDescription(variable.getDescription());
 				if (variable.getVariableCode() != null)	newVariable.setVariableCode(variable.getVariableCode());
 				if (variable.getName() != null)			newVariable.setName(variable.getName());
-
+				if (variable.getAccountingCode() != null) newVariable.setAccountingCode(variable.getAccountingCode());
+				
 				repository.save(newVariable);
 				
 				response.put("status", "sucess");
@@ -88,12 +89,12 @@ public class VariableService {
 			
 			var.setDescription((variable.getDescription() != null) ? variable.getDescription() : "");
 			var.setScriptId((variable.getScriptId() != null) ? variable.getScriptId() : null);
-//			var.setAccountingCode((variable.getAccountingCode() != null) ? variable.getAccountingCode() : "");
+			var.setAccountingCode((variable.getAccountingCode() != null) ? variable.getAccountingCode() : "");
 
 			if(variable.getAccountingId() != null)	var.setAccountingId(variable.getAccountingId());
 			if(variable.getVariableCode() != null)	var.setVariableCode(variable.getVariableCode());
 			if(variable.getName() != null)			var.setName(variable.getName());
-//			if(variable.getScriptId() != null) var.setScriptId(variable.getScriptId());
+			if(variable.getScriptId() != null) 		var.setScriptId(variable.getScriptId());
 
 			return repository.save(var);
 		}

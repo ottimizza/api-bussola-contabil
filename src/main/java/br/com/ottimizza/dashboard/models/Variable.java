@@ -33,12 +33,14 @@ public class Variable implements Serializable{
 	@Column(name = "fk_organizations_id", nullable = true)
     private BigInteger accountingId;
 	
-	private String variableCode;
+	@Column(name = "fk_script_id")
+	private BigInteger scriptId;	
+
+	private String variableCode;	// codigo da variavel CRM ("40","41"...)
 	
 	private String name;
 
 	private String description;
 	
-	private BigInteger scriptId;
-
+	private String  accountingCode;	// contacontabil(1.1.002)
 }
