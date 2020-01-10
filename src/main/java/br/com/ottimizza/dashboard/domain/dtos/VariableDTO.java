@@ -26,6 +26,9 @@ public class VariableDTO implements Serializable{
 
 	private BigInteger scriptId;
 	
+	private String originValue;
+	private String typeValue;
+	
 	//from organizationVariable
 	private BigInteger accountingId;	//contabilidade  accounting
 	private String accountingCode;
@@ -39,6 +42,8 @@ public class VariableDTO implements Serializable{
 		if(variableDto.getName() != null)			variable.setName(variableDto.getName());
 		if(variableDto.getScriptId() != null)		variable.setScriptId(variableDto.getScriptId());
 		if(variableDto.getAccountingCode() != null)	variable.setAccountingCode(variableDto.getAccountingCode());
+		if(variableDto.getOriginValue() != null)	variable.setOriginValue(variableDto.getOriginValue());
+		if(variableDto.getTypeValue() != null)		variable.setTypeValue(variableDto.getTypeValue());
 
 		return variable;
 	}
@@ -51,6 +56,8 @@ public class VariableDTO implements Serializable{
 		if(variable.getName() != null)			variableDto.setName(variable.getName());
 		if(variable.getScriptId() != null)		variableDto.setScriptId(variable.getScriptId());
 		if(variable.getAccountingCode() != null) variableDto.setAccountingCode(variable.getAccountingCode());
+		if(variable.getOriginValue() != null)	variableDto.setOriginValue(variable.getOriginValue());
+		if(variable.getTypeValue() != null)		variableDto.setTypeValue(variable.getTypeValue());
 
 		return variableDto;
 	}
