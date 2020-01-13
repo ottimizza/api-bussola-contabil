@@ -120,6 +120,7 @@ public class KpiService {
 			Page<KpiDTO> response = repository.findAll(filter, PageRequest.of(pageIndex, pageSize)).map(KpiDTO::fromEntity); 
 			return response;
 		}catch (Exception e) {
+			e.printStackTrace();
 			return null;		
 		}
 	}

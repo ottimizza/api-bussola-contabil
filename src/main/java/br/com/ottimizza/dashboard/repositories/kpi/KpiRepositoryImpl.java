@@ -1,6 +1,7 @@
 package br.com.ottimizza.dashboard.repositories.kpi;
 
 import java.math.BigInteger;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -15,6 +16,7 @@ import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQuery;
 
 import br.com.ottimizza.dashboard.domain.dtos.KpiDTO;
+import br.com.ottimizza.dashboard.domain.dtos.KpiDetailDTO;
 import br.com.ottimizza.dashboard.domain.dtos.KpiTitleAndValueDTO;
 import br.com.ottimizza.dashboard.models.Kpi;
 import br.com.ottimizza.dashboard.models.QCompany;
@@ -64,25 +66,23 @@ public class KpiRepositoryImpl implements KpiRepositoryCustom {
 				query.where(company.cnpj.eq(StringUtil.formatCnpj(filter.getCnpj())));
 			}
 			
-			System.out.println("**** X "+filter.getKind());
+			System.out.println("**** X "+filter.getKind() + " ** "+ pageable.getPageSize());
 			
 			if(filter.getKind() != null) {
-				if(filter.getKind() == 1) {
-					System.out.println("xA == 1"+query.fetchCount());
-					query.where(kpi.kpiAlias.lt("60"));	//indicadores normais
-					System.out.println("xB == 1"+query.fetchCount());
-				}
-				if(filter.getKind() == 2) {
-					System.out.println("xC == 2");
-					query.where(kpi.kpiAlias.goe("60"));	//comparativos
-				}
+				if(filter.getKind() == 1) query.where(kpi.kpiAlias.lt("60"));	//indicadores normais
+				if(filter.getKind() == 2) query.where(kpi.kpiAlias.goe("60"));	//comparativos
 			}
 			
 			totalElements = query.fetchCount();
-			System.out.println("**** zz "+totalElements );
+			System.out.println("**** Z "+totalElements );
 			
 			query.limit(pageable.getPageSize());
 			query.offset(pageable.getPageSize() * pageable.getPageNumber());
+			
+			//query.select(Projections.constructor(KpiDTO.class, kpi.title, kpi.id, kpi.id, kpi.title, kpi.kpiAlias, kpi.id, kpi.id, kpi.chartType, kpi.chartOptions));
+			
+//			new KpiDTO(cnpj, kind, id, title, kpiAlias, labelArray, kpiDetailDTO, chartType, chartOptions)
+			
 			return new PageImpl<Kpi>(query.fetch(), pageable, totalElements);
 		}catch (Exception e) {
 			return null;
