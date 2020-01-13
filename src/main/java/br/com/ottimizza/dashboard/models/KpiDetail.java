@@ -36,8 +36,7 @@ public class KpiDetail implements Serializable {
     private BigInteger id;
 
     @ManyToOne
-    @Getter
-    @Setter
+    @Getter @Setter
     @JoinColumn(name = "fk_kpis_id", referencedColumnName = "id", nullable = false)
     private Kpi kpiID;
 

@@ -3,32 +3,66 @@ package br.com.ottimizza.dashboard.domain.dtos;
 import java.io.Serializable;
 import java.math.BigInteger;
 import java.util.List;
+import java.util.stream.Collectors;
 
-import br.com.ottimizza.dashboard.models.KpiDetail;
+import br.com.ottimizza.dashboard.models.Kpi;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class KpiDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
+	private String cnpj;
+	private Integer kind;
+	
 	private BigInteger id;
-	private BigInteger companyId;
-	private String kpiAlias;
 	private String title;
-	private String subtitle;
-	private String description;
-	private Short graphType;
-	private String columnX0Label;
-	private String label;
-	private String label2;
-	private String label3;
-	private String label4;
-	private String valueType;
-	private String labelStringArray;
+	private String kpiAlias;
 	private List<String> labelArray;
-	private List<KpiDetail> kpiDetail;
-	private String chartType;
+	private List<KpiDetailDTO> kpiDetailDTO;
+	private String chartType; 
 	private String chartOptions;
-	private Integer graphOrder;
-	private Boolean visible;
+	
+	
+	public static KpiDTO fromEntity(Kpi kpi) {
+	    // @formatter:off
+		KpiDTO dto = KpiDTO.builder()
+						   .id(kpi.getId())
+						   .cnpj(null)
+						   .kind(null)
+						   .title(kpi.getTitle())
+						   .kpiAlias(kpi.getKpiAlias())
+						   .chartType(kpi.getChartType())
+						   .chartOptions(kpi.getChartOptions())
+						   .labelArray(kpi.getLabelArray())
+						   .kpiDetailDTO(KpiDetailDTO.fromEntity(kpi.getKpiDetail()))
+   						   .build();
+	    // @formatter:on		
+	    return dto;
+	}
+	
+	public static List<KpiDTO> fromEntity(List<Kpi> kpiDTO){
+		return kpiDTO.stream().map(KpiDTO::fromEntity).collect(Collectors.toList());
+	}
+	
+//	public static KpiDTO fromEntity(Kpi kpi) {
+//		KpiDTO dto = new KpiDTO();
+//		dto.setId(kpi.getId());
+//		dto.setTitle(kpi.getTitle());
+//		dto.setKpiAlias(kpi.getKpiAlias());
+//		dto.setLabelArray(kpi.getLabelArray());
+//		dto.setKpiDetailDTO(KpiDetailDTO.fromEntity(kpi.getKpiDetail()));
+//		dto.setChartType(kpi.getChartType());
+//		dto.setChartType(kpi.getChartOptions());
+//		
+//	    System.out.println("*** D "+dto.toString());
+//	    return dto;
+//	}
+
 }

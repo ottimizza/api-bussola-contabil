@@ -6,16 +6,21 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
 import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQuery;
 
+import br.com.ottimizza.dashboard.domain.dtos.KpiDTO;
 import br.com.ottimizza.dashboard.domain.dtos.KpiTitleAndValueDTO;
 import br.com.ottimizza.dashboard.models.Kpi;
 import br.com.ottimizza.dashboard.models.QCompany;
 import br.com.ottimizza.dashboard.models.QKpi;
 import br.com.ottimizza.dashboard.models.QKpiDetail;
+import br.com.ottimizza.dashboard.utils.StringUtil;
 
 @Repository
 public class KpiRepositoryImpl implements KpiRepositoryCustom {
@@ -48,5 +53,39 @@ public class KpiRepositoryImpl implements KpiRepositoryCustom {
         return query.fetchFirst();
 	}
 
-	   
+	@Override
+	public Page<Kpi> findAll(KpiDTO filter, Pageable pageable) {
+		try {
+			long totalElements = 0;
+			JPAQuery<Kpi> query = new JPAQuery<Kpi>(em).from(kpi)
+					.innerJoin(company).on(company.id.eq(kpi.company.id));
+	
+			if(filter.getCnpj() != null) {			
+				query.where(company.cnpj.eq(StringUtil.formatCnpj(filter.getCnpj())));
+			}
+			
+			System.out.println("**** X "+filter.getKind());
+			
+			if(filter.getKind() != null) {
+				if(filter.getKind() == 1) {
+					System.out.println("xA == 1"+query.fetchCount());
+					query.where(kpi.kpiAlias.lt("60"));	//indicadores normais
+					System.out.println("xB == 1"+query.fetchCount());
+				}
+				if(filter.getKind() == 2) {
+					System.out.println("xC == 2");
+					query.where(kpi.kpiAlias.goe("60"));	//comparativos
+				}
+			}
+			
+			totalElements = query.fetchCount();
+			System.out.println("**** zz "+totalElements );
+			
+			query.limit(pageable.getPageSize());
+			query.offset(pageable.getPageSize() * pageable.getPageNumber());
+			return new PageImpl<Kpi>(query.fetch(), pageable, totalElements);
+		}catch (Exception e) {
+			return null;
+		}
+	}
 }
