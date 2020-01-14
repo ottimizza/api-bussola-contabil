@@ -77,7 +77,7 @@ public class KpiRepositoryImpl implements KpiRepositoryCustom {
 			query.limit(pageable.getPageSize());
 			query.offset(pageable.getPageSize() * pageable.getPageNumber());
 			
-			return new PageImpl<Kpi>(query.fetch(), pageable, totalElements);
+			return new PageImpl<Kpi>(query.orderBy(kpi.graphOrder.asc()).fetch(), pageable, totalElements);
 		}catch (Exception e) {
 			return null;
 		}
