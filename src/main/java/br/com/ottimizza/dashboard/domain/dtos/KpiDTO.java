@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
+
 import br.com.ottimizza.dashboard.models.Kpi;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -26,7 +28,7 @@ public class KpiDTO implements Serializable {
 	private String title;
 	private String kpiAlias;
 	private List<String> labelArray;
-	private List<KpiDetailDTO> kpiDetailDTO;
+	private List<KpiDetailDTO> kpiDetail;
 	private String chartType; 
 	private String chartOptions;
 	
@@ -57,12 +59,10 @@ public class KpiDTO implements Serializable {
 		dto.setId(kpi.getId());
 		dto.setTitle(kpi.getTitle());
 		dto.setKpiAlias(kpi.getKpiAlias());
-		dto.setLabelArray((kpi.getLabelArray() != null) ? kpi.getLabelArray() : new ArrayList<String>());
-		if(kpi.getKpiDetail() != null)  dto.setKpiDetailDTO(KpiDetailDTO.fromEntity(kpi.getKpiDetail()));
+		dto.setLabelArray(kpi.getLabelStringArray().equals("") ? new ArrayList<String>() : kpi.getLabelArray());
+		dto.setKpiDetail(kpi.getKpiDetail() == null ? new ArrayList<KpiDetailDTO>() : KpiDetailDTO.fromEntity(kpi.getKpiDetail()));
 		dto.setChartType(kpi.getChartType());
-		dto.setChartType(kpi.getChartOptions());
-		
-	    System.out.println("*** D "+dto.toString());
+		dto.setChartOptions(kpi.getChartOptions());
 	    return dto;
 	}
 
