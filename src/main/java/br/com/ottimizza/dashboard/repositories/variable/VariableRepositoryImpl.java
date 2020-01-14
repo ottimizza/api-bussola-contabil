@@ -6,11 +6,15 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
 import com.querydsl.jpa.impl.JPAQuery;
 
 import br.com.ottimizza.dashboard.domain.dtos.UserDTO;
+import br.com.ottimizza.dashboard.domain.dtos.VariableDTO;
 import br.com.ottimizza.dashboard.models.QOrganizationVariable;
 import br.com.ottimizza.dashboard.models.QVariable;
 import br.com.ottimizza.dashboard.models.Variable;
@@ -48,6 +52,21 @@ public class VariableRepositoryImpl implements VariableRepositoryCustom {
 		
 		
 		return query.fetch();
+	}
+
+	@Override
+	public Page<Variable> findVariableByOrganization(VariableDTO filter, Pageable pageable) {
+		long totalElements = 0;
+		JPAQuery<Variable> query = new JPAQuery<Variable>(em).from(variable);
+		
+		if(filter.getId() != null)		 query.where(variable.id.eq(filter.getId()));
+		if(filter.getScriptId() != null) query.where(variable.scriptId.eq(filter.getScriptId()));
+		
+		totalElements = query.fetchCount();
+		query.limit(pageable.getPageSize());
+		query.offset(pageable.getPageSize() * pageable.getPageNumber());
+		
+		return new PageImpl<Variable>(query.fetch(), pageable, totalElements);
 	}
 
 }

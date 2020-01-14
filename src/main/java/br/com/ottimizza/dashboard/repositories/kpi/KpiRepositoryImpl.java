@@ -60,6 +60,8 @@ public class KpiRepositoryImpl implements KpiRepositoryCustom {
 			JPAQuery<Kpi> query = new JPAQuery<Kpi>(em).from(kpi)
 					.innerJoin(company).on(company.id.eq(kpi.company.id));
 			
+			query.where(kpi.visible.isTrue().and(kpi.kpiAlias.notLike("07")).and(kpi.kpiAlias.notLike("12")));
+			
 			if(filter.getCnpj() != null) {			
 				query.where(company.cnpj.eq(StringUtil.formatCnpj(filter.getCnpj())));
 			}
@@ -69,6 +71,7 @@ public class KpiRepositoryImpl implements KpiRepositoryCustom {
 				else if(filter.getKind() == 2) query.where(kpi.kpiAlias.goe("60"));	//comparativos
 				else return null;
 			}
+			
 			
 			totalElements = query.fetchCount();
 			query.limit(pageable.getPageSize());

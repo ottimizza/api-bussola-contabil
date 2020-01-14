@@ -27,6 +27,7 @@ public class KpiDTO implements Serializable {
 	private List<KpiDetailDTO> kpiDetail;
 	private String chartType; 
 	private String chartOptions;
+	private boolean visible;
 	
 	public static List<KpiDTO> fromEntity(List<Kpi> kpiDTO){
 		return kpiDTO.stream().map(KpiDTO::fromEntity).collect(Collectors.toList());
@@ -41,6 +42,7 @@ public class KpiDTO implements Serializable {
 		dto.setKpiDetail(kpi.getKpiDetail() == null ? new ArrayList<KpiDetailDTO>() : KpiDetailDTO.fromEntity(kpi.getKpiDetail()));
 		dto.setChartType(kpi.getChartType());
 		dto.setChartOptions(kpi.getChartOptions());
+		dto.setVisible(kpi.getVisible());
 	    return dto;
 	}
 }
