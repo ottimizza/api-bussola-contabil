@@ -59,11 +59,11 @@ public class KpiRepositoryImpl implements KpiRepositoryCustom {
 			long totalElements = 0;
 			JPAQuery<Kpi> query = new JPAQuery<Kpi>(em).from(kpi)
 					.innerJoin(company).on(company.id.eq(kpi.company.id));
-	
+			
 			if(filter.getCnpj() != null) {			
 				query.where(company.cnpj.eq(StringUtil.formatCnpj(filter.getCnpj())));
 			}
-						
+			
 			if(filter.getKind() != null) {
 				if(filter.getKind() == 1) query.where(kpi.kpiAlias.lt("60"));	//indicadores normais
 				else if(filter.getKind() == 2) query.where(kpi.kpiAlias.goe("60"));	//comparativos

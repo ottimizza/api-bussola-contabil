@@ -6,16 +6,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.codehaus.jackson.annotate.JsonIgnore;
-
 import br.com.ottimizza.dashboard.models.Kpi;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class KpiDTO implements Serializable {
@@ -32,24 +28,6 @@ public class KpiDTO implements Serializable {
 	private String chartType; 
 	private String chartOptions;
 	
-	
-//	public static KpiDTO fromEntity(Kpi kpi) {
-//	    // @formatter:off
-//		KpiDTO dto = KpiDTO.builder()
-//						   .id(kpi.getId())
-//						   .cnpj(null)
-//						   .kind(null)
-//						   .title(kpi.getTitle())
-//						   .kpiAlias(kpi.getKpiAlias())
-//						   .chartType(kpi.getChartType())
-//						   .chartOptions(kpi.getChartOptions())
-//						   .labelArray(kpi.getLabelArray())
-//						   .kpiDetailDTO(KpiDetailDTO.fromEntity(kpi.getKpiDetail()))
-//   						   .build();
-//	    // @formatter:on		
-//	    return dto;
-//	}
-	
 	public static List<KpiDTO> fromEntity(List<Kpi> kpiDTO){
 		return kpiDTO.stream().map(KpiDTO::fromEntity).collect(Collectors.toList());
 	}
@@ -65,5 +43,4 @@ public class KpiDTO implements Serializable {
 		dto.setChartOptions(kpi.getChartOptions());
 	    return dto;
 	}
-
 }
