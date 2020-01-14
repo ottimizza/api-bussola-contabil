@@ -108,7 +108,7 @@ public class Kpi implements Serializable {
 
     @Getter
     @Setter
-    @Column(name = "label_string_array", nullable = true)
+    @Column(name = "label_string_array", columnDefinition = "varchar(255) default ''")
     private String labelStringArray;
 
     @Setter

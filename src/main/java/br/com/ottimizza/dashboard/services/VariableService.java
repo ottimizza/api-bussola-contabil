@@ -8,9 +8,13 @@ import javax.inject.Inject;
 import javax.persistence.NoResultException;
 
 import org.json.JSONObject;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import br.com.ottimizza.dashboard.domain.dtos.KpiDTO;
 import br.com.ottimizza.dashboard.domain.dtos.UserDTO;
+import br.com.ottimizza.dashboard.domain.dtos.VariableDTO;
 import br.com.ottimizza.dashboard.models.Variable;
 import br.com.ottimizza.dashboard.repositories.variable.VariableRepository;
 
@@ -38,12 +42,13 @@ public class VariableService {
 			Variable newVariable = new Variable();
 			newVariable = repository.findById(variable.getId()).get();
 			try {
-				if (variable.getAccountingCode() != null)	newVariable.setAccountingCode(variable.getAccountingCode());
-				if (variable.getAccountingId() != null)		newVariable.setAccountingId(variable.getAccountingId());
-				if (variable.getDescription() != null)		newVariable.setDescription(variable.getDescription());
-				if (variable.getExternalId() != null)		newVariable.setExternalId(variable.getExternalId());
-				if (variable.getName() != null)				newVariable.setName(variable.getName());
-
+				if (variable.getScriptId() != null)		newVariable.setScriptId(variable.getScriptId());
+				if (variable.getAccountingId() != null)	newVariable.setAccountingId(variable.getAccountingId());
+				if (variable.getDescription() != null)	newVariable.setDescription(variable.getDescription());
+				if (variable.getVariableCode() != null)	newVariable.setVariableCode(variable.getVariableCode());
+				if (variable.getName() != null)			newVariable.setName(variable.getName());
+				if (variable.getAccountingCode() != null) newVariable.setAccountingCode(variable.getAccountingCode());
+				
 				repository.save(newVariable);
 				
 				response.put("status", "sucess");
@@ -87,16 +92,22 @@ public class VariableService {
 		if(variable.getId() != null && !variable.getId().equals("") && var != null) {
 			
 			var.setDescription((variable.getDescription() != null) ? variable.getDescription() : "");
+			var.setScriptId((variable.getScriptId() != null) ? variable.getScriptId() : null);
 			var.setAccountingCode((variable.getAccountingCode() != null) ? variable.getAccountingCode() : "");
 
 			if(variable.getAccountingId() != null)	var.setAccountingId(variable.getAccountingId());
-			if(variable.getExternalId() != null)	var.setExternalId(variable.getExternalId());
+			if(variable.getVariableCode() != null)	var.setVariableCode(variable.getVariableCode());
 			if(variable.getName() != null)			var.setName(variable.getName());
-//			if(variable.getAccountingCode() != null) var.setAccountingCode(variable.getAccountingCode());
+			if(variable.getScriptId() != null) 		var.setScriptId(variable.getScriptId());
 
 			return repository.save(var);
 		}
 		return repository.save(variable);
 	}
+
+	public Page<Variable> findVariableByOrganization(VariableDTO filter, int pageIndex, int pageSize, UserDTO userInfo) {
+		return repository.findVariableByOrganization(filter, PageRequest.of(pageIndex, pageSize));
+	}
+	
 
 }

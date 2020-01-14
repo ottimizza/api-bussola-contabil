@@ -10,5 +10,4 @@ import br.com.ottimizza.dashboard.models.Variable;
 @Repository
 public interface VariableRepository extends JpaRepository<Variable, BigInteger>, VariableRepositoryCustom{
 
-
 }

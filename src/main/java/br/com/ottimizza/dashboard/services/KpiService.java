@@ -8,8 +8,11 @@ import javax.inject.Inject;
 import javax.persistence.NoResultException;
 
 import org.json.JSONObject;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import br.com.ottimizza.dashboard.domain.dtos.KpiDTO;
 import br.com.ottimizza.dashboard.domain.dtos.KpiTitleAndValueDTO;
 import br.com.ottimizza.dashboard.models.Company;
 import br.com.ottimizza.dashboard.models.Kpi;
@@ -112,5 +115,72 @@ public class KpiService {
 		return response;
 	}
 
+	public Page<KpiDTO> findAll(KpiDTO filter, int pageIndex, int pageSize, String authorization) throws Exception {
+		try {
+			Page<KpiDTO> response = repository.findAll(filter, PageRequest.of(pageIndex, pageSize)).map(KpiDTO::fromEntity); 
+			return response;
+		}catch (Exception e) {
+			return null;
+		}
+	}
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
