@@ -8,9 +8,13 @@ import javax.inject.Inject;
 import javax.persistence.NoResultException;
 
 import org.json.JSONObject;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import br.com.ottimizza.dashboard.domain.dtos.KpiDTO;
 import br.com.ottimizza.dashboard.domain.dtos.UserDTO;
+import br.com.ottimizza.dashboard.domain.dtos.VariableDTO;
 import br.com.ottimizza.dashboard.models.Variable;
 import br.com.ottimizza.dashboard.repositories.variable.VariableRepository;
 
@@ -100,5 +104,10 @@ public class VariableService {
 		}
 		return repository.save(variable);
 	}
+
+	public Page<Variable> findVariableByOrganization(VariableDTO filter, int pageIndex, int pageSize, UserDTO userInfo) {
+		return repository.findVariableByOrganization(filter, PageRequest.of(pageIndex, pageSize));
+	}
+	
 
 }

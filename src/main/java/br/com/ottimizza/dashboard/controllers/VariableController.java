@@ -10,15 +10,18 @@ import org.json.JSONObject;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.ottimizza.dashboard.client.OAuthClient;
 import br.com.ottimizza.dashboard.domain.dtos.UserDTO;
+import br.com.ottimizza.dashboard.domain.dtos.VariableDTO;
 import br.com.ottimizza.dashboard.models.Variable;
 import br.com.ottimizza.dashboard.services.VariableService;
 
@@ -66,5 +69,14 @@ public class VariableController {
 		return ResponseEntity.ok(service.findVariableByOrganizationId(organizationId, userInfo));
 	}
 	
+	@GetMapping("byOrganization")
+	public ResponseEntity<?> findByOrganization(@ModelAttribute VariableDTO filter, 
+									 			@RequestParam(name = "page_index", defaultValue = "0") int pageIndex, 
+								 				@RequestParam(name = "page_size", defaultValue = "10") int pageSize, 
+								 				@RequestHeader("Authorization") String authorization) throws Exception { 
+		UserDTO userInfo = oauthClient.getUserInfo(authorization).getBody().getRecord();
+		
+		return ResponseEntity.ok(service.findVariableByOrganization(filter, pageIndex, pageSize, userInfo));
+	}
 	
 }
