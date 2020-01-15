@@ -59,8 +59,8 @@ public class VariableRepositoryImpl implements VariableRepositoryCustom {
 		long totalElements = 0;
 		JPAQuery<Variable> query = new JPAQuery<Variable>(em).from(variable);
 		
-		if(filter.getId() != null)		 query.where(variable.id.eq(filter.getId()));
-		if(filter.getScriptId() != null) query.where(variable.scriptId.eq(filter.getScriptId()));
+		if(filter.getAccountingId() != null)query.where(variable.accountingId.eq(filter.getAccountingId()));
+		if(filter.getScriptId() != null)	query.where(variable.scriptId.eq(filter.getScriptId()));
 		
 		totalElements = query.fetchCount();
 		query.limit(pageable.getPageSize());

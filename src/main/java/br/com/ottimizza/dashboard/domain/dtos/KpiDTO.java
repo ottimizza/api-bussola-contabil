@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import br.com.ottimizza.dashboard.models.Kpi;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -17,7 +19,9 @@ import lombok.NoArgsConstructor;
 public class KpiDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
+	@JsonIgnore
 	private String cnpj;
+	@JsonIgnore
 	private Integer kind;
 	
 	private BigInteger id;
