@@ -5,12 +5,12 @@ import java.util.List;
 import java.util.Optional;
 
 import javax.inject.Inject;
+import javax.validation.Valid;
 
 import org.json.JSONObject;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -70,7 +70,7 @@ public class VariableController {
 	}
 	
 	@GetMapping("byOrganization")
-	public ResponseEntity<?> findByOrganization(@ModelAttribute VariableDTO filter, 
+	public ResponseEntity<?> findByOrganization(@Valid VariableDTO filter, 
 									 			@RequestParam(name = "page_index", defaultValue = "0") int pageIndex, 
 								 				@RequestParam(name = "page_size", defaultValue = "10") int pageSize, 
 								 				@RequestHeader("Authorization") String authorization) throws Exception { 

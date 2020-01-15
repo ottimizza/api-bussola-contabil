@@ -6,11 +6,11 @@ import java.util.Map;
 import java.util.Optional;
 
 import javax.inject.Inject;
+import javax.validation.Valid;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -67,7 +67,7 @@ public class KpiController {
 	}
 	
 	@GetMapping
-	public ResponseEntity<?> findAll(@ModelAttribute KpiDTO filter, 
+	public ResponseEntity<?> findAll(@Valid KpiDTO filter, 
 									 @RequestParam(name = "page_index", defaultValue = "0") int pageIndex,
 						             @RequestParam(name = "page_size", defaultValue = "10") int pageSize, 
 						             @RequestHeader("Authorization") String authorization) throws Exception {

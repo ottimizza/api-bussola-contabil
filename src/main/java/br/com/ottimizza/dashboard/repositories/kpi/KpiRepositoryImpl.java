@@ -72,7 +72,6 @@ public class KpiRepositoryImpl implements KpiRepositoryCustom {
 				else return null;
 			}
 			
-			
 			totalElements = query.fetchCount();
 			query.limit(pageable.getPageSize());
 			query.offset(pageable.getPageSize() * pageable.getPageNumber());
