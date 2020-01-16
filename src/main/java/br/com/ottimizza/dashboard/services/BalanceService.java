@@ -10,7 +10,6 @@ import javax.persistence.NoResultException;
 import org.json.JSONObject;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import br.com.ottimizza.dashboard.client.OAuthClient;

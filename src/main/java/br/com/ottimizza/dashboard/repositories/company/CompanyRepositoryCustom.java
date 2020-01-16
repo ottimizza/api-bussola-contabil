@@ -1,11 +1,9 @@
 package br.com.ottimizza.dashboard.repositories.company;
 
-import br.com.ottimizza.dashboard.domain.dtos.CompanyDTO;
-import br.com.ottimizza.dashboard.models.Company;
 import java.util.List;
 
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
+import br.com.ottimizza.dashboard.domain.dtos.CompanyDTO;
+import br.com.ottimizza.dashboard.models.Company;
 
 public interface CompanyRepositoryCustom {
 //    CompanyRepositoryImpl
