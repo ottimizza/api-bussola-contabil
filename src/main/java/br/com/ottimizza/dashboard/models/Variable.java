@@ -44,15 +44,15 @@ public class Variable implements Serializable{
 	
 	private String  accountingCode;
 
-	@Column(name = "origin_value", length = 40)
-	private String originValue;
+	@Column(name = "origin_value")
+	private Short originValue;
 	
-	@Column(name = "type_value", length = 40)
-	private String typeValue;
+	@Column(name = "absolute_Value", columnDefinition = "boolean default true")
+	private boolean absoluteValue;
 
 	// variableCode;	codigo da variavel CRM ("40","41"...)
 	// accountingCode;	contacontabil(1.1.002)
-	// originValue; 	de onde e lido o valor (saldo inicia - saldo final, saldo final, debito - credito, credito - debito, saldo inicial)
-	// typeValue;		como deve ser usado (original, absoluto)
+	// originValue; 	de onde e lido o valor (1 saldo inicial - saldo final;	2 saldo final;	3 saldo inicial;	4 debito - credito;	5 credito - debito;	6 credito;	7 debito)
+	// absoluteValue;	false = original, true = absoluto
 
 }

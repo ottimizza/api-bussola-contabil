@@ -88,7 +88,7 @@ public class VariableService {
 		try{ var = repository.findById(variable.getId()).orElse(null); }
 		catch (Exception e) { }
 		
-		if(variable.getId() != null && !variable.getId().equals("") && var != null) {
+		if(variable.getId() != null && var != null) {
 			
 			var.setDescription((variable.getDescription() != null) ? variable.getDescription() : "");
 			var.setScriptId((variable.getScriptId() != null) ? variable.getScriptId() : null);
