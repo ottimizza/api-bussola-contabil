@@ -52,15 +52,17 @@ public class OrganizationVariableRepositoryImpl implements OrganizationVariableR
 	
 	@Override
 	public List<VariableDTO> findMissingByCompanyId(VariableDTO filter, UserDTO userInfo) {
-		System.out.println("WWW 3 "+filter.getCompanyId());
 		JPAQuery<VariableDTO> query = new JPAQuery<VariableDTO>(em).from(variable)
-				.leftJoin(organizationVariable).on(
-						organizationVariable.variableId.eq(variable.id).and(organizationVariable.organizationId.eq(filter.getCompanyId())))
-				.where(organizationVariable.id.isNull()/*.and(variable.accountingId.eq(userInfo.getOrganization().getId()))*/);
-		System.out.println("WWW 4 "+query.fetchCount());
+				.leftJoin(organizationVariable).on(organizationVariable.variableId.eq(variable.id)
+						.and(organizationVariable.organizationId.eq(filter.getCompanyId())))
+				.where(organizationVariable.id.isNull()
+						/*.and(variable.accountingId.eq(userInfo.getOrganization().getId()))*/
+				);
 		query.select(Projections.constructor(
-				VariableDTO.class, organizationVariable.id, variable.accountingId, variable.variableCode, variable.name, variable.id, variable.scriptId, variable.originValue, variable.absoluteValue, 
+				VariableDTO.class, organizationVariable.id, organizationVariable.organizationId, variable.variableCode, variable.name, variable.id, variable.scriptId, variable.originValue, variable.absoluteValue, 
 								   organizationVariable.organizationId, variable.accountingCode));
+		
+//		new VariableDTO(id, companyId, variableCode, name, variableId, scriptId, originValue, absoluteValue, accountingId, accountingCode)
 		return query.fetch();
 	}
 
