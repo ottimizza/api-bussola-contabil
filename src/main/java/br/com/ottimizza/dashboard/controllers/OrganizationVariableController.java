@@ -73,11 +73,19 @@ public class OrganizationVariableController {
 		return ResponseEntity.ok(service.findVariableByCompanyId(filter, userInfo));
 	}
 	
-	@GetMapping("missing/{id}")
-	public ResponseEntity<List<VariableDTO>> findMissing(@PathVariable("id") BigInteger companyId, @RequestHeader("Authorization") String authorization) throws Exception {
+//	@GetMapping("missing/{id}")
+//	public ResponseEntity<List<VariableDTO>> findMissing(@PathVariable("id") BigInteger companyId, @RequestHeader("Authorization") String authorization) throws Exception {
+//		UserDTO userInfo = oauthClient.getUserInfo(authorization).getBody().getRecord();
+//		
+//		return ResponseEntity.ok(service.findMissingByOrganizationId(companyId, userInfo));
+//	}
+	
+	@GetMapping("missing")
+	public ResponseEntity<List<VariableDTO>> findMissing(@Valid VariableDTO filter, 
+														 @RequestHeader("Authorization") String authorization) throws Exception {
 		UserDTO userInfo = oauthClient.getUserInfo(authorization).getBody().getRecord();
-		
-		return ResponseEntity.ok(service.findMissingByOrganizationId(companyId, userInfo));
+		System.out.println("WWW 1 "+userInfo.getEmail());
+		return ResponseEntity.ok(service.findMissingByOrganizationId(filter, userInfo));
 	}
 	
 	

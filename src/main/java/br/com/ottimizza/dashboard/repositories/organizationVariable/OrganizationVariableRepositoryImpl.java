@@ -1,6 +1,5 @@
 package br.com.ottimizza.dashboard.repositories.organizationVariable;
 
-import java.math.BigInteger;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -38,13 +37,27 @@ public class OrganizationVariableRepositoryImpl implements OrganizationVariableR
 		return query.fetch();
 	}
 
+//	@Override
+//	public List<VariableDTO> findMissingByCompanyId(BigInteger companyId, UserDTO userInfo) {
+//		JPAQuery<VariableDTO> query = new JPAQuery<VariableDTO>(em).from(variable)
+//				.leftJoin(organizationVariable).on(
+//						organizationVariable.variableId.eq(variable.id).and(organizationVariable.organizationId.eq(companyId)))
+//				.where(organizationVariable.id.isNull().and(variable.accountingId.eq(userInfo.getOrganization().getId())));
+//				
+//		query.select(Projections.constructor(
+//				VariableDTO.class, organizationVariable.id, variable.accountingId, variable.variableCode, variable.name, variable.id, variable.scriptId, variable.originValue, variable.absoluteValue, 
+//								   organizationVariable.organizationId, variable.accountingCode));
+//		return query.fetch();
+//	}
+	
 	@Override
-	public List<VariableDTO> findMissingByCompanyId(BigInteger companyId, UserDTO userInfo) {
+	public List<VariableDTO> findMissingByCompanyId(VariableDTO filter, UserDTO userInfo) {
+		System.out.println("WWW 3 "+filter.getCompanyId());
 		JPAQuery<VariableDTO> query = new JPAQuery<VariableDTO>(em).from(variable)
 				.leftJoin(organizationVariable).on(
-						organizationVariable.variableId.eq(variable.id).and(organizationVariable.organizationId.eq(companyId)))
-				.where(organizationVariable.id.isNull().and(variable.accountingId.eq(userInfo.getOrganization().getId())));
-				
+						organizationVariable.variableId.eq(variable.id).and(organizationVariable.organizationId.eq(filter.getCompanyId())))
+				.where(organizationVariable.id.isNull()/*.and(variable.accountingId.eq(userInfo.getOrganization().getId()))*/);
+		System.out.println("WWW 4 "+query.fetchCount());
 		query.select(Projections.constructor(
 				VariableDTO.class, organizationVariable.id, variable.accountingId, variable.variableCode, variable.name, variable.id, variable.scriptId, variable.originValue, variable.absoluteValue, 
 								   organizationVariable.organizationId, variable.accountingCode));
