@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 
 import javax.inject.Inject;
+import javax.validation.Valid;
 
 import org.json.JSONObject;
 import org.springframework.http.ResponseEntity;
@@ -65,11 +66,11 @@ public class OrganizationVariableController {
 		return (response.get("status") == "Success") ? ResponseEntity.ok(response.toString()) : ResponseEntity.badRequest().build();
 	}
 	
-	@GetMapping("byCompany/{id}")
-	public ResponseEntity<List<VariableDTO>> findByCompanyId(@PathVariable("id") BigInteger companyId, @RequestHeader("Authorization") String authorization) throws Exception {
-		UserDTO userInfo = oauthClient.getUserInfo(authorization).getBody().getRecord();
-		
-		return ResponseEntity.ok(service.findVariableByCompanyId(companyId, userInfo));
+	@GetMapping("byCompany")
+	public ResponseEntity<List<VariableDTO>> findByCompanyId(@Valid VariableDTO filter, 
+															 @RequestHeader("Authorization") String authorization) throws Exception {
+		UserDTO userInfo = oauthClient.getUserInfo(authorization).getBody().getRecord();		
+		return ResponseEntity.ok(service.findVariableByCompanyId(filter, userInfo));
 	}
 	
 	@GetMapping("missing/{id}")
