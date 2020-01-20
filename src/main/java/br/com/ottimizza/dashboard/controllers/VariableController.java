@@ -62,7 +62,7 @@ public class VariableController {
 	}
 	
 
-	@GetMapping("byOrganization/{id}")
+	@GetMapping("byOrganization/{id}")	//deprecated
 	public ResponseEntity<List<Variable>> findByOrganizationId(@PathVariable("id") BigInteger organizationId, @RequestHeader("Authorization") String authorization) throws Exception {
 		UserDTO userInfo = oauthClient.getUserInfo(authorization).getBody().getRecord();
 		

@@ -40,5 +40,10 @@ public class OrganizationVariable implements Serializable {
 	private BigInteger scriptId;
 	
 	private String  accountingCode;
-
+	
+	@Column(name = "origin_value")
+	private Short originValue;
+	
+	@Column(name = "absolute_Value", columnDefinition = "boolean default true")
+	private boolean absoluteValue;
 }
