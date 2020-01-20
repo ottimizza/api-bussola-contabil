@@ -25,11 +25,11 @@ public class OrganizationVariableRepositoryImpl implements OrganizationVariableR
 	QOrganizationVariable organizationVariable = QOrganizationVariable.organizationVariable;
 	
 	@Override
-	public List<VariableDTO> findVariablesByCompanyId(BigInteger companyId, UserDTO userInfo) {
+	public List<VariableDTO> findVariablesByCompanyId(VariableDTO filter, UserDTO userInfo) {
 		JPAQuery<VariableDTO> query = new JPAQuery<VariableDTO>(em).from(organizationVariable)
 				.innerJoin(variable).on(
 						variable.id.eq(organizationVariable.variableId).and(variable.accountingId.eq(userInfo.getOrganization().getId())))
-				.where(organizationVariable.organizationId.eq(companyId));
+				.where(organizationVariable.organizationId.eq(filter.getCompanyId()));
 
 		query.select(Projections.constructor(
 				VariableDTO.class, organizationVariable.id, variable.accountingId, variable.variableCode, variable.name, variable.id, variable.scriptId, variable.originValue, variable.absoluteValue, 
@@ -37,6 +37,26 @@ public class OrganizationVariableRepositoryImpl implements OrganizationVariableR
 
 		return query.fetch();
 	}
+	
+	
+//	@Override
+//	public Page<VariableDTO> findVariablesByCompanyId(VariableDTO filter, Pageable pageable, UserDTO userInfo) {
+//		long totalElements = 0;
+//		JPAQuery<VariableDTO> query = new JPAQuery<VariableDTO>(em).from(organizationVariable)
+//				.innerJoin(variable).on(
+//						variable.id.eq(organizationVariable.variableId).and(variable.accountingId.eq(userInfo.getOrganization().getId())))
+//				.where(organizationVariable.organizationId.eq(filter.getCompanyId()));
+//
+//		query.select(Projections.constructor(
+//				VariableDTO.class, organizationVariable.id, variable.accountingId, variable.variableCode, variable.name, variable.id, variable.scriptId, variable.originValue, variable.absoluteValue, 
+//								   organizationVariable.organizationId, organizationVariable.accountingCode));
+//
+//		totalElements = query.fetchCount();
+//		query.limit(pageable.getPageSize());
+//		query.offset(pageable.getPageSize() * pageable.getPageNumber());
+//		
+//		return new PageImpl<VariableDTO>(query.fetch(), pageable, totalElements);
+//	}
 
 	@Override
 	public List<VariableDTO> findMissingByCompanyId(BigInteger companyId, UserDTO userInfo) {
@@ -51,4 +71,5 @@ public class OrganizationVariableRepositoryImpl implements OrganizationVariableR
 		return query.fetch();
 	}
 
+	
 }
