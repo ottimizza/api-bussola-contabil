@@ -12,12 +12,14 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
 @Getter @Setter
+@Builder(toBuilder = true)
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "description")
@@ -26,7 +28,7 @@ public class Description implements Serializable{
 	private static final long serialVersionUID = 1L;
 
 	@Id
-    @Column(name = "id", nullable = false)
+	@Column(name = "id", nullable = false)
     @SequenceGenerator(name = "descriptions_sequence", sequenceName = "descriptions_seq", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "descriptions_sequence")
     private BigInteger id;
@@ -35,11 +37,22 @@ public class Description implements Serializable{
 	private String organizationId;
 	
 	@Column(nullable = false)
-    private String kpiAlias;
+	private String kpiAlias;
 
 	private String description;
 	
 	private BigInteger scriptType;
+
+	private String title;
+	
+	private Integer graphOrder;
+	
+	private String chartType;
+
+	private String cnpj;
+	
+	@Column(columnDefinition = "boolean default true")
+    private Boolean visible = true;
     
     
 }

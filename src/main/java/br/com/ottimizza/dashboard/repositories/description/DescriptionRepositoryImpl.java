@@ -5,6 +5,9 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.stereotype.Repository;
 
 import com.querydsl.jpa.impl.JPAQuery;
@@ -34,8 +37,36 @@ public class DescriptionRepositoryImpl implements DescriptionRepositoryCustom {
 
 		return query.fetch();
 	}
-	
-	
-	
+
+	@Override
+	public Page<Description> findByOrganizationIdScriptType(DescriptionDTO descriptionDTO, Pageable pageable) {
+
+		JPAQuery<Description> query = new JPAQuery<Description>(em);
+		query.from(description);
+
+		long totalDescriptions = 0;
+
+		if (descriptionDTO.getOrganizationId() != null)	query.where(description.organizationId.eq(descriptionDTO.getOrganizationId()));
+		if (descriptionDTO.getScriptType() != null) query.where(description.scriptType.eq(descriptionDTO.getScriptType()));
+
+		totalDescriptions = query.fetchCount();
+		query.limit(pageable.getPageSize());
+		query.offset(pageable.getPageSize() *pageable.getPageNumber());
+
+		return new PageImpl<Description>(query.fetch(), pageable, totalDescriptions);
+	}	
+
+	@Override
+	public Description findByOrganizationIdScriptType(DescriptionDTO descriptionDTO) {
+
+		JPAQuery<Description> query = new JPAQuery<Description>(em);
+		query.from(description);
+
+		if (descriptionDTO.getOrganizationId() != null)	query.where(description.organizationId.eq(descriptionDTO.getOrganizationId()));
+		if (descriptionDTO.getScriptType() != null) 	query.where(description.scriptType.eq(descriptionDTO.getScriptType()));
+		if (descriptionDTO.getKpiAlias() != null)		query.where(description.kpiAlias.eq(descriptionDTO.getKpiAlias()));
+		
+		return query.fetchOne();
+	}
 
 }
