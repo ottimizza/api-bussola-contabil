@@ -118,7 +118,7 @@ public class CompanyController {
             JSONObject response = sForce.searchCNPJ(email.get("email"));
             JSONArray listaJson = response.optJSONArray("records");
             
-            List<String> listaCNPJ = new ArrayList();
+            List<String> listaCNPJ = new ArrayList<>();
             
             for (int i = 0; i < listaJson.length(); i++) {
             	listaCNPJ.add(listaJson.get(i).toString());

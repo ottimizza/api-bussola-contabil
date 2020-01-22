@@ -1,15 +1,22 @@
 package br.com.ottimizza.dashboard.services;
 
 import java.math.BigInteger;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.inject.Inject;
 
 import org.json.JSONObject;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import br.com.ottimizza.dashboard.domain.commands_description.ImportacaoDescriptionsRequest;
 import br.com.ottimizza.dashboard.domain.dtos.CompanyDTO;
 import br.com.ottimizza.dashboard.domain.dtos.DescriptionDTO;
+import br.com.ottimizza.dashboard.domain.mappers_description.DescriptionMapper;
 import br.com.ottimizza.dashboard.models.Company;
 import br.com.ottimizza.dashboard.models.Description;
 import br.com.ottimizza.dashboard.repositories.company.CompanyRepository;
@@ -31,7 +38,6 @@ public class DescriptionService {
 
 		if(!companies.isEmpty()) {
 			company = companies.get(0);
-
 		} else {
 			try {
 				filter = new CompanyDTO(null, descriptionDTO.getCnpj(), null, null, null, null, null, null);
@@ -48,6 +54,7 @@ public class DescriptionService {
 		}
 			
 		Description description = DescriptionDTO.dtoToDescription(descriptionDTO);
+
 		return DescriptionDTO.descriptionToDto(repository.save(description));
 	}
 	
@@ -61,7 +68,7 @@ public class DescriptionService {
             response.put("status", "Error");
             response.put("message", "Houve um problema ao excluir!");
             return response;
-        }
+		}
         return response;
 	}
 	
@@ -77,6 +84,28 @@ public class DescriptionService {
 		Description current = findById(id);
 		return DescriptionDTO.descriptionToDto(repository.save(descriptionDTO.patch(current)));
 	}
-	
+
+	@Transactional(rollbackFor = Exception.class)
+	public List<DescriptionDTO> saveDescriptionList(ImportacaoDescriptionsRequest importaDescriptions) throws Exception {
+		List<Description> resultados = new ArrayList<>();
+		List<Description> descriptions = importaDescriptions.getDescriptions().stream().map((o) -> {
+			return DescriptionMapper.fromDto(o).toBuilder()
+				.organizationId(importaDescriptions.getOrganizationId())
+				.build();
+		}).collect(Collectors.toList());
+		
+		repository.saveAll(descriptions).forEach(resultados::add);
+		
+		return DescriptionMapper.fromEntities(resultados);
+	}	
+
+	public Page<DescriptionDTO> returnDescriptionList(DescriptionDTO filter, int pageIndex, int pageSize, String authorization) {
+		return repository.findByOrganizationIdScriptType(filter, PageRequest.of(pageIndex, pageSize)).map(DescriptionDTO::descriptionToDto);
+	}
+
+	public DescriptionDTO updateByOrganizationIdScriptType(DescriptionDTO descriptionDTO){
+		Description dp = repository.findByOrganizationIdScriptType(descriptionDTO);
+		return DescriptionDTO.descriptionToDto(repository.save(descriptionDTO.patch(dp)));
+	}
 
 }
