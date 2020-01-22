@@ -33,6 +33,18 @@ public class KpiDetailRepositoryImpl implements KpiDetailRepositoryCustom {
                 .where(company.cnpj.in(cnpj));
         return query.orderBy(company.name.asc()).orderBy(kpi.kpiAlias.asc()).orderBy(kpiDetail.columnXSeq.asc()).fetch();
     }
+    
+    @Override
+    public List<KpiDetail> findKpiDetailsByCNPJAndGraphType(List<String> cnpj, Short graphType) {
+        JPAQuery<KpiDetail> query = new JPAQuery<KpiDetail>(em).from(kpiDetail)
+                .innerJoin(kpi).on(kpi.id.eq(kpiDetail.kpiID.id).and(kpi.graphType.eq(graphType)))
+                .innerJoin(company).on(company.id.eq(kpi.company.id));
+               //if	    (kind == 0) query.where(company.cnpj.in(cnpj).and(kpi.kpiAlias.lt("60")));                
+              //else if (kind == 1) query.where(company.cnpj.in(cnpj).and(kpi.kpiAlias.goe("60")));
+        							query.where(company.cnpj.in(cnpj));
+        							query.orderBy(kpiDetail.columnXSeq.asc());
+        return query.fetch();
+    }
 
 	@Override
 	public JSONObject deleteKpiDetail(KpiDetail kpiDetail) {

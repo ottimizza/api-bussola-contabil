@@ -29,6 +29,10 @@ public class KpiDetailService {
         return repository.findKpiDetailsByCNPJ(cnpj);
     }
     
+    public List<KpiDetail> findByListCNPJAndGraphType(List<String> cnpj, Short graphType)throws Exception{
+        return repository.findKpiDetailsByCNPJAndGraphType(cnpj, graphType);
+    }
+    
     public Boolean deleteById(BigInteger idKpiDetail)throws Exception{
         try{
         	repository.deleteById(idKpiDetail);
