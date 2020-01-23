@@ -31,7 +31,7 @@ public class DescriptionService {
 	CompanyRepository companyRepository;
 	
 	public DescriptionDTO save(DescriptionDTO descriptionDTO) throws Exception {
-		CompanyDTO filter = new CompanyDTO(null, null, null, null, descriptionDTO.getOrganizationId(), null, null, null);
+		CompanyDTO filter = new CompanyDTO(null, null, null, null, descriptionDTO.getAccountingId(), null, null, null);
 		Company company = new Company();
 		List<Company> companies = companyRepository.findAll(filter, null, null);
 
@@ -42,7 +42,7 @@ public class DescriptionService {
 				filter = new CompanyDTO(null, descriptionDTO.getCnpj(), null, null, null, null, null, null);
 				company = companyRepository.findAll(filter, null, null).get(0);
 				if(company != null) {
-					company.setExternalId(descriptionDTO.getOrganizationId());
+					company.setExternalId(descriptionDTO.getAccountingId());
 					company = companyRepository.save(company);
 				}
 			} catch (Exception e) {	}
@@ -90,7 +90,7 @@ public class DescriptionService {
 		List<Description> descriptions = descriptionDTO.getDescriptions().stream().map((o) -> {
 			return DescriptionMapper.fromDto(o).toBuilder()
 				.cnpj(descriptionDTO.getCnpj())
-				.organizationId(descriptionDTO.getOrganizationId())
+				.accountingId(descriptionDTO.getAccountingId())
 				.build();
 		}).collect(Collectors.toList());
 		
@@ -100,11 +100,11 @@ public class DescriptionService {
 	}	
 
 	public Page<DescriptionDTO> returnDescriptionList(DescriptionDTO filter, int pageIndex, int pageSize, String authorization) {
-		return repository.findByOrganizationIdScriptType(filter, PageRequest.of(pageIndex, pageSize)).map(DescriptionDTO::descriptionToDto);
+		return repository.findByAccountingIdScriptType(filter, PageRequest.of(pageIndex, pageSize)).map(DescriptionDTO::descriptionToDto);
 	}
 
 	public DescriptionDTO updateByOrganizationIdScriptType(DescriptionDTO descriptionDTO){
-		Description dp = repository.findByOrganizationIdScriptType(descriptionDTO);
+		Description dp = repository.findByAccountingIdScriptType(descriptionDTO);
 		return DescriptionDTO.descriptionToDto(repository.save(descriptionDTO.patch(dp)));
 	}
 

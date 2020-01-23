@@ -12,7 +12,7 @@ public interface DescriptionRepositoryCustom {
 //	DescriptionRepositoryImpl
 	List<Description> findAll(DescriptionDTO descriptionDto);
 
-	Page<Description> findByOrganizationIdScriptType(DescriptionDTO descriptionDTO, Pageable pageable);
+	Page<Description> findByAccountingIdScriptType(DescriptionDTO descriptionDTO, Pageable pageable);
 
-	Description findByOrganizationIdScriptType(DescriptionDTO descriptionDTO);
+	Description findByAccountingIdScriptType(DescriptionDTO descriptionDTO);
 }

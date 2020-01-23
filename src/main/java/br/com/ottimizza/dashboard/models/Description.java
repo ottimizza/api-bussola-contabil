@@ -32,8 +32,7 @@ public class Description implements Serializable{
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "descriptions_sequence")
     private BigInteger id;
 	
-	@Column(nullable = false)
-	private String organizationId;	//mudar para accountingId
+	private String accountingId;	//organizationId;
 	
 	@Column(nullable = false)
 	private String kpiAlias;
@@ -51,7 +50,7 @@ public class Description implements Serializable{
 	private String cnpj;
 	
 	@Column(columnDefinition = "boolean default true")
-    private Boolean visible = true;
+    private Boolean visible;
     
     
 }
