@@ -15,7 +15,6 @@ import com.querydsl.jpa.impl.JPAQuery;
 import br.com.ottimizza.dashboard.domain.dtos.DescriptionDTO;
 import br.com.ottimizza.dashboard.models.Description;
 import br.com.ottimizza.dashboard.models.QDescription;
-import br.com.ottimizza.dashboard.services.DescriptionService;
 
 @Repository
 public class DescriptionRepositoryImpl implements DescriptionRepositoryCustom {

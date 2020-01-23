@@ -15,4 +15,5 @@ public interface DescriptionRepositoryCustom {
 	Page<Description> findByOrganizationIdScriptType(DescriptionDTO descriptionDTO, Pageable pageable);
 
 	Description findByOrganizationIdScriptType(DescriptionDTO descriptionDTO);
+
 }
