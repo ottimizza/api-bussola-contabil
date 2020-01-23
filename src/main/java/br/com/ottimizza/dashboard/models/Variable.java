@@ -30,7 +30,7 @@ public class Variable implements Serializable{
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "variables_sequence")
 	private BigInteger id;
 	
-	@Column(name = "fk_organizations_id", nullable = true)
+	@Column(name = "fk_accounting_id", nullable = true)
     private BigInteger accountingId;
 	
 	@Column(name = "fk_script_id")

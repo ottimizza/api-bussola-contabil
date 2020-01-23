@@ -11,7 +11,7 @@ public class DescriptionMapper {
     public static Description fromDto(DescriptionDTO description) {
         return Description.builder()
                 .id(description.getId())
-                .organizationId(description.getOrganizationId())
+                .accountingId(description.getAccountingId())
                 .kpiAlias(description.getKpiAlias())
                 .description(description.getDescription())
                 .scriptType(description.getScriptType())
@@ -26,7 +26,7 @@ public class DescriptionMapper {
     public static DescriptionDTO fromEntity(Description description) {
         return DescriptionDTO.builder()
                 .id(description.getId())
-                .organizationId(description.getOrganizationId())
+                .accountingId(description.getAccountingId())
                 .kpiAlias(description.getKpiAlias())
                 .description(description.getDescription())
                 .scriptType(description.getScriptType())

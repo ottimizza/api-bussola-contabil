@@ -74,18 +74,18 @@ public class CompanyController {
 
 			if(companyDto.getScriptDescription() == null) {
 				if(scripts.size() == 0) {
-					company.setScriptType(scriptTypeService.save(new ScriptTypeDTO(null, idContabilidade, "padrao")).getId());
+					company.setScriptId(scriptTypeService.save(new ScriptTypeDTO(null, idContabilidade, "padrao")).getId());
 				} else if(scripts.size() == 1) {
-					company.setScriptType(scripts.get(0).getId());
+					company.setScriptId(scripts.get(0).getId());
 				} else if(scripts.size() > 1) {
-					company.setScriptType(scripts.get(0).getId());
+					company.setScriptId(scripts.get(0).getId());
 				}
 			}
 			if(companyDto.getScriptDescription() != null) {
 				if(scripts.size() == 0) {
-					company.setScriptType(scriptTypeService.save(new ScriptTypeDTO(null, idContabilidade, companyDto.getScriptDescription())).getId());
+					company.setScriptId(scriptTypeService.save(new ScriptTypeDTO(null, idContabilidade, companyDto.getScriptDescription())).getId());
 				}else {
-					company.setScriptType(scripts.get(0).getId());
+					company.setScriptId(scripts.get(0).getId());
 				}
 			}
 			return ResponseEntity.ok(service.save(company));
@@ -118,7 +118,7 @@ public class CompanyController {
             JSONObject response = sForce.searchCNPJ(email.get("email"));
             JSONArray listaJson = response.optJSONArray("records");
             
-            List<String> listaCNPJ = new ArrayList<>();
+            List<String> listaCNPJ = new ArrayList<String>();
             
             for (int i = 0; i < listaJson.length(); i++) {
             	listaCNPJ.add(listaJson.get(i).toString());
@@ -126,7 +126,6 @@ public class CompanyController {
             resposta = service.findByListCNPJ(listaCNPJ);
         } catch (Exception e) { }
         return ResponseEntity.ok(resposta);
-
     }
     
     @PutMapping("update/{id}")
