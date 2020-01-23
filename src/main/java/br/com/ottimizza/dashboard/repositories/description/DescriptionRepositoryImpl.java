@@ -15,6 +15,7 @@ import com.querydsl.jpa.impl.JPAQuery;
 import br.com.ottimizza.dashboard.domain.dtos.DescriptionDTO;
 import br.com.ottimizza.dashboard.models.Description;
 import br.com.ottimizza.dashboard.models.QDescription;
+import br.com.ottimizza.dashboard.services.DescriptionService;
 
 @Repository
 public class DescriptionRepositoryImpl implements DescriptionRepositoryCustom {
@@ -46,8 +47,16 @@ public class DescriptionRepositoryImpl implements DescriptionRepositoryCustom {
 
 		long totalDescriptions = 0;
 
+		if (descriptionDTO.getId() != null)				query.where(description.id.eq(descriptionDTO.getId()));
 		if (descriptionDTO.getOrganizationId() != null)	query.where(description.organizationId.eq(descriptionDTO.getOrganizationId()));
-		if (descriptionDTO.getScriptType() != null) query.where(description.scriptType.eq(descriptionDTO.getScriptType()));
+		if (descriptionDTO.getKpiAlias() != null)		query.where(description.kpiAlias.eq(descriptionDTO.getKpiAlias()));
+		if (descriptionDTO.getDescription() != null) 	query.where(description.description.eq(descriptionDTO.getDescription()));
+		if (descriptionDTO.getScriptType() != null) 	query.where(description.scriptType.eq(descriptionDTO.getScriptType()));
+		if (descriptionDTO.getTitle() != null) 			query.where(description.title.eq(descriptionDTO.getTitle()));
+		if (descriptionDTO.getGraphOrder() != null) 	query.where(description.graphOrder.eq(descriptionDTO.getGraphOrder()));
+		if (descriptionDTO.getChartType() != null) 		query.where(description.chartType.eq(descriptionDTO.getChartType()));
+		if (descriptionDTO.getCnpj() != null) 			query.where(description.cnpj.eq(descriptionDTO.getCnpj()));
+		if (descriptionDTO.getVisible() != null) 		query.where(description.visible.eq(descriptionDTO.getVisible())); 
 
 		totalDescriptions = query.fetchCount();
 		query.limit(pageable.getPageSize());
@@ -63,8 +72,8 @@ public class DescriptionRepositoryImpl implements DescriptionRepositoryCustom {
 		query.from(description);
 
 		if (descriptionDTO.getOrganizationId() != null)	query.where(description.organizationId.eq(descriptionDTO.getOrganizationId()));
-		if (descriptionDTO.getScriptType() != null) 	query.where(description.scriptType.eq(descriptionDTO.getScriptType()));
 		if (descriptionDTO.getKpiAlias() != null)		query.where(description.kpiAlias.eq(descriptionDTO.getKpiAlias()));
+		if (descriptionDTO.getScriptType() != null) 	query.where(description.scriptType.eq(descriptionDTO.getScriptType()));
 		
 		return query.fetchOne();
 	}

@@ -19,6 +19,7 @@ public class DescriptionMapper {
                 .graphOrder(description.getGraphOrder())
                 .chartType(description.getChartType())
                 .visible(description.getVisible())
+                .cnpj(description.getCnpj())
             .build();
     } 
 
@@ -33,6 +34,7 @@ public class DescriptionMapper {
                 .graphOrder(description.getGraphOrder())
                 .chartType(description.getChartType())
                 .visible(description.getVisible())
+                .cnpj(description.getCnpj())
             .build();
     }
     public static List<DescriptionDTO> fromEntities(List<Description> descriptions) {

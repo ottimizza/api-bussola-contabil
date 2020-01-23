@@ -19,9 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.ottimizza.dashboard.domain.commands_description.ImportacaoDescriptionsRequest;
 import br.com.ottimizza.dashboard.domain.dtos.DescriptionDTO;
-import br.com.ottimizza.dashboard.domain.dtos.VariableDTO;
 import br.com.ottimizza.dashboard.services.CompanyService;
 import br.com.ottimizza.dashboard.services.DescriptionService;
 
@@ -96,8 +94,8 @@ public class DescriptionController {
 	}*/
 
 	@PostMapping("/salvarListaDescriptions")
-	public ResponseEntity<?> saveDescriptionList(@RequestBody ImportacaoDescriptionsRequest importacaoDescriptions) throws Exception {
-		return ResponseEntity.ok(service.saveDescriptionList(importacaoDescriptions));
+	public ResponseEntity<?> saveDescriptionList(@RequestBody DescriptionDTO descriptionDTO) throws Exception {
+		return ResponseEntity.ok(service.saveDescriptionList(descriptionDTO));
 	}
 
 	@GetMapping("/retornaListaDescriptions")
