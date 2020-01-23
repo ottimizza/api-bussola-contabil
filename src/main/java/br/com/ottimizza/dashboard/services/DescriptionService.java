@@ -13,7 +13,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import br.com.ottimizza.dashboard.domain.commands_description.ImportacaoDescriptionsRequest;
 import br.com.ottimizza.dashboard.domain.dtos.CompanyDTO;
 import br.com.ottimizza.dashboard.domain.dtos.DescriptionDTO;
 import br.com.ottimizza.dashboard.domain.mappers_description.DescriptionMapper;
@@ -86,11 +85,12 @@ public class DescriptionService {
 	}
 
 	@Transactional(rollbackFor = Exception.class)
-	public List<DescriptionDTO> saveDescriptionList(ImportacaoDescriptionsRequest importaDescriptions) throws Exception {
+	public List<DescriptionDTO> saveDescriptionList(DescriptionDTO descriptionDTO) throws Exception {
 		List<Description> resultados = new ArrayList<>();
-		List<Description> descriptions = importaDescriptions.getDescriptions().stream().map((o) -> {
+		List<Description> descriptions = descriptionDTO.getDescriptions().stream().map((o) -> {
 			return DescriptionMapper.fromDto(o).toBuilder()
-				.organizationId(importaDescriptions.getOrganizationId())
+				.cnpj(descriptionDTO.getCnpj())
+				.organizationId(descriptionDTO.getOrganizationId())
 				.build();
 		}).collect(Collectors.toList());
 		

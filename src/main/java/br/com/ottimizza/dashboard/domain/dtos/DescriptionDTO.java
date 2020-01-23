@@ -30,7 +30,7 @@ public class DescriptionDTO implements Serializable {
 	private Integer graphOrder;
 	private String chartType;
 	private Boolean visible;
-	private List<Description> descriptions;
+	private List<DescriptionDTO> descriptions;
 
     public static DescriptionDTO descriptionToDto(Description description) {
     	DescriptionDTO dto = new DescriptionDTO();
