@@ -84,7 +84,6 @@ public class OrganizationVariableController {
 	public ResponseEntity<List<VariableDTO>> findMissing(@Valid VariableDTO filter, 
 														 @RequestHeader("Authorization") String authorization) throws Exception {
 		UserDTO userInfo = oauthClient.getUserInfo(authorization).getBody().getRecord();
-		System.out.println("WWW 1 "+userInfo.getEmail());
 		return ResponseEntity.ok(service.findMissingByOrganizationId(filter, userInfo));
 	}
 	

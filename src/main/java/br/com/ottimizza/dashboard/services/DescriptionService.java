@@ -43,12 +43,12 @@ public class DescriptionService {
 				filter = new CompanyDTO(null, descriptionDTO.getCnpj(), null, null, null, null, null, null);
 				company = companyRepository.findAll(filter, null, null).get(0);
 				if(company != null) {
-					company.setOrganizationId(descriptionDTO.getOrganizationId());
+					company.setExternalId(descriptionDTO.getOrganizationId());
 					company = companyRepository.save(company);
 				}
 			} catch (Exception e) {	}
 		}
-		if (company.getScriptType() == null) {
+		if (company.getScriptId() == null) {
 			// cria tipo roteiro padrao
 			// gravar fk na company
 		}

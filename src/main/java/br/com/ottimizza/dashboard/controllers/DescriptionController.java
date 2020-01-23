@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.ottimizza.dashboard.domain.commands_description.ImportacaoDescriptionsRequest;
 import br.com.ottimizza.dashboard.domain.dtos.DescriptionDTO;
-import br.com.ottimizza.dashboard.domain.dtos.VariableDTO;
 import br.com.ottimizza.dashboard.services.CompanyService;
 import br.com.ottimizza.dashboard.services.DescriptionService;
 
