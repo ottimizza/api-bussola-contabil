@@ -35,14 +35,14 @@ public class KpiDetailRepositoryImpl implements KpiDetailRepositoryCustom {
     }
     
     @Override
-    public List<KpiDetail> findKpiDetailsByCNPJAndGraphType(List<String> cnpj, Short graphType) {
+    public List<KpiDetail> findKpiDetailsByCNPJAndGraphType(List<String> cnpj, Short graphType, String kind) {
         JPAQuery<KpiDetail> query = new JPAQuery<KpiDetail>(em).from(kpiDetail)
                 .innerJoin(kpi).on(kpi.id.eq(kpiDetail.kpiID.id).and(kpi.graphType.eq(graphType)))
                 .innerJoin(company).on(company.id.eq(kpi.company.id));
-               //if	    (kind == 0) query.where(company.cnpj.in(cnpj).and(kpi.kpiAlias.lt("60")));                
-              //else if (kind == 1) query.where(company.cnpj.in(cnpj).and(kpi.kpiAlias.goe("60")));
-        							query.where(company.cnpj.in(cnpj));
-        							query.orderBy(kpiDetail.columnXSeq.asc());
+              	if	    (kind.equals("1")) query.where(company.cnpj.in(cnpj).and(kpi.kpiAlias.lt("60")));                
+              	else if (kind.equals("2")) query.where(company.cnpj.in(cnpj).and(kpi.kpiAlias.goe("60")));
+              	else					   query.where(company.cnpj.in(cnpj));
+        							       query.orderBy(kpiDetail.columnXSeq.asc());
         return query.fetch();
     }
 

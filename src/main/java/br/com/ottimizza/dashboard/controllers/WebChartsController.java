@@ -68,12 +68,17 @@ public class WebChartsController {
 			HttpServletRequest request) throws IOException, Exception {
 		authorization = authorization.replace("Bearer ", "");
 
-		System.out.println("auth>" + authorization);
 		JSONObject requestBody = new JSONObject(objRequest);
 		JSONArray cnpjs = requestBody.optJSONArray("cnpj");
 		//String email = requestBody.optJSONArray("email").getString(0);
 		String urlLogo = requestBody.optJSONArray("urlLogo").getString(0);
-		//int kind = requestBody.optJSONArray("kind").getInt(0);
+		String kind = "";
+		try{
+			kind = requestBody.optJSONArray("kind").getString(0);
+		}
+		catch(Exception ex) {
+			kind = "0";
+		}
 		Locale ptBr = new Locale("pt", "BR");
 		
 		// variavel usada em FOR
@@ -105,11 +110,10 @@ public class WebChartsController {
 		String companyName = "";
 		for (Integer charts : chartsSequence) {
 			
-			dataToCharts = wcs.getDataToCharts(cnpj, Short.parseShort(String.valueOf(charts)));
+			dataToCharts = wcs.getDataToCharts(cnpj, Short.parseShort(String.valueOf(charts)), kind);
 			if(!dataToCharts.optString("companyName").equals("")) companyName = dataToCharts.optString("companyName");
 			
 			if (dataToCharts.optBoolean("emptyTable") || !dataToCharts.optBoolean("visible")) {
-				System.out.println("Tabela Vazia ou nao Visivelll ");
 				sb.append("			#charts").append(charts).append("  { display: none; }").append(rn);
 			}
 		}
@@ -137,10 +141,8 @@ public class WebChartsController {
 		sb.append("			</div>").append(rn);
 		
 		for (Integer charts : chartsSequence) {
-			System.out.println("buscando  chart");
-			dataToCharts = wcs.getDataToCharts(cnpj, Short.parseShort(String.valueOf(charts)));
+			dataToCharts = wcs.getDataToCharts(cnpj, Short.parseShort(String.valueOf(charts)), kind);
 			if (!dataToCharts.optBoolean("emptyTable") && dataToCharts.optBoolean("visible")) {
-				System.out.println("ta dentro do if de validacaoooooo");
 				if (charts == 7 || charts == 12) {
 					String valorString = DecimalFormat.getCurrencyInstance(ptBr)
 							.format(dataToCharts.optDouble("value"));
@@ -156,7 +158,6 @@ public class WebChartsController {
 
 				} else {
 					sb.append("			<div id=\"charts").append(charts).append("\"></div>").append(rn);
-					System.out.println("entrou no else");
 				}
 				cont++;
 			}
@@ -178,7 +179,7 @@ public class WebChartsController {
 		sb.append(wcs.getbasicOptions(true));
 
 		for (int kk = 1; kk <= totalCharts; kk++) {
-			dataToCharts = wcs.getDataToCharts(cnpj, Short.parseShort(String.valueOf(kk)));
+			dataToCharts = wcs.getDataToCharts(cnpj, Short.parseShort(String.valueOf(kk)), kind);
 			
 			if (dataToCharts.optBoolean("visible") && !dataToCharts.optString("data").equals("")) {
 				
@@ -305,15 +306,21 @@ public class WebChartsController {
 	public ResponseEntity<Resource> downloadHTML(@RequestBody String objRequest, HttpServletRequest request) throws IOException, Exception{
 
 		JSONObject requestBody = new JSONObject(objRequest);
-		JSONArray cnpjs	= requestBody.optJSONArray("cnpj");
+		JSONArray cnpjs = requestBody.optJSONArray("cnpj");
 		//String email = requestBody.optJSONArray("email").getString(0);
 		String urlLogo = requestBody.optJSONArray("urlLogo").getString(0);
+		String kind = "";
+		try{
+			kind = requestBody.optJSONArray("kind").getString(0);
+		}
+		catch(Exception ex) {
+			kind = "0";
+		}
 		Locale ptBr = new Locale("pt", "BR");
 		
-
 		// variavel usada em FOR
-		int totalCharts = 21;
-		Integer[] ordenated = { 7, 12, 21, 1, 8, 9, 10, 11, 13, 2, 3, 6, 4, 5, 15, 16, 18, 14, 17, 19, 20 };
+		int totalCharts = 29;
+		Integer[] ordenated = { 7, 12, 21, 1, 8, 9, 10, 11, 13, 2, 3, 6, 4, 5, 15, 16, 18, 14, 17, 19, 20, 22, 23, 24, 25, 26, 27, 28, 29 };
 
 		String cnpjString = cnpjs.getString(0);
 
@@ -328,26 +335,26 @@ public class WebChartsController {
 		StringBuffer sb = new StringBuffer();
 		String rn = "\r\n";
 
-		sb.append("<!DOCTYPE html>"					).append(rn);
-		sb.append("<html>"							).append(rn);
-		sb.append("	<head>"							).append(rn);
-		sb.append("		<meta charset=\"utf-8\"/>"	).append(rn);
+		sb.append("<!DOCTYPE html>"						).append(rn);
+		sb.append("<html>"								).append(rn);
+		sb.append("	<head>"								).append(rn);
+		sb.append("		<meta charset=\"utf-8\"/>"		).append(rn);
 
-		sb.append(wcs.getBasicStyleWeb());
+		sb.append(wcs.getBasicStyle());
 
 		List<Integer> chartsSequence = Arrays.asList(ordenated);
 		dataToCharts = new JSONObject();
 		String companyName = "";
 		for (Integer charts : chartsSequence) {
-			dataToCharts = wcs.getDataToCharts(cnpj, Short.parseShort(String.valueOf(charts)));
-
+			
+			dataToCharts = wcs.getDataToCharts(cnpj, Short.parseShort(String.valueOf(charts)), kind);
 			if(!dataToCharts.optString("companyName").equals("")) companyName = dataToCharts.optString("companyName");
-
+			
 			if (dataToCharts.optBoolean("emptyTable") || !dataToCharts.optBoolean("visible")) {
 				sb.append("			#charts").append(charts).append("  { display: none; }").append(rn);
 			}
 		}
-		
+
 		sb.append("		</style>").append(rn);
 		sb.append("	</head>").append(rn);
 		sb.append("	<body>").append(rn);
@@ -358,9 +365,10 @@ public class WebChartsController {
 		//String urlLogo = api.getUrlLogotipoByEmail(email);
 
 		// mudar link
-		if (urlLogo.equals(""))
+		if (urlLogo.equals("")) {
 			urlLogo = "https://www.ottimizza.com.br/bussola/logo_bussola.png";
-
+		}
+		
 		sb.append("			<div id=\"head\" style=\"margin:0\">").append(rn);
 		sb.append("				<img id=\"logo\" style=\"margin-left:240px; margin-right:40px\" src=\"").append(urlLogo).append("\">").append(rn);
 		sb.append("				<div style=\"width: fit-content; margin: 0;\">").append(rn);
@@ -368,9 +376,9 @@ public class WebChartsController {
 		sb.append("					<span>").append(companyName).append("</span>").append(rn);
 		sb.append("				</div>").append(rn);
 		sb.append("			</div>").append(rn);
-
+		
 		for (Integer charts : chartsSequence) {
-			dataToCharts = wcs.getDataToCharts(cnpj, Short.parseShort(String.valueOf(charts)));
+			dataToCharts = wcs.getDataToCharts(cnpj, Short.parseShort(String.valueOf(charts)), kind);
 			if (!dataToCharts.optBoolean("emptyTable") && dataToCharts.optBoolean("visible")) {
 				if (charts == 7 || charts == 12) {
 					String valorString = DecimalFormat.getCurrencyInstance(ptBr)
@@ -378,8 +386,10 @@ public class WebChartsController {
 
 					sb.append("			<div id=\"epi\">").append(rn);
 					sb.append("				<div id=\"charts").append(charts).append("\">").append(rn);
-					sb.append("					<p>").append(dataToCharts.optString("title")).append("</p>").append(rn);
-					sb.append("					<span id=\"endo\"><strong>").append(valorString).append("</strong></span>").append(rn);
+					sb.append("					<p>").append(dataToCharts.optString("title")).append("</p>")
+							.append(rn);
+					sb.append("					<span id=\"endo\"><strong>").append(valorString)
+							.append("</strong></span>").append(rn);
 					sb.append("				</div>").append(rn);
 					sb.append("			</div>").append(rn);
 
@@ -393,7 +403,6 @@ public class WebChartsController {
 				sb.append("			<div id=\"separator\"></div>").append(rn).append(rn);
 				cont = 0;
 			}
-			
 		}
 		sb.append("		</div>").append(rn).append(rn);
 
@@ -407,9 +416,10 @@ public class WebChartsController {
 		sb.append(wcs.getbasicOptions(true));
 
 		for (int kk = 1; kk <= totalCharts; kk++) {
-			dataToCharts = wcs.getDataToCharts(cnpj, Short.parseShort(String.valueOf(kk)));
+			dataToCharts = wcs.getDataToCharts(cnpj, Short.parseShort(String.valueOf(kk)), kind);
+			
 			if (dataToCharts.optBoolean("visible") && !dataToCharts.optString("data").equals("")) {
-
+				
 				if(!dataToCharts.optString("chartType").equals("Gauge")) { //(kk != 7 && kk != 12)
 					sb.append(wcs.getTable(dataToCharts));
 					
@@ -438,10 +448,11 @@ public class WebChartsController {
 						}
 					}
 					if(dataToCharts.optString("chartType").equals("LineChart")) {
+						
 						if (kk == 5 || kk == 6) { // LINE (1 linha)
 							sb.append("				options").append(kk).append(".pointSize = 2;").append(rn).append(rn);
 						}
-						if (kk == 18 || kk == 19 || kk == 20) { // LINE (4 linhas)
+						if (kk == 18 || kk == 19 || kk == 20 || kk > 21) { // LINE (4 linhas)
 							sb.append("				options").append(kk).append(".legend = {position: 'bottom'};").append(rn);
 							sb.append("				options").append(kk).append(".pointSize = 2;").append(rn).append(rn);
 						}

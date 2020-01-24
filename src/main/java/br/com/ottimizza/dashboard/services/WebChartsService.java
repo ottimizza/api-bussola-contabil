@@ -8,6 +8,7 @@ import javax.inject.Inject;
 import org.json.JSONObject;
 import org.springframework.stereotype.Service;
 
+import br.com.ottimizza.dashboard.domain.dtos.KpiDTO;
 import br.com.ottimizza.dashboard.models.KpiDetail;
 
 @Service
@@ -23,17 +24,16 @@ public class WebChartsService {
 	public static final String CHART_TYPE_GAUGE = "Gauge";
 	
 	
-	public JSONObject getDataToCharts(List<String> cnpj, Short param) {
+	public JSONObject getDataToCharts(List<String> cnpj, Short param, String kind) {
 
 		JSONObject records = new JSONObject();
-		if(param > 81 || param  < 1) return records;
+		if(param > 29 || param  < 1) return records;
+		if(kind.equals("") || kind == null) kind = "0";
 		
         List<KpiDetail> kpiList = new ArrayList<KpiDetail>();
         
-        try {kpiList = kpiDetailService.findByListCNPJAndGraphType(cnpj, param);}
+        try {kpiList = kpiDetailService.findByListCNPJAndGraphType(cnpj, param, kind);}
         catch (Exception e) { e.printStackTrace();}
-        
-        System.out.println("LISTA DE KPI TEM ISSO DE KPI´S_ "+kpiList.size());
         
         String rn = "\r\n";
         String s = "";
@@ -108,22 +108,27 @@ public class WebChartsService {
 					if(graphType != 7) sbGraphType.append(kpiDetail.getXBinding()); //retirado getColumnX() pra nao ir dia
 					sbGraphType.append("'").append(s);
 					if(graphType == 7) {
+						
 						double vld = kpiDetail.getValorKPI();
 						int valor = (int) vld;
 						sbGraphType.append(valor);
+						
 					} else {
-						sbGraphType.append(kpiDetail.getValorKPI());
-						if(!kpiDetail.getKpiID().getLabel2().equals("")) {
+						String[] arrayVal = kpiDetail.getValorStringArray().split(";");
+						sbGraphType.append(arrayVal[0].toString());
+						
+						if(arrayVal.length > 2) {
 							sbGraphType.append(s);
-							sbGraphType.append(kpiDetail.getValorKPI2());
+							sbGraphType.append(arrayVal[2].toString());
+							
 						}
-						if(!kpiDetail.getKpiID().getLabel3().equals("")) {
+						if(arrayVal.length > 4) {
 							sbGraphType.append(s);
-							sbGraphType.append(kpiDetail.getValorKPI3());
+							sbGraphType.append(arrayVal[4].toString());
 						}
-						if(!kpiDetail.getKpiID().getLabel4().equals("")) {
+						if(arrayVal.length > 6) {
 							sbGraphType.append(s);
-							sbGraphType.append(kpiDetail.getValorKPI4());
+							sbGraphType.append(arrayVal[6].toString());
 						}
 					}
 				}
@@ -304,7 +309,9 @@ public class WebChartsService {
 		sb.append("		    #charts13, #charts2, #charts3, #charts6,"				).append(rn);
 		sb.append("		    #charts4, #charts5, #charts15, #charts16,"				).append(rn);
 		sb.append("		    #charts18, #charts10, #charts11, #charts14,"			).append(rn);
-		sb.append("			#charts17, #charts19, #charts20 {"					).append(rn);
+		sb.append("			#charts17, #charts19, #charts20, #charts22, "			).append(rn);
+		sb.append("			#charts23, #charts24, #charts25, #charts26, "			).append(rn);
+		sb.append("			#charts27, #charts28, #charts29 {"			).append(rn);
 		sb.append("		        width: 80%;"								).append(rn);
 		sb.append("		        height: 400px;"								).append(rn);
 		sb.append("		    }"												).append(rn);
@@ -406,7 +413,9 @@ public class WebChartsService {
 		sb.append("		    #charts13, #charts2, #charts3, #charts6,"		).append(rn);
 		sb.append("		    #charts4, #charts5, #charts15, #charts16,"		).append(rn);
 		sb.append("		    #charts18, #charts10, #charts11, #charts14,"	).append(rn);
-		sb.append("			#charts17, #charts19, #charts20 {"				).append(rn);
+		sb.append("			#charts17, #charts19, #charts20, #charts22, "	).append(rn);
+		sb.append("			#charts23, #charts24, #charts25, #charts26, "	).append(rn);
+		sb.append("			#charts27, #charts28, #charts29 {"				).append(rn);
 		sb.append("		        width: 80%;"								).append(rn);
 		sb.append("		        height: 400px;"								).append(rn);
 		sb.append("		    }"												).append(rn);
