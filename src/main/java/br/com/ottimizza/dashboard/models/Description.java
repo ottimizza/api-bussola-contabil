@@ -13,12 +13,11 @@ import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @Entity
-@Getter @Setter
+@Data
 @Builder(toBuilder = true)
 @NoArgsConstructor
 @AllArgsConstructor
@@ -33,8 +32,7 @@ public class Description implements Serializable{
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "descriptions_sequence")
     private BigInteger id;
 	
-	@Column(nullable = false)
-	private String organizationId;
+	private String accountingId;	//organizationId;
 	
 	@Column(nullable = false)
 	private String kpiAlias;
@@ -52,7 +50,7 @@ public class Description implements Serializable{
 	private String cnpj;
 	
 	@Column(columnDefinition = "boolean default true")
-    private Boolean visible = true;
+    private Boolean visible;
     
     
 }

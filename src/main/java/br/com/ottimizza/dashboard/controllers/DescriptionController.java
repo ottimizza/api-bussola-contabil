@@ -108,7 +108,8 @@ public class DescriptionController {
 	}
 
 	@PutMapping("/updateDescOrganizationIdScriptType")
-	public ResponseEntity<?> updateByOrganizationIdScriptType(@RequestBody DescriptionDTO descriptionDTO){
+	public ResponseEntity<?> updateByOrganizationIdScriptType(@RequestBody DescriptionDTO descriptionDTO,
+															  @RequestHeader("Authorization") String authorization) throws Exception{
 		return ResponseEntity.ok(service.updateByOrganizationIdScriptType(descriptionDTO));
 	}
 	
