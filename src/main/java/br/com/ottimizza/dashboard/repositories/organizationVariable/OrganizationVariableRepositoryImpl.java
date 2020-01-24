@@ -39,26 +39,13 @@ public class OrganizationVariableRepositoryImpl implements OrganizationVariableR
 		return query.fetch();
 	}
 
-//	@Override
-//	public List<VariableDTO> findMissingByCompanyId(BigInteger companyId, UserDTO userInfo) {
-//		JPAQuery<VariableDTO> query = new JPAQuery<VariableDTO>(em).from(variable)
-//				.leftJoin(organizationVariable).on(
-//						organizationVariable.variableId.eq(variable.id).and(organizationVariable.organizationId.eq(companyId)))
-//				.where(organizationVariable.id.isNull().and(variable.accountingId.eq(userInfo.getOrganization().getId())));
-//				
-//		query.select(Projections.constructor(
-//				VariableDTO.class, organizationVariable.id, variable.accountingId, variable.variableCode, variable.name, variable.id, variable.scriptId, variable.originValue, variable.absoluteValue, 
-//								   organizationVariable.organizationId, variable.accountingCode));
-//		return query.fetch();
-//	}
-	
 	@Override
 	public List<VariableDTO> findMissingByCompanyId(VariableDTO filter, UserDTO userInfo) {
 
-		String cnpjTest = "07.586.955/0001-99"; //OK preciso remover isso
+//		innerJoin(company)... .and(company.cnpj.eq(cnpjTest)) nao parece necessario validar CNPJ
+//		String cnpjTest = "07.586.955/0001-99";
 		JPAQuery<VariableDTO> query = new JPAQuery<VariableDTO>(em).from(variable);
 		query.innerJoin(company).on(company.accountingId.eq(variable.accountingId)
-				.and(company.cnpj.eq(cnpjTest))
 				.and(company.scriptId.eq(variable.scriptId)));
 
 		query.leftJoin(organizationVariable).on(organizationVariable.variableId.eq(variable.id)

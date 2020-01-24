@@ -9,7 +9,6 @@ public interface OrganizationVariableRepositoryCustom { //OrganizationVariableRe
 
 	List<VariableDTO> findVariablesByCompanyId(VariableDTO filter, UserDTO userInfo);
 
-//	List<VariableDTO> findMissingByCompanyId(BigInteger companyId, UserDTO userInfo);
 	List<VariableDTO> findMissingByCompanyId(VariableDTO filter, UserDTO userInfo);
 
 }
