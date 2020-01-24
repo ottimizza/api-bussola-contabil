@@ -89,8 +89,6 @@ public class DescriptionService {
 		List<Description> resultados = new ArrayList<>();
 		List<Description> descriptions = descriptionDTO.getDescriptions().stream().map((o) -> {
 			return DescriptionMapper.fromDto(o).toBuilder()
-				.cnpj(descriptionDTO.getCnpj())
-				.accountingId(descriptionDTO.getAccountingId())
 				.build();
 		}).collect(Collectors.toList());
 		
