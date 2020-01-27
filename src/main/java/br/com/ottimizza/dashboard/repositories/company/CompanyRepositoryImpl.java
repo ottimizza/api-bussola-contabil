@@ -38,8 +38,8 @@ public class CompanyRepositoryImpl implements CompanyRepositoryCustom {
         if(filter.getId() != null)		query.where(company.id.eq(filter.getId()));
         if(filter.getName() != null)	query.where(company.name.eq(filter.getName()));
         if(filter.getSector() != null)	query.where(company.sector.eq(filter.getSector()));
-        if(filter.getOrganizationId() != null)	query.where(company.organizationId.eq(filter.getOrganizationId()));
-        if(filter.getScriptType() != null)		query.where(company.scriptType.eq(filter.getScriptType()));
+        if(filter.getExternalId() != null)	query.where(company.externalId.eq(filter.getExternalId()));
+        if(filter.getScriptId() != null)	query.where(company.scriptId.eq(filter.getScriptId()));
         
         if (pageSize != null && pageSize > 0) {
             query.limit(pageSize);
