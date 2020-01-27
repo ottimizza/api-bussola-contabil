@@ -8,7 +8,6 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.net.MalformedURLException;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.sql.Timestamp;
@@ -16,7 +15,6 @@ import java.text.DecimalFormat;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Locale;
 
@@ -47,7 +45,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.ottimizza.dashboard.apis.IsGdApi;
-import br.com.ottimizza.dashboard.apis.SalesForceApi;
 import br.com.ottimizza.dashboard.services.WebChartsService;
 
 @RestController
@@ -88,7 +85,6 @@ public class WebChartsController {
 		String cnpjString = cnpjs.getString(0);
 
 		// busca de dados
-		String cnpjReq = "";
 		List<String> cnpj = new ArrayList<String>();
 		cnpj.add(cnpjString);
 
@@ -310,12 +306,9 @@ public class WebChartsController {
 		//String email = requestBody.optJSONArray("email").getString(0);
 		String urlLogo = requestBody.optJSONArray("urlLogo").getString(0);
 		String kind = "";
-		try{
-			kind = requestBody.optJSONArray("kind").getString(0);
-		}
-		catch(Exception ex) {
-			kind = "0";
-		}
+		
+		try{kind = requestBody.optJSONArray("kind").getString(0);}
+		catch(Exception ex) {kind = "0";}
 		Locale ptBr = new Locale("pt", "BR");
 		
 		// variavel usada em FOR
@@ -325,7 +318,6 @@ public class WebChartsController {
 		String cnpjString = cnpjs.getString(0);
 
 		// busca de dados
-		String cnpjReq = "";
 		List<String> cnpj = new ArrayList<String>();
 		cnpj.add(cnpjString);
 

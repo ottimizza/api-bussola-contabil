@@ -8,7 +8,6 @@ import javax.inject.Inject;
 import org.json.JSONObject;
 import org.springframework.stereotype.Service;
 
-import br.com.ottimizza.dashboard.domain.dtos.KpiDTO;
 import br.com.ottimizza.dashboard.models.KpiDetail;
 
 @Service
@@ -311,7 +310,7 @@ public class WebChartsService {
 		sb.append("		    #charts18, #charts10, #charts11, #charts14,"			).append(rn);
 		sb.append("			#charts17, #charts19, #charts20, #charts22, "			).append(rn);
 		sb.append("			#charts23, #charts24, #charts25, #charts26, "			).append(rn);
-		sb.append("			#charts27, #charts28, #charts29 {"			).append(rn);
+		sb.append("			#charts27, #charts28, #charts29 {"					).append(rn);
 		sb.append("		        width: 80%;"								).append(rn);
 		sb.append("		        height: 400px;"								).append(rn);
 		sb.append("		    }"												).append(rn);
