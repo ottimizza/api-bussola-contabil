@@ -93,12 +93,12 @@ public class DescriptionController {
 		return ResponseEntity.ok(listReturn);
 	}*/
 
-	@PostMapping("/salvarListaDescriptions")
+	@PostMapping("/addDescriptions")
 	public ResponseEntity<?> saveDescriptionList(@RequestBody DescriptionDTO descriptionDTO) throws Exception {
 		return ResponseEntity.ok(service.saveDescriptionList(descriptionDTO));
 	}
 
-	@GetMapping("/retornaListaDescriptions")
+	@GetMapping("/descriptions")
 	public ResponseEntity<?> returnDescriptionList(@Valid DescriptionDTO filter, 
 									 			@RequestParam(name = "page_index", defaultValue = "0") int pageIndex, 
 								 				@RequestParam(name = "page_size", defaultValue = "10") int pageSize, 
@@ -107,7 +107,7 @@ public class DescriptionController {
 	));
 	}
 
-	@PutMapping("/updateDescOrganizationIdScriptType")
+	@PutMapping("/updateDescription")
 	public ResponseEntity<?> updateByOrganizationIdScriptType(@RequestBody DescriptionDTO descriptionDTO,
 															  @RequestHeader("Authorization") String authorization) throws Exception{
 		return ResponseEntity.ok(service.updateByOrganizationIdScriptType(descriptionDTO));

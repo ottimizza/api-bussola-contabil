@@ -9,6 +9,10 @@ oauth2-config:
     oauth2-client-id: ${OAUTH2_CLIENT_ID:bussola-contabil-client}
     oauth2-client-secret: ${OAUTH2_CLIENT_SECRET:bussola-contabil-secret}
 
+storage-config:
+    upload-id-bussola: ${UPLOAD_ID_BUSSOLA:development-bussola-contabil}
+    upload-accounting-id: ${UPLOAD_ACCOUNTING_ID:ottimizza}
+
 # Sentry Environment Variables
 sentry-config:
     sentry-dsn: ${SENTRY_DSN}
