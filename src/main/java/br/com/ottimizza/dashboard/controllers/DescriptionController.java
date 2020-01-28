@@ -19,9 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.ottimizza.dashboard.domain.commands_description.ImportacaoDescriptionsRequest;
 import br.com.ottimizza.dashboard.domain.dtos.DescriptionDTO;
-import br.com.ottimizza.dashboard.domain.dtos.VariableDTO;
 import br.com.ottimizza.dashboard.services.CompanyService;
 import br.com.ottimizza.dashboard.services.DescriptionService;
 
@@ -95,12 +93,12 @@ public class DescriptionController {
 		return ResponseEntity.ok(listReturn);
 	}*/
 
-	@PostMapping("/salvarListaDescriptions")
-	public ResponseEntity<?> saveDescriptionList(@RequestBody ImportacaoDescriptionsRequest importacaoDescriptions) throws Exception {
-		return ResponseEntity.ok(service.saveDescriptionList(importacaoDescriptions));
+	@PostMapping("/addDescriptions")
+	public ResponseEntity<?> saveDescriptionList(@RequestBody DescriptionDTO descriptionDTO) throws Exception {
+		return ResponseEntity.ok(service.saveDescriptionList(descriptionDTO));
 	}
 
-	@GetMapping("/retornaListaDescriptions")
+	@GetMapping("/descriptions")
 	public ResponseEntity<?> returnDescriptionList(@Valid DescriptionDTO filter, 
 									 			@RequestParam(name = "page_index", defaultValue = "0") int pageIndex, 
 								 				@RequestParam(name = "page_size", defaultValue = "10") int pageSize, 
@@ -109,8 +107,9 @@ public class DescriptionController {
 	));
 	}
 
-	@PutMapping("/updateDescOrganizationIdScriptType")
-	public ResponseEntity<?> updateByOrganizationIdScriptType(@RequestBody DescriptionDTO descriptionDTO){
+	@PutMapping("/updateDescription")
+	public ResponseEntity<?> updateByOrganizationIdScriptType(@RequestBody DescriptionDTO descriptionDTO,
+															  @RequestHeader("Authorization") String authorization) throws Exception{
 		return ResponseEntity.ok(service.updateByOrganizationIdScriptType(descriptionDTO));
 	}
 	

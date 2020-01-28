@@ -8,11 +8,11 @@ import org.springframework.data.domain.Pageable;
 import br.com.ottimizza.dashboard.domain.dtos.DescriptionDTO;
 import br.com.ottimizza.dashboard.models.Description;
 
-public interface DescriptionRepositoryCustom {
-//	DescriptionRepositoryImpl
+public interface DescriptionRepositoryCustom {	//DescriptionRepositoryImpl
+	
 	List<Description> findAll(DescriptionDTO descriptionDto);
 
-	Page<Description> findByOrganizationIdScriptType(DescriptionDTO descriptionDTO, Pageable pageable);
+	Page<Description> findByAccountingIdScriptType(DescriptionDTO descriptionDTO, Pageable pageable);
 
-	Description findByOrganizationIdScriptType(DescriptionDTO descriptionDTO);
+	Description findByAccountingIdScriptType(DescriptionDTO descriptionDTO);
 }

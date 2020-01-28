@@ -32,7 +32,6 @@ public class VariableDTO implements Serializable{
 	//from organizationVariable
 	private BigInteger accountingId;	//contabilidade  accounting
 	private String accountingCode;
-
 	
 	public Variable variableDtoToVariable(VariableDTO variableDto) {
 		Variable variable = new Variable();

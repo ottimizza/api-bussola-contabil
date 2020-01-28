@@ -13,7 +13,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import br.com.ottimizza.dashboard.domain.commands_description.ImportacaoDescriptionsRequest;
 import br.com.ottimizza.dashboard.domain.dtos.CompanyDTO;
 import br.com.ottimizza.dashboard.domain.dtos.DescriptionDTO;
 import br.com.ottimizza.dashboard.domain.mappers_description.DescriptionMapper;
@@ -32,7 +31,7 @@ public class DescriptionService {
 	CompanyRepository companyRepository;
 	
 	public DescriptionDTO save(DescriptionDTO descriptionDTO) throws Exception {
-		CompanyDTO filter = new CompanyDTO(null, null, null, null, descriptionDTO.getOrganizationId(), null, null, null);
+		CompanyDTO filter = new CompanyDTO(null, null, null, null, null, descriptionDTO.getAccountingId(), null, null);
 		Company company = new Company();
 		List<Company> companies = companyRepository.findAll(filter, null, null);
 
@@ -42,15 +41,15 @@ public class DescriptionService {
 			try {
 				filter = new CompanyDTO(null, descriptionDTO.getCnpj(), null, null, null, null, null, null);
 				company = companyRepository.findAll(filter, null, null).get(0);
-				if(company != null) {
-					company.setOrganizationId(descriptionDTO.getOrganizationId());
+				/*if(company != null) {
+					company.setAccountingId(descriptionDTO.getAccountingId());
 					company = companyRepository.save(company);
-				}
+				}*/
 			} catch (Exception e) {	}
 		}
-		if (company.getScriptType() == null) {
-			// cria tipo roteiro padrao
-			// gravar fk na company
+		if (company != null) {
+			if(company.getScriptId() != null) descriptionDTO.setScriptId(company.getScriptId());			
+			if(company.getAccountingId() != null) descriptionDTO.setAccountingId(company.getAccountingId());
 		}
 			
 		Description description = DescriptionDTO.dtoToDescription(descriptionDTO);
@@ -86,25 +85,37 @@ public class DescriptionService {
 	}
 
 	@Transactional(rollbackFor = Exception.class)
-	public List<DescriptionDTO> saveDescriptionList(ImportacaoDescriptionsRequest importaDescriptions) throws Exception {
+	public List<DescriptionDTO> saveDescriptionList(DescriptionDTO descriptionDTO) throws Exception {
+		CompanyDTO filter = new CompanyDTO(null, null, null, null, null, descriptionDTO.getAccountingId(), null, null);
+		Company company = new Company();
+		List<Company> companies = companyRepository.findAll(filter, null, null);
+
+		/*for(Description d: DescriptionDTO.getDescriptions()){
+			if(d.getId() == null){
+
+			}
+		}*/ 
+		
+		//if (descriptionDTO.getId() != null)
 		List<Description> resultados = new ArrayList<>();
-		List<Description> descriptions = importaDescriptions.getDescriptions().stream().map((o) -> {
+		List<Description> descriptions = descriptionDTO.getDescriptions().stream().map((o) -> {
 			return DescriptionMapper.fromDto(o).toBuilder()
-				.organizationId(importaDescriptions.getOrganizationId())
 				.build();
 		}).collect(Collectors.toList());
 		
+
+
 		repository.saveAll(descriptions).forEach(resultados::add);
 		
 		return DescriptionMapper.fromEntities(resultados);
 	}	
 
 	public Page<DescriptionDTO> returnDescriptionList(DescriptionDTO filter, int pageIndex, int pageSize, String authorization) {
-		return repository.findByOrganizationIdScriptType(filter, PageRequest.of(pageIndex, pageSize)).map(DescriptionDTO::descriptionToDto);
+		return repository.findByAccountingIdScriptType(filter, PageRequest.of(pageIndex, pageSize)).map(DescriptionDTO::descriptionToDto);
 	}
 
 	public DescriptionDTO updateByOrganizationIdScriptType(DescriptionDTO descriptionDTO){
-		Description dp = repository.findByOrganizationIdScriptType(descriptionDTO);
+		Description dp = repository.findByAccountingIdScriptType(descriptionDTO);
 		return DescriptionDTO.descriptionToDto(repository.save(descriptionDTO.patch(dp)));
 	}
 

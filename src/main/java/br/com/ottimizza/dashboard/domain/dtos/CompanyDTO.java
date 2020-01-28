@@ -7,11 +7,10 @@ import java.util.stream.Collectors;
 
 import br.com.ottimizza.dashboard.models.Company;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
-@Getter @Setter
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class CompanyDTO implements Serializable{
@@ -22,11 +21,11 @@ public class CompanyDTO implements Serializable{
 	private String cnpj;
 	private String name;
 	private Integer sector;
-	private String organizationId;
+//	private String organizationId;
+	private String externalId;
 	private BigInteger accountingId;
-    private BigInteger scriptType;
+    private BigInteger scriptId;
 	private String scriptDescription;
-	
 	
 	
 	public static CompanyDTO entityToDto(Company entity) {
@@ -37,8 +36,8 @@ public class CompanyDTO implements Serializable{
 		if(entity.getName() != null)			dto.setName(entity.getName());
 		if(entity.getSector() != null)			dto.setSector(entity.getSector());
 		if(entity.getAccountingId() != null)	dto.setAccountingId(entity.getAccountingId());
-		if(entity.getOrganizationId() != null)	dto.setOrganizationId(entity.getOrganizationId());
-		if(entity.getScriptType() != null)		dto.setScriptType(entity.getScriptType());
+		if(entity.getExternalId() != null)		dto.setExternalId(entity.getExternalId());
+		if(entity.getScriptId() != null)		dto.setScriptId(entity.getScriptId());
 		// 'ScriptDescription' nao tem no entity
 		
 		return dto;
@@ -55,8 +54,8 @@ public class CompanyDTO implements Serializable{
 		if(dto.getName() != null)			entity.setName(dto.getName());
 		if(dto.getSector() != null)			entity.setSector(dto.getSector());
 		if(dto.getAccountingId() != null)	entity.setAccountingId(dto.getAccountingId());
-		if(dto.getOrganizationId() != null)	entity.setOrganizationId(dto.getOrganizationId());
-		if(dto.getScriptType() != null)		entity.setScriptType(dto.getScriptType());
+		if(dto.getExternalId() != null)		entity.setExternalId(dto.getExternalId());
+		if(dto.getScriptId() != null)		entity.setScriptId(dto.getScriptId());
 		// 'ScriptDescription' nao tem no entity
 		
 		return entity;
@@ -64,7 +63,6 @@ public class CompanyDTO implements Serializable{
 	public static List<Company> dtoToEntity(List<CompanyDTO> dtos){
 		return dtos.stream().map(CompanyDTO::dtoToEntity).collect(Collectors.toList());
 	}
-	
 	
 	public Company patch(Company company) {
 		
