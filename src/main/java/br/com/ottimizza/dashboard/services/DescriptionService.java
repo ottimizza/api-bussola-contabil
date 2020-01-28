@@ -41,13 +41,15 @@ public class DescriptionService {
 			try {
 				filter = new CompanyDTO(null, descriptionDTO.getCnpj(), null, null, null, null, null, null);
 				company = companyRepository.findAll(filter, null, null).get(0);
-				if(company != null) {
-					company.setExternalId(descriptionDTO.getAccountingId());
-					company = companyRepository.save(company);
-				}
+//				if(company != null) {
+//					company.setExternalId(descriptionDTO.getAccountingId());
+//					company = companyRepository.save(company);
+//				}
 			} catch (Exception e) {	}
 		}
-		if (company.getScriptId() == null) {
+		if (company != null && company.getAccountingId() == null) {
+			
+//			descriptionDTO.setAccountingId(company.getAccountingId());
 			// cria tipo roteiro padrao
 			// gravar fk na company
 		}
