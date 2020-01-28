@@ -31,7 +31,7 @@ public class DescriptionService {
 	CompanyRepository companyRepository;
 	
 	public DescriptionDTO save(DescriptionDTO descriptionDTO) throws Exception {
-		CompanyDTO filter = new CompanyDTO(null, null, null, null, descriptionDTO.getAccountingId(), null, null, null);
+		CompanyDTO filter = new CompanyDTO(null, null, null, null, null, descriptionDTO.getAccountingId(), null, null);
 		Company company = new Company();
 		List<Company> companies = companyRepository.findAll(filter, null, null);
 
@@ -41,17 +41,15 @@ public class DescriptionService {
 			try {
 				filter = new CompanyDTO(null, descriptionDTO.getCnpj(), null, null, null, null, null, null);
 				company = companyRepository.findAll(filter, null, null).get(0);
-//				if(company != null) {
-//					company.setExternalId(descriptionDTO.getAccountingId());
-//					company = companyRepository.save(company);
-//				}
+				/*if(company != null) {
+					company.setAccountingId(descriptionDTO.getAccountingId());
+					company = companyRepository.save(company);
+				}*/
 			} catch (Exception e) {	}
 		}
-		if (company != null && company.getAccountingId() == null) {
-			
-//			descriptionDTO.setAccountingId(company.getAccountingId());
-			// cria tipo roteiro padrao
-			// gravar fk na company
+		if (company != null) {
+			if(company.getScriptId() != null) descriptionDTO.setScriptId(company.getScriptId());			
+			if(company.getAccountingId() != null) descriptionDTO.setAccountingId(company.getAccountingId());
 		}
 			
 		Description description = DescriptionDTO.dtoToDescription(descriptionDTO);
@@ -88,12 +86,25 @@ public class DescriptionService {
 
 	@Transactional(rollbackFor = Exception.class)
 	public List<DescriptionDTO> saveDescriptionList(DescriptionDTO descriptionDTO) throws Exception {
+		CompanyDTO filter = new CompanyDTO(null, null, null, null, null, descriptionDTO.getAccountingId(), null, null);
+		Company company = new Company();
+		List<Company> companies = companyRepository.findAll(filter, null, null);
+
+		/*for(Description d: DescriptionDTO.getDescriptions()){
+			if(d.getId() == null){
+
+			}
+		}*/ 
+		
+		//if (descriptionDTO.getId() != null)
 		List<Description> resultados = new ArrayList<>();
 		List<Description> descriptions = descriptionDTO.getDescriptions().stream().map((o) -> {
 			return DescriptionMapper.fromDto(o).toBuilder()
 				.build();
 		}).collect(Collectors.toList());
 		
+
+
 		repository.saveAll(descriptions).forEach(resultados::add);
 		
 		return DescriptionMapper.fromEntities(resultados);

@@ -20,11 +20,11 @@ public class DescriptionDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	private BigInteger id;
-	private String accountingId;	//organizationId;
+	private BigInteger accountingId;	//organizationId;
 	private String kpiAlias;
     private String cnpj;
 	private String description;
-	private BigInteger scriptType;
+	private BigInteger scriptId; 	   //scriptType; 
 	private String title;
 	private Integer graphOrder;
 	private String chartType;
@@ -39,7 +39,7 @@ public class DescriptionDTO implements Serializable {
     	if(description.getKpiAlias() != null)		dto.setKpiAlias(description.getKpiAlias());
     	if(description.getAccountingId() != null)	dto.setAccountingId(description.getAccountingId());
     	if(description.getDescription() != null)	dto.setDescription(description.getDescription());
-    	if(description.getScriptType() != null) 	dto.setScriptType(description.getScriptType());
+    	if(description.getScriptId() != null) 		dto.setScriptId(description.getScriptId());
 		if(description.getTitle() != null) 			dto.setTitle(description.getTitle());
 		if(description.getGraphOrder() != null) 	dto.setGraphOrder(description.getGraphOrder());
 		if(description.getChartType() != null) 		dto.setChartType(description.getChartType());
@@ -60,7 +60,7 @@ public class DescriptionDTO implements Serializable {
     	if(dto.getKpiAlias() != null)		description.setKpiAlias(dto.getKpiAlias());
     	if(dto.getAccountingId() != null)	description.setAccountingId(dto.getAccountingId());
     	if(dto.getDescription() != null)	description.setDescription(dto.getDescription());
-		if(dto.getScriptType() != null) 	description.setScriptType(dto.getScriptType());
+		if(dto.getScriptId() != null) 		description.setScriptId(dto.getScriptId());
 		if(dto.getTitle() != null) 			description.setTitle(dto.getTitle());
 		if(dto.getGraphOrder() != null) 	description.setGraphOrder(dto.getGraphOrder());
 		if(dto.getChartType() != null) 		description.setChartType(dto.getChartType());
@@ -78,7 +78,7 @@ public class DescriptionDTO implements Serializable {
 		if (this.cnpj != null)			description.setCnpj(this.cnpj);
     	if (this.kpiAlias != null)		description.setKpiAlias(this.kpiAlias);
 		if (this.description != null)	description.setDescription(this.description);
-		if (this.scriptType != null)	description.setScriptType(this.scriptType);
+		if (this.scriptId != null)		description.setScriptId(this.scriptId);
 		if (this.title != null)			description.setTitle(this.title);
 		if (this.graphOrder != null)	description.setGraphOrder(this.graphOrder);
 		if (this.chartType != null)		description.setChartType(this.chartType);
