@@ -50,7 +50,7 @@ public class DescriptionRepositoryImpl implements DescriptionRepositoryCustom {
 		if (descriptionDTO.getAccountingId() != null)	query.where(description.accountingId.eq(descriptionDTO.getAccountingId()));
 		if (descriptionDTO.getKpiAlias() != null)		query.where(description.kpiAlias.eq(descriptionDTO.getKpiAlias()));
 		if (descriptionDTO.getDescription() != null) 	query.where(description.description.eq(descriptionDTO.getDescription()));
-		if (descriptionDTO.getScriptType() != null) 	query.where(description.scriptType.eq(descriptionDTO.getScriptType()));
+		if (descriptionDTO.getScriptId() != null) 		query.where(description.scriptId.eq(descriptionDTO.getScriptId()));
 		if (descriptionDTO.getTitle() != null) 			query.where(description.title.eq(descriptionDTO.getTitle()));
 		if (descriptionDTO.getGraphOrder() != null) 	query.where(description.graphOrder.eq(descriptionDTO.getGraphOrder()));
 		if (descriptionDTO.getChartType() != null) 		query.where(description.chartType.eq(descriptionDTO.getChartType()));
@@ -72,7 +72,7 @@ public class DescriptionRepositoryImpl implements DescriptionRepositoryCustom {
 
 		if (descriptionDTO.getAccountingId() != null)	query.where(description.accountingId.eq(descriptionDTO.getAccountingId()));
 		if (descriptionDTO.getKpiAlias() != null)		query.where(description.kpiAlias.eq(descriptionDTO.getKpiAlias()));
-		if (descriptionDTO.getScriptType() != null) 	query.where(description.scriptType.eq(descriptionDTO.getScriptType()));
+		if (descriptionDTO.getScriptId() != null) 		query.where(description.scriptId.eq(descriptionDTO.getScriptId()));
 		
 		return query.fetchOne();
 	}

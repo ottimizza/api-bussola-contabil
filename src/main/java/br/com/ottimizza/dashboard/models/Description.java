@@ -32,14 +32,14 @@ public class Description implements Serializable{
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "descriptions_sequence")
     private BigInteger id;
 	
-	private String accountingId;	//organizationId;
+	private BigInteger accountingId;	//organizationId;
 	
 	@Column(nullable = false)
 	private String kpiAlias;
 
 	private String description;
 	
-	private BigInteger scriptType;
+	private BigInteger scriptId;		//scriptType;
 
 	private String title;
 	

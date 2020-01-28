@@ -36,7 +36,7 @@ public class Variable implements Serializable{
 	@Column(name = "fk_script_id")
 	private BigInteger scriptId;	
 
-	private String variableCode;
+	private String variableCode; //relacionado com kpi_alias do balancete
 	
 	private String name;
 

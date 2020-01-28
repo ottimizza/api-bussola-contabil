@@ -28,7 +28,6 @@ public class CompanyDTO implements Serializable{
 	private String scriptDescription;
 	
 	
-	
 	public static CompanyDTO entityToDto(Company entity) {
 
 		CompanyDTO dto = new CompanyDTO();
