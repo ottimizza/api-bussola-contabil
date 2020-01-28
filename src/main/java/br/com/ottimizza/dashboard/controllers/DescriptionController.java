@@ -95,7 +95,7 @@ public class DescriptionController {
 
 	@PostMapping("/addDescriptions")
 	public ResponseEntity<?> saveDescriptionList(@RequestBody DescriptionDTO descriptionDTO) throws Exception {
-		return ResponseEntity.ok(service.saveDescriptionList(descriptionDTO));
+		return ResponseEntity.ok(service.updateDescriptionList(descriptionDTO));
 	}
 
 	@GetMapping("/descriptions")
