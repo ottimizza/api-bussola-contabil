@@ -33,26 +33,35 @@ public class DescriptionService {
 	public DescriptionDTO save(DescriptionDTO descriptionDTO) throws Exception {
 		CompanyDTO filter = new CompanyDTO(null, null, null, null, null, descriptionDTO.getAccountingId(), null, null);
 		Company company = new Company();
-		List<Company> companies = companyRepository.findAll(filter, null, null);
-
+		List<Company> companies = new ArrayList<Company>();
+		if(descriptionDTO.getAccountingId() != null) companies = companyRepository.findAll(filter, null, null);
+		
 		if(!companies.isEmpty()) {
 			company = companies.get(0);
 		} else {
 			try {
 				filter = new CompanyDTO(null, descriptionDTO.getCnpj(), null, null, null, null, null, null);
 				company = companyRepository.findAll(filter, null, null).get(0);
-				/*if(company != null) {
-					company.setAccountingId(descriptionDTO.getAccountingId());
-					company = companyRepository.save(company);
-				}*/
+				
 			} catch (Exception e) {	}
 		}
 		if (company != null) {
-			if(company.getScriptId() != null) descriptionDTO.setScriptId(company.getScriptId());			
+			if(company.getScriptId() 	 != null) descriptionDTO.setScriptId(company.getScriptId());			
 			if(company.getAccountingId() != null) descriptionDTO.setAccountingId(company.getAccountingId());
+		}
+		
+		if(descriptionDTO.getAccountingId() != null && descriptionDTO.getKpiAlias() != null && descriptionDTO.getScriptId() != null) {
+			DescriptionDTO dFiltro = new DescriptionDTO(null, descriptionDTO.getAccountingId(), descriptionDTO.getKpiAlias(), null, null, descriptionDTO.getScriptId(), null, null, null, null, null);
+			try {
+				Description description = repository.findAll(dFiltro).get(0);
+				if (description != null) descriptionDTO.setId(description.getId());
+			}
+			catch (Exception e) { }
+			System.out.println(descriptionDTO.toString());
 		}
 			
 		Description description = DescriptionDTO.dtoToDescription(descriptionDTO);
+		System.out.println(description.toString());
 
 		return DescriptionDTO.descriptionToDto(repository.save(description));
 	}
