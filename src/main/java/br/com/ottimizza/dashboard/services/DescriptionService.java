@@ -85,30 +85,25 @@ public class DescriptionService {
 	}
 
 	@Transactional(rollbackFor = Exception.class)
-	public List<DescriptionDTO> saveDescriptionList(DescriptionDTO descriptionDTO) throws Exception {
-		CompanyDTO filter = new CompanyDTO(null, null, null, null, null, descriptionDTO.getAccountingId(), null, null);
-		Company company = new Company();
-		List<Company> companies = companyRepository.findAll(filter, null, null);
+	public List<DescriptionDTO> updateDescriptionList(DescriptionDTO descriptionDTO) throws Exception {
+		List<DescriptionDTO> ListDesc = new ArrayList<>();
 
-		/*for(Description d: DescriptionDTO.getDescriptions()){
-			if(d.getId() == null){
-
-			}
-		}*/ 
-		
-		//if (descriptionDTO.getId() != null)
+		for(DescriptionDTO d: descriptionDTO.getDescriptions()){
+			DescriptionDTO filterD = new DescriptionDTO(null, d.getAccountingId(), d.getKpiAlias(), null, null, d.getScriptId(), null, null, null, null, null);
+			Description dFilter = repository.findByAccountingIdScriptType(filterD);
+			d.setId(dFilter.getId());
+			
+			ListDesc.add(d);
+		} 
 		List<Description> resultados = new ArrayList<>();
-		List<Description> descriptions = descriptionDTO.getDescriptions().stream().map((o) -> {
+		List<Description> descriptions = ListDesc.stream().map((o) -> {
 			return DescriptionMapper.fromDto(o).toBuilder()
 				.build();
 		}).collect(Collectors.toList());
 		
-
-
 		repository.saveAll(descriptions).forEach(resultados::add);
-		
 		return DescriptionMapper.fromEntities(resultados);
-	}	
+	}
 
 	public Page<DescriptionDTO> returnDescriptionList(DescriptionDTO filter, int pageIndex, int pageSize, String authorization) {
 		return repository.findByAccountingIdScriptType(filter, PageRequest.of(pageIndex, pageSize)).map(DescriptionDTO::descriptionToDto);
