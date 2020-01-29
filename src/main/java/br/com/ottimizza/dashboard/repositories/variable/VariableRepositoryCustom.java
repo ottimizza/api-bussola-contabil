@@ -17,5 +17,7 @@ public interface VariableRepositoryCustom {
 	List<Variable> findVariablesByOrganizationId(BigInteger organizationId, UserDTO userInfo);
 
 	Page<Variable> findVariableByOrganization(VariableDTO filter, Pageable pageable);
+	
+	Variable findByAccountIdKpiAliasScriptId(VariableDTO variableDto);
 
 }

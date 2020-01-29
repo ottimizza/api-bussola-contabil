@@ -43,6 +43,8 @@ public class Variable implements Serializable{
 	private String description;
 	
 	private String  accountingCode;
+	
+	private String kpiAlias;
 
 	@Column(name = "origin_value")
 	private Short originValue;
