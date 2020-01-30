@@ -48,10 +48,11 @@ public class DescriptionService {
 			} catch (Exception e) {	}
 		}
 		if (company != null) {
+			System.out.println(">>> B "+company.getId()+" <<>> "+ company.getAccountingId()+" >> "+ company.getScriptId()+" >> "+ descriptionDTO.getKpiAlias());
 			if(company.getScriptId() 	 != null) descriptionDTO.setScriptId(company.getScriptId());			
 			if(company.getAccountingId() != null) descriptionDTO.setAccountingId(company.getAccountingId());
 		}
-		System.out.println(">>> B "+descriptionDTO.getId()+" <<>> "+ descriptionDTO.getAccountingId()+" >> "+ descriptionDTO.getScriptId()+" >> "+ descriptionDTO.getKpiAlias());
+		System.out.println(">>> C "+descriptionDTO.getId()+" <<>> "+ descriptionDTO.getAccountingId()+" >> "+ descriptionDTO.getScriptId()+" >> "+ descriptionDTO.getKpiAlias());
 		
 		if(descriptionDTO.getAccountingId() != null && descriptionDTO.getKpiAlias() != null && descriptionDTO.getScriptId() != null) {
 			DescriptionDTO dFiltro = new DescriptionDTO(null, descriptionDTO.getAccountingId(), descriptionDTO.getKpiAlias(), null, null, descriptionDTO.getScriptId(), null, null, null, null, null);
@@ -60,12 +61,12 @@ public class DescriptionService {
 				if (description != null) descriptionDTO.setId(description.getId());
 			}
 			catch (Exception e) { }
-			System.out.println(">>> C "+descriptionDTO.getId()+" >> "+ descriptionDTO.getAccountingId()+" >> "+ descriptionDTO.getScriptId()+" >> "+ descriptionDTO.getKpiAlias());
+			System.out.println(">>> D "+descriptionDTO.getId()+" >> "+ descriptionDTO.getAccountingId()+" >> "+ descriptionDTO.getScriptId()+" >> "+ descriptionDTO.getKpiAlias());
 		}
 			
 		Description description = DescriptionDTO.dtoToDescription(descriptionDTO);
 		
-		System.out.println(">>> D "+description.getId()+" <<>> "+ description.getAccountingId()+" >> "+ description.getScriptId()+" >> "+ description.getKpiAlias());
+		System.out.println(">>> E "+description.getId()+" <<>> "+ description.getAccountingId()+" >> "+ description.getScriptId()+" >> "+ description.getKpiAlias());
 
 		return DescriptionDTO.descriptionToDto(repository.save(description));
 	}
