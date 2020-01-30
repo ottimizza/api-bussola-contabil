@@ -13,8 +13,11 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import br.com.ottimizza.dashboard.client.OAuthClient;
 import br.com.ottimizza.dashboard.domain.dtos.CompanyDTO;
 import br.com.ottimizza.dashboard.domain.dtos.DescriptionDTO;
+import br.com.ottimizza.dashboard.domain.dtos.OrganizationDTO;
+import br.com.ottimizza.dashboard.domain.dtos.UserDTO;
 import br.com.ottimizza.dashboard.domain.mappers_description.DescriptionMapper;
 import br.com.ottimizza.dashboard.models.Company;
 import br.com.ottimizza.dashboard.models.Description;
@@ -30,44 +33,57 @@ public class DescriptionService {
 	@Inject
 	CompanyRepository companyRepository;
 	
-	public DescriptionDTO save(DescriptionDTO descriptionDTO) throws Exception {
-		System.out.println(">>> A "+descriptionDTO.getCnpj()+" >> "+descriptionDTO.getId()+" <<>> "+ descriptionDTO.getAccountingId()+" >> "+ descriptionDTO.getScriptId()+" >> "+ descriptionDTO.getKpiAlias());
-
-		CompanyDTO filter = new CompanyDTO(null, null, null, null, null, descriptionDTO.getAccountingId(), null, null);
+	@Inject
+	OAuthClient oauthClient;
+	
+	
+	public DescriptionDTO save(DescriptionDTO descriptionDTO, String authorization) throws Exception {
+		CompanyDTO filter = new CompanyDTO();
+		filter.setAccountingId(descriptionDTO.getAccountingId());
+		
 		Company company = new Company();
 		List<Company> companies = new ArrayList<Company>();
 		if(descriptionDTO.getAccountingId() != null) companies = companyRepository.findAll(filter, null, null);
-		
+		DescriptionDTO dFiltro = new DescriptionDTO();
+
 		if(!companies.isEmpty()) {
 			company = companies.get(0);
 		} else {
 			try {
-				filter = new CompanyDTO(null, descriptionDTO.getCnpj(), null, null, null, null, null, null);
+				filter = new CompanyDTO();
+				filter.setCnpj(descriptionDTO.getCnpj());
 				company = companyRepository.findAll(filter, null, null).get(0);
-				
 			} catch (Exception e) {	}
 		}
-		if (company != null) {
-			System.out.println(">>> B "+company.getId()+" <<>> "+ company.getAccountingId()+" >> "+ company.getScriptId()+" >> "+ descriptionDTO.getKpiAlias());
-			if(company.getScriptId() 	 != null) descriptionDTO.setScriptId(company.getScriptId());			
+		
+		if (company != null) {			
+			if(company.getScriptId() 	 != null) descriptionDTO.setScriptId(company.getScriptId());
 			if(company.getAccountingId() != null) descriptionDTO.setAccountingId(company.getAccountingId());
+		
+		} else { // se nao encontrar company busca organization(contabilidade) do account 
+			OrganizationDTO organizationDto = oauthClient.getOrganizationInfo(authorization, descriptionDTO.getCnpj().replaceAll("[^0-9]*", "")).getBody().getRecord();
+			
+			if(organizationDto.getType() == 1) { 
+				descriptionDTO.setAccountingId(organizationDto.getId());
+				descriptionDTO.setCnpj("");
+				descriptionDTO.setScriptId(null);
+			}
 		}
-		System.out.println(">>> C "+descriptionDTO.getId()+" <<>> "+ descriptionDTO.getAccountingId()+" >> "+ descriptionDTO.getScriptId()+" >> "+ descriptionDTO.getKpiAlias());
 		
 		if(descriptionDTO.getAccountingId() != null && descriptionDTO.getKpiAlias() != null && descriptionDTO.getScriptId() != null) {
-			DescriptionDTO dFiltro = new DescriptionDTO(null, descriptionDTO.getAccountingId(), descriptionDTO.getKpiAlias(), null, null, descriptionDTO.getScriptId(), null, null, null, null, null);
+
+			dFiltro.setAccountingId(descriptionDTO.getAccountingId());
+			dFiltro.setScriptId(descriptionDTO.getScriptId());
+			dFiltro.setKpiAlias(descriptionDTO.getKpiAlias());
+
 			try {
 				Description description = repository.findAll(dFiltro).get(0);
 				if (description != null) descriptionDTO.setId(description.getId());
-			}
-			catch (Exception e) { }
-			System.out.println(">>> D "+descriptionDTO.getId()+" >> "+ descriptionDTO.getAccountingId()+" >> "+ descriptionDTO.getScriptId()+" >> "+ descriptionDTO.getKpiAlias());
+			} catch (Exception e) { }
 		}
-			
+		
 		Description description = DescriptionDTO.dtoToDescription(descriptionDTO);
 		
-		System.out.println(">>> E "+description.getId()+" <<>> "+ description.getAccountingId()+" >> "+ description.getScriptId()+" >> "+ description.getKpiAlias());
-
 		return DescriptionDTO.descriptionToDto(repository.save(description));
 	}
 	
