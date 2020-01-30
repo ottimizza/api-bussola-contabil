@@ -33,7 +33,10 @@ public class VariableDTO implements Serializable{
 	private BigInteger accountingId;	//contabilidade  accounting
 	private String accountingCode;
 	
-	public Variable variableDtoToVariable(VariableDTO variableDto) {
+	private String kpiAlias;
+	private String description;
+	
+	public static Variable variableDtoToVariable(VariableDTO variableDto) {
 		Variable variable = new Variable();
 		
 		if(variableDto.getId() != null)				variable.setId(variableDto.getId());
@@ -42,12 +45,15 @@ public class VariableDTO implements Serializable{
 		if(variableDto.getScriptId() != null)		variable.setScriptId(variableDto.getScriptId());
 		if(variableDto.getAccountingCode() != null)	variable.setAccountingCode(variableDto.getAccountingCode());
 		if(variableDto.getOriginValue() != null)	variable.setOriginValue(variableDto.getOriginValue());
+		if(variableDto.getKpiAlias() != null)		variable.setKpiAlias(variableDto.getKpiAlias());
+		if(variableDto.getDescription() != null)	variable.setDescription(variableDto.getDescription());
+		if(variableDto.getAccountingId() != null)	variable.setAccountingId(variableDto.getAccountingId());
 		variable.setAbsoluteValue(variableDto.isAbsoluteValue());
 
 		return variable;
 	}
 
-	public VariableDTO variableToVariableDto(Variable variable) {
+	public static VariableDTO variableToVariableDto(Variable variable) {
 		VariableDTO variableDto = new VariableDTO();
 		
 		if(variable.getId() != null)			variableDto.setId(variable.getId());
@@ -56,6 +62,9 @@ public class VariableDTO implements Serializable{
 		if(variable.getScriptId() != null)		variableDto.setScriptId(variable.getScriptId());
 		if(variable.getAccountingCode() != null) variableDto.setAccountingCode(variable.getAccountingCode());
 		if(variable.getOriginValue() != null)	variableDto.setOriginValue(variable.getOriginValue());
+		if(variable.getKpiAlias() != null)		variableDto.setKpiAlias(variable.getKpiAlias());
+		if(variable.getDescription() != null)	variableDto.setDescription(variable.getDescription());
+		if(variable.getAccountingCode() != null)variableDto.setAccountingId(variable.getAccountingId());
 		variableDto.setAbsoluteValue(variable.isAbsoluteValue());
 
 		return variableDto;

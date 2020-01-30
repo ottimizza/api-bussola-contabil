@@ -57,11 +57,9 @@ public class DescriptionService {
 				if (description != null) descriptionDTO.setId(description.getId());
 			}
 			catch (Exception e) { }
-			System.out.println(descriptionDTO.toString());
 		}
 			
 		Description description = DescriptionDTO.dtoToDescription(descriptionDTO);
-		System.out.println(description.toString());
 
 		return DescriptionDTO.descriptionToDto(repository.save(description));
 	}

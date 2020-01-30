@@ -35,11 +35,12 @@ public class VariableController {
 	@Inject
 	OAuthClient oauthClient;
 	
+	
 	@PostMapping
-	public ResponseEntity<Variable> saveVariable(@RequestBody Variable variable) throws Exception {
+	public ResponseEntity<Variable> saveVariable(@RequestBody VariableDTO variable) throws Exception {
 		try {
-			variable = service.upsert(variable);
-			return ResponseEntity.ok(variable);
+			variable = service.save(variable);
+			return ResponseEntity.ok(VariableDTO.variableDtoToVariable(variable));
 		} catch (Exception e) { }
 		return ResponseEntity.badRequest().build();		
 	}
