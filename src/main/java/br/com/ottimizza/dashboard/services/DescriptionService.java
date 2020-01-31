@@ -63,7 +63,12 @@ public class DescriptionService {
 		
 		} else { // se nao encontrar company busca organization(contabilidade) do account 
 			System.out.println(">>> C s "+descriptionDTO.getCnpj().replaceAll("[^0-9]*", ""));
-			OrganizationDTO organizationDto = oauthClient.getOrganizationInfo(authorization, descriptionDTO.getCnpj().replaceAll("[^0-9]*", "")).getBody().getRecord();
+			OrganizationDTO organizationDto = new OrganizationDTO();
+			try {
+				organizationDto = oauthClient.getOrganizationInfo(authorization, descriptionDTO.getCnpj().replaceAll("[^0-9]*", "")).getBody().getRecord();
+			}catch (Exception e) {
+				// TODO: handle exception
+			}
 			System.out.println(">>> C  "+ organizationDto.toString());
 			
 			if(organizationDto.getId() != null) {
