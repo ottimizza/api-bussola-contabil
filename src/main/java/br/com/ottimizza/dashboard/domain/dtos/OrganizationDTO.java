@@ -22,7 +22,6 @@ public class OrganizationDTO implements Serializable{
 	private String email;
 	private String avatar;
 	private BigInteger organizationId;
-	
 	private BigInteger scriptId; 
 
 }

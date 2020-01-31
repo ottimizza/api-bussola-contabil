@@ -13,8 +13,10 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import br.com.ottimizza.dashboard.client.OAuthClient;
 import br.com.ottimizza.dashboard.domain.dtos.CompanyDTO;
 import br.com.ottimizza.dashboard.domain.dtos.DescriptionDTO;
+import br.com.ottimizza.dashboard.domain.dtos.OrganizationDTO;
 import br.com.ottimizza.dashboard.domain.mappers_description.DescriptionMapper;
 import br.com.ottimizza.dashboard.models.Company;
 import br.com.ottimizza.dashboard.models.Description;
@@ -30,37 +32,62 @@ public class DescriptionService {
 	@Inject
 	CompanyRepository companyRepository;
 	
-	public DescriptionDTO save(DescriptionDTO descriptionDTO) throws Exception {
-		CompanyDTO filter = new CompanyDTO(null, null, null, null, null, descriptionDTO.getAccountingId(), null, null);
+	@Inject
+	OAuthClient oauthClient;
+	
+	
+	public DescriptionDTO save(DescriptionDTO descriptionDTO, String authorization) throws Exception {
+		CompanyDTO filter = new CompanyDTO();
+		filter.setAccountingId(descriptionDTO.getAccountingId());
+		
 		Company company = new Company();
 		List<Company> companies = new ArrayList<Company>();
 		if(descriptionDTO.getAccountingId() != null) companies = companyRepository.findAll(filter, null, null);
-		
+		DescriptionDTO dFiltro = new DescriptionDTO();
+
 		if(!companies.isEmpty()) {
+			// nao esta sendo tratado o array por que sempre vai ser chamado por cnpj (nao temos o accounting no OIC)
 			company = companies.get(0);
 		} else {
 			try {
-				filter = new CompanyDTO(null, descriptionDTO.getCnpj(), null, null, null, null, null, null);
+				filter = new CompanyDTO();
+				filter.setCnpj(descriptionDTO.getCnpj());
 				company = companyRepository.findAll(filter, null, null).get(0);
-				
 			} catch (Exception e) {	}
 		}
-		if (company != null) {
-			if(company.getScriptId() 	 != null) descriptionDTO.setScriptId(company.getScriptId());			
+		
+		if (company.getId() != null) {	
+			if(company.getScriptId() 	 != null) descriptionDTO.setScriptId(company.getScriptId());
 			if(company.getAccountingId() != null) descriptionDTO.setAccountingId(company.getAccountingId());
+		
+		} else { // se nao encontrar company busca organization(contabilidade) do account 
+			OrganizationDTO organizationDto = new OrganizationDTO();
+			List<OrganizationDTO> organizations = oauthClient.getOrganizationInfo(authorization, descriptionDTO.getCnpj().replaceAll("[^0-9]*", "")).getBody().getRecords();
+			
+			if(organizations.size() != 0) {
+				organizationDto = organizations.get(0);
+				if(organizationDto.getType() == 1) {
+					descriptionDTO.setAccountingId(organizationDto.getId());
+					descriptionDTO.setCnpj("");
+					descriptionDTO.setScriptId(null);
+				}
+			}
 		}
 		
 		if(descriptionDTO.getAccountingId() != null && descriptionDTO.getKpiAlias() != null && descriptionDTO.getScriptId() != null) {
-			DescriptionDTO dFiltro = new DescriptionDTO(null, descriptionDTO.getAccountingId(), descriptionDTO.getKpiAlias(), null, null, descriptionDTO.getScriptId(), null, null, null, null, null);
+
+			dFiltro.setAccountingId(descriptionDTO.getAccountingId());
+			dFiltro.setScriptId(descriptionDTO.getScriptId());
+			dFiltro.setKpiAlias(descriptionDTO.getKpiAlias());
+
 			try {
 				Description description = repository.findAll(dFiltro).get(0);
 				if (description != null) descriptionDTO.setId(description.getId());
-			}
-			catch (Exception e) { }
+			} catch (Exception e) { }
 		}
-			
+		
 		Description description = DescriptionDTO.dtoToDescription(descriptionDTO);
-
+		
 		return DescriptionDTO.descriptionToDto(repository.save(description));
 	}
 	
@@ -96,9 +123,9 @@ public class DescriptionService {
 		List<DescriptionDTO> ListDesc = new ArrayList<>();
 
 		for(DescriptionDTO d: descriptionDTO.getDescriptions()){
-			DescriptionDTO filterD = new DescriptionDTO(null, d.getAccountingId(), d.getKpiAlias(), null, null, d.getScriptId(), null, null, null, null, null);
-			Description dFilter = repository.findByAccountingIdScriptType(filterD);
-			d.setId(dFilter.getId());
+//			DescriptionDTO filterD = new DescriptionDTO(null, d.getAccountingId(), d.getKpiAlias(), null, null, d.getScriptId(), null, null, null, null, null);
+//			Description dFilter = repository.findByAccountingIdScriptType(filterD);
+//			d.setId(dFilter.getId());
 			
 			ListDesc.add(d);
 		} 
