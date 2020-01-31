@@ -17,7 +17,6 @@ import br.com.ottimizza.dashboard.client.OAuthClient;
 import br.com.ottimizza.dashboard.domain.dtos.CompanyDTO;
 import br.com.ottimizza.dashboard.domain.dtos.DescriptionDTO;
 import br.com.ottimizza.dashboard.domain.dtos.OrganizationDTO;
-import br.com.ottimizza.dashboard.domain.dtos.UserDTO;
 import br.com.ottimizza.dashboard.domain.mappers_description.DescriptionMapper;
 import br.com.ottimizza.dashboard.models.Company;
 import br.com.ottimizza.dashboard.models.Description;
@@ -57,27 +56,19 @@ public class DescriptionService {
 		}
 		
 		if (company.getId() != null) {	
-			System.out.println(">>> C n "+ company.getName());
 			if(company.getScriptId() 	 != null) descriptionDTO.setScriptId(company.getScriptId());
 			if(company.getAccountingId() != null) descriptionDTO.setAccountingId(company.getAccountingId());
 		
 		} else { // se nao encontrar company busca organization(contabilidade) do account 
-			System.out.println(">>> C s "+descriptionDTO.getCnpj().replaceAll("[^0-9]*", ""));
 			OrganizationDTO organizationDto = new OrganizationDTO();
-			try {
-				organizationDto = oauthClient.getOrganizationInfo(authorization, descriptionDTO.getCnpj().replaceAll("[^0-9]*", "")).getBody().getRecord();
-			}catch (Exception e) {
-				// TODO: handle exception
-			}
-			System.out.println(">>> C  "+ organizationDto.toString());
+			List<OrganizationDTO> organizations = oauthClient.getOrganizationInfo(authorization, descriptionDTO.getCnpj().replaceAll("[^0-9]*", "")).getBody().getRecords();
 			
-			if(organizationDto.getId() != null) {
-				System.out.println(">>> D " + organizationDto.getName()+" - "+ organizationDto.getType()+" - " + organizationDto.getId());
+			if(organizations.size() != 0) {
+				organizationDto = organizations.get(0);
 				if(organizationDto.getType() == 1) {
 					descriptionDTO.setAccountingId(organizationDto.getId());
 					descriptionDTO.setCnpj("");
 					descriptionDTO.setScriptId(null);
-					System.out.println(">>> E "+descriptionDTO.getTitle()+" - "+descriptionDTO.getCnpj()+" - "+descriptionDTO.getScriptId()+" - "+descriptionDTO.getCnpj());
 				}
 			}
 		}
