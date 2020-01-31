@@ -46,6 +46,7 @@ public class DescriptionService {
 		DescriptionDTO dFiltro = new DescriptionDTO();
 
 		if(!companies.isEmpty()) {
+			// nao esta sendo tratado o array por que sempre vai ser chamado por cnpj (nao temos o accounting no OIC)
 			company = companies.get(0);
 		} else {
 			try {
