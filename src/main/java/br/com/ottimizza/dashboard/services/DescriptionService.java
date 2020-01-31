@@ -56,17 +56,20 @@ public class DescriptionService {
 			} catch (Exception e) {	}
 		}
 		
-		if (company != null) {			
+		if (company != null) {	
+			System.out.println(">>> C nao");
 			if(company.getScriptId() 	 != null) descriptionDTO.setScriptId(company.getScriptId());
 			if(company.getAccountingId() != null) descriptionDTO.setAccountingId(company.getAccountingId());
 		
 		} else { // se nao encontrar company busca organization(contabilidade) do account 
+			System.out.println(">>> C sim ");
 			OrganizationDTO organizationDto = oauthClient.getOrganizationInfo(authorization, descriptionDTO.getCnpj().replaceAll("[^0-9]*", "")).getBody().getRecord();
-			
-			if(organizationDto.getType() == 1) { 
+			System.out.println(">>> D " + organizationDto.getName()+" - "+ organizationDto.getType()+" - " + organizationDto.getId());
+			if(organizationDto.getType() == 1) {
 				descriptionDTO.setAccountingId(organizationDto.getId());
 				descriptionDTO.setCnpj("");
 				descriptionDTO.setScriptId(null);
+				System.out.println(">>> E "+descriptionDTO.getTitle()+" - "+descriptionDTO.getCnpj()+" - "+descriptionDTO.getScriptId()+" - "+descriptionDTO.getCnpj());
 			}
 		}
 		
@@ -119,9 +122,9 @@ public class DescriptionService {
 		List<DescriptionDTO> ListDesc = new ArrayList<>();
 
 		for(DescriptionDTO d: descriptionDTO.getDescriptions()){
-			DescriptionDTO filterD = new DescriptionDTO(null, d.getAccountingId(), d.getKpiAlias(), null, null, d.getScriptId(), null, null, null, null, null);
-			Description dFilter = repository.findByAccountingIdScriptType(filterD);
-			d.setId(dFilter.getId());
+//			DescriptionDTO filterD = new DescriptionDTO(null, d.getAccountingId(), d.getKpiAlias(), null, null, d.getScriptId(), null, null, null, null, null);
+//			Description dFilter = repository.findByAccountingIdScriptType(filterD);
+//			d.setId(dFilter.getId());
 			
 			ListDesc.add(d);
 		} 

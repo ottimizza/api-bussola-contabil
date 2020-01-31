@@ -93,8 +93,8 @@ public class DescriptionController {
 		return ResponseEntity.ok(listReturn);
 	}*/
 
-	@PostMapping("/addDescriptions")
-	public ResponseEntity<?> saveDescriptionList(@RequestBody DescriptionDTO descriptionDTO) throws Exception {
+	@PostMapping("/update")
+	public ResponseEntity<?> updateDescriptionList(@RequestBody DescriptionDTO descriptionDTO) throws Exception {
 		return ResponseEntity.ok(service.updateDescriptionList(descriptionDTO));
 	}
 
