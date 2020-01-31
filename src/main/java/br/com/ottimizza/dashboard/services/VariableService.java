@@ -14,7 +14,9 @@ import org.springframework.stereotype.Service;
 
 import br.com.ottimizza.dashboard.domain.dtos.UserDTO;
 import br.com.ottimizza.dashboard.domain.dtos.VariableDTO;
+import br.com.ottimizza.dashboard.models.Company;
 import br.com.ottimizza.dashboard.models.Variable;
+import br.com.ottimizza.dashboard.repositories.company.CompanyRepository;
 import br.com.ottimizza.dashboard.repositories.variable.VariableRepository;
 
 @Service
@@ -22,9 +24,31 @@ public class VariableService {
 
 	@Inject
 	VariableRepository repository;
+	
+	@Inject
+	CompanyRepository companyRepository;
 
-	public Variable save(Variable variable) throws Exception {
-		return repository.save(variable);
+	public VariableDTO save(VariableDTO variableDto) throws Exception {
+		
+		Company company = new Company();
+		company = companyRepository.findById(variableDto.getCompanyId()).orElse(null);
+		
+		if(company != null) {
+			variableDto.setScriptId(company.getScriptId());
+			variableDto.setAccountingId(company.getAccountingId());
+		}
+		
+		if(variableDto.getAccountingId() != null && variableDto.getScriptId() != null && variableDto.getKpiAlias() != null) {
+			VariableDTO vFilter = new VariableDTO(null, null, null, null, null, variableDto.getScriptId(), null, true, variableDto.getAccountingId(), null, variableDto.getKpiAlias(), null);
+			try {
+				Variable v = repository.findByAccountIdKpiAliasScriptId(vFilter);
+				if(v != null) variableDto.setId(v.getId());
+			}catch (Exception e) { }
+		}
+		
+		Variable variable = VariableDTO.variableDtoToVariable(variableDto);
+		
+		return VariableDTO.variableToVariableDto(repository.save(variable));
 	}
 
 	public Optional<Variable> findById(BigInteger id) throws Exception {
@@ -109,6 +133,5 @@ public class VariableService {
 	public Page<Variable> findVariableByOrganization(VariableDTO filter, int pageIndex, int pageSize, UserDTO userInfo) {
 		return repository.findVariableByOrganization(filter, PageRequest.of(pageIndex, pageSize));
 	}
-	
 
 }

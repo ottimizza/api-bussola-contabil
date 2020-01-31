@@ -69,4 +69,16 @@ public class VariableRepositoryImpl implements VariableRepositoryCustom {
 		return new PageImpl<Variable>(query.fetch(), pageable, totalElements);
 	}
 
+	@Override
+	public Variable findByAccountIdKpiAliasScriptId(VariableDTO variableDto) {
+		JPAQuery<Variable> query = new JPAQuery<Variable>(em).from(variable);
+		
+		if(variableDto.getAccountingId() != null)query.where(variable.accountingId.eq(variableDto.getAccountingId()));
+		if(variableDto.getScriptId() != null)	 query.where(variable.scriptId.eq(variableDto.getScriptId()));
+		if(variableDto.getKpiAlias() != null)	 query.where(variable.kpiAlias.eq(variableDto.getKpiAlias()));
+		
+		return query.fetchFirst();
+	}
+	
+
 }
