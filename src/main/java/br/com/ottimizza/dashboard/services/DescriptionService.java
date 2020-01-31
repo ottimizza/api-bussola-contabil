@@ -55,14 +55,16 @@ public class DescriptionService {
 				company = companyRepository.findAll(filter, null, null).get(0);
 			} catch (Exception e) {	}
 		}
-		System.out.println(">>> C nao"+ descriptionDTO.getCnpj());
-		if (company != null) {	
-			System.out.println(">>> C nao"+ company.getName());
+		System.out.println(">>> A "+ descriptionDTO.getCnpj());
+		System.out.println(">>> B "+companies.isEmpty()+"<>"+company.getId());
+		
+		if (company.getId() != null) {	
+			System.out.println(">>> C n "+ company.getName());
 			if(company.getScriptId() 	 != null) descriptionDTO.setScriptId(company.getScriptId());
 			if(company.getAccountingId() != null) descriptionDTO.setAccountingId(company.getAccountingId());
 		
 		} else { // se nao encontrar company busca organization(contabilidade) do account 
-			System.out.println(">>> C sim ");
+			System.out.println(">>> C s ");
 			OrganizationDTO organizationDto = oauthClient.getOrganizationInfo(authorization, descriptionDTO.getCnpj().replaceAll("[^0-9]*", "")).getBody().getRecord();
 			System.out.println(">>> D " + organizationDto.getName()+" - "+ organizationDto.getType()+" - " + organizationDto.getId());
 			if(organizationDto.getType() == 1) {
