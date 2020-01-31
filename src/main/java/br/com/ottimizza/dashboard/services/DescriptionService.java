@@ -55,9 +55,9 @@ public class DescriptionService {
 				company = companyRepository.findAll(filter, null, null).get(0);
 			} catch (Exception e) {	}
 		}
-		
+		System.out.println(">>> C nao"+ descriptionDTO.getCnpj());
 		if (company != null) {	
-			System.out.println(">>> C nao");
+			System.out.println(">>> C nao"+ company.getName());
 			if(company.getScriptId() 	 != null) descriptionDTO.setScriptId(company.getScriptId());
 			if(company.getAccountingId() != null) descriptionDTO.setAccountingId(company.getAccountingId());
 		
