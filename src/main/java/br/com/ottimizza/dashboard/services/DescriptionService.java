@@ -55,8 +55,6 @@ public class DescriptionService {
 				company = companyRepository.findAll(filter, null, null).get(0);
 			} catch (Exception e) {	}
 		}
-		System.out.println(">>> A "+ descriptionDTO.getCnpj());
-		System.out.println(">>> B "+companies.isEmpty()+"<>"+company.getId());
 		
 		if (company.getId() != null) {	
 			System.out.println(">>> C n "+ company.getName());
@@ -64,14 +62,18 @@ public class DescriptionService {
 			if(company.getAccountingId() != null) descriptionDTO.setAccountingId(company.getAccountingId());
 		
 		} else { // se nao encontrar company busca organization(contabilidade) do account 
-			System.out.println(">>> C s ");
+			System.out.println(">>> C s "+descriptionDTO.getCnpj().replaceAll("[^0-9]*", ""));
 			OrganizationDTO organizationDto = oauthClient.getOrganizationInfo(authorization, descriptionDTO.getCnpj().replaceAll("[^0-9]*", "")).getBody().getRecord();
-			System.out.println(">>> D " + organizationDto.getName()+" - "+ organizationDto.getType()+" - " + organizationDto.getId());
-			if(organizationDto.getType() == 1) {
-				descriptionDTO.setAccountingId(organizationDto.getId());
-				descriptionDTO.setCnpj("");
-				descriptionDTO.setScriptId(null);
-				System.out.println(">>> E "+descriptionDTO.getTitle()+" - "+descriptionDTO.getCnpj()+" - "+descriptionDTO.getScriptId()+" - "+descriptionDTO.getCnpj());
+			System.out.println(">>> C  "+ organizationDto.toString());
+			
+			if(organizationDto.getId() != null) {
+				System.out.println(">>> D " + organizationDto.getName()+" - "+ organizationDto.getType()+" - " + organizationDto.getId());
+				if(organizationDto.getType() == 1) {
+					descriptionDTO.setAccountingId(organizationDto.getId());
+					descriptionDTO.setCnpj("");
+					descriptionDTO.setScriptId(null);
+					System.out.println(">>> E "+descriptionDTO.getTitle()+" - "+descriptionDTO.getCnpj()+" - "+descriptionDTO.getScriptId()+" - "+descriptionDTO.getCnpj());
+				}
 			}
 		}
 		
