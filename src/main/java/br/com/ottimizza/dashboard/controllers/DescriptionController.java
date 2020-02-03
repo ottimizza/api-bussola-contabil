@@ -37,7 +37,7 @@ public class DescriptionController {
 	public ResponseEntity<DescriptionDTO> save(@RequestBody DescriptionDTO descriptionDto, 
 											   @RequestHeader("Authorization") String authorization) 
 											   throws Exception {												   
-		return ResponseEntity.ok(service.save(descriptionDto));
+		return ResponseEntity.ok(service.save(descriptionDto, authorization));
 	}
 	
 //	@PutMapping

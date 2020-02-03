@@ -50,7 +50,7 @@ public class Variable implements Serializable{
 	private Short originValue;
 	
 	@Column(name = "absolute_Value", columnDefinition = "boolean default true")
-	private boolean absoluteValue;
+	private Boolean absoluteValue;
 
 	// variableCode;	codigo da variavel CRM ("40","41"...)
 	// accountingCode;	contacontabil(1.1.002)
