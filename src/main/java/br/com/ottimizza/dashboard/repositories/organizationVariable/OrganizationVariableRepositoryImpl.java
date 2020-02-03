@@ -27,7 +27,6 @@ public class OrganizationVariableRepositoryImpl implements OrganizationVariableR
 	
 	@Override
 	public List<VariableDTO> findVariablesByCompanyId(VariableDTO filter, UserDTO userInfo) {
-		System.out.println(">>> cC "+filter.getCompanyId());
 		JPAQuery<VariableDTO> query = new JPAQuery<VariableDTO>(em).from(organizationVariable)
 				.innerJoin(variable).on(
 						variable.id.eq(organizationVariable.variableId)/*.and(variable.accountingId.eq(userInfo.getOrganization().getId()))*/)
