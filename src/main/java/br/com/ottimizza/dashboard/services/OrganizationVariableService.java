@@ -86,10 +86,12 @@ public class OrganizationVariableService {
 	}
 	
 	public List<VariableDTO> findVariableByCompanyId(VariableDTO filter, UserDTO userInfo) {
+		System.out.println(">>> cB "+filter.getCompanyId());
 		return repository.findVariablesByCompanyId(filter, userInfo);
 	}
 	
 	public List<VariableDTO> findMissingByOrganizationId(VariableDTO filter, UserDTO userInfo) {
+		System.out.println(">>> mB "+filter.getCompanyId());
 		return repository.findMissingByCompanyId(filter, userInfo);
 	}
 	

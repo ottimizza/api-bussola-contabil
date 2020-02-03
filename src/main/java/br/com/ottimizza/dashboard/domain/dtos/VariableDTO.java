@@ -27,7 +27,7 @@ public class VariableDTO implements Serializable{
 	private BigInteger scriptId;
 	
 	private Short originValue;
-	private boolean absoluteValue;
+	private Boolean absoluteValue;
 	
 	//from organizationVariable
 	private BigInteger accountingId;	//contabilidade  accounting
@@ -35,7 +35,7 @@ public class VariableDTO implements Serializable{
 	
 	private String kpiAlias;
 	private String description;
-	
+
 	public static Variable variableDtoToVariable(VariableDTO variableDto) {
 		Variable variable = new Variable();
 		
@@ -48,7 +48,7 @@ public class VariableDTO implements Serializable{
 		if(variableDto.getKpiAlias() != null)		variable.setKpiAlias(variableDto.getKpiAlias());
 		if(variableDto.getDescription() != null)	variable.setDescription(variableDto.getDescription());
 		if(variableDto.getAccountingId() != null)	variable.setAccountingId(variableDto.getAccountingId());
-		variable.setAbsoluteValue(variableDto.isAbsoluteValue());
+		variable.setAbsoluteValue(variableDto.getAbsoluteValue());
 
 		return variable;
 	}
@@ -65,7 +65,7 @@ public class VariableDTO implements Serializable{
 		if(variable.getKpiAlias() != null)		variableDto.setKpiAlias(variable.getKpiAlias());
 		if(variable.getDescription() != null)	variableDto.setDescription(variable.getDescription());
 		if(variable.getAccountingCode() != null)variableDto.setAccountingId(variable.getAccountingId());
-		variableDto.setAbsoluteValue(variable.isAbsoluteValue());
+		variableDto.setAbsoluteValue(variable.getAbsoluteValue());
 
 		return variableDto;
 	}
