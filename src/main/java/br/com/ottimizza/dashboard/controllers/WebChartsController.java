@@ -19,6 +19,7 @@ import java.util.List;
 import java.util.Locale;
 
 import javax.inject.Inject;
+import javax.management.Query;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.http.HttpEntity;
@@ -45,6 +46,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.ottimizza.dashboard.apis.IsGdApi;
+import br.com.ottimizza.dashboard.repositories.kpi_detail.KpiDetailRepository;
 import br.com.ottimizza.dashboard.services.WebChartsService;
 
 @RestController
@@ -54,6 +56,9 @@ public class WebChartsController {
 	@Inject
 	WebChartsService wcs;
 
+	@Inject
+	KpiDetailRepository kpiRepository;
+	
 	@Value("${storage-config.upload-id-bussola}")
     private String UPLOAD_ID_BUSSOLA;
 	
@@ -70,20 +75,15 @@ public class WebChartsController {
 		//String email = requestBody.optJSONArray("email").getString(0);
 		String urlLogo = requestBody.optJSONArray("urlLogo").getString(0);
 		String kind = "";
-		try{
-			kind = requestBody.optJSONArray("kind").getString(0);
-		}
-		catch(Exception ex) {
-			kind = "0";
-		}
+		
+		try{kind = requestBody.optJSONArray("kind").getString(0);}
+		catch(Exception ex) {kind = "0";}
 		Locale ptBr = new Locale("pt", "BR");
 		
 		// variavel usada em FOR
-		int totalCharts = 29;
-		Integer[] ordenated = { 7, 12, 21, 1, 8, 9, 10, 11, 13, 2, 3, 6, 4, 5, 15, 16, 18, 14, 17, 19, 20, 22, 23, 24, 25, 26, 27, 28, 29 };
-
 		String cnpjString = cnpjs.getString(0);
-
+		List<String> chartsSequence = kpiRepository.findKpiAlias(cnpjString);
+		
 		// busca de dados
 		List<String> cnpj = new ArrayList<String>();
 		cnpj.add(cnpjString);
@@ -101,10 +101,11 @@ public class WebChartsController {
 
 		sb.append(wcs.getBasicStyle());
 
-		List<Integer> chartsSequence = Arrays.asList(ordenated);
+		
 		dataToCharts = new JSONObject();
 		String companyName = "";
-		for (Integer charts : chartsSequence) {
+		for (String chartsString : chartsSequence) {
+			int charts = Integer.parseInt(chartsString);
 			
 			dataToCharts = wcs.getDataToCharts(cnpj, Short.parseShort(String.valueOf(charts)), kind);
 			if(!dataToCharts.optString("companyName").equals("")) companyName = dataToCharts.optString("companyName");
@@ -136,7 +137,9 @@ public class WebChartsController {
 		sb.append("				</div>").append(rn);
 		sb.append("			</div>").append(rn);
 		
-		for (Integer charts : chartsSequence) {
+		for (String chartsString : chartsSequence) {
+			int charts = Integer.parseInt(chartsString);
+			
 			dataToCharts = wcs.getDataToCharts(cnpj, Short.parseShort(String.valueOf(charts)), kind);
 			if (!dataToCharts.optBoolean("emptyTable") && dataToCharts.optBoolean("visible")) {
 				if (charts == 7 || charts == 12) {
@@ -174,7 +177,9 @@ public class WebChartsController {
 		sb.append("				let cores = ['#4285f4','#00ce93','#ce0000','#af00ce','#ce8900'];	").append(rn);
 		sb.append(wcs.getbasicOptions(true));
 
-		for (int kk = 1; kk <= totalCharts; kk++) {
+		for (String kpi : chartsSequence) {
+			int kk = Integer.parseInt(kpi);
+			
 			dataToCharts = wcs.getDataToCharts(cnpj, Short.parseShort(String.valueOf(kk)), kind);
 			
 			if (dataToCharts.optBoolean("visible") && !dataToCharts.optString("data").equals("")) {
@@ -312,11 +317,9 @@ public class WebChartsController {
 		Locale ptBr = new Locale("pt", "BR");
 		
 		// variavel usada em FOR
-		int totalCharts = 29;
-		Integer[] ordenated = { 7, 12, 21, 1, 8, 9, 10, 11, 13, 2, 3, 6, 4, 5, 15, 16, 18, 14, 17, 19, 20, 22, 23, 24, 25, 26, 27, 28, 29 };
-
 		String cnpjString = cnpjs.getString(0);
-
+		List<String> chartsSequence = kpiRepository.findKpiAlias(cnpjString);
+		
 		// busca de dados
 		List<String> cnpj = new ArrayList<String>();
 		cnpj.add(cnpjString);
@@ -334,10 +337,11 @@ public class WebChartsController {
 
 		sb.append(wcs.getBasicStyle());
 
-		List<Integer> chartsSequence = Arrays.asList(ordenated);
+		
 		dataToCharts = new JSONObject();
 		String companyName = "";
-		for (Integer charts : chartsSequence) {
+		for (String chartsString : chartsSequence) {
+			int charts = Integer.parseInt(chartsString);
 			
 			dataToCharts = wcs.getDataToCharts(cnpj, Short.parseShort(String.valueOf(charts)), kind);
 			if(!dataToCharts.optString("companyName").equals("")) companyName = dataToCharts.optString("companyName");
@@ -369,7 +373,9 @@ public class WebChartsController {
 		sb.append("				</div>").append(rn);
 		sb.append("			</div>").append(rn);
 		
-		for (Integer charts : chartsSequence) {
+		for (String chartsString : chartsSequence) {
+			int charts = Integer.parseInt(chartsString);
+			
 			dataToCharts = wcs.getDataToCharts(cnpj, Short.parseShort(String.valueOf(charts)), kind);
 			if (!dataToCharts.optBoolean("emptyTable") && dataToCharts.optBoolean("visible")) {
 				if (charts == 7 || charts == 12) {
@@ -407,7 +413,9 @@ public class WebChartsController {
 		sb.append("				let cores = ['#4285f4','#00ce93','#ce0000','#af00ce','#ce8900'];	").append(rn);
 		sb.append(wcs.getbasicOptions(true));
 
-		for (int kk = 1; kk <= totalCharts; kk++) {
+		for (String kpi : chartsSequence) {
+			int kk = Integer.parseInt(kpi);
+			
 			dataToCharts = wcs.getDataToCharts(cnpj, Short.parseShort(String.valueOf(kk)), kind);
 			
 			if (dataToCharts.optBoolean("visible") && !dataToCharts.optString("data").equals("")) {
@@ -485,7 +493,7 @@ public class WebChartsController {
 		sb.append("	</footer>").append(rn);
 		sb.append("	</body>").append(rn);
 		sb.append("</html>").append(rn);
-
+		
 		// cria arquivo temporario
 		File tmp = File.createTempFile("Bussola", ".html");
 		tmp.deleteOnExit();
