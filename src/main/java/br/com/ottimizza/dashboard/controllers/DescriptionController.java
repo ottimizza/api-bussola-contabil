@@ -37,15 +37,15 @@ public class DescriptionController {
 	public ResponseEntity<DescriptionDTO> save(@RequestBody DescriptionDTO descriptionDto, 
 											   @RequestHeader("Authorization") String authorization) 
 											   throws Exception {												   
-		return ResponseEntity.ok(service.save(descriptionDto));
+		return ResponseEntity.ok(service.save(descriptionDto, authorization));
 	}
 	
-	@PutMapping
-	public ResponseEntity<DescriptionDTO> update(@RequestBody DescriptionDTO descriptionDto, 
-												@RequestHeader("Authorization") String authorization) 
-								  				throws Exception {
-		return ResponseEntity.ok(service.save(descriptionDto));
-	}
+//	@PutMapping
+//	public ResponseEntity<DescriptionDTO> update(@RequestBody DescriptionDTO descriptionDto, 
+//												@RequestHeader("Authorization") String authorization) 
+//								  				throws Exception {
+//		return ResponseEntity.ok(service.save(descriptionDto));
+//	}
 	
 	@PatchMapping("{id}")
 	public ResponseEntity<DescriptionDTO> patch(@PathVariable("id") BigInteger id, 
@@ -93,9 +93,9 @@ public class DescriptionController {
 		return ResponseEntity.ok(listReturn);
 	}*/
 
-	@PostMapping("/addDescriptions")
-	public ResponseEntity<?> saveDescriptionList(@RequestBody DescriptionDTO descriptionDTO) throws Exception {
-		return ResponseEntity.ok(service.saveDescriptionList(descriptionDTO));
+	@PostMapping("/update")
+	public ResponseEntity<?> updateDescriptionList(@RequestBody DescriptionDTO descriptionDTO) throws Exception {
+		return ResponseEntity.ok(service.updateDescriptionList(descriptionDTO));
 	}
 
 	@GetMapping("/descriptions")

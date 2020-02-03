@@ -15,6 +15,7 @@ import com.querydsl.jpa.impl.JPAQuery;
 import br.com.ottimizza.dashboard.domain.dtos.DescriptionDTO;
 import br.com.ottimizza.dashboard.models.Description;
 import br.com.ottimizza.dashboard.models.QDescription;
+import br.com.ottimizza.dashboard.utils.StringUtil;
 
 @Repository
 public class DescriptionRepositoryImpl implements DescriptionRepositoryCustom {
@@ -50,11 +51,11 @@ public class DescriptionRepositoryImpl implements DescriptionRepositoryCustom {
 		if (descriptionDTO.getAccountingId() != null)	query.where(description.accountingId.eq(descriptionDTO.getAccountingId()));
 		if (descriptionDTO.getKpiAlias() != null)		query.where(description.kpiAlias.eq(descriptionDTO.getKpiAlias()));
 		if (descriptionDTO.getDescription() != null) 	query.where(description.description.eq(descriptionDTO.getDescription()));
-		if (descriptionDTO.getScriptType() != null) 	query.where(description.scriptType.eq(descriptionDTO.getScriptType()));
+		if (descriptionDTO.getScriptId() != null) 		query.where(description.scriptId.eq(descriptionDTO.getScriptId()));
 		if (descriptionDTO.getTitle() != null) 			query.where(description.title.eq(descriptionDTO.getTitle()));
 		if (descriptionDTO.getGraphOrder() != null) 	query.where(description.graphOrder.eq(descriptionDTO.getGraphOrder()));
 		if (descriptionDTO.getChartType() != null) 		query.where(description.chartType.eq(descriptionDTO.getChartType()));
-		if (descriptionDTO.getCnpj() != null) 			query.where(description.cnpj.eq(descriptionDTO.getCnpj()));
+		if (descriptionDTO.getCnpj() != null) 			query.where(description.cnpj.eq(StringUtil.formatCnpj(descriptionDTO.getCnpj())));
 		if (descriptionDTO.getVisible() != null) 		query.where(description.visible.eq(descriptionDTO.getVisible())); 
 
 		totalDescriptions = query.fetchCount();
@@ -72,7 +73,7 @@ public class DescriptionRepositoryImpl implements DescriptionRepositoryCustom {
 
 		if (descriptionDTO.getAccountingId() != null)	query.where(description.accountingId.eq(descriptionDTO.getAccountingId()));
 		if (descriptionDTO.getKpiAlias() != null)		query.where(description.kpiAlias.eq(descriptionDTO.getKpiAlias()));
-		if (descriptionDTO.getScriptType() != null) 	query.where(description.scriptType.eq(descriptionDTO.getScriptType()));
+		if (descriptionDTO.getScriptId() != null) 		query.where(description.scriptId.eq(descriptionDTO.getScriptId()));
 		
 		return query.fetchOne();
 	}

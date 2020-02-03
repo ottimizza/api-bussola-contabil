@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class CompanyDTO implements Serializable{
+public class CompanyDTO implements Serializable{ //Company
 	
 	private static final long serialVersionUID = 1L;
 	
@@ -26,7 +26,6 @@ public class CompanyDTO implements Serializable{
 	private BigInteger accountingId;
     private BigInteger scriptId;
 	private String scriptDescription;
-	
 	
 	
 	public static CompanyDTO entityToDto(Company entity) {

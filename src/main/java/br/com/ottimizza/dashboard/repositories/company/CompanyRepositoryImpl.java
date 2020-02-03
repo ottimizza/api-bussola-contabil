@@ -34,12 +34,13 @@ public class CompanyRepositoryImpl implements CompanyRepositoryCustom {
     public List<Company> findAll(CompanyDTO filter, Integer pageSize, Integer pageIndex) {
         JPAQuery<Company> query = new JPAQuery<Company>(em).from(company);
         
-        if(filter.getCnpj() != null)	query.where(company.cnpj.eq(filter.getCnpj()));
-        if(filter.getId() != null)		query.where(company.id.eq(filter.getId()));
-        if(filter.getName() != null)	query.where(company.name.eq(filter.getName()));
-        if(filter.getSector() != null)	query.where(company.sector.eq(filter.getSector()));
-        if(filter.getExternalId() != null)	query.where(company.externalId.eq(filter.getExternalId()));
-        if(filter.getScriptId() != null)	query.where(company.scriptId.eq(filter.getScriptId()));
+        if(filter.getCnpj() != null)	 	 query.where(company.cnpj.eq(filter.getCnpj()));
+        if(filter.getId() != null)			 query.where(company.id.eq(filter.getId()));
+        if(filter.getName() != null)		 query.where(company.name.eq(filter.getName()));
+        if(filter.getSector() != null)		 query.where(company.sector.eq(filter.getSector()));
+        if(filter.getExternalId() != null) 	 query.where(company.externalId.eq(filter.getExternalId()));
+        if(filter.getScriptId() != null)	 query.where(company.scriptId.eq(filter.getScriptId()));
+        if(filter.getAccountingId() != null) query.where(company.accountingId.eq(filter.getAccountingId()));
         
         if (pageSize != null && pageSize > 0) {
             query.limit(pageSize);

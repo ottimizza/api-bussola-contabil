@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import com.querydsl.jpa.impl.JPAQuery;
 
+import br.com.ottimizza.dashboard.models.Kpi;
 import br.com.ottimizza.dashboard.models.KpiDetail;
 import br.com.ottimizza.dashboard.models.QCompany;
 import br.com.ottimizza.dashboard.models.QKpi;
@@ -50,6 +51,17 @@ public class KpiDetailRepositoryImpl implements KpiDetailRepositoryCustom {
 	public JSONObject deleteKpiDetail(KpiDetail kpiDetail) {
 		
 		return null;
+	}
+
+	@Override
+	public List<String> findKpiAlias(String cnpj) {
+		JPAQuery<String> query = new JPAQuery<String>(em).from(kpi);
+		query.innerJoin(company).on(kpi.company.id.eq(company.id));
+		query.where(company.cnpj.eq(cnpj));
+				
+		query.select(kpi.kpiAlias);
+		
+		return query.orderBy(kpi.graphOrder.asc()).fetch();
 	}
 
 	

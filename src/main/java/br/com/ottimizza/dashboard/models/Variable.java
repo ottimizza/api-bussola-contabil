@@ -36,19 +36,21 @@ public class Variable implements Serializable{
 	@Column(name = "fk_script_id")
 	private BigInteger scriptId;	
 
-	private String variableCode;
+	private String variableCode; //relacionado com kpi_alias do balancete
 	
 	private String name;
 
 	private String description;
 	
 	private String  accountingCode;
+	
+	private String kpiAlias;
 
 	@Column(name = "origin_value")
 	private Short originValue;
 	
 	@Column(name = "absolute_Value", columnDefinition = "boolean default true")
-	private boolean absoluteValue;
+	private Boolean absoluteValue;
 
 	// variableCode;	codigo da variavel CRM ("40","41"...)
 	// accountingCode;	contacontabil(1.1.002)

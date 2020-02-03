@@ -32,10 +32,13 @@ public class OrganizationVariableRepositoryImpl implements OrganizationVariableR
 						variable.id.eq(organizationVariable.variableId)/*.and(variable.accountingId.eq(userInfo.getOrganization().getId()))*/)
 				.where(organizationVariable.organizationId.eq(filter.getCompanyId()));
 
-		query.select(Projections.constructor(
-				VariableDTO.class, organizationVariable.id, organizationVariable.organizationId, variable.variableCode, variable.name, variable.id, variable.scriptId, variable.originValue, variable.absoluteValue, 
-								   organizationVariable.organizationId, organizationVariable.accountingCode));
-
+		query.select(Projections.constructor(VariableDTO.class, 
+				organizationVariable.id, organizationVariable.organizationId, variable.variableCode, variable.name, 
+				variable.id, variable.scriptId, variable.originValue, variable.absoluteValue, organizationVariable.organizationId, 
+				organizationVariable.accountingCode, variable.kpiAlias, variable.description));
+//		new VariableDTO(BigInteger id, BigInteger companyId, String variableCode, String name, 
+//		BigInteger variableId, BigInteger scriptId, short originValue, boolean absoluteValue, BigInteger accountingId, 
+//		String accountingCode, String kpiAlias, String description)
 		return query.fetch();
 	}
 
@@ -55,9 +58,9 @@ public class OrganizationVariableRepositoryImpl implements OrganizationVariableR
 		query.where(organizationVariable.id.isNull());
 		
 		query.select(Projections.constructor(VariableDTO.class, 
-				organizationVariable.id, organizationVariable.organizationId, 
-				variable.variableCode, variable.name, variable.id, variable.scriptId, variable.originValue, variable.absoluteValue, 
-				organizationVariable.organizationId, variable.accountingCode));
+				organizationVariable.id, organizationVariable.organizationId, variable.variableCode, variable.name, 
+				variable.id, variable.scriptId, variable.originValue, variable.absoluteValue, organizationVariable.organizationId, 
+				variable.accountingCode, variable.kpiAlias, variable.description));
 		
 		return query.fetch();
 	}

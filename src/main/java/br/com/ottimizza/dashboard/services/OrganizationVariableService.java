@@ -26,13 +26,13 @@ public class OrganizationVariableService {
 	VariableRepository variableRepository;
 	
 	
-	public OrganizationVariable save(OrganizationVariable organizationVariable, UserDTO userInfo) throws Exception {
+	public VariableDTO save(VariableDTO variableDto, UserDTO userInfo) throws Exception {
+		OrganizationVariable organizationVariable = VariableDTO.variableDtoToOrganizationVariable(variableDto);
 
-		if(organizationVariable.getOrganizationId() == null) {
-			organizationVariable.setOrganizationId(userInfo.getOrganization().getId());
+		if(variableRepository.findVariableByAccountingCode(organizationVariable.getAccountingCode(), userInfo) == null) {
+			organizationVariable = repository.save(organizationVariable);
+			return VariableDTO.organizationVariableToVariableDto(organizationVariable);
 		}
-		if(variableRepository.findVariableByAccountingCode(organizationVariable.getAccountingCode(), userInfo) == null)
-			return repository.save(organizationVariable);
 		return null;
 	}
 	

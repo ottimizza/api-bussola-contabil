@@ -13,5 +13,7 @@ public interface KpiDetailRepositoryCustom {
     List<KpiDetail> findKpiDetailsByCNPJAndGraphType(List<String> cnpj, Short graphType, String kind);
     
     JSONObject deleteKpiDetail(KpiDetail kpiDetail);
+    
+    List<String> findKpiAlias(String cnpj);
 
 }
