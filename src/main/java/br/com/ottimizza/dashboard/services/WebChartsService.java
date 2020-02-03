@@ -26,7 +26,7 @@ public class WebChartsService {
 	public JSONObject getDataToCharts(List<String> cnpj, Short param, String kind) {
 
 		JSONObject records = new JSONObject();
-		if(param > 29 || param  < 1) return records;
+		if(param > 81 || param  < 1) return records;
 		if(kind.equals("") || kind == null) kind = "0";
 		
         List<KpiDetail> kpiList = new ArrayList<KpiDetail>();
@@ -304,13 +304,13 @@ public class WebChartsService {
 		sb.append("				width: 1200px;"								).append(rn);
 		sb.append("				margin: auto;"								).append(rn);
 		sb.append("			}"												).append(rn);
-		sb.append("		    #charts21, #charts1, #charts8, #charts9,"			).append(rn);
-		sb.append("		    #charts13, #charts2, #charts3, #charts6,"				).append(rn);
-		sb.append("		    #charts4, #charts5, #charts15, #charts16,"				).append(rn);
-		sb.append("		    #charts18, #charts10, #charts11, #charts14,"			).append(rn);
-		sb.append("			#charts17, #charts19, #charts20, #charts22, "			).append(rn);
-		sb.append("			#charts23, #charts24, #charts25, #charts26, "			).append(rn);
-		sb.append("			#charts27, #charts28, #charts29 {"					).append(rn);
+		sb.append("		    #charts21, #charts1, #charts8, #charts9,"		).append(rn);
+		sb.append("		    #charts13, #charts2, #charts3, #charts6,"		).append(rn);
+		sb.append("		    #charts4, #charts5, #charts15, #charts16,"		).append(rn);
+		sb.append("		    #charts18, #charts10, #charts11, #charts14,"	).append(rn);
+		sb.append("			#charts17, #charts19, #charts20, #charts61, "	).append(rn);
+		sb.append("			#charts62, #charts63, #charts65, #charts66, "	).append(rn);
+		sb.append("			#charts68, #charts69, #charts81 {"				).append(rn);
 		sb.append("		        width: 80%;"								).append(rn);
 		sb.append("		        height: 400px;"								).append(rn);
 		sb.append("		    }"												).append(rn);
@@ -412,9 +412,9 @@ public class WebChartsService {
 		sb.append("		    #charts13, #charts2, #charts3, #charts6,"		).append(rn);
 		sb.append("		    #charts4, #charts5, #charts15, #charts16,"		).append(rn);
 		sb.append("		    #charts18, #charts10, #charts11, #charts14,"	).append(rn);
-		sb.append("			#charts17, #charts19, #charts20, #charts22, "	).append(rn);
-		sb.append("			#charts23, #charts24, #charts25, #charts26, "	).append(rn);
-		sb.append("			#charts27, #charts28, #charts29 {"				).append(rn);
+		sb.append("			#charts17, #charts19, #charts20, #charts61, "	).append(rn);
+		sb.append("			#charts62, #charts63, #charts65, #charts66, "	).append(rn);
+		sb.append("			#charts68, #charts69, #charts81 {"				).append(rn);
 		sb.append("		        width: 80%;"								).append(rn);
 		sb.append("		        height: 400px;"								).append(rn);
 		sb.append("		    }"												).append(rn);

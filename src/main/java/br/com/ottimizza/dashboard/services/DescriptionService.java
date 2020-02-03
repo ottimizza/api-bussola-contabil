@@ -96,9 +96,9 @@ public class DescriptionService {
 		List<DescriptionDTO> ListDesc = new ArrayList<>();
 
 		for(DescriptionDTO d: descriptionDTO.getDescriptions()){
-			DescriptionDTO filterD = new DescriptionDTO(null, d.getAccountingId(), d.getKpiAlias(), null, null, d.getScriptId(), null, null, null, null, null);
-			Description dFilter = repository.findByAccountingIdScriptType(filterD);
-			d.setId(dFilter.getId());
+//			DescriptionDTO filterD = new DescriptionDTO(null, d.getAccountingId(), d.getKpiAlias(), null, null, d.getScriptId(), null, null, null, null, null);
+//			Description dFilter = repository.findByAccountingIdScriptType(filterD);
+//			d.setId(dFilter.getId());
 			
 			ListDesc.add(d);
 		} 
