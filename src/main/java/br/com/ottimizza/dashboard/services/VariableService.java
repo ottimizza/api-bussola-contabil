@@ -124,7 +124,7 @@ public class VariableService {
 
 			if(variable.getScriptId() != null)		var.setScriptId(variable.getScriptId());
 			if(variable.getOriginValue() != null) 	var.setOriginValue(variable.getOriginValue());
-			var.setAbsoluteValue(variable.isAbsoluteValue());
+			var.setAbsoluteValue(variable.getAbsoluteValue());
 			return repository.save(var);
 		}
 		return repository.save(variable);
