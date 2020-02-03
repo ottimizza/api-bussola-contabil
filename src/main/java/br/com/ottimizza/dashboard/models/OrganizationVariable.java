@@ -45,5 +45,5 @@ public class OrganizationVariable implements Serializable {
 	private Short originValue;
 	
 	@Column(name = "absolute_Value", columnDefinition = "boolean default true")
-	private boolean absoluteValue;
+	private Boolean absoluteValue;
 }

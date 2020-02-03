@@ -3,6 +3,7 @@ package br.com.ottimizza.dashboard.domain.dtos;
 import java.io.Serializable;
 import java.math.BigInteger;
 
+import br.com.ottimizza.dashboard.models.OrganizationVariable;
 import br.com.ottimizza.dashboard.models.Variable;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -13,6 +14,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class VariableDTO implements Serializable{
 
+	/*
+	 * classe trabalha tanto com 'Variables' quanto com 'OrganizationVariables'
+	 * */
 	private static final long serialVersionUID = 1L;
 	// from Variables
 	
@@ -69,4 +73,33 @@ public class VariableDTO implements Serializable{
 
 		return variableDto;
 	}
+	
+	public static OrganizationVariable variableDtoToOrganizationVariable(VariableDTO variableDto) {
+		OrganizationVariable orgVariable = new OrganizationVariable();
+
+		if(variableDto.getId() != null)				orgVariable.setId(variableDto.getId());
+		if(variableDto.getVariableId() != null)		orgVariable.setVariableId(variableDto.getVariableId());
+		if(variableDto.getCompanyId() != null)		orgVariable.setOrganizationId(variableDto.getCompanyId()); // company = organization
+		if(variableDto.getScriptId() != null)		orgVariable.setScriptId(variableDto.getScriptId());
+		if(variableDto.getAccountingCode() != null)	orgVariable.setAccountingCode(variableDto.getAccountingCode());
+		if(variableDto.getOriginValue() != null)	orgVariable.setOriginValue(variableDto.getOriginValue());
+		if(variableDto.getAbsoluteValue() != null)	orgVariable.setAbsoluteValue(variableDto.getAbsoluteValue());
+		
+		return orgVariable;
+	}
+
+	public static VariableDTO organizationVariableToVariableDto(OrganizationVariable organizationVariable) {
+		VariableDTO variableDto = new VariableDTO();
+		
+		if(organizationVariable.getId() != null)				variableDto.setId(organizationVariable.getId());		
+		if(organizationVariable.getVariableId() != null)		variableDto.setVariableId(organizationVariable.getVariableId());
+		if(organizationVariable.getOrganizationId() != null)	variableDto.setCompanyId(organizationVariable.getOrganizationId()); // company = organization
+		if(organizationVariable.getScriptId() != null)			variableDto.setScriptId(organizationVariable.getScriptId());
+		if(organizationVariable.getAccountingCode() != null)	variableDto.setAccountingCode(organizationVariable.getAccountingCode());
+		if(organizationVariable.getOriginValue() != null)		variableDto.setOriginValue(organizationVariable.getOriginValue());
+		if(organizationVariable.getAbsoluteValue() != null)		variableDto.setAbsoluteValue(organizationVariable.getAbsoluteValue());
+
+		return variableDto;
+	}
+
 }

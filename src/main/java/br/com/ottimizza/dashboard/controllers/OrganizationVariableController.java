@@ -35,16 +35,16 @@ public class OrganizationVariableController {
 	OAuthClient oauthClient;
 	
 	@PostMapping
-	public ResponseEntity<OrganizationVariable> saveVariable(@RequestBody OrganizationVariable orgVariable, @RequestHeader("Authorization") String authorization) throws Exception {
+	public ResponseEntity<VariableDTO> saveVariable(@RequestBody VariableDTO variableDto, @RequestHeader("Authorization") String authorization) throws Exception {
 		UserDTO userInfo = oauthClient.getUserInfo(authorization).getBody().getRecord();
-		if((orgVariable.getAccountingCode() == null || orgVariable.getAccountingCode().equals("")) && orgVariable.getId() != null) {
-			service.delete(orgVariable.getId());
+		if((variableDto.getAccountingCode() == null || variableDto.getAccountingCode().equals("")) && variableDto.getId() != null) {
+			service.delete(variableDto.getId());
 			return null;
 		}
 			
 		try {
-			orgVariable = service.save(orgVariable, userInfo);
-			return ResponseEntity.ok(orgVariable);
+			variableDto = service.save(variableDto, userInfo);
+			return ResponseEntity.ok(variableDto);
 		} catch (Exception e) {  }
 		
 		return ResponseEntity.badRequest().build();		
