@@ -68,7 +68,7 @@ public class OrganizationVariableRepositoryImpl implements OrganizationVariableR
 
 	@Override
 	public List<OrganizationVariable> findOrganizationVariable(VariableDTO filter, UserDTO userInfo) {
-		
+
 		JPAQuery<OrganizationVariable> query = new JPAQuery<OrganizationVariable>(em).from(organizationVariable);
 		if(filter.getCompanyId() != null)		query.where(organizationVariable.organizationId.eq(filter.getCompanyId()));
 		if(filter.getScriptId() != null)		query.where(organizationVariable.scriptId.eq(filter.getScriptId()));

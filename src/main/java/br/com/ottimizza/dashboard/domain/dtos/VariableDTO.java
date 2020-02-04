@@ -84,7 +84,7 @@ public class VariableDTO implements Serializable{
 		if(variableDto.getAccountingCode() != null)	orgVariable.setAccountingCode(variableDto.getAccountingCode());
 		if(variableDto.getOriginValue() != null)	orgVariable.setOriginValue(variableDto.getOriginValue());
 		if(variableDto.getAbsoluteValue() != null)	orgVariable.setAbsoluteValue(variableDto.getAbsoluteValue());
-		
+		if(variableDto.getVariableCode() != null)	orgVariable.setVariableCode(variableDto.getVariableCode());
 		return orgVariable;
 	}
 
@@ -98,8 +98,9 @@ public class VariableDTO implements Serializable{
 		if(organizationVariable.getAccountingCode() != null)	variableDto.setAccountingCode(organizationVariable.getAccountingCode());
 		if(organizationVariable.getOriginValue() != null)		variableDto.setOriginValue(organizationVariable.getOriginValue());
 		if(organizationVariable.getAbsoluteValue() != null)		variableDto.setAbsoluteValue(organizationVariable.getAbsoluteValue());
-
+		if(organizationVariable.getVariableCode() != null)		variableDto.setVariableCode(organizationVariable.getVariableCode());
 		return variableDto;
 	}
 
 }
+

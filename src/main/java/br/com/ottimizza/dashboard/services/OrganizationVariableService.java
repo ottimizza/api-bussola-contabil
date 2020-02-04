@@ -34,7 +34,7 @@ public class OrganizationVariableService {
 		filter.setScriptId(variableDto.getScriptId());
 		filter.setVariableCode(variableDto.getVariableCode());
 		List<OrganizationVariable> orgVariables = repository.findOrganizationVariable(filter, userInfo);
-		
+
 		if(orgVariables.size() == 0) {
 			if(variableRepository.findVariableByAccountingCode(organizationVariable.getAccountingCode(), userInfo) == null) {
 				organizationVariable = repository.save(organizationVariable);
@@ -46,6 +46,7 @@ public class OrganizationVariableService {
 			organizationVariable = repository.save(organizationVariable);
 			return VariableDTO.organizationVariableToVariableDto(organizationVariable);
 		}
+
 		return null;
 	}
 	
