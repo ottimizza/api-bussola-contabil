@@ -62,7 +62,7 @@ public class DescriptionRepositoryImpl implements DescriptionRepositoryCustom {
 		query.limit(pageable.getPageSize());
 		query.offset(pageable.getPageSize() *pageable.getPageNumber());
 
-		return new PageImpl<Description>(query.fetch(), pageable, totalDescriptions);
+		return new PageImpl<Description>(query.orderBy(description.graphOrder.asc()).fetch(), pageable, totalDescriptions);
 	}	
 
 	@Override
