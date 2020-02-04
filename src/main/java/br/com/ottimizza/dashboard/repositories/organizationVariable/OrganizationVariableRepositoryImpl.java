@@ -12,6 +12,7 @@ import com.querydsl.jpa.impl.JPAQuery;
 
 import br.com.ottimizza.dashboard.domain.dtos.UserDTO;
 import br.com.ottimizza.dashboard.domain.dtos.VariableDTO;
+import br.com.ottimizza.dashboard.models.OrganizationVariable;
 import br.com.ottimizza.dashboard.models.QCompany;
 import br.com.ottimizza.dashboard.models.QOrganizationVariable;
 import br.com.ottimizza.dashboard.models.QVariable;
@@ -61,6 +62,17 @@ public class OrganizationVariableRepositoryImpl implements OrganizationVariableR
 				organizationVariable.id, organizationVariable.organizationId, variable.variableCode, variable.name, 
 				variable.id, variable.scriptId, variable.originValue, variable.absoluteValue, organizationVariable.organizationId, 
 				variable.accountingCode, variable.kpiAlias, variable.description));
+		
+		return query.fetch();
+	}
+
+	@Override
+	public List<OrganizationVariable> findOrganizationVariable(VariableDTO filter, UserDTO userInfo) {
+		
+		JPAQuery<OrganizationVariable> query = new JPAQuery<OrganizationVariable>(em).from(organizationVariable);
+		if(filter.getCompanyId() != null)		query.where(organizationVariable.organizationId.eq(filter.getCompanyId()));
+		if(filter.getScriptId() != null)		query.where(organizationVariable.scriptId.eq(filter.getScriptId()));
+		if(filter.getVariableCode() != null)	query.where(organizationVariable.variableCode.eq(filter.getVariableCode()));
 		
 		return query.fetch();
 	}

@@ -29,7 +29,20 @@ public class OrganizationVariableService {
 	public VariableDTO save(VariableDTO variableDto, UserDTO userInfo) throws Exception {
 		OrganizationVariable organizationVariable = VariableDTO.variableDtoToOrganizationVariable(variableDto);
 
-		if(variableRepository.findVariableByAccountingCode(organizationVariable.getAccountingCode(), userInfo) == null) {
+		VariableDTO filter = new VariableDTO();
+		filter.setCompanyId(variableDto.getCompanyId());
+		filter.setScriptId(variableDto.getScriptId());
+		filter.setVariableCode(variableDto.getVariableCode());
+		List<OrganizationVariable> orgVariables = repository.findOrganizationVariable(filter, userInfo);
+		
+		if(orgVariables.size() == 0) {
+			if(variableRepository.findVariableByAccountingCode(organizationVariable.getAccountingCode(), userInfo) == null) {
+				organizationVariable = repository.save(organizationVariable);
+				return VariableDTO.organizationVariableToVariableDto(organizationVariable);
+			}
+			
+		}else if(orgVariables.size() > 0) {
+			organizationVariable.setId(orgVariables.get(0).getId());
 			organizationVariable = repository.save(organizationVariable);
 			return VariableDTO.organizationVariableToVariableDto(organizationVariable);
 		}
