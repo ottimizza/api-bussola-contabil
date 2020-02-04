@@ -52,7 +52,7 @@ public class VariableDTO implements Serializable{
 		if(variableDto.getKpiAlias() != null)		variable.setKpiAlias(variableDto.getKpiAlias());
 		if(variableDto.getDescription() != null)	variable.setDescription(variableDto.getDescription());
 		if(variableDto.getAccountingId() != null)	variable.setAccountingId(variableDto.getAccountingId());
-		variable.setAbsoluteValue(variableDto.getAbsoluteValue());
+		if(variableDto.getAbsoluteValue() != null)	variable.setAbsoluteValue(variableDto.getAbsoluteValue());
 
 		return variable;
 	}
@@ -69,7 +69,7 @@ public class VariableDTO implements Serializable{
 		if(variable.getKpiAlias() != null)		variableDto.setKpiAlias(variable.getKpiAlias());
 		if(variable.getDescription() != null)	variableDto.setDescription(variable.getDescription());
 		if(variable.getAccountingCode() != null)variableDto.setAccountingId(variable.getAccountingId());
-		variableDto.setAbsoluteValue(variable.getAbsoluteValue());
+		if(variable.getAbsoluteValue() != null)	variableDto.setAbsoluteValue(variable.getAbsoluteValue());
 
 		return variableDto;
 	}
