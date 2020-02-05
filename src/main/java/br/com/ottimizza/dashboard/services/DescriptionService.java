@@ -42,9 +42,7 @@ public class DescriptionService {
 	public DescriptionDTO save(DescriptionDTO descriptionDTO, String authorization) throws Exception {
 		CompanyDTO filter = new CompanyDTO();
 		filter.setAccountingId(descriptionDTO.getAccountingId());
-		
-		System.out.println(">>> A "+descriptionDTO.getScriptDescription());
-		
+				
 		Company company = new Company();
 		List<Company> companies = new ArrayList<Company>();
 		if(descriptionDTO.getAccountingId() != null) companies = companyRepository.findAll(filter, null, null);
@@ -61,9 +59,6 @@ public class DescriptionService {
 			} catch (Exception e) {	}
 		}
 		
-		System.out.println(">>> B "+descriptionDTO.getScriptDescription());
-		
-		
 		if (company.getId() != null) {
 			if(company.getScriptId() 	 != null) descriptionDTO.setScriptId(company.getScriptId());
 			if(company.getAccountingId() != null) descriptionDTO.setAccountingId(company.getAccountingId());
@@ -73,9 +68,6 @@ public class DescriptionService {
 			
 			List<OrganizationDTO> organizations = oauthClient.getOrganizationInfo(authorization, descriptionDTO.getCnpj().replaceAll("[^0-9]*", "")).getBody().getRecords();
 			
-			System.out.println(">>> C "+descriptionDTO.getScriptDescription());
-			
-
 			if(organizations.size() != 0) {
 				organizationDto = organizations.get(0);
 				if(organizationDto.getType() == 1) {
@@ -83,11 +75,10 @@ public class DescriptionService {
 					descriptionDTO.setCnpj("");
 				}
 			}
-			
-			System.out.println(">>> D "+descriptionDTO.getScriptDescription());
-			
-
+			System.out.println(">>> A "+descriptionDTO.getKpiAlias()+" <> "+descriptionDTO.getScriptDescription());
 			List<ScriptTypeDTO> scripts = scriptTypeService.findAll(new ScriptTypeDTO(null, null, descriptionDTO.getDescription()));
+			System.out.println(">>> B "+scripts.size());
+			if(scripts.size() > 0) System.out.println(">>> C "+scripts.get(0).toString());
 			if(descriptionDTO.getScriptDescription() != null) {
 				if(scripts.size() > 0)		 descriptionDTO.setScriptId(scripts.get(0).getId());
 				else if(scripts.size() == 0) descriptionDTO.setScriptId(scriptTypeService.save(new ScriptTypeDTO(null, descriptionDTO.getAccountingId(), descriptionDTO.getScriptDescription())).getId());
@@ -97,9 +88,6 @@ public class DescriptionService {
 				else if(scripts.size() == 0) descriptionDTO.setScriptId(scriptTypeService.save(new ScriptTypeDTO(null, descriptionDTO.getAccountingId(), "PADRAO")).getId());
 			}
 		}
-		
-		System.out.println(">>> E "+descriptionDTO.getScriptDescription());
-		
 
 		if(descriptionDTO.getAccountingId() != null && descriptionDTO.getKpiAlias() != null && descriptionDTO.getScriptId() != null) {
 
