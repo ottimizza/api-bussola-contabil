@@ -21,8 +21,10 @@ import br.com.ottimizza.dashboard.domain.dtos.ScriptTypeDTO;
 import br.com.ottimizza.dashboard.domain.mappers_description.DescriptionMapper;
 import br.com.ottimizza.dashboard.models.Company;
 import br.com.ottimizza.dashboard.models.Description;
+import br.com.ottimizza.dashboard.models.ScriptType;
 import br.com.ottimizza.dashboard.repositories.company.CompanyRepository;
 import br.com.ottimizza.dashboard.repositories.description.DescriptionRepository;
+import br.com.ottimizza.dashboard.repositories.script_type.ScriptTypeRepository;
 
 @Service
 public class DescriptionService {
@@ -37,7 +39,7 @@ public class DescriptionService {
 	OAuthClient oauthClient;
 	
 	@Inject
-    ScriptTypeService scriptTypeService;
+    ScriptTypeRepository scriptTypeRepository;
 	
 	public DescriptionDTO save(DescriptionDTO descriptionDTO, String authorization) throws Exception {
 		CompanyDTO filter = new CompanyDTO();
@@ -76,16 +78,16 @@ public class DescriptionService {
 				}
 			}
 			System.out.println(">>> A "+descriptionDTO.getKpiAlias()+" <> "+descriptionDTO.getScriptDescription());
-			List<ScriptTypeDTO> scripts = scriptTypeService.findAll(new ScriptTypeDTO(null, null, descriptionDTO.getDescription()));
+			List<ScriptType> scripts = scriptTypeRepository.findAll(new ScriptTypeDTO(null, null, descriptionDTO.getDescription()));
 			System.out.println(">>> B "+scripts.size());
 			if(scripts.size() > 0) System.out.println(">>> C "+scripts.get(0).toString());
 			if(descriptionDTO.getScriptDescription() != null) {
 				if(scripts.size() > 0)		 descriptionDTO.setScriptId(scripts.get(0).getId());
-				else if(scripts.size() == 0) descriptionDTO.setScriptId(scriptTypeService.save(new ScriptTypeDTO(null, descriptionDTO.getAccountingId(), descriptionDTO.getScriptDescription())).getId());
+				else if(scripts.size() == 0) descriptionDTO.setScriptId(scriptTypeRepository.save(new ScriptType(null, descriptionDTO.getAccountingId(), descriptionDTO.getScriptDescription())).getId());
 			} else {
-				scripts = scriptTypeService.findAll(new ScriptTypeDTO(null, null, "PADRAO"));
+				scripts = scriptTypeRepository.findAll(new ScriptTypeDTO(null, null, "PADRAO"));
 				if(scripts.size() > 0)		 descriptionDTO.setScriptId(scripts.get(0).getId());
-				else if(scripts.size() == 0) descriptionDTO.setScriptId(scriptTypeService.save(new ScriptTypeDTO(null, descriptionDTO.getAccountingId(), "PADRAO")).getId());
+				else if(scripts.size() == 0) descriptionDTO.setScriptId(scriptTypeRepository.save(new ScriptType(null, descriptionDTO.getAccountingId(), "PADRAO")).getId());
 			}
 		}
 
