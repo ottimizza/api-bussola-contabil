@@ -74,7 +74,7 @@ public class CompanyController {
 
 			if(companyDto.getScriptDescription() == null) {
 				if(scripts.size() == 0) {
-					company.setScriptId(scriptTypeService.save(new ScriptTypeDTO(null, idContabilidade, "padrao")).getId());
+					company.setScriptId(scriptTypeService.save(new ScriptTypeDTO(null, idContabilidade, "PADRAO")).getId());
 				} else if(scripts.size() == 1) {
 					company.setScriptId(scripts.get(0).getId());
 				} else if(scripts.size() > 1) {

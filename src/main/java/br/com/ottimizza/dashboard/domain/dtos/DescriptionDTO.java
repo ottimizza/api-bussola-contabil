@@ -5,6 +5,8 @@ import java.math.BigInteger;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import br.com.ottimizza.dashboard.models.Description;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -30,6 +32,10 @@ public class DescriptionDTO implements Serializable {
 	private String chartType;
 	private Boolean visible;
 	private List<DescriptionDTO> descriptions;
+	
+	@JsonIgnore
+	private String scriptDescription;
+
 
     public static DescriptionDTO descriptionToDto(Description description) {
     	DescriptionDTO dto = new DescriptionDTO();
