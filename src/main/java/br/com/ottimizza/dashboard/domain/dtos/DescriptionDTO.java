@@ -33,7 +33,6 @@ public class DescriptionDTO implements Serializable {
 	private Boolean visible;
 	private List<DescriptionDTO> descriptions;
 	
-	@JsonIgnore
 	private String scriptDescription;
 
 

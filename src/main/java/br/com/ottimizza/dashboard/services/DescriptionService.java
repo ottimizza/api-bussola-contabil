@@ -43,6 +43,8 @@ public class DescriptionService {
 		CompanyDTO filter = new CompanyDTO();
 		filter.setAccountingId(descriptionDTO.getAccountingId());
 		
+		System.out.println(">>> A "+descriptionDTO.getScriptDescription());
+		
 		Company company = new Company();
 		List<Company> companies = new ArrayList<Company>();
 		if(descriptionDTO.getAccountingId() != null) companies = companyRepository.findAll(filter, null, null);
@@ -59,6 +61,9 @@ public class DescriptionService {
 			} catch (Exception e) {	}
 		}
 		
+		System.out.println(">>> B "+descriptionDTO.getScriptDescription());
+		
+		
 		if (company.getId() != null) {
 			if(company.getScriptId() 	 != null) descriptionDTO.setScriptId(company.getScriptId());
 			if(company.getAccountingId() != null) descriptionDTO.setAccountingId(company.getAccountingId());
@@ -66,6 +71,22 @@ public class DescriptionService {
 		} else { // se nao encontrar company busca organization(contabilidade) do account 
 			OrganizationDTO organizationDto = new OrganizationDTO();
 			
+			List<OrganizationDTO> organizations = oauthClient.getOrganizationInfo(authorization, descriptionDTO.getCnpj().replaceAll("[^0-9]*", "")).getBody().getRecords();
+			
+			System.out.println(">>> C "+descriptionDTO.getScriptDescription());
+			
+
+			if(organizations.size() != 0) {
+				organizationDto = organizations.get(0);
+				if(organizationDto.getType() == 1) {
+					descriptionDTO.setAccountingId(organizationDto.getId());
+					descriptionDTO.setCnpj("");
+				}
+			}
+			
+			System.out.println(">>> D "+descriptionDTO.getScriptDescription());
+			
+
 			List<ScriptTypeDTO> scripts = scriptTypeService.findAll(new ScriptTypeDTO(null, null, descriptionDTO.getDescription()));
 			if(descriptionDTO.getScriptDescription() != null) {
 				if(scripts.size() > 0)		 descriptionDTO.setScriptId(scripts.get(0).getId());
@@ -75,18 +96,11 @@ public class DescriptionService {
 				if(scripts.size() > 0)		 descriptionDTO.setScriptId(scripts.get(0).getId());
 				else if(scripts.size() == 0) descriptionDTO.setScriptId(scriptTypeService.save(new ScriptTypeDTO(null, descriptionDTO.getAccountingId(), "PADRAO")).getId());
 			}
-			
-			List<OrganizationDTO> organizations = oauthClient.getOrganizationInfo(authorization, descriptionDTO.getCnpj().replaceAll("[^0-9]*", "")).getBody().getRecords();
-			
-			if(organizations.size() != 0) {
-				organizationDto = organizations.get(0);
-				if(organizationDto.getType() == 1) {
-					descriptionDTO.setAccountingId(organizationDto.getId());
-					descriptionDTO.setCnpj("");
-				}
-			}
 		}
 		
+		System.out.println(">>> E "+descriptionDTO.getScriptDescription());
+		
+
 		if(descriptionDTO.getAccountingId() != null && descriptionDTO.getKpiAlias() != null && descriptionDTO.getScriptId() != null) {
 
 			dFiltro.setAccountingId(descriptionDTO.getAccountingId());
