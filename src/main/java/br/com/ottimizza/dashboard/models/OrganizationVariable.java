@@ -46,4 +46,7 @@ public class OrganizationVariable implements Serializable {
 	
 	@Column(name = "absolute_Value", columnDefinition = "boolean default true")
 	private Boolean absoluteValue;
+	
+	private String variableCode; //relacionado com kpi_alias do balancete
+
 }

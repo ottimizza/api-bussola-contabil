@@ -41,7 +41,6 @@ public class OrganizationVariableController {
 			service.delete(variableDto.getId());
 			return null;
 		}
-			
 		try {
 			variableDto = service.save(variableDto, userInfo);
 			return ResponseEntity.ok(variableDto);

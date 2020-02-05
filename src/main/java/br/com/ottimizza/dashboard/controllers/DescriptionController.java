@@ -40,13 +40,6 @@ public class DescriptionController {
 		return ResponseEntity.ok(service.save(descriptionDto, authorization));
 	}
 	
-//	@PutMapping
-//	public ResponseEntity<DescriptionDTO> update(@RequestBody DescriptionDTO descriptionDto, 
-//												@RequestHeader("Authorization") String authorization) 
-//								  				throws Exception {
-//		return ResponseEntity.ok(service.save(descriptionDto));
-//	}
-	
 	@PatchMapping("{id}")
 	public ResponseEntity<DescriptionDTO> patch(@PathVariable("id") BigInteger id, 
 												@RequestBody DescriptionDTO descriptionDTO,
@@ -54,7 +47,6 @@ public class DescriptionController {
 												throws Exception {
         return ResponseEntity.ok(service.patch(id, descriptionDTO));
     }
-			
 	
 	@GetMapping
 	public ResponseEntity<?> findAll(@ModelAttribute DescriptionDTO filter, 
@@ -68,31 +60,6 @@ public class DescriptionController {
 		return ResponseEntity.ok(service.delete(descriptionId).toString());
 	}
 
-	/*@PostMapping("/new/descriptions")
-	public ResponseEntity<List<Description>> createDescriptionsOrganizationId(@RequestBody DescriptionDTO body, @RequestHeader("Authorization") String authorization) throws Exception {
-		System.out.println("Entrou no método");
-		List<Description> listReturn = new ArrayList<Description>();
-		List<Description> listDescriptions = new ArrayList<Description>();
-		String cnpj = body.getCnpj();
-		Company company = new Company();
-		
-		try { company = companyService.findByCnpj(cnpj); 
-			System.out.println("Primeiro TRY");} 
-		catch (Exception ee) {System.out.println("Entrou no primeiro catch");	}
-		
-		listDescriptions = body.getDescriptions();
-
-		for (Description description : listDescriptions) {
-			description.setOrganizationId(company.getOrganizationId());
-			try {
-				service.save(body);
-				listReturn.add(description);
-			} catch (Exception e) { }
-		}
-		System.out.println("Pré retorno");
-		return ResponseEntity.ok(listReturn);
-	}*/
-
 	@PostMapping("/update")
 	public ResponseEntity<?> updateDescriptionList(@RequestBody DescriptionDTO descriptionDTO) throws Exception {
 		return ResponseEntity.ok(service.updateDescriptionList(descriptionDTO));
@@ -103,8 +70,7 @@ public class DescriptionController {
 									 			@RequestParam(name = "page_index", defaultValue = "0") int pageIndex, 
 								 				@RequestParam(name = "page_size", defaultValue = "10") int pageSize, 
 								 				@RequestHeader("Authorization") String authorization) throws Exception {
-	return ResponseEntity.ok(service.returnDescriptionList(filter, pageIndex, pageSize, authorization
-	));
+		return ResponseEntity.ok(service.returnDescriptionList(filter, pageIndex, pageSize, authorization));
 	}
 
 	@PutMapping("/updateDescription")
