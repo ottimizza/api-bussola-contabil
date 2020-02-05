@@ -23,8 +23,9 @@ public class ScriptTypeRepositoryImpl implements ScriptTypeRepositoryCustom {
 	
 	@Override
 	public List<ScriptType> findAll(ScriptTypeDTO dto) {
-
+		
 		JPAQuery<ScriptType> query = new JPAQuery<ScriptType>(em).from(scriptType);
+
 		if(dto.getId() != null)			 query.where(scriptType.id.eq(dto.getId()));
 		if(dto.getAccounting() != null)	 query.where(scriptType.accounting.eq(dto.getAccounting()));
 		if(dto.getDescription() != null) query.where(scriptType.description.eq(dto.getDescription()));

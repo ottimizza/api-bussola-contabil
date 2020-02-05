@@ -17,11 +17,14 @@ import br.com.ottimizza.dashboard.client.OAuthClient;
 import br.com.ottimizza.dashboard.domain.dtos.CompanyDTO;
 import br.com.ottimizza.dashboard.domain.dtos.DescriptionDTO;
 import br.com.ottimizza.dashboard.domain.dtos.OrganizationDTO;
+import br.com.ottimizza.dashboard.domain.dtos.ScriptTypeDTO;
 import br.com.ottimizza.dashboard.domain.mappers_description.DescriptionMapper;
 import br.com.ottimizza.dashboard.models.Company;
 import br.com.ottimizza.dashboard.models.Description;
+import br.com.ottimizza.dashboard.models.ScriptType;
 import br.com.ottimizza.dashboard.repositories.company.CompanyRepository;
 import br.com.ottimizza.dashboard.repositories.description.DescriptionRepository;
+import br.com.ottimizza.dashboard.repositories.script_type.ScriptTypeRepository;
 
 @Service
 public class DescriptionService {
@@ -35,11 +38,13 @@ public class DescriptionService {
 	@Inject
 	OAuthClient oauthClient;
 	
+	@Inject
+    ScriptTypeRepository scriptTypeRepository;
 	
 	public DescriptionDTO save(DescriptionDTO descriptionDTO, String authorization) throws Exception {
 		CompanyDTO filter = new CompanyDTO();
 		filter.setAccountingId(descriptionDTO.getAccountingId());
-		
+				
 		Company company = new Company();
 		List<Company> companies = new ArrayList<Company>();
 		if(descriptionDTO.getAccountingId() != null) companies = companyRepository.findAll(filter, null, null);
@@ -56,12 +61,13 @@ public class DescriptionService {
 			} catch (Exception e) {	}
 		}
 		
-		if (company.getId() != null) {	
+		if (company.getId() != null) {
 			if(company.getScriptId() 	 != null) descriptionDTO.setScriptId(company.getScriptId());
 			if(company.getAccountingId() != null) descriptionDTO.setAccountingId(company.getAccountingId());
 		
 		} else { // se nao encontrar company busca organization(contabilidade) do account 
 			OrganizationDTO organizationDto = new OrganizationDTO();
+			
 			List<OrganizationDTO> organizations = oauthClient.getOrganizationInfo(authorization, descriptionDTO.getCnpj().replaceAll("[^0-9]*", "")).getBody().getRecords();
 			
 			if(organizations.size() != 0) {
@@ -69,11 +75,20 @@ public class DescriptionService {
 				if(organizationDto.getType() == 1) {
 					descriptionDTO.setAccountingId(organizationDto.getId());
 					descriptionDTO.setCnpj("");
-					descriptionDTO.setScriptId(null);
 				}
 			}
+			List<ScriptType> scripts = scriptTypeRepository.findAll(new ScriptTypeDTO(null, null, descriptionDTO.getScriptDescription()));
+
+			if(descriptionDTO.getScriptDescription() != null) {
+				if(scripts.size() > 0)		 descriptionDTO.setScriptId(scripts.get(0).getId());
+				else if(scripts.size() == 0) descriptionDTO.setScriptId(scriptTypeRepository.save(new ScriptType(null, descriptionDTO.getAccountingId(), descriptionDTO.getScriptDescription())).getId());
+			} else {
+				scripts = scriptTypeRepository.findAll(new ScriptTypeDTO(null, null, "PADRAO"));
+				if(scripts.size() > 0)		 descriptionDTO.setScriptId(scripts.get(0).getId());
+				else if(scripts.size() == 0) descriptionDTO.setScriptId(scriptTypeRepository.save(new ScriptType(null, descriptionDTO.getAccountingId(), "PADRAO")).getId());
+			}
 		}
-		
+
 		if(descriptionDTO.getAccountingId() != null && descriptionDTO.getKpiAlias() != null && descriptionDTO.getScriptId() != null) {
 
 			dFiltro.setAccountingId(descriptionDTO.getAccountingId());
