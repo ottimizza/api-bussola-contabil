@@ -78,7 +78,7 @@ public class DescriptionService {
 				}
 			}
 			System.out.println(">>> A "+descriptionDTO.getKpiAlias()+" <> "+descriptionDTO.getScriptDescription());
-			List<ScriptType> scripts = scriptTypeRepository.findAll(new ScriptTypeDTO(null, null, descriptionDTO.getDescription()));
+			List<ScriptType> scripts = scriptTypeRepository.findAll(new ScriptTypeDTO(null, null, descriptionDTO.getScriptDescription()));
 			System.out.println(">>> B "+scripts.size());
 			if(scripts.size() > 0) System.out.println(">>> C "+scripts.get(0).toString());
 			if(descriptionDTO.getScriptDescription() != null) {
