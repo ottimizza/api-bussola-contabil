@@ -77,10 +77,8 @@ public class DescriptionService {
 					descriptionDTO.setCnpj("");
 				}
 			}
-			System.out.println(">>> A "+descriptionDTO.getKpiAlias()+" <> "+descriptionDTO.getScriptDescription());
 			List<ScriptType> scripts = scriptTypeRepository.findAll(new ScriptTypeDTO(null, null, descriptionDTO.getScriptDescription()));
-			System.out.println(">>> B "+scripts.size());
-			if(scripts.size() > 0) System.out.println(">>> C "+scripts.get(0).toString());
+
 			if(descriptionDTO.getScriptDescription() != null) {
 				if(scripts.size() > 0)		 descriptionDTO.setScriptId(scripts.get(0).getId());
 				else if(scripts.size() == 0) descriptionDTO.setScriptId(scriptTypeRepository.save(new ScriptType(null, descriptionDTO.getAccountingId(), descriptionDTO.getScriptDescription())).getId());
