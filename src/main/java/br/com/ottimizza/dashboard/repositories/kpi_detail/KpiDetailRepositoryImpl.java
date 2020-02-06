@@ -10,7 +10,6 @@ import org.springframework.stereotype.Repository;
 
 import com.querydsl.jpa.impl.JPAQuery;
 
-import br.com.ottimizza.dashboard.models.Kpi;
 import br.com.ottimizza.dashboard.models.KpiDetail;
 import br.com.ottimizza.dashboard.models.QCompany;
 import br.com.ottimizza.dashboard.models.QKpi;

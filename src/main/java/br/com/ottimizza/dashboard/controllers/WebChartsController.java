@@ -14,12 +14,10 @@ import java.sql.Timestamp;
 import java.text.DecimalFormat;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 
 import javax.inject.Inject;
-import javax.management.Query;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.http.HttpEntity;
@@ -48,6 +46,7 @@ import org.springframework.web.bind.annotation.RestController;
 import br.com.ottimizza.dashboard.apis.IsGdApi;
 import br.com.ottimizza.dashboard.repositories.kpi_detail.KpiDetailRepository;
 import br.com.ottimizza.dashboard.services.WebChartsService;
+import br.com.ottimizza.dashboard.utils.StringUtil;
 
 @RestController
 @RequestMapping("/charts")
@@ -81,7 +80,7 @@ public class WebChartsController {
 		Locale ptBr = new Locale("pt", "BR");
 		
 		// variavel usada em FOR
-		String cnpjString = cnpjs.getString(0);
+		String cnpjString = StringUtil.formatCnpj(cnpjs.getString(0));
 		List<String> chartsSequence = kpiRepository.findKpiAlias(cnpjString);
 		
 		// busca de dados
@@ -317,7 +316,7 @@ public class WebChartsController {
 		Locale ptBr = new Locale("pt", "BR");
 		
 		// variavel usada em FOR
-		String cnpjString = cnpjs.getString(0);
+		String cnpjString = StringUtil.formatCnpj(cnpjs.getString(0));
 		List<String> chartsSequence = kpiRepository.findKpiAlias(cnpjString);
 		
 		// busca de dados
