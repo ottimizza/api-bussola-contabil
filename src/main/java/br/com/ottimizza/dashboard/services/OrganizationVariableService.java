@@ -13,7 +13,6 @@ import org.springframework.stereotype.Service;
 import br.com.ottimizza.dashboard.domain.dtos.UserDTO;
 import br.com.ottimizza.dashboard.domain.dtos.VariableDTO;
 import br.com.ottimizza.dashboard.models.OrganizationVariable;
-import br.com.ottimizza.dashboard.models.Variable;
 import br.com.ottimizza.dashboard.repositories.organizationVariable.OrganizationVariableRepository;
 import br.com.ottimizza.dashboard.repositories.variable.VariableRepository;
 
@@ -28,15 +27,12 @@ public class OrganizationVariableService {
 	
 	
 	public VariableDTO save(VariableDTO variableDto, UserDTO userInfo) throws Exception {
-		System.out.println(">>> s1 "+variableDto.toString());
 		OrganizationVariable organizationVariable = VariableDTO.variableDtoToOrganizationVariable(variableDto);
 
 		VariableDTO filter = new VariableDTO();
 		filter.setCompanyId(variableDto.getCompanyId());
 		filter.setScriptId(variableDto.getScriptId());
 		filter.setVariableCode(variableDto.getVariableCode());
-		
-		System.out.println(">>> s2 "+filter.toString());
 		
 		List<OrganizationVariable> orgVariables = repository.findOrganizationVariable(filter, userInfo);
 
@@ -46,16 +42,12 @@ public class OrganizationVariableService {
 			filter.setAccountingId(variableDto.getAccountingId());
 			
 //			List<Variable> existantVariable = variableRepository.findAll(filter, userInfo);
-			
-//			 if(existantVariable.size() == 0) {
-				System.out.println(">>> s3d "+organizationVariable.toString());
+//			if(existantVariable.size() == 0) {
 				organizationVariable = repository.save(organizationVariable);
-				System.out.println(">>> s3e "+organizationVariable.toString());
 				return VariableDTO.organizationVariableToVariableDto(organizationVariable);
 //			}
 			
 		}else if(orgVariables.size() > 0) {
-			System.out.println(">>> s4a "+orgVariables.get(0).toString());
 			organizationVariable.setId(orgVariables.get(0).getId());
 			organizationVariable = repository.save(organizationVariable);
 			return VariableDTO.organizationVariableToVariableDto(organizationVariable);
