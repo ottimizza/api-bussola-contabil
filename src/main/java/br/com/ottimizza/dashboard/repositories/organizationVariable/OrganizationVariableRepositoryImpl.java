@@ -60,7 +60,7 @@ public class OrganizationVariableRepositoryImpl implements OrganizationVariableR
 		
 		query.select(Projections.constructor(VariableDTO.class, 
 				organizationVariable.id, organizationVariable.organizationId, variable.variableCode, variable.name, 
-				variable.id, organizationVariable.scriptId, variable.originValue, variable.absoluteValue, organizationVariable.organizationId, 
+				variable.id, company.scriptId, variable.originValue, variable.absoluteValue, organizationVariable.organizationId, 
 				variable.accountingCode, variable.kpiAlias, variable.description));
 		
 		return query.fetch();

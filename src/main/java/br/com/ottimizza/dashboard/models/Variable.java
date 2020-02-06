@@ -42,7 +42,7 @@ public class Variable implements Serializable{
 
 	private String description;
 	
-	private String  accountingCode;
+	private String accountingCode;
 	
 	private String kpiAlias;
 
