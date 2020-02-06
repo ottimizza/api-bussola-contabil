@@ -57,8 +57,10 @@ public class WebChartsService {
         		if(cName.equals("")) cName = kpiDetail.getKpiID().getCompany().getName();
         		if(cCnpj.equals("")) cCnpj = kpiDetail.getKpiID().getCompany().getCnpj();
         		
+        		
         		if(!cName.equals("")) records.put("companyName", cName);
         		if(!cCnpj.equals("")) records.put("cnpj", cCnpj);
+        			
 				
 				if(graphType == param){
 
@@ -309,7 +311,7 @@ public class WebChartsService {
 		sb.append("		    #charts4, #charts5, #charts15, #charts16,"		).append(rn);
 		sb.append("		    #charts18, #charts10, #charts11, #charts14,"	).append(rn);
 		sb.append("			#charts17, #charts19, #charts20, #charts61, "	).append(rn);
-		sb.append("			#charts62, #charts63, #charts65, #charts66, "	).append(rn);
+		sb.append("			#charts62, #charts64, #charts65, #charts66, "	).append(rn);
 		sb.append("			#charts68, #charts69, #charts81 {"				).append(rn);
 		sb.append("		        width: 80%;"								).append(rn);
 		sb.append("		        height: 400px;"								).append(rn);
@@ -413,7 +415,7 @@ public class WebChartsService {
 		sb.append("		    #charts4, #charts5, #charts15, #charts16,"		).append(rn);
 		sb.append("		    #charts18, #charts10, #charts11, #charts14,"	).append(rn);
 		sb.append("			#charts17, #charts19, #charts20, #charts61, "	).append(rn);
-		sb.append("			#charts62, #charts63, #charts65, #charts66, "	).append(rn);
+		sb.append("			#charts62, #charts64, #charts65, #charts66, "	).append(rn);
 		sb.append("			#charts68, #charts69, #charts81 {"				).append(rn);
 		sb.append("		        width: 80%;"								).append(rn);
 		sb.append("		        height: 400px;"								).append(rn);

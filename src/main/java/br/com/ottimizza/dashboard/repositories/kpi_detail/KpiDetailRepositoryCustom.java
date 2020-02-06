@@ -6,7 +6,7 @@ import org.json.JSONObject;
 
 import br.com.ottimizza.dashboard.models.KpiDetail;
 
-public interface KpiDetailRepositoryCustom {
+public interface KpiDetailRepositoryCustom {	//KpiDetailRepositoryImpl
     
     List<KpiDetail> findKpiDetailsByCNPJ(List<String> cnpj);
     
