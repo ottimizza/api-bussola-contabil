@@ -10,9 +10,9 @@ import java.io.Writer;
 import java.net.MalformedURLException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.sql.Timestamp;
 import java.text.DecimalFormat;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -242,9 +242,9 @@ public class WebChartsController {
 		sb.append("			}").append(rn);
 		sb.append("		</script>").append(rn);
 
-		LocalDateTime now = LocalDateTime.now();
-	    Timestamp timestamp = Timestamp.valueOf(now);
-		
+		LocalDateTime agora = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+	    
 		sb.append("		<script>").append(rn);
 		sb.append("			google.charts.load('current', {").append(rn);
 		sb.append("				'packages': ['corechart', 'gauge', 'bar'],").append(rn);
@@ -252,7 +252,7 @@ public class WebChartsController {
 		sb.append("			});").append(rn);
 		sb.append("			google.charts.setOnLoadCallback(drawCharts);").append(rn);
 		sb.append("		</script>").append(rn);
-		sb.append("    <p class=\"data\"> Compartilhado em ").append(timestamp).append("</div>");
+		sb.append("    <p class=\"data\"> Compartilhado em ").append(agora.format(formatter)).append("</div>");
 		sb.append("	</footer>").append(rn);
 		sb.append("	</body>").append(rn);
 		sb.append("</html>").append(rn);
@@ -478,9 +478,9 @@ public class WebChartsController {
 		sb.append("			}").append(rn);
 		sb.append("		</script>").append(rn);
 
-		LocalDateTime now = LocalDateTime.now();
-	    Timestamp timestamp = Timestamp.valueOf(now);
-		
+	    LocalDateTime agora = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+	    
 		sb.append("		<script>").append(rn);
 		sb.append("			google.charts.load('current', {").append(rn);
 		sb.append("				'packages': ['corechart', 'gauge', 'bar'],").append(rn);
@@ -488,7 +488,7 @@ public class WebChartsController {
 		sb.append("			});").append(rn);
 		sb.append("			google.charts.setOnLoadCallback(drawCharts);").append(rn);
 		sb.append("		</script>").append(rn);
-		sb.append("    <p class=\"data\"> Compartilhado em ").append(timestamp).append("</div>");
+		sb.append("    <p class=\"data\"> Compartilhado em ").append(agora.format(formatter)).append("</div>"); 
 		sb.append("	</footer>").append(rn);
 		sb.append("	</body>").append(rn);
 		sb.append("</html>").append(rn);
