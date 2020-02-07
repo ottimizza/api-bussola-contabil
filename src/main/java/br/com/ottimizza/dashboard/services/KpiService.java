@@ -1,7 +1,6 @@
 package br.com.ottimizza.dashboard.services;
 
 import java.math.BigInteger;
-import java.util.List;
 import java.util.Optional;
 
 import javax.inject.Inject;
@@ -16,10 +15,8 @@ import br.com.ottimizza.dashboard.domain.dtos.KpiDTO;
 import br.com.ottimizza.dashboard.domain.dtos.KpiTitleAndValueDTO;
 import br.com.ottimizza.dashboard.models.Company;
 import br.com.ottimizza.dashboard.models.Kpi;
-import br.com.ottimizza.dashboard.models.KpiShort;
 import br.com.ottimizza.dashboard.repositories.company.CompanyRepository;
 import br.com.ottimizza.dashboard.repositories.kpi.KpiRepository;
-import br.com.ottimizza.dashboard.repositories.kpi.kpi_short.KpiShortRepository;
 
 @Service
 public class KpiService {
@@ -27,8 +24,8 @@ public class KpiService {
     @Inject
     private KpiRepository repository;
 
-    @Inject
-    private KpiShortRepository kpiShortRepository;
+//    @Inject
+//    private KpiShortRepository kpiShortRepository;
     
     @Inject
     private CompanyRepository companyRepository;
@@ -42,9 +39,9 @@ public class KpiService {
         return repository.findById(idKpi);
     }
 
-    public List<KpiShort> findByListCNPJ(List<String> cnpj) throws Exception {
-        return kpiShortRepository.findKpisByCNPJ(cnpj);
-    }
+//    public List<KpiShort> findByListCNPJ(List<String> cnpj) throws Exception {
+//        return kpiShortRepository.findKpisByCNPJ(cnpj);
+//    }
 
     public JSONObject updateById(BigInteger idKpi, Kpi kpi) throws NoResultException, Exception {
         JSONObject response = new JSONObject();
@@ -116,12 +113,13 @@ public class KpiService {
 	}
 
 	public Page<KpiDTO> findAll(KpiDTO filter, int pageIndex, int pageSize, String authorization) throws Exception {
-		try {
-			Page<KpiDTO> response = repository.findAll(filter, PageRequest.of(pageIndex, pageSize)).map(KpiDTO::fromEntity); 
-			return response;
-		}catch (Exception e) {
-			return null;
-		}
+//		try {
+//			Page<KpiDTO> response = repository.findAll(filter, PageRequest.of(pageIndex, pageSize)).map(KpiDTO::fromEntity); 
+//			return response;
+//		}catch (Exception e) {
+//			return null;
+//		}
+		return repository.findAll(filter, PageRequest.of(pageIndex, pageSize));
 	}
 
 }

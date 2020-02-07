@@ -1,8 +1,6 @@
 package br.com.ottimizza.dashboard.controllers;
 
 import java.math.BigInteger;
-import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 import javax.inject.Inject;
@@ -16,14 +14,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.ottimizza.dashboard.domain.dtos.KpiDTO;
 import br.com.ottimizza.dashboard.domain.dtos.KpiTitleAndValueDTO;
 import br.com.ottimizza.dashboard.models.Kpi;
-import br.com.ottimizza.dashboard.models.KpiShort;
 import br.com.ottimizza.dashboard.services.CompanyService;
 import br.com.ottimizza.dashboard.services.KpiService;
 import br.com.ottimizza.dashboard.utils.StringUtil;
@@ -48,11 +44,11 @@ public class KpiController {
 		return ResponseEntity.ok(kpiService.findById(idKpi));
 	}
 
-	@RequestMapping(value = "/find/cnpj", method = RequestMethod.POST, consumes = "application/json")
-	public ResponseEntity<List<KpiShort>> findKpiByCNPJ(@RequestBody Map<String, List<String>> body) throws Exception {
-		List<String> listaCNPJ = body.get("cnpj");
-		return ResponseEntity.ok(kpiService.findByListCNPJ(listaCNPJ));
-	}
+//	@RequestMapping(value = "/find/cnpj", method = RequestMethod.POST, consumes = "application/json")
+//	public ResponseEntity<List<KpiShort>> findKpiByCNPJ(@RequestBody Map<String, List<String>> body) throws Exception {
+//		List<String> listaCNPJ = body.get("cnpj");
+//		return ResponseEntity.ok(kpiService.findByListCNPJ(listaCNPJ));
+//	}
 
 	@DeleteMapping("delete/{id}")
 	public ResponseEntity<String> removeKpi(@PathVariable("id") BigInteger idKpi) throws Exception {

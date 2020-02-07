@@ -16,5 +16,5 @@ public interface KpiRepositoryCustom {
     
     KpiTitleAndValueDTO findKpiDTOByCompanyId(BigInteger companyId);
     
-    Page<Kpi> findAll(KpiDTO filter, Pageable pageable);
+    Page<KpiDTO> findAll(KpiDTO filter, Pageable pageable) throws Exception;
 }
