@@ -37,10 +37,10 @@ public class VariableController {
 	
 	
 	@PostMapping
-	public ResponseEntity<Variable> saveVariable(@RequestBody VariableDTO variable) throws Exception {
+	public ResponseEntity<Variable> saveVariable(@RequestBody VariableDTO variableDto) throws Exception {
 		try {
-			variable = service.save(variable);
-			return ResponseEntity.ok(VariableDTO.variableDtoToVariable(variable));
+			variableDto = service.save(variableDto);
+			return ResponseEntity.ok(VariableDTO.variableDtoToVariable(variableDto));
 		} catch (Exception e) { }
 		return ResponseEntity.badRequest().build();		
 	}
@@ -76,7 +76,7 @@ public class VariableController {
 								 				@RequestParam(name = "page_size", defaultValue = "10") int pageSize, 
 								 				@RequestHeader("Authorization") String authorization) throws Exception { 
 		UserDTO userInfo = oauthClient.getUserInfo(authorization).getBody().getRecord();
-		
+
 		return ResponseEntity.ok(service.findVariableByOrganization(filter, pageIndex, pageSize, userInfo));
 	}
 	

@@ -35,7 +35,7 @@ public class OrganizationVariableRepositoryImpl implements OrganizationVariableR
 
 		query.select(Projections.constructor(VariableDTO.class, 
 				organizationVariable.id, organizationVariable.organizationId, variable.variableCode, variable.name, 
-				variable.id, variable.scriptId, variable.originValue, variable.absoluteValue, organizationVariable.organizationId, 
+				variable.id, variable.scriptId, organizationVariable.originValue, organizationVariable.absoluteValue, organizationVariable.organizationId, 
 				organizationVariable.accountingCode, variable.kpiAlias, variable.description));
 //		new VariableDTO(BigInteger id, BigInteger companyId, String variableCode, String name, 
 //		BigInteger variableId, BigInteger scriptId, short originValue, boolean absoluteValue, BigInteger accountingId, 
@@ -60,9 +60,9 @@ public class OrganizationVariableRepositoryImpl implements OrganizationVariableR
 		
 		query.select(Projections.constructor(VariableDTO.class, 
 				organizationVariable.id, organizationVariable.organizationId, variable.variableCode, variable.name, 
-				variable.id, organizationVariable.scriptId, organizationVariable.originValue, organizationVariable.absoluteValue, organizationVariable.organizationId, 
+				variable.id, company.scriptId, variable.originValue, variable.absoluteValue, variable.accountingId, 
 				variable.accountingCode, variable.kpiAlias, variable.description));
-		
+
 		return query.fetch();
 	}
 

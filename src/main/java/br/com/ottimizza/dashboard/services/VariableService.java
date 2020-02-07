@@ -14,7 +14,6 @@ import org.springframework.stereotype.Service;
 
 import br.com.ottimizza.dashboard.domain.dtos.UserDTO;
 import br.com.ottimizza.dashboard.domain.dtos.VariableDTO;
-import br.com.ottimizza.dashboard.models.Company;
 import br.com.ottimizza.dashboard.models.Variable;
 import br.com.ottimizza.dashboard.repositories.company.CompanyRepository;
 import br.com.ottimizza.dashboard.repositories.variable.VariableRepository;
@@ -29,20 +28,23 @@ public class VariableService {
 	CompanyRepository companyRepository;
 
 	public VariableDTO save(VariableDTO variableDto) throws Exception {
-		
-		Company company = new Company();
-		company = companyRepository.findById(variableDto.getCompanyId()).orElse(null);
-		
-		if(company != null) {
-			variableDto.setScriptId(company.getScriptId());
-			variableDto.setAccountingId(company.getAccountingId());
-		}
+//		Company company = new Company();
+//		company = companyRepository.findById(variableDto.getCompanyId()).orElse(null);
+//		if(company != null) {
+//			variableDto.setScriptId(company.getScriptId());
+//			variableDto.setAccountingId(company.getAccountingId());
+//		}
 		
 		if(variableDto.getAccountingId() != null && variableDto.getScriptId() != null && variableDto.getKpiAlias() != null) {
-			VariableDTO vFilter = new VariableDTO(null, null, null, null, null, variableDto.getScriptId(), null, true, variableDto.getAccountingId(), null, variableDto.getKpiAlias(), null);
+//			VariableDTO vFilter = new VariableDTO(null, null, null, null, null, variableDto.getScriptId(), null, true, variableDto.getAccountingId(), null, variableDto.getKpiAlias(), null);
+			VariableDTO filter = new VariableDTO();
+			filter.setScriptId(variableDto.getScriptId());
+			filter.setAccountingId(variableDto.getAccountingId());
+			filter.setKpiAlias(variableDto.getKpiAlias());
+
 			try {
-				Variable v = repository.findByAccountIdKpiAliasScriptId(vFilter);
-				if(v != null) variableDto.setId(v.getId());
+				Variable v = repository.findByAccountIdKpiAliasScriptId(filter);
+				if(v.getId() != null) variableDto.setId(v.getId());
 			}catch (Exception e) { }
 		}
 		

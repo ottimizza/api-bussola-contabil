@@ -33,13 +33,19 @@ public class OrganizationVariableService {
 		filter.setCompanyId(variableDto.getCompanyId());
 		filter.setScriptId(variableDto.getScriptId());
 		filter.setVariableCode(variableDto.getVariableCode());
+		
 		List<OrganizationVariable> orgVariables = repository.findOrganizationVariable(filter, userInfo);
 
 		if(orgVariables.size() == 0) {
-			if(variableRepository.findVariableByAccountingCode(organizationVariable.getAccountingCode(), userInfo) == null) {
+			filter = new VariableDTO();
+			filter.setAccountingCode(variableDto.getAccountingCode());
+			filter.setAccountingId(variableDto.getAccountingId());
+			
+//			List<Variable> existantVariable = variableRepository.findAll(filter, userInfo);
+//			if(existantVariable.size() == 0) {
 				organizationVariable = repository.save(organizationVariable);
 				return VariableDTO.organizationVariableToVariableDto(organizationVariable);
-			}
+//			}
 			
 		}else if(orgVariables.size() > 0) {
 			organizationVariable.setId(orgVariables.get(0).getId());
