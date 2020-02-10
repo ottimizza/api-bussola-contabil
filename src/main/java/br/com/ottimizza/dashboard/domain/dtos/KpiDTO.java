@@ -27,8 +27,8 @@ public class KpiDTO implements Serializable {
 	private BigInteger id;
 	private String title;
 	private String kpiAlias;
-	private List<String> labelArray;
-	private List<KpiDetailDTO> kpiDetail;
+//	private List<String> labelArray;
+//	private List<KpiDetailDTO> kpiDetail;
 	private String chartType; 
 	private String chartOptions;
 	private boolean visible;
@@ -42,8 +42,8 @@ public class KpiDTO implements Serializable {
 		dto.setId(kpi.getId());
 		dto.setTitle(kpi.getTitle());
 		dto.setKpiAlias(kpi.getKpiAlias());
-		dto.setLabelArray(kpi.getLabelStringArray().equals("") ? new ArrayList<String>() : kpi.getLabelArray());
-		dto.setKpiDetail(kpi.getKpiDetail() == null ? new ArrayList<KpiDetailDTO>() : KpiDetailDTO.fromEntity(kpi.getKpiDetail()));
+//		dto.setLabelArray(kpi.getLabelStringArray().equals("") ? new ArrayList<String>() : kpi.getLabelArray());
+//		dto.setKpiDetail(kpi.getKpiDetail() == null ? new ArrayList<KpiDetailDTO>() : KpiDetailDTO.fromEntity(kpi.getKpiDetail()));
 		dto.setChartType(kpi.getChartType());
 		dto.setChartOptions(kpi.getChartOptions());
 		dto.setVisible(kpi.getVisible());

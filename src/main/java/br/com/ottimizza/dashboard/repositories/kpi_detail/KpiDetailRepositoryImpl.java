@@ -6,10 +6,14 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import org.json.JSONObject;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
 import com.querydsl.jpa.impl.JPAQuery;
 
+import br.com.ottimizza.dashboard.domain.dtos.KpiDetailDTO;
 import br.com.ottimizza.dashboard.models.KpiDetail;
 import br.com.ottimizza.dashboard.models.QCompany;
 import br.com.ottimizza.dashboard.models.QKpi;
@@ -61,6 +65,20 @@ public class KpiDetailRepositoryImpl implements KpiDetailRepositoryCustom {
 		query.select(kpi.kpiAlias);
 		
 		return query.orderBy(kpi.graphOrder.asc()).fetch();
+	}
+
+	@Override
+	public Page<KpiDetail> findAll(KpiDetailDTO filter, Pageable pageable) {
+		long totalElements = 0;
+		JPAQuery<KpiDetail> query = new JPAQuery<KpiDetail>(em).from(kpiDetail);
+		
+		if (filter.getKpiId() != null) query.where(kpiDetail.kpiID.id.eq(filter.getKpiId()));
+		
+		totalElements = query.fetchCount();
+
+		query.limit(pageable.getPageSize());
+		query.offset(pageable.getPageSize() * pageable.getPageNumber());
+		return new PageImpl<KpiDetail>(query.fetch(), pageable, totalElements);
 	}
 
 	

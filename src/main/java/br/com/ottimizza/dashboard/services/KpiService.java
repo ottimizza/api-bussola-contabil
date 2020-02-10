@@ -128,10 +128,6 @@ public class KpiService {
 		return repository.findAll(filter, PageRequest.of(pageIndex, pageSize));
 	}
 	
-	public List<KpiDTO> findKpis(KpiDTO filter, String authorization) throws Exception {
-		System.out.println(">> B "+StringUtil.formatCnpj(filter.getCnpj())+" <> "+ filter.getKind());
-		return repository.findKpis(StringUtil.formatCnpj(filter.getCnpj()), filter.getKind());
-	}
 }
 
 

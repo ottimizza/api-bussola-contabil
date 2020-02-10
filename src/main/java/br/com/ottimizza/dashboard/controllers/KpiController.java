@@ -69,12 +69,6 @@ public class KpiController {
 						             @RequestHeader("Authorization") String authorization) throws Exception {
 		
 		return ResponseEntity.ok(kpiService.findAll(filter, pageIndex, pageSize, authorization));
-//		return ResponseEntity.ok(kpiService.findAll(filter, authorization));
 	}
 	
-	@GetMapping("dto")
-	public ResponseEntity<?> findKpis(@Valid KpiDTO filter,
-									  @RequestHeader("Authorization") String authorization) throws Exception {
-		return ResponseEntity.ok(kpiService.findKpis(filter, authorization));
-	}
 }
