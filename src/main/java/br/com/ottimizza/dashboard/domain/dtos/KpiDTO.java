@@ -2,7 +2,7 @@ package br.com.ottimizza.dashboard.domain.dtos;
 
 import java.io.Serializable;
 import java.math.BigInteger;
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -27,14 +27,23 @@ public class KpiDTO implements Serializable {
 	private BigInteger id;
 	private String title;
 	private String kpiAlias;
-//	private List<String> labelArray;
+	
+	
+	private String labelArray;
 //	private List<KpiDetailDTO> kpiDetail;
 	private String chartType; 
 	private String chartOptions;
 	private boolean visible;
 	
+	
+	
 	public static List<KpiDTO> fromEntity(List<Kpi> kpiDTO){
 		return kpiDTO.stream().map(KpiDTO::fromEntity).collect(Collectors.toList());
+	}
+	
+	
+	public List<String> getLabelArray() {
+		return Arrays.asList(labelArray.split(";"));
 	}
 	
 	public static KpiDTO fromEntity(Kpi kpi) {
@@ -42,6 +51,7 @@ public class KpiDTO implements Serializable {
 		dto.setId(kpi.getId());
 		dto.setTitle(kpi.getTitle());
 		dto.setKpiAlias(kpi.getKpiAlias());
+		dto.setLabelArray(kpi.getLabelStringArray());
 //		dto.setLabelArray(kpi.getLabelStringArray().equals("") ? new ArrayList<String>() : kpi.getLabelArray());
 //		dto.setKpiDetail(kpi.getKpiDetail() == null ? new ArrayList<KpiDetailDTO>() : KpiDetailDTO.fromEntity(kpi.getKpiDetail()));
 		dto.setChartType(kpi.getChartType());
@@ -49,4 +59,5 @@ public class KpiDTO implements Serializable {
 		dto.setVisible(kpi.getVisible());
 	    return dto;
 	}
+	
 }

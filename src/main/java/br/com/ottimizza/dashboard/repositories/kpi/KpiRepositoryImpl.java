@@ -54,42 +54,39 @@ public class KpiRepositoryImpl implements KpiRepositoryCustom {
 
 	@Override
 	public Page<KpiDTO> findAll(KpiDTO filter, Pageable pageable) throws Exception {
-//		try {
-			long totalElements = 0;
-			JPAQuery<KpiDTO> query = new JPAQuery<KpiDTO>(em).from(kpi)
-					.innerJoin(company)
-					.on(company.id.eq(kpi.company.id))
-					.innerJoin(description)
-					.on(description.scriptId.eq(company.scriptId)
-					.and(description.accountingId.eq(company.accountingId))
-					.and(description.kpiAlias.eq(kpi.kpiAlias))
-					.and(kpi.visible.isTrue()));
-			query.where(kpi.visible.isTrue()
-					.and(kpi.kpiAlias.notLike("07"))
-					.and(kpi.kpiAlias.notLike("12")));
-	
-			if (filter.getCnpj() != null) {
-				query.where(company.cnpj.eq(StringUtil.formatCnpj(filter.getCnpj())));
-			}
-	
-			if (filter.getKind() != null) {
-				if (filter.getKind() == 1) 		query.where(kpi.kpiAlias.lt("60"));  // indicadores normais
-				else if (filter.getKind() == 2)	query.where(kpi.kpiAlias.goe("60")); // comparativos
-				else return null;
-			}
+		long totalElements = 0;
+		JPAQuery<KpiDTO> query = new JPAQuery<KpiDTO>(em).from(kpi)
+				.innerJoin(company)
+				.on(company.id.eq(kpi.company.id))
+				.innerJoin(description)
+				.on(description.scriptId.eq(company.scriptId)
+				.and(description.accountingId.eq(company.accountingId))
+				.and(description.kpiAlias.eq(kpi.kpiAlias))
+				.and(kpi.visible.isTrue()));
+		query.where(kpi.visible.isTrue()
+				.and(kpi.kpiAlias.notLike("07"))
+				.and(kpi.kpiAlias.notLike("12")));
 
-			query.select(Projections.constructor(KpiDTO.class, company.cnpj, kpi.kind, kpi.id, 
-					description.title, kpi.kpiAlias, description.chartType, 
-					kpi.chartOptions, description.visible));
-	
-			totalElements = query.fetchCount();
-			System.out.println(">>> F "+totalElements);
-			query.limit(pageable.getPageSize());
-			query.offset(pageable.getPageSize() * pageable.getPageNumber());
-			
-			return new PageImpl<KpiDTO>(query.orderBy(description.graphOrder.asc()).fetch(), pageable, totalElements);
-//		}catch (Exception e) {
-//			return null;
-//		}
+		if (filter.getCnpj() != null) {
+			query.where(company.cnpj.eq(StringUtil.formatCnpj(filter.getCnpj())));
+		}
+
+		if (filter.getKind() != null) {
+			if (filter.getKind() == 1) 		query.where(kpi.kpiAlias.lt("60"));  // indicadores normais
+			else if (filter.getKind() == 2)	query.where(kpi.kpiAlias.goe("60")); // comparativos
+			else return null;
+		}
+
+		query.select(Projections.constructor(KpiDTO.class, company.cnpj, kpi.kind, kpi.id, 
+				description.title, kpi.kpiAlias, kpi.labelStringArray, description.chartType, 
+				kpi.chartOptions, description.visible));
+
+		totalElements = query.fetchCount();
+		System.out.println(">>> F "+totalElements);
+		query.limit(pageable.getPageSize());
+		query.offset(pageable.getPageSize() * pageable.getPageNumber());
+		
+		return new PageImpl<KpiDTO>(query.orderBy(description.graphOrder.asc()).fetch(), pageable, totalElements);
+
 	}
 }
