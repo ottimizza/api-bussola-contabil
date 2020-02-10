@@ -80,9 +80,7 @@ public class KpiRepositoryImpl implements KpiRepositoryCustom {
 		query.select(Projections.constructor(KpiDTO.class, company.cnpj, kpi.kind, kpi.id, 
 				description.title, kpi.kpiAlias, kpi.labelStringArray, description.chartType, 
 				kpi.chartOptions, description.visible));
-
 		totalElements = query.fetchCount();
-		System.out.println(">>> F "+totalElements);
 		query.limit(pageable.getPageSize());
 		query.offset(pageable.getPageSize() * pageable.getPageNumber());
 		

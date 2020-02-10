@@ -106,17 +106,13 @@ public class KpiService {
 	}
 
 	public KpiTitleAndValueDTO kpiValue(BigInteger companyId) throws Exception {
-
 		KpiTitleAndValueDTO response = repository.findKpiDTOByCompanyId(companyId);
 		response.setKpiAlias("07");
 		return response;
 	}
 
 	public Page<KpiDTO> findAll(KpiDTO filter, int pageIndex, int pageSize, String authorization) throws Exception {
-		Page<KpiDTO> resp = repository.findAll(filter, PageRequest.of(pageIndex, pageSize));
-		
-		
-		return resp;
+		return repository.findAll(filter, PageRequest.of(pageIndex, pageSize));
 	}
 	
 }

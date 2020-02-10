@@ -5,8 +5,6 @@ import java.math.BigInteger;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import br.com.ottimizza.dashboard.models.Description;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
