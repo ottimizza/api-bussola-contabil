@@ -1,6 +1,7 @@
 package br.com.ottimizza.dashboard.services;
 
 import java.math.BigInteger;
+import java.util.List;
 import java.util.Optional;
 
 import javax.inject.Inject;
@@ -17,6 +18,7 @@ import br.com.ottimizza.dashboard.models.Company;
 import br.com.ottimizza.dashboard.models.Kpi;
 import br.com.ottimizza.dashboard.repositories.company.CompanyRepository;
 import br.com.ottimizza.dashboard.repositories.kpi.KpiRepository;
+import br.com.ottimizza.dashboard.utils.StringUtil;
 
 @Service
 public class KpiService {
@@ -119,9 +121,17 @@ public class KpiService {
 //		}catch (Exception e) {
 //			return null;
 //		}
+//		public List<KpiDTO> findAll(KpiDTO filter, String authorization) {
+//			return repository.findAll(filter);
+//		}
+
 		return repository.findAll(filter, PageRequest.of(pageIndex, pageSize));
 	}
-
+	
+	public List<KpiDTO> findKpis(KpiDTO filter, String authorization) throws Exception {
+		System.out.println(">> B "+StringUtil.formatCnpj(filter.getCnpj())+" <> "+ filter.getKind());
+		return repository.findKpis(StringUtil.formatCnpj(filter.getCnpj()), filter.getKind());
+	}
 }
 
 
