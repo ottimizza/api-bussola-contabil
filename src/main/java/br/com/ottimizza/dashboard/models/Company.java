@@ -38,15 +38,11 @@ public class Company implements Serializable {
     @Column(name = "sector", nullable = true)
     private Integer sector;
 
-//    // external_id que vem do accounts
-//    @Column(name = "fk_organization_id")
-//    private String organizationId;
-    
     @Column(name = "external_id")
     private String externalId;
 
     // organization_Id que vem do accounts
-    @Column(name = "accounting_id")
+    @Column(name = "fk_accounting_id")
     private BigInteger accountingId;
     
     @Column(name = "fk_Script_id")
