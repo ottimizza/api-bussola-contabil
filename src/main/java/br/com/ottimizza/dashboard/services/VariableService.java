@@ -44,12 +44,14 @@ public class VariableService {
 //			variableDto.setScriptId(company.getScriptId());
 //			variableDto.setAccountingId(company.getAccountingId());
 //		}
-		
+		System.out.println(">>> A "+variableDto.getCnpj()+ " <<>> "+variableDto.getScriptDescription());
 		if(variableDto.getCnpj() != null) {//busca accountingId e seta no variableDto
 			OrganizationDTO organizationDto = new OrganizationDTO();
 			List<OrganizationDTO> organizations = oauthClient.getOrganizationInfo(authorization, variableDto.getCnpj().replaceAll("[^0-9]*", "")).getBody().getRecords();
+			System.out.println(">>> A "+organizations.size());
 			if(organizations.size() != 0) {
-				organizationDto = organizations.get(0);
+				System.out.println(">>> B "+organizations.get(0).getType()+" --- "+organizations.get(0).getId());
+					organizationDto = organizations.get(0);
 				if(organizationDto.getType() == 1) {
 					variableDto.setAccountingId(organizationDto.getId());
 				}
@@ -61,7 +63,6 @@ public class VariableService {
 		}
 		
 		if(variableDto.getAccountingId() != null && variableDto.getScriptId() != null && variableDto.getKpiAlias() != null) {
-//			VariableDTO vFilter = new VariableDTO(null, null, null, null, null, variableDto.getScriptId(), null, true, variableDto.getAccountingId(), null, variableDto.getKpiAlias(), null);
 			VariableDTO filter = new VariableDTO();
 			filter.setScriptId(variableDto.getScriptId());
 			filter.setAccountingId(variableDto.getAccountingId());
@@ -70,7 +71,7 @@ public class VariableService {
 			try {
 				Variable v = repository.findByAccountIdKpiAliasScriptId(filter);
 				if(v.getId() != null) variableDto.setId(v.getId());
-			}catch (Exception e) { }
+			} catch (Exception e) { }
 		}
 		
 		Variable variable = VariableDTO.variableDtoToVariable(variableDto);
