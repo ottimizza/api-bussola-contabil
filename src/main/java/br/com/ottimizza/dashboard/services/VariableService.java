@@ -47,7 +47,6 @@ public class VariableService {
 		
 		if(variableDto.getCnpj() != null) {//busca accountingId e seta no variableDto
 			OrganizationDTO organizationDto = new OrganizationDTO();
-
 			List<OrganizationDTO> organizations = oauthClient.getOrganizationInfo(authorization, variableDto.getCnpj().replaceAll("[^0-9]*", "")).getBody().getRecords();
 			if(organizations.size() != 0) {
 				organizationDto = organizations.get(0);
@@ -56,6 +55,7 @@ public class VariableService {
 				}
 			}
 		}
+		
 		if(variableDto.getScriptDescription() != null) {//busca scriptId e seta no variableDto
 			variableDto.setScriptId(scriptRepository.findAll(new ScriptTypeDTO(null, null, variableDto.getScriptDescription())).get(0).getId());
 		}
