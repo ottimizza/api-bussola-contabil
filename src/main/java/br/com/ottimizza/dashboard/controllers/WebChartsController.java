@@ -67,6 +67,7 @@ public class WebChartsController {
 	@RequestMapping(value = "/by_cnpj", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public String download(@RequestHeader("Authorization") String authorization, @RequestBody String objRequest,
 			HttpServletRequest request) throws IOException, Exception {
+		
 		authorization = authorization.replace("Bearer ", "");
 
 		JSONObject requestBody = new JSONObject(objRequest);
@@ -105,7 +106,7 @@ public class WebChartsController {
 		String companyName = "";
 		for (String chartsString : chartsSequence) {
 			int charts = Integer.parseInt(chartsString);
-			
+
 			dataToCharts = wcs.getDataToCharts(cnpj, Short.parseShort(String.valueOf(charts)), kind);
 			if(!dataToCharts.optString("companyName").equals("")) companyName = dataToCharts.optString("companyName");
 			
@@ -113,7 +114,7 @@ public class WebChartsController {
 				sb.append("			#charts").append(charts).append("  { display: none; }").append(rn);
 			}
 		}
-
+		
 		sb.append("		</style>").append(rn);
 		sb.append("	</head>").append(rn);
 		sb.append("	<body>").append(rn);
@@ -165,6 +166,7 @@ public class WebChartsController {
 				cont = 0;
 			}
 		}
+
 		sb.append("		</div>").append(rn).append(rn);
 
 		sb.append("	<footer>").append(rn);
@@ -284,10 +286,12 @@ public class WebChartsController {
 				
 				String downloadURL = "";
 				String toShortURL = String.format("https://s4.ottimizzacontabil.com:55325/storage/%s", resourceId);
-				
+				System.out.println(">>> url s4 "+toShortURL);
 				//encurtador de URL
 				IsGdApi gd = new IsGdApi();
 				downloadURL = gd.shortURL(toShortURL);
+				System.out.println(">>> url isgd "+downloadURL);
+				
 				if(downloadURL.equals("")) downloadURL = toShortURL;
 				
 				record.put("id", downloadURL);
