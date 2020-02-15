@@ -286,11 +286,10 @@ public class WebChartsController {
 				
 				String downloadURL = "";
 				String toShortURL = String.format("https://s4.ottimizzacontabil.com:55325/storage/%s", resourceId);
-				System.out.println(">>> url s4 "+toShortURL);
+				
 				//encurtador de URL
 				IsGdApi gd = new IsGdApi();
 				downloadURL = gd.shortURL(toShortURL);
-				System.out.println(">>> url isgd "+downloadURL);
 				
 				if(downloadURL.equals("")) downloadURL = toShortURL;
 				

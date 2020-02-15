@@ -44,17 +44,13 @@ public class VariableService {
 //			variableDto.setScriptId(company.getScriptId());
 //			variableDto.setAccountingId(company.getAccountingId());
 //		}
-		System.out.println(">>> B "+variableDto.getCnpj()+ " <<>> "+variableDto.getScriptDescription());
 		if(variableDto.getCnpj() != null) {//busca accountingId e seta no variableDto
 			OrganizationDTO organizationDto = new OrganizationDTO();
 			List<OrganizationDTO> organizations = oauthClient.getOrganizationInfo(authorization, variableDto.getCnpj().replaceAll("[^0-9]*", "")).getBody().getRecords();
-			System.out.println(">>> C "+organizations.size());
+			
 			if(organizations.size() != 0) {
-				System.out.println(">>> D "+organizations.get(0).getType()+" --- "+organizations.get(0).getId());
-					organizationDto = organizations.get(0);
-				if(organizationDto.getType() == 1) {
-					variableDto.setAccountingId(organizationDto.getId());
-				}
+				organizationDto = organizations.get(0);
+				if(organizationDto.getType() == 1) variableDto.setAccountingId(organizationDto.getId());
 			}
 		}
 		
