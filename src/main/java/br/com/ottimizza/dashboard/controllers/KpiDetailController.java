@@ -91,7 +91,7 @@ public class KpiDetailController {
 	@GetMapping
 	public ResponseEntity<?> findAll(@Valid KpiDetailDTO filter, 
 									 @RequestParam(name = "page_index", defaultValue = "0") int pageIndex, 
-						             @RequestParam(name = "page_size", defaultValue = "10") int pageSize, 
+						             @RequestParam(name = "page_size", defaultValue = "12") int pageSize, 
 						             @RequestHeader("Authorization") String authorization) throws Exception {
 		
 		return ResponseEntity.ok(detailService.findAll(filter, pageIndex, pageSize, authorization));
