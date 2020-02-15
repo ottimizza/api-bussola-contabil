@@ -44,7 +44,7 @@ public class DescriptionService {
 	public DescriptionDTO save(DescriptionDTO descriptionDTO, String authorization) throws Exception {
 		CompanyDTO filter = new CompanyDTO();
 		filter.setAccountingId(descriptionDTO.getAccountingId());
-				
+		
 		Company company = new Company();
 		List<Company> companies = new ArrayList<Company>();
 		if(descriptionDTO.getAccountingId() != null) companies = companyRepository.findAll(filter, null, null);

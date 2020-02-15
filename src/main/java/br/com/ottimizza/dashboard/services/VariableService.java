@@ -12,10 +12,14 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import br.com.ottimizza.dashboard.client.OAuthClient;
+import br.com.ottimizza.dashboard.domain.dtos.OrganizationDTO;
+import br.com.ottimizza.dashboard.domain.dtos.ScriptTypeDTO;
 import br.com.ottimizza.dashboard.domain.dtos.UserDTO;
 import br.com.ottimizza.dashboard.domain.dtos.VariableDTO;
 import br.com.ottimizza.dashboard.models.Variable;
 import br.com.ottimizza.dashboard.repositories.company.CompanyRepository;
+import br.com.ottimizza.dashboard.repositories.script_type.ScriptTypeRepository;
 import br.com.ottimizza.dashboard.repositories.variable.VariableRepository;
 
 @Service
@@ -26,17 +30,35 @@ public class VariableService {
 	
 	@Inject
 	CompanyRepository companyRepository;
+	
+	@Inject
+	ScriptTypeRepository scriptRepository;
 
-	public VariableDTO save(VariableDTO variableDto) throws Exception {
+	@Inject
+	OAuthClient oauthClient;
+	
+	public VariableDTO save(VariableDTO variableDto, String authorization) throws Exception {
 //		Company company = new Company();
 //		company = companyRepository.findById(variableDto.getCompanyId()).orElse(null);
 //		if(company != null) {
 //			variableDto.setScriptId(company.getScriptId());
 //			variableDto.setAccountingId(company.getAccountingId());
 //		}
+		if(variableDto.getCnpj() != null) {//busca accountingId e seta no variableDto
+			OrganizationDTO organizationDto = new OrganizationDTO();
+			List<OrganizationDTO> organizations = oauthClient.getOrganizationInfo(authorization, variableDto.getCnpj().replaceAll("[^0-9]*", "")).getBody().getRecords();
+			
+			if(organizations.size() != 0) {
+				organizationDto = organizations.get(0);
+				if(organizationDto.getType() == 1) variableDto.setAccountingId(organizationDto.getId());
+			}
+		}
+		
+		if(variableDto.getScriptDescription() != null) {//busca scriptId e seta no variableDto
+			variableDto.setScriptId(scriptRepository.findAll(new ScriptTypeDTO(null, null, variableDto.getScriptDescription())).get(0).getId());
+		}
 		
 		if(variableDto.getAccountingId() != null && variableDto.getScriptId() != null && variableDto.getKpiAlias() != null) {
-//			VariableDTO vFilter = new VariableDTO(null, null, null, null, null, variableDto.getScriptId(), null, true, variableDto.getAccountingId(), null, variableDto.getKpiAlias(), null);
 			VariableDTO filter = new VariableDTO();
 			filter.setScriptId(variableDto.getScriptId());
 			filter.setAccountingId(variableDto.getAccountingId());
@@ -45,7 +67,7 @@ public class VariableService {
 			try {
 				Variable v = repository.findByAccountIdKpiAliasScriptId(filter);
 				if(v.getId() != null) variableDto.setId(v.getId());
-			}catch (Exception e) { }
+			} catch (Exception e) { }
 		}
 		
 		Variable variable = VariableDTO.variableDtoToVariable(variableDto);

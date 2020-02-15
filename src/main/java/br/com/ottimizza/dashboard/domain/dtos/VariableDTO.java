@@ -39,6 +39,12 @@ public class VariableDTO implements Serializable{
 	
 	private String kpiAlias;
 	private String description;
+	
+	// IN
+	private String scriptDescription;
+	private String cnpj;
+	
+	
 
 	public static Variable variableDtoToVariable(VariableDTO variableDto) {
 		Variable variable = new Variable();

@@ -37,9 +37,10 @@ public class VariableController {
 	
 	
 	@PostMapping
-	public ResponseEntity<Variable> saveVariable(@RequestBody VariableDTO variableDto) throws Exception {
+	public ResponseEntity<Variable> saveVariable(@RequestBody VariableDTO variableDto,
+												 @RequestHeader("Authorization") String authorization) throws Exception {
 		try {
-			variableDto = service.save(variableDto);
+			variableDto = service.save(variableDto, authorization);
 			return ResponseEntity.ok(VariableDTO.variableDtoToVariable(variableDto));
 		} catch (Exception e) { }
 		return ResponseEntity.badRequest().build();		
