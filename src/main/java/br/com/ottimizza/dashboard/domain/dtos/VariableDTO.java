@@ -106,6 +106,24 @@ public class VariableDTO implements Serializable{
 		if(organizationVariable.getAbsoluteValue() != null)		variableDto.setAbsoluteValue(organizationVariable.getAbsoluteValue());
 		if(organizationVariable.getVariableCode() != null)		variableDto.setVariableCode(organizationVariable.getVariableCode());
 		return variableDto;
+	} 
+	
+	public VariableDTO(BigInteger id, BigInteger companyId, String variableCode, String name, BigInteger variableId,
+			BigInteger scriptId, Short originValue, Boolean absoluteValue, BigInteger accountingId,
+			String accountingCode, String kpiAlias, String description) {
+		super();
+		this.id = id;
+		this.companyId = companyId;
+		this.variableCode = variableCode;
+		this.name = name;
+		this.variableId = variableId;
+		this.scriptId = scriptId;
+		this.originValue = originValue;
+		this.absoluteValue = absoluteValue;
+		this.accountingId = accountingId;
+		this.accountingCode = accountingCode;
+		this.kpiAlias = kpiAlias;
+		this.description = description;
 	}
 
 }
