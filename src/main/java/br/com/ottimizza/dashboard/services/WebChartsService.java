@@ -312,7 +312,9 @@ public class WebChartsService {
 		sb.append("		    #charts18, #charts10, #charts11, #charts14,"	).append(rn);
 		sb.append("			#charts17, #charts19, #charts20, #charts61, "	).append(rn);
 		sb.append("			#charts62, #charts64, #charts65, #charts66, "	).append(rn);
-		sb.append("			#charts68, #charts69, #charts81 {"				).append(rn);
+		sb.append("			#charts68, #charts69, #charts81, #charts25,"	).append(rn);
+		sb.append("			#charts26, #charts27, #charts28, #charts29,"	).append(rn);
+		sb.append("			#charts22, #charts23, #charts24, #charts30 {"	).append(rn);
 		sb.append("		        width: 80%;"								).append(rn);
 		sb.append("		        height: 400px;"								).append(rn);
 		sb.append("		    }"												).append(rn);
@@ -416,7 +418,9 @@ public class WebChartsService {
 		sb.append("		    #charts18, #charts10, #charts11, #charts14,"	).append(rn);
 		sb.append("			#charts17, #charts19, #charts20, #charts61, "	).append(rn);
 		sb.append("			#charts62, #charts64, #charts65, #charts66, "	).append(rn);
-		sb.append("			#charts68, #charts69, #charts81 {"				).append(rn);
+		sb.append("			#charts68, #charts69, #charts81, #charts25,"	).append(rn);
+		sb.append("			#charts26, #charts27, #charts28, #charts29,"	).append(rn);
+		sb.append("			#charts22, #charts23, #charts24, #charts30 {"	).append(rn);
 		sb.append("		        width: 80%;"								).append(rn);
 		sb.append("		        height: 400px;"								).append(rn);
 		sb.append("		    }"												).append(rn);

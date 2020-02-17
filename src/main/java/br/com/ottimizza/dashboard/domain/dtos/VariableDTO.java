@@ -7,11 +7,12 @@ import br.com.ottimizza.dashboard.models.OrganizationVariable;
 import br.com.ottimizza.dashboard.models.Variable;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
+@Getter
+@Setter
 public class VariableDTO implements Serializable{
 
 	/*
@@ -108,6 +109,10 @@ public class VariableDTO implements Serializable{
 		return variableDto;
 	} 
 	
+	public VariableDTO() {
+		super();
+	}
+
 	public VariableDTO(BigInteger id, BigInteger companyId, String variableCode, String name, BigInteger variableId,
 			BigInteger scriptId, Short originValue, Boolean absoluteValue, BigInteger accountingId,
 			String accountingCode, String kpiAlias, String description) {
@@ -124,6 +129,26 @@ public class VariableDTO implements Serializable{
 		this.accountingCode = accountingCode;
 		this.kpiAlias = kpiAlias;
 		this.description = description;
+	}
+
+	public VariableDTO(BigInteger id, BigInteger companyId, String variableCode, String name, BigInteger variableId,
+			BigInteger scriptId, Short originValue, Boolean absoluteValue, BigInteger accountingId,
+			String accountingCode, String kpiAlias, String description, String scriptDescription, String cnpj) {
+		super();
+		this.id = id;
+		this.companyId = companyId;
+		this.variableCode = variableCode;
+		this.name = name;
+		this.variableId = variableId;
+		this.scriptId = scriptId;
+		this.originValue = originValue;
+		this.absoluteValue = absoluteValue;
+		this.accountingId = accountingId;
+		this.accountingCode = accountingCode;
+		this.kpiAlias = kpiAlias;
+		this.description = description;
+		this.scriptDescription = scriptDescription;
+		this.cnpj = cnpj;
 	}
 
 }
