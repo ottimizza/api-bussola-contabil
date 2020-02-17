@@ -423,7 +423,7 @@ public class WebChartsService {
 		sb.append("			#charts62, #charts64, #charts65, #charts66, "	).append(rn);
 		sb.append("			#charts68, #charts69, #charts81, #charts25,"	).append(rn);
 		sb.append("			#charts26, #charts27, #charts28, #charts29,"	).append(rn);
-		sb.append("			#charts22, #charts23, #charts24, #charts30"	).append(rn);
+		sb.append("			#charts22, #charts23, #charts24, #charts30, "	).append(rn);
 		sb.append("			#charts63, #charts67, #charts70, #charts71,"	).append(rn);
 		sb.append("			#charts72, #charts73, #charts74, #charts75,"	).append(rn);
 		sb.append("			#charts76, #charts77, #charts78, #charts79, #charts80 {"	).append(rn);
