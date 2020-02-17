@@ -10,12 +10,16 @@ import br.com.ottimizza.dashboard.domain.dtos.UserDTO;
 import br.com.ottimizza.dashboard.domain.dtos.VariableDTO;
 import br.com.ottimizza.dashboard.models.Variable;
 
-public interface VariableRepositoryCustom {
-//	VariableRepositoryImpl
+public interface VariableRepositoryCustom { // VariableRepositoryImpl
+	
 	Variable findVariableByAccountingCode(String accountingCode, UserDTO userInfo);
 
 	List<Variable> findVariablesByOrganizationId(BigInteger organizationId, UserDTO userInfo);
 
 	Page<Variable> findVariableByOrganization(VariableDTO filter, Pageable pageable);
+	
+	Variable findByAccountIdKpiAliasScriptId(VariableDTO variableDto);
+	
+	List<Variable> findAll(VariableDTO variableDto, UserDTO userInfo);
 
 }

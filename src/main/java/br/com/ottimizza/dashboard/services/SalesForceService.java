@@ -1,18 +1,15 @@
 package br.com.ottimizza.dashboard.services;
 
-import javax.inject.Inject;
-
 import org.json.JSONObject;
 import org.springframework.stereotype.Service;
 
 import br.com.ottimizza.dashboard.apis.SalesForceApi;
-import br.com.ottimizza.dashboard.repositories.user.UserRepository;
 
 @Service
 public class SalesForceService {
 
-    @Inject
-    private UserRepository userRepository;
+//    @Inject
+//    private UserRepository userRepository;
 
     //<editor-fold defaultstate="collapsed" desc="Busca lista CNPJ">
     public JSONObject searchCNPJ(String email) throws Exception {

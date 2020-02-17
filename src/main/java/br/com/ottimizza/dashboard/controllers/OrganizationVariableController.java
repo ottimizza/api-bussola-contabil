@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 
 import javax.inject.Inject;
+import javax.validation.Valid;
 
 import org.json.JSONObject;
 import org.springframework.http.ResponseEntity;
@@ -34,16 +35,15 @@ public class OrganizationVariableController {
 	OAuthClient oauthClient;
 	
 	@PostMapping
-	public ResponseEntity<OrganizationVariable> saveVariable(@RequestBody OrganizationVariable orgVariable, @RequestHeader("Authorization") String authorization) throws Exception {
+	public ResponseEntity<VariableDTO> saveVariable(@RequestBody VariableDTO variableDto, @RequestHeader("Authorization") String authorization) throws Exception {
 		UserDTO userInfo = oauthClient.getUserInfo(authorization).getBody().getRecord();
-		if((orgVariable.getAccountingCode() == null || orgVariable.getAccountingCode().equals("")) && orgVariable.getId() != null) {
-			service.delete(orgVariable.getId());
+		if((variableDto.getAccountingCode() == null || variableDto.getAccountingCode().equals("")) && variableDto.getId() != null) {
+			service.delete(variableDto.getId());
 			return null;
 		}
-			
 		try {
-			orgVariable = service.save(orgVariable, userInfo);
-			return ResponseEntity.ok(orgVariable);
+			variableDto = service.save(variableDto, userInfo);
+			return ResponseEntity.ok(variableDto);
 		} catch (Exception e) {  }
 		
 		return ResponseEntity.badRequest().build();		
@@ -65,18 +65,20 @@ public class OrganizationVariableController {
 		return (response.get("status") == "Success") ? ResponseEntity.ok(response.toString()) : ResponseEntity.badRequest().build();
 	}
 	
-	@GetMapping("byCompany/{id}")
-	public ResponseEntity<List<VariableDTO>> findByCompanyId(@PathVariable("id") BigInteger companyId, @RequestHeader("Authorization") String authorization) throws Exception {
-		UserDTO userInfo = oauthClient.getUserInfo(authorization).getBody().getRecord();
-		
-		return ResponseEntity.ok(service.findVariableByCompanyId(companyId, userInfo));
+	@GetMapping("byCompany")
+	public ResponseEntity<List<VariableDTO>> findByCompanyId(@Valid VariableDTO filter, 
+															 @RequestHeader("Authorization") String authorization) throws Exception {
+//		UserDTO userInfo = oauthClient.getUserInfo(authorization).getBody().getRecord();
+		UserDTO userInfo = new UserDTO();
+		return ResponseEntity.ok(service.findVariableByCompanyId(filter, userInfo));
 	}
 	
-	@GetMapping("missing/{id}")
-	public ResponseEntity<List<VariableDTO>> findMissing(@PathVariable("id") BigInteger companyId, @RequestHeader("Authorization") String authorization) throws Exception {
-		UserDTO userInfo = oauthClient.getUserInfo(authorization).getBody().getRecord();
-		
-		return ResponseEntity.ok(service.findMissingByOrganizationId(companyId, userInfo));
+	@GetMapping("missing")
+	public ResponseEntity<List<VariableDTO>> findMissing(@Valid VariableDTO filter, 
+														 @RequestHeader("Authorization") String authorization) throws Exception {
+//		UserDTO userInfo = oauthClient.getUserInfo(authorization).getBody().getRecord();
+		UserDTO userInfo = new UserDTO();
+		return ResponseEntity.ok(service.findMissingByOrganizationId(filter, userInfo));
 	}
 	
 	

@@ -1,6 +1,5 @@
 package br.com.ottimizza.dashboard.repositories.organizationVariable;
 
-import java.math.BigInteger;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -13,6 +12,8 @@ import com.querydsl.jpa.impl.JPAQuery;
 
 import br.com.ottimizza.dashboard.domain.dtos.UserDTO;
 import br.com.ottimizza.dashboard.domain.dtos.VariableDTO;
+import br.com.ottimizza.dashboard.models.OrganizationVariable;
+import br.com.ottimizza.dashboard.models.QCompany;
 import br.com.ottimizza.dashboard.models.QOrganizationVariable;
 import br.com.ottimizza.dashboard.models.QVariable;
 
@@ -21,35 +22,58 @@ public class OrganizationVariableRepositoryImpl implements OrganizationVariableR
 
 	@PersistenceContext
 	EntityManager em;
-	QVariable variable = QVariable.variable;
-	QOrganizationVariable organizationVariable = QOrganizationVariable.organizationVariable;
+	private QVariable variable = QVariable.variable;
+	private QCompany company = QCompany.company;
+	private QOrganizationVariable organizationVariable = QOrganizationVariable.organizationVariable;
 	
 	@Override
-	public List<VariableDTO> findVariablesByCompanyId(BigInteger companyId, UserDTO userInfo) {
+	public List<VariableDTO> findVariablesByCompanyId(VariableDTO filter, UserDTO userInfo) {
 		JPAQuery<VariableDTO> query = new JPAQuery<VariableDTO>(em).from(organizationVariable)
 				.innerJoin(variable).on(
-						variable.id.eq(organizationVariable.variableId).and(variable.accountingId.eq(userInfo.getOrganization().getId())))
-				.where(organizationVariable.organizationId.eq(companyId));
+						variable.id.eq(organizationVariable.variableId)/*.and(variable.accountingId.eq(userInfo.getOrganization().getId()))*/)
+				.where(organizationVariable.organizationId.eq(filter.getCompanyId()));
 
-		query.select(Projections.constructor(
-				VariableDTO.class, organizationVariable.id, variable.accountingId, variable.variableCode, variable.name, variable.id, variable.scriptId, variable.originValue, variable.typeValue, 
-								   organizationVariable.organizationId, organizationVariable.accountingCode));
+		query.select(Projections.constructor(VariableDTO.class, 
+				organizationVariable.id, organizationVariable.organizationId, variable.variableCode, variable.name, 
+				variable.id, variable.scriptId, organizationVariable.originValue, organizationVariable.absoluteValue, organizationVariable.organizationId, 
+				organizationVariable.accountingCode, variable.kpiAlias, variable.description));
+//		new VariableDTO(BigInteger id, BigInteger companyId, String variableCode, String name, 
+//		BigInteger variableId, BigInteger scriptId, short originValue, boolean absoluteValue, BigInteger accountingId, 
+//		String accountingCode, String kpiAlias, String description)
+		return query.fetch();
+	}
+
+	@Override
+	public List<VariableDTO> findMissingByCompanyId(VariableDTO filter, UserDTO userInfo) {
+
+//		innerJoin(company)... .and(company.cnpj.eq(cnpjTest)) nao parece necessario validar CNPJ
+//		String cnpjTest = "07.586.955/0001-99";
+		JPAQuery<VariableDTO> query = new JPAQuery<VariableDTO>(em).from(variable);
+		query.innerJoin(company).on(company.accountingId.eq(variable.accountingId)
+				.and(company.scriptId.eq(variable.scriptId)));
+
+		query.leftJoin(organizationVariable).on(organizationVariable.variableId.eq(variable.id)
+				.and(organizationVariable.organizationId.eq(filter.getCompanyId()))
+				.and(organizationVariable.scriptId.eq(variable.scriptId)));
+					
+		query.where(organizationVariable.id.isNull());
+		
+		query.select(Projections.constructor(VariableDTO.class, 
+				organizationVariable.id, organizationVariable.organizationId, variable.variableCode, variable.name, 
+				variable.id, company.scriptId, variable.originValue, variable.absoluteValue, variable.accountingId, 
+				variable.accountingCode, variable.kpiAlias, variable.description));
 
 		return query.fetch();
 	}
 
 	@Override
-	public List<VariableDTO> findMissingByCompanyId(BigInteger companyId, UserDTO userInfo) {
-		JPAQuery<VariableDTO> query = new JPAQuery<VariableDTO>(em).from(variable)
-				.leftJoin(organizationVariable).on(
-						organizationVariable.variableId.eq(variable.id).and(organizationVariable.organizationId.eq(companyId)))
-				.where(organizationVariable.id.isNull().and(variable.accountingId.eq(userInfo.getOrganization().getId())));
-				
-		query.select(Projections.constructor(
-				VariableDTO.class, organizationVariable.id, variable.accountingId, variable.variableCode, variable.name, variable.id, variable.scriptId, variable.originValue, variable.typeValue, 
-								   organizationVariable.organizationId, variable.accountingCode));
-// 				VariableDTO.class, organizationVariable.id, variable.accountingId, variable.externalId, variable.name, variable.id, organizationVariable.organizationId, variable.accountingCode));
-//new VariableDTO(id, companyId, variableCode, name, variableId, scriptId, originValue, typeValue, accountingId, accountingCode)
+	public List<OrganizationVariable> findOrganizationVariable(VariableDTO filter, UserDTO userInfo) {
+
+		JPAQuery<OrganizationVariable> query = new JPAQuery<OrganizationVariable>(em).from(organizationVariable);
+		if(filter.getCompanyId() != null)		query.where(organizationVariable.organizationId.eq(filter.getCompanyId()));
+		if(filter.getScriptId() != null)		query.where(organizationVariable.scriptId.eq(filter.getScriptId()));
+		if(filter.getVariableCode() != null)	query.where(organizationVariable.variableCode.eq(filter.getVariableCode()));
+		
 		return query.fetch();
 	}
 

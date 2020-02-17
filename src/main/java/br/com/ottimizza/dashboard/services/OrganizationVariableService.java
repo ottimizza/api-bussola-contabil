@@ -26,13 +26,33 @@ public class OrganizationVariableService {
 	VariableRepository variableRepository;
 	
 	
-	public OrganizationVariable save(OrganizationVariable organizationVariable, UserDTO userInfo) throws Exception {
+	public VariableDTO save(VariableDTO variableDto, UserDTO userInfo) throws Exception {
+		OrganizationVariable organizationVariable = VariableDTO.variableDtoToOrganizationVariable(variableDto);
 
-		if(organizationVariable.getOrganizationId() == null) {
-			organizationVariable.setOrganizationId(userInfo.getOrganization().getId());
+		VariableDTO filter = new VariableDTO();
+		filter.setCompanyId(variableDto.getCompanyId());
+		filter.setScriptId(variableDto.getScriptId());
+		filter.setVariableCode(variableDto.getVariableCode());
+		
+		List<OrganizationVariable> orgVariables = repository.findOrganizationVariable(filter, userInfo);
+
+		if(orgVariables.size() == 0) {
+			filter = new VariableDTO();
+			filter.setAccountingCode(variableDto.getAccountingCode());
+			filter.setAccountingId(variableDto.getAccountingId());
+			
+//			List<Variable> existantVariable = variableRepository.findAll(filter, userInfo);
+//			if(existantVariable.size() == 0) {
+				organizationVariable = repository.save(organizationVariable);
+				return VariableDTO.organizationVariableToVariableDto(organizationVariable);
+//			}
+			
+		}else if(orgVariables.size() > 0) {
+			organizationVariable.setId(orgVariables.get(0).getId());
+			organizationVariable = repository.save(organizationVariable);
+			return VariableDTO.organizationVariableToVariableDto(organizationVariable);
 		}
-		if(variableRepository.findVariableByAccountingCode(organizationVariable.getAccountingCode(), userInfo) == null)
-			return repository.save(organizationVariable);
+
 		return null;
 	}
 	
@@ -85,12 +105,12 @@ public class OrganizationVariableService {
 		return response;
 	}
 	
-	public List<VariableDTO> findVariableByCompanyId(BigInteger companyId, UserDTO userInfo) {
-		return repository.findVariablesByCompanyId(companyId, userInfo);
+	public List<VariableDTO> findVariableByCompanyId(VariableDTO filter, UserDTO userInfo) {
+		return repository.findVariablesByCompanyId(filter, userInfo);
 	}
-
-	public List<VariableDTO> findMissingByOrganizationId(BigInteger companyId, UserDTO userInfo) {
-		return repository.findMissingByCompanyId(companyId, userInfo);
+	
+	public List<VariableDTO> findMissingByOrganizationId(VariableDTO filter, UserDTO userInfo) {
+		return repository.findMissingByCompanyId(filter, userInfo);
 	}
 	
 }

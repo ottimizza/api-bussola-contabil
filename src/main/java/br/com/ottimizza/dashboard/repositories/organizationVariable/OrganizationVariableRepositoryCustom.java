@@ -1,18 +1,18 @@
 package br.com.ottimizza.dashboard.repositories.organizationVariable;
 
-import java.math.BigInteger;
 import java.util.List;
 
 import br.com.ottimizza.dashboard.domain.dtos.UserDTO;
 import br.com.ottimizza.dashboard.domain.dtos.VariableDTO;
+import br.com.ottimizza.dashboard.models.OrganizationVariable;
 
-public interface OrganizationVariableRepositoryCustom {
+public interface OrganizationVariableRepositoryCustom { //OrganizationVariableRepositoryImpl
 
-	List<VariableDTO> findVariablesByCompanyId(BigInteger companyId, UserDTO userInfo);
+	List<VariableDTO> findVariablesByCompanyId(VariableDTO filter, UserDTO userInfo);
 
-	List<VariableDTO> findMissingByCompanyId(BigInteger companyId, UserDTO userInfo);
+	List<VariableDTO> findMissingByCompanyId(VariableDTO filter, UserDTO userInfo);
 	
-//	OrganizationVariable saveOrganizationVariable(OrganizationVariable organizationVariable);
+	List<OrganizationVariable> findOrganizationVariable(VariableDTO filter, UserDTO userInfo);
 
 
 }

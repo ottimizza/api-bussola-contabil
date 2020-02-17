@@ -19,6 +19,7 @@ public class KpiDetailDTO implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	
+	private BigInteger KpiId;
 	private BigInteger id;
 	private String columnX;
 	private String valorStringArray;
@@ -26,6 +27,7 @@ public class KpiDetailDTO implements Serializable{
 	public static KpiDetailDTO fromEntity(KpiDetail kpiDetail) {
 	    // @formatter:off
 		KpiDetailDTO dto = KpiDetailDTO.builder()
+									   .KpiId(kpiDetail.getKpiID().getId())
 									   .id(kpiDetail.getId())
 									   .columnX(kpiDetail.getColumnX())
 									   .valorStringArray(kpiDetail.getValorStringArray())

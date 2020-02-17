@@ -31,7 +31,7 @@ public class VariableRepositoryImpl implements VariableRepositoryCustom {
 	@Override
 	public Variable findVariableByAccountingCode(String accountingCode, UserDTO userInfo) {
 		JPAQuery<Variable> query = new JPAQuery<Variable>(em).from(variable)
-				.where(variable.accountingCode.eq(accountingCode).and(variable.accountingId.eq(userInfo.getOrganization().getId())));
+				.where(variable.accountingCode.eq(accountingCode)/*.and(variable.accountingId.eq(userInfo.getOrganization().getId()))*/);
 				
 		return query.fetchFirst();
 	}
@@ -59,8 +59,8 @@ public class VariableRepositoryImpl implements VariableRepositoryCustom {
 		long totalElements = 0;
 		JPAQuery<Variable> query = new JPAQuery<Variable>(em).from(variable);
 		
-		if(filter.getId() != null)		 query.where(variable.id.eq(filter.getId()));
-		if(filter.getScriptId() != null) query.where(variable.scriptId.eq(filter.getScriptId()));
+		if(filter.getAccountingId() != null)query.where(variable.accountingId.eq(filter.getAccountingId()));
+		if(filter.getScriptId() != null)	query.where(variable.scriptId.eq(filter.getScriptId()));
 		
 		totalElements = query.fetchCount();
 		query.limit(pageable.getPageSize());
@@ -68,5 +68,34 @@ public class VariableRepositoryImpl implements VariableRepositoryCustom {
 		
 		return new PageImpl<Variable>(query.fetch(), pageable, totalElements);
 	}
+
+	@Override
+	public Variable findByAccountIdKpiAliasScriptId(VariableDTO variableDto) {
+		JPAQuery<Variable> query = new JPAQuery<Variable>(em).from(variable);
+		
+		if(variableDto.getAccountingId() != null)query.where(variable.accountingId.eq(variableDto.getAccountingId()));
+		if(variableDto.getScriptId() != null)	 query.where(variable.scriptId.eq(variableDto.getScriptId()));
+		if(variableDto.getKpiAlias() != null)	 query.where(variable.kpiAlias.eq(variableDto.getKpiAlias()));
+		
+		return query.fetchFirst();
+	}
+
+	@Override
+	public List<Variable> findAll(VariableDTO variableDto, UserDTO userInfo) {
+		JPAQuery<Variable> query = new JPAQuery<Variable>(em).from(variable);
+		
+		if(variableDto.getId() != null)				query.where(variable.id.eq(variableDto.getId()));
+		if(variableDto.getVariableCode() != null)	query.where(variable.variableCode.eq(variableDto.getVariableCode()));
+		if(variableDto.getName() != null)			query.where(variable.name.eq(variableDto.getName()));
+		if(variableDto.getScriptId() != null)		query.where(variable.scriptId.eq(variableDto.getScriptId()));
+		if(variableDto.getOriginValue() != null)	query.where(variable.originValue.eq(variableDto.getOriginValue()));
+		if(variableDto.getAbsoluteValue() != null)	query.where(variable.absoluteValue.eq(variableDto.getAbsoluteValue()));
+		if(variableDto.getAccountingId() != null)	query.where(variable.accountingId.eq(variableDto.getAccountingId()));
+		if(variableDto.getAccountingCode() != null)	query.where(variable.accountingCode.eq(variableDto.getAccountingCode()));
+		if(variableDto.getKpiAlias() != null)		query.where(variable.kpiAlias.eq(variableDto.getKpiAlias()));
+		if(variableDto.getDescription() != null)	query.where(variable.description.eq(variableDto.getDescription()));
+		return query.fetch();
+	}
+	
 
 }

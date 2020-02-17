@@ -5,9 +5,13 @@ server:
         
 # OAuth2 Environment Variables
 oauth2-config:
-    oauth2-server-url: ${OAUTH2_SERVER_URL:https://development-oauth-server.herokuapp.com}
+    oauth2-server-url: ${OAUTH2_SERVER_URL:https://staging-oauth-server.herokuapp.com}
     oauth2-client-id: ${OAUTH2_CLIENT_ID:bussola-contabil-client}
     oauth2-client-secret: ${OAUTH2_CLIENT_SECRET:bussola-contabil-secret}
+
+storage-config:
+    upload-id-bussola: ${UPLOAD_ID_BUSSOLA:staging-tareffa-oauth}
+    upload-accounting-id: ${UPLOAD_ACCOUNTING_ID:ottimizza}
 
 # Sentry Environment Variables
 sentry-config:
@@ -26,7 +30,7 @@ spring:
 
     jpa:
         database-platform: org.hibernate.dialect.PostgreSQLDialect
-        show-sql: false
+        show-sql: true
         hibernate:
             ddl-auto: update
         properties:

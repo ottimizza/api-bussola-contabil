@@ -1,13 +1,11 @@
 package br.com.ottimizza.dashboard.repositories.company;
 
-import br.com.ottimizza.dashboard.models.Company;
-
 import java.math.BigInteger;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
+
+import br.com.ottimizza.dashboard.models.Company;
 
 public interface CompanyRepository extends JpaRepository<Company, BigInteger>, CompanyRepositoryCustom {
 	

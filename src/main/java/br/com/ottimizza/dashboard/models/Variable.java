@@ -30,29 +30,31 @@ public class Variable implements Serializable{
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "variables_sequence")
 	private BigInteger id;
 	
-	@Column(name = "fk_organizations_id", nullable = true)
+	@Column(name = "fk_accounting_id", nullable = true)
     private BigInteger accountingId;
 	
 	@Column(name = "fk_script_id")
 	private BigInteger scriptId;	
 
-	private String variableCode;
+	private String variableCode; //relacionado com kpi_alias do balancete
 	
 	private String name;
 
 	private String description;
 	
-	private String  accountingCode;
-
-	@Column(name = "origin_value", length = 40)
-	private String originValue;
+	private String accountingCode;
 	
-	@Column(name = "type_value", length = 40)
-	private String typeValue;
+	private String kpiAlias;
+
+	@Column(name = "origin_value")
+	private Short originValue;
+	
+	@Column(name = "absolute_Value", columnDefinition = "boolean default true")
+	private Boolean absoluteValue;
 
 	// variableCode;	codigo da variavel CRM ("40","41"...)
 	// accountingCode;	contacontabil(1.1.002)
-	// originValue; 	de onde e lido o valor (saldo inicia - saldo final, saldo final, debito - credito, credito - debito, saldo inicial)
-	// typeValue;		como deve ser usado (original, absoluto)
+	// originValue; 	de onde e lido o valor (1 saldo inicial - saldo final;	2 saldo final;	3 saldo inicial;	4 debito - credito;	5 credito - debito;	6 credito;	7 debito)
+	// absoluteValue;	false = original, true = absoluto
 
 }

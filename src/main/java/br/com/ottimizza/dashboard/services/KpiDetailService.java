@@ -1,15 +1,20 @@
 package br.com.ottimizza.dashboard.services;
 
-import br.com.ottimizza.dashboard.models.KpiDetail;
-import java.util.Optional;
-import javax.inject.Inject;
-import javax.persistence.NoResultException;
-import org.json.JSONObject;
-import org.springframework.stereotype.Service;
-import br.com.ottimizza.dashboard.repositories.kpi_detail.KpiDetailRepository;
-
 import java.math.BigInteger;
 import java.util.List;
+import java.util.Optional;
+
+import javax.inject.Inject;
+import javax.persistence.NoResultException;
+
+import org.json.JSONObject;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.stereotype.Service;
+
+import br.com.ottimizza.dashboard.domain.dtos.KpiDetailDTO;
+import br.com.ottimizza.dashboard.models.KpiDetail;
+import br.com.ottimizza.dashboard.repositories.kpi_detail.KpiDetailRepository;
 
 @Service
 public class KpiDetailService {
@@ -27,6 +32,10 @@ public class KpiDetailService {
     
     public List<KpiDetail> findByListCNPJ(List<String> cnpj)throws Exception{
         return repository.findKpiDetailsByCNPJ(cnpj);
+    }
+    
+    public List<KpiDetail> findByListCNPJAndGraphType(List<String> cnpj, Short graphType,String kind)throws Exception{
+        return repository.findKpiDetailsByCNPJAndGraphType(cnpj, graphType, kind);
     }
     
     public Boolean deleteById(BigInteger idKpiDetail)throws Exception{
@@ -77,5 +86,9 @@ public class KpiDetailService {
         }
         return response;
     }
+
+	public Page<KpiDetailDTO> findAll(KpiDetailDTO filter, int pageIndex, int pageSize, String authorization) {
+		return repository.findAll(filter, PageRequest.of(pageIndex, pageSize)).map(KpiDetailDTO::fromEntity);		
+	}
     
 }

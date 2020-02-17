@@ -13,9 +13,7 @@ import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @Data
 @Entity
@@ -42,5 +40,13 @@ public class OrganizationVariable implements Serializable {
 	private BigInteger scriptId;
 	
 	private String  accountingCode;
+	
+	@Column(name = "origin_value")
+	private Short originValue;
+	
+	@Column(name = "absolute_Value", columnDefinition = "boolean default true")
+	private Boolean absoluteValue;
+	
+	private String variableCode; //relacionado com kpi_alias do balancete
 
 }

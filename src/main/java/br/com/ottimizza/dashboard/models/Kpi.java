@@ -143,4 +143,8 @@ public class Kpi implements Serializable {
     @Column(name = "graph_order", nullable = true)
 	private Integer graphOrder;
 	
+	@Getter
+	@Setter
+	private Integer kind;
+	
 }
