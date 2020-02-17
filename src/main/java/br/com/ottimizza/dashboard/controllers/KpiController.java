@@ -6,6 +6,7 @@ import java.util.Optional;
 import javax.inject.Inject;
 import javax.validation.Valid;
 
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -68,7 +69,9 @@ public class KpiController {
 						             @RequestParam(name = "page_size", defaultValue = "10") int pageSize, 
 						             @RequestHeader("Authorization") String authorization) throws Exception {
 		
-		return ResponseEntity.ok(kpiService.findAll(filter, pageIndex, pageSize, authorization));
+		Page<KpiDTO> kD = kpiService.findAll(filter, pageIndex, pageSize, authorization);
+		System.out.println(kD);
+		return ResponseEntity.ok(kD);
 	}
 	
 }

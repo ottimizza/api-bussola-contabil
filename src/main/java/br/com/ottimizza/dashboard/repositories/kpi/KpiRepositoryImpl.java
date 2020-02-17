@@ -62,11 +62,14 @@ public class KpiRepositoryImpl implements KpiRepositoryCustom {
 				.on(description.scriptId.eq(company.scriptId)
 				.and(description.accountingId.eq(company.accountingId))
 				.and(description.kpiAlias.eq(kpi.kpiAlias))
-				.and(kpi.visible.isTrue()));
-		query.where(kpi.visible.isTrue()
-				.and(kpi.kpiAlias.notLike("07"))
+				.and(description.visible.isTrue()));
+		
+				query.where(kpi.kpiAlias.notLike("07")
 				.and(kpi.kpiAlias.notLike("12")));
 
+		/*if (description.visible) {
+			query.where(kpi.visible.isTrue());
+		}*/ 
 		if (filter.getCnpj() != null) {
 			query.where(company.cnpj.eq(StringUtil.formatCnpj(filter.getCnpj())));
 		}
