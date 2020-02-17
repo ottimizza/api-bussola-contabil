@@ -68,7 +68,7 @@ public class KpiController {
 									 @RequestParam(name = "page_index", defaultValue = "0") int pageIndex,
 						             @RequestParam(name = "page_size", defaultValue = "10") int pageSize, 
 						             @RequestHeader("Authorization") String authorization) throws Exception {
-		return ResponseEntity.ok(kpiService.findAll(filter, pageIndex, pageSize, authorization));
+  		return ResponseEntity.ok(kpiService.findAll(filter, pageIndex, pageSize, authorization));
 	}
 	
 }
