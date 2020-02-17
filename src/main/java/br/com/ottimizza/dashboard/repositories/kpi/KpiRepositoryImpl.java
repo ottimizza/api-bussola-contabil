@@ -61,15 +61,12 @@ public class KpiRepositoryImpl implements KpiRepositoryCustom {
 				.innerJoin(description)
 				.on(description.scriptId.eq(company.scriptId)
 				.and(description.accountingId.eq(company.accountingId))
-				.and(description.kpiAlias.eq(kpi.kpiAlias))
-				.and(description.visible.isTrue()));
-		
-				query.where(kpi.kpiAlias.notLike("07")
+				.and(description.kpiAlias.eq(kpi.kpiAlias)));
+		query.where(kpi.visible.isTrue()
+				.and(description.visible.isTrue())
+				.and(kpi.kpiAlias.notLike("07"))
 				.and(kpi.kpiAlias.notLike("12")));
 
-		/*if (description.visible) {
-			query.where(kpi.visible.isTrue());
-		}*/ 
 		if (filter.getCnpj() != null) {
 			query.where(company.cnpj.eq(StringUtil.formatCnpj(filter.getCnpj())));
 		}
