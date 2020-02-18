@@ -63,6 +63,7 @@ public class CompanyController {
     	try{
 	    	if(companiesExisting.size() > 0) {	//existe company com o CNPJ enviado
 	    		newCompany = companiesExisting.get(0);
+	    		newCompany.setScriptDescription(companyDto.getScriptDescription());
 	    		if(newCompany.getAccountingId() == null) {
 
 	    			// busco contabilidade no account e seto accountingID no company
@@ -81,17 +82,14 @@ public class CompanyController {
     	    	OrganizationDTO filterOrg = new OrganizationDTO();
     	    	filterOrg.setCnpj(StringUtils.leftPad(companyDto.getCnpjAccounting().replaceAll("\\D", ""), 14, "0"));
     	    	List<OrganizationDTO> orgDtos = service.findOrganizationInfo(authorization, filterOrg);
-    	    	if(orgDtos.size() > 0) {
-    	    		companyDto.setAccountingId(orgDtos.get(0).getId());
-    	    		newCompany.setAccountingId(orgDtos.get(0).getId());
-    	    	}
+    	    	if(orgDtos.size() > 0) newCompany.setAccountingId(orgDtos.get(0).getId());
     	    	
-    	    	newCompany.setScriptId(scriptTypeService.criaScriptType(companyDto));
+    	    	newCompany.setScriptId(scriptTypeService.criaScriptType(newCompany));
 				
 	    	}
 
 	    	
-	    	return ResponseEntity.ok(service.save(CompanyDTO.dtoToEntity(companyDto)));		
+	    	return ResponseEntity.ok(service.save(CompanyDTO.dtoToEntity(newCompany)));		
     	} catch (Exception e) { 
     		e.printStackTrace();
         	return ResponseEntity.badRequest().build();
