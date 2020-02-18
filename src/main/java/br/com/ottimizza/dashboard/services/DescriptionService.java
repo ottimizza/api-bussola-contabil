@@ -105,7 +105,7 @@ System.out.println(">> A ");
 		System.out.println(">> B "+description2.toString());
 
 		//nao daremos UPDATE em description pra nao sobrepor o que o contador fez
-		if(description2 == null) {
+		if(description2 == null || description2.getId() == null) {
 			System.out.println(">> C ");
 
 			Description description = DescriptionDTO.dtoToDescription(descriptionDTO);
