@@ -139,9 +139,8 @@ public class CompanyService {
 		return dtos;
 	}
 
-	public List<CompanyDTO> findAll(CompanyDTO filter, String authorization) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<CompanyDTO> findCompanies(CompanyDTO filter, String authorization) {
+		return CompanyDTO.entityToDto(repository.findAll(filter, null, null));
 	}
     
 }

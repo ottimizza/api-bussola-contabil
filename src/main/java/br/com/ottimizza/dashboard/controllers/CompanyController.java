@@ -55,25 +55,32 @@ public class CompanyController {
     @PostMapping("save")
     public ResponseEntity<Company> saveCompany(@RequestBody CompanyDTO companyDto,  @RequestHeader String authorization) throws Exception {
     	
-    	//	busco contabilidade no account e seto accountingID no company
-    	OrganizationDTO filterOrg = new OrganizationDTO();
-    	filterOrg.setCnpj(StringUtils.leftPad(companyDto.getCnpjAccounting().replaceAll("\\D", ""), 14, "0"));
-    	List<OrganizationDTO> orgDtos = service.findOrganizationInfo(authorization, filterOrg);
-    	if(orgDtos.size() > 0) companyDto.setAccountingId(orgDtos.get(0).getId());
-    	
     	CompanyDTO filter = new CompanyDTO();
     	filter.setCnpj(companyDto.getCnpj());
-    	List<CompanyDTO> companiesExisting = service.findAll(filter, authorization);
-    	
+    	List<CompanyDTO> companiesExisting = service.findCompanies(filter, authorization);
+    	CompanyDTO newCompany = companyDto;
     	try{
 	    	if(companiesExisting.size() > 0) {	//existe company com o CNPJ enviado
-	    		CompanyDTO newCompany = companiesExisting.get(0);
-	    		newCompany.setName(companyDto.getName());
-	    		if(newCompany.getScriptId() == null) companyDto.setScriptId(scriptTypeService.criaScriptType(companyDto));
+	    		newCompany = companiesExisting.get(0);
+	    		if(newCompany.getAccountingId() == null) {
+    				// busco contabilidade no account e seto accountingID no company
+	    	    	OrganizationDTO filterOrg = new OrganizationDTO();
+	    	    	filterOrg.setCnpj(StringUtils.leftPad(companyDto.getCnpjAccounting().replaceAll("\\D", ""), 14, "0"));
+	    	    	List<OrganizationDTO> orgDtos = service.findOrganizationInfo(authorization, filterOrg);
+	    	    	if(orgDtos.size() > 0) newCompany.setAccountingId(orgDtos.get(0).getId());
+	    		}
+	    		
+	    		if(newCompany.getScriptId() == null) newCompany.setScriptId(scriptTypeService.criaScriptType(companyDto));
 	    		
 	    	} else {	// NAO existe company com o CNPJ enviado
-	    			companyDto.setScriptId(scriptTypeService.criaScriptType(companyDto));
+	    		newCompany.setScriptId(scriptTypeService.criaScriptType(companyDto));
+				// busco contabilidade no account e seto accountingID no company
+    	    	OrganizationDTO filterOrg = new OrganizationDTO();
+    	    	filterOrg.setCnpj(StringUtils.leftPad(companyDto.getCnpjAccounting().replaceAll("\\D", ""), 14, "0"));
+    	    	List<OrganizationDTO> orgDtos = service.findOrganizationInfo(authorization, filterOrg);
+    	    	if(orgDtos.size() > 0) newCompany.setAccountingId(orgDtos.get(0).getId());
 	    	}
+	    	
 	    	return ResponseEntity.ok(service.save(CompanyDTO.dtoToEntity(companyDto)));		
     	} catch (Exception e) { 
     		e.printStackTrace();
