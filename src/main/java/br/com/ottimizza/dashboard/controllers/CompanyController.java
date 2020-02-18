@@ -9,6 +9,7 @@ import java.util.Optional;
 
 import javax.inject.Inject;
 
+import org.apache.commons.lang3.StringUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.http.ResponseEntity;
@@ -27,7 +28,6 @@ import org.springframework.web.bind.annotation.RestController;
 import br.com.ottimizza.dashboard.client.OAuthClient;
 import br.com.ottimizza.dashboard.domain.dtos.CompanyDTO;
 import br.com.ottimizza.dashboard.domain.dtos.OrganizationDTO;
-import br.com.ottimizza.dashboard.domain.dtos.ScriptTypeDTO;
 import br.com.ottimizza.dashboard.domain.dtos.UserDTO;
 import br.com.ottimizza.dashboard.models.Company;
 import br.com.ottimizza.dashboard.services.CompanyService;
@@ -54,43 +54,72 @@ public class CompanyController {
 	
     @PostMapping("save")
     public ResponseEntity<Company> saveCompany(@RequestBody CompanyDTO companyDto,  @RequestHeader String authorization) throws Exception {
-    	OrganizationDTO organizationDto = new OrganizationDTO();
     	
-    	Company company = CompanyDTO.dtoToEntity(companyDto);
+    	//	busco contabilidade no account e seto accountingID no company
+    	OrganizationDTO filterOrg = new OrganizationDTO();
+    	filterOrg.setCnpj(StringUtils.leftPad(companyDto.getCnpjAccounting().replaceAll("\\D", ""), 14, "0"));
+    	List<OrganizationDTO> orgDtos = service.findOrganizationInfo(authorization, filterOrg);
+    	if(orgDtos.size() > 0) companyDto.setAccountingId(orgDtos.get(0).getId());
     	
+    	CompanyDTO filter = new CompanyDTO();
+    	filter.setCnpj(companyDto.getCnpj());
+    	List<CompanyDTO> companiesExisting = service.findAll(filter, authorization);
     	
-    	organizationDto.setCnpj(company.getCnpj());
-    	List<OrganizationDTO> orgDtos = service.findOrganizationInfo(authorization, organizationDto);
-    	if(orgDtos.size() > 0)	{
-    		OrganizationDTO response = orgDtos.get(0);
-			
-    		BigInteger idContabilidade = response.getOrganizationId();
-			company.setAccountingId(idContabilidade);
-			
-//			mover toda essa parte pro ScriptTypeService
-//			companyDto = scriptTypeService.trataRoteiroParaEmpresa(companyDto, authorization);
-			
-			List<ScriptTypeDTO> scripts = scriptTypeService.findAll(new ScriptTypeDTO(null, idContabilidade, null));
-
-			if(companyDto.getScriptDescription() == null) {
-				if(scripts.size() == 0) {
-					company.setScriptId(scriptTypeService.save(new ScriptTypeDTO(null, idContabilidade, "PADRAO")).getId());
-				} else if(scripts.size() == 1) {
-					company.setScriptId(scripts.get(0).getId());
-				} else if(scripts.size() > 1) {
-					company.setScriptId(scripts.get(0).getId());
-				}
-			}
-			if(companyDto.getScriptDescription() != null) {
-				if(scripts.size() == 0) {
-					company.setScriptId(scriptTypeService.save(new ScriptTypeDTO(null, idContabilidade, companyDto.getScriptDescription())).getId());
-				}else {
-					company.setScriptId(scripts.get(0).getId());
-				}
-			}
-			return ResponseEntity.ok(service.save(company));
+    	try{
+	    	if(companiesExisting.size() > 0) {	//existe company com o CNPJ enviado
+	    		CompanyDTO newCompany = companiesExisting.get(0);
+	    		newCompany.setName(companyDto.getName());
+	    		if(newCompany.getScriptId() == null) companyDto.setScriptId(scriptTypeService.criaScriptType(companyDto));
+	    		
+	    	} else {	// NAO existe company com o CNPJ enviado
+	    			companyDto.setScriptId(scriptTypeService.criaScriptType(companyDto));
+	    	}
+	    	return ResponseEntity.ok(service.save(CompanyDTO.dtoToEntity(companyDto)));		
+    	} catch (Exception e) { 
+    		e.printStackTrace();
+        	return ResponseEntity.badRequest().build();
     	}
-    	return ResponseEntity.badRequest().build();
+    
+    	
+    	//////////////////////////////////////////////////////////////
+    	//////////////////////////////////////////////////////////////
+    	//////////////////////////////////////////////////////////////
+    	//////////////////////////////////////////////////////////////
+
+//    	OrganizationDTO organizationDto = new OrganizationDTO();
+//    	Company company = CompanyDTO.dtoToEntity(companyDto);
+//    	organizationDto.setCnpj(company.getCnpj());
+//    	List<OrganizationDTO> orgDtos = service.findOrganizationInfo(authorization, organizationDto);
+//    	if(orgDtos.size() > 0)	{
+//    		OrganizationDTO response = orgDtos.get(0);
+//			
+//    		BigInteger idContabilidade = response.getOrganizationId();
+//			company.setAccountingId(idContabilidade);
+//			
+////			mover toda essa parte pro ScriptTypeService
+////			companyDto = scriptTypeService.trataRoteiroParaEmpresa(companyDto, authorization);
+//			
+//			List<ScriptTypeDTO> scripts = scriptTypeService.findAll(new ScriptTypeDTO(null, idContabilidade, null));
+//
+//			if(companyDto.getScriptDescription() == null) {
+//				if(scripts.size() == 0) {
+//					company.setScriptId(scriptTypeService.save(new ScriptTypeDTO(null, idContabilidade, "PADRAO")).getId());
+//				} else if(scripts.size() == 1) {
+//					company.setScriptId(scripts.get(0).getId());
+//				} else if(scripts.size() > 1) {
+//					company.setScriptId(scripts.get(0).getId());
+//				}
+//			}
+//			if(companyDto.getScriptDescription() != null) {
+//				if(scripts.size() == 0) {
+//					company.setScriptId(scriptTypeService.save(new ScriptTypeDTO(null, idContabilidade, companyDto.getScriptDescription())).getId());
+//				}else {
+//					company.setScriptId(scripts.get(0).getId());
+//				}
+//			}
+//			return ResponseEntity.ok(service.save(company));
+//    	}
+//    	return ResponseEntity.badRequest().build();
     	
     }
     

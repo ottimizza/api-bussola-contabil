@@ -138,5 +138,10 @@ public class CompanyService {
 		List<OrganizationDTO> dtos = oauthCliente.getOrganizationInfo(authorization, cnpj).getBody().getRecords();
 		return dtos;
 	}
+
+	public List<CompanyDTO> findAll(CompanyDTO filter, String authorization) {
+		// TODO Auto-generated method stub
+		return null;
+	}
     
 }

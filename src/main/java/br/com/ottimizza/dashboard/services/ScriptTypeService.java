@@ -8,6 +8,7 @@ import javax.inject.Inject;
 import org.json.JSONObject;
 import org.springframework.stereotype.Service;
 
+import br.com.ottimizza.dashboard.domain.dtos.CompanyDTO;
 import br.com.ottimizza.dashboard.domain.dtos.ScriptTypeDTO;
 import br.com.ottimizza.dashboard.models.ScriptType;
 import br.com.ottimizza.dashboard.repositories.script_type.ScriptTypeRepository;
@@ -49,4 +50,28 @@ public class ScriptTypeService {
 		ScriptType current = findById(id);
 		return ScriptTypeDTO.entityToDto(repository.save(dto.patch(current)));
 	}
+	
+	public BigInteger criaScriptType(CompanyDTO companyDto) throws Exception {
+		
+		ScriptTypeDTO filterScript = new ScriptTypeDTO();
+		filterScript.setAccounting(companyDto.getAccountingId());
+		List<ScriptTypeDTO> scripts = findAll(filterScript);
+
+		try {
+			if(companyDto.getScriptDescription() != null) {
+				if(scripts.size() == 0) return save(new ScriptTypeDTO(null, companyDto.getAccountingId(), companyDto.getScriptDescription())).getId();
+				else return scripts.get(0).getId();
+			}
+			
+			if(companyDto.getScriptDescription() == null) {
+				if(scripts.size() == 0) return save(new ScriptTypeDTO(null, companyDto.getAccountingId(), "PADRAO")).getId();
+				else if(scripts.size() == 1) return scripts.get(0).getId();
+				else if(scripts.size() > 1) return scripts.get(0).getId();
+			}
+		} catch (Exception e) { }
+	
+		return null;
+	}
+
+	
 }
