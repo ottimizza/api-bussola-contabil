@@ -62,20 +62,16 @@ public class ScriptTypeService {
 
 		try {
 			if(companyDto.getScriptDescription() != null) {
-				System.out.println(">>> XB "+response);
 				if(scripts.size() == 0) response = save(new ScriptTypeDTO(null, companyDto.getAccountingId(), companyDto.getScriptDescription())).getId();
 				else response = scripts.get(0).getId();
 			}
 			
 			if(companyDto.getScriptDescription() == null) {
-				System.out.println(">>> XC "+response);
-
 				if(scripts.size() == 0) response = save(new ScriptTypeDTO(null, companyDto.getAccountingId(), "PADRAO")).getId();
 				else if(scripts.size() == 1) response = scripts.get(0).getId();
 				else if(scripts.size() > 1) response = scripts.get(0).getId();
 			}
-		} catch (Exception e) { System.out.println(">>> XD "+response);}
-		System.out.println(">>> XE "+response);
+		} catch (Exception e) { }
 		return response;
 	}
 

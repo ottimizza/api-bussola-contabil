@@ -81,14 +81,17 @@ public class CompanyController {
     	    	OrganizationDTO filterOrg = new OrganizationDTO();
     	    	filterOrg.setCnpj(StringUtils.leftPad(companyDto.getCnpjAccounting().replaceAll("\\D", ""), 14, "0"));
     	    	List<OrganizationDTO> orgDtos = service.findOrganizationInfo(authorization, filterOrg);
-    	    	if(orgDtos.size() > 0) newCompany.setAccountingId(orgDtos.get(0).getId());
+    	    	if(orgDtos.size() > 0) {
+    	    		companyDto.setAccountingId(orgDtos.get(0).getId());
+    	    		newCompany.setAccountingId(orgDtos.get(0).getId());
+    	    	}
     	    	
-    	    	newCompany.setScriptId(scriptTypeService.criaScriptType(newCompany));
+    	    	newCompany.setScriptId(scriptTypeService.criaScriptType(companyDto));
 				
 	    	}
 
 	    	
-	    	return ResponseEntity.ok(service.save(CompanyDTO.dtoToEntity(newCompany)));		
+	    	return ResponseEntity.ok(service.save(CompanyDTO.dtoToEntity(companyDto)));		
     	} catch (Exception e) { 
     		e.printStackTrace();
         	return ResponseEntity.badRequest().build();
