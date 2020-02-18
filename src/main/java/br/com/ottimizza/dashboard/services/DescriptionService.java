@@ -81,19 +81,11 @@ public class DescriptionService {
 			if(scripts.size() > 0 && descriptionDTO.getScriptDescription() != null) {
 				descriptionDTO.setScriptId(scripts.get(0).getId());
 			}
-//			if(descriptionDTO.getScriptDescription() != null) {
-//				if(scripts.size() > 0)		 descriptionDTO.setScriptId(scripts.get(0).getId());
-//				else if(scripts.size() == 0) descriptionDTO.setScriptId(scriptTypeRepository.save(new ScriptType(null, descriptionDTO.getAccountingId(), descriptionDTO.getScriptDescription())).getId());
-//			} else {
-//				scripts = scriptTypeRepository.findAll(new ScriptTypeDTO(null, null, "PADRAO"));
-//				if(scripts.size() > 0)		 descriptionDTO.setScriptId(scripts.get(0).getId());
-//				else if(scripts.size() == 0) descriptionDTO.setScriptId(scriptTypeRepository.save(new ScriptType(null, descriptionDTO.getAccountingId(), "PADRAO")).getId());
-//			}
 		}
 
 		Description description2 = new Description();
 		if(descriptionDTO.getAccountingId() != null && descriptionDTO.getKpiAlias() != null && descriptionDTO.getScriptId() != null) {
-System.out.println(">> A ");
+
 			dFiltro.setAccountingId(descriptionDTO.getAccountingId());
 			dFiltro.setScriptId(descriptionDTO.getScriptId());
 			dFiltro.setKpiAlias(descriptionDTO.getKpiAlias());
@@ -102,11 +94,9 @@ System.out.println(">> A ");
 			catch (Exception e) { }
 			
 		}
-		System.out.println(">> B "+description2.toString());
 
 		//nao daremos UPDATE em description pra nao sobrepor o que o contador fez
 		if(description2 == null || description2.getId() == null) {
-			System.out.println(">> C ");
 
 			Description description = DescriptionDTO.dtoToDescription(descriptionDTO);
 			return DescriptionDTO.descriptionToDto(repository.save(description));
