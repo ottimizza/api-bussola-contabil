@@ -28,6 +28,7 @@ import org.springframework.web.bind.annotation.RestController;
 import br.com.ottimizza.dashboard.client.OAuthClient;
 import br.com.ottimizza.dashboard.domain.dtos.CompanyDTO;
 import br.com.ottimizza.dashboard.domain.dtos.OrganizationDTO;
+import br.com.ottimizza.dashboard.domain.dtos.ScriptTypeDTO;
 import br.com.ottimizza.dashboard.domain.dtos.UserDTO;
 import br.com.ottimizza.dashboard.models.Company;
 import br.com.ottimizza.dashboard.services.CompanyService;
@@ -55,24 +56,34 @@ public class CompanyController {
     @PostMapping("save")
     public ResponseEntity<Company> saveCompany(@RequestBody CompanyDTO companyDto,  @RequestHeader String authorization) throws Exception {
     	
+    	System.out.println(">>> A "+companyDto.getCnpj());
+    	
     	CompanyDTO filter = new CompanyDTO();
     	filter.setCnpj(companyDto.getCnpj());
     	List<CompanyDTO> companiesExisting = service.findCompanies(filter, authorization);
     	CompanyDTO newCompany = companyDto;
     	try{
 	    	if(companiesExisting.size() > 0) {	//existe company com o CNPJ enviado
+	        	System.out.println(">>> B "+companiesExisting.get(0).getId());
+
 	    		newCompany = companiesExisting.get(0);
 	    		if(newCompany.getAccountingId() == null) {
-    				// busco contabilidade no account e seto accountingID no company
+	    			System.out.println(">>> C "+newCompany.getName()+" <> "+newCompany.getAccountingId());
+	    			// busco contabilidade no account e seto accountingID no company
 	    	    	OrganizationDTO filterOrg = new OrganizationDTO();
 	    	    	filterOrg.setCnpj(StringUtils.leftPad(companyDto.getCnpjAccounting().replaceAll("\\D", ""), 14, "0"));
 	    	    	List<OrganizationDTO> orgDtos = service.findOrganizationInfo(authorization, filterOrg);
 	    	    	if(orgDtos.size() > 0) newCompany.setAccountingId(orgDtos.get(0).getId());
+	    			System.out.println(">>> D "+newCompany.getName()+" <> "+newCompany.getAccountingId());
 	    		}
-	    		
+    			System.out.println(">>> E "+newCompany.getScriptId());
+
 	    		if(newCompany.getScriptId() == null) newCompany.setScriptId(scriptTypeService.criaScriptType(companyDto));
-	    		
+    			System.out.println(">>> F "+newCompany.getScriptId());
+
 	    	} else {	// NAO existe company com o CNPJ enviado
+    			System.out.println(">>> G ");
+
 	    		newCompany.setScriptId(scriptTypeService.criaScriptType(companyDto));
 				// busco contabilidade no account e seto accountingID no company
     	    	OrganizationDTO filterOrg = new OrganizationDTO();
@@ -80,8 +91,10 @@ public class CompanyController {
     	    	List<OrganizationDTO> orgDtos = service.findOrganizationInfo(authorization, filterOrg);
     	    	if(orgDtos.size() > 0) newCompany.setAccountingId(orgDtos.get(0).getId());
 	    	}
+			System.out.println(">>> H ");
+
 	    	
-	    	return ResponseEntity.ok(service.save(CompanyDTO.dtoToEntity(companyDto)));		
+	    	return ResponseEntity.ok(service.save(CompanyDTO.dtoToEntity(newCompany)));		
     	} catch (Exception e) { 
     		e.printStackTrace();
         	return ResponseEntity.badRequest().build();
@@ -186,5 +199,28 @@ public class CompanyController {
         return ResponseEntity.ok(service.patch(companyDTO, userInfo));
     }
 	
-    
+//	public BigInteger criaScriptType(CompanyDTO companyDto) throws Exception {
+//		System.out.println(">>> XA ");
+//
+//		
+//		ScriptTypeDTO filterScript = new ScriptTypeDTO();
+//		filterScript.setAccounting(companyDto.getAccountingId());
+//		List<ScriptTypeDTO> scripts = scriptTypeService.findAll(filterScript);
+//		try {
+//			if(companyDto.getScriptDescription() != null) {
+//				System.out.println(">>> XB ");
+//				if(scripts.size() == 0) return scriptTypeService.save(new ScriptTypeDTO(null, companyDto.getAccountingId(), companyDto.getScriptDescription())).getId();
+//				else return scripts.get(0).getId();
+//			}			
+//			if(companyDto.getScriptDescription() == null) {
+//				System.out.println(">>> XC ");
+//
+//				if(scripts.size() == 0) return scriptTypeService.save(new ScriptTypeDTO(null, companyDto.getAccountingId(), "PADRAO")).getId();
+//				else if(scripts.size() == 1) return scripts.get(0).getId();
+//				else if(scripts.size() > 1) return scripts.get(0).getId();
+//			}
+//		} catch (Exception e) { System.out.println(">>> XD ");}
+//	
+//		return null;
+//	}
 }

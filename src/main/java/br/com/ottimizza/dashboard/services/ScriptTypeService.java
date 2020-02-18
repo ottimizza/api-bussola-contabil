@@ -52,25 +52,32 @@ public class ScriptTypeService {
 	}
 	
 	public BigInteger criaScriptType(CompanyDTO companyDto) throws Exception {
-		
+		System.out.println(">>> XA ");
+
+		BigInteger response = new BigInteger("0");
 		ScriptTypeDTO filterScript = new ScriptTypeDTO();
 		filterScript.setAccounting(companyDto.getAccountingId());
+		filterScript.setDescription(companyDto.getScriptDescription());
+		
 		List<ScriptTypeDTO> scripts = findAll(filterScript);
 
 		try {
 			if(companyDto.getScriptDescription() != null) {
-				if(scripts.size() == 0) return save(new ScriptTypeDTO(null, companyDto.getAccountingId(), companyDto.getScriptDescription())).getId();
-				else return scripts.get(0).getId();
+				System.out.println(">>> XB "+response);
+				if(scripts.size() == 0) response = save(new ScriptTypeDTO(null, companyDto.getAccountingId(), companyDto.getScriptDescription())).getId();
+				else response = scripts.get(0).getId();
 			}
 			
 			if(companyDto.getScriptDescription() == null) {
-				if(scripts.size() == 0) return save(new ScriptTypeDTO(null, companyDto.getAccountingId(), "PADRAO")).getId();
-				else if(scripts.size() == 1) return scripts.get(0).getId();
-				else if(scripts.size() > 1) return scripts.get(0).getId();
+				System.out.println(">>> XC "+response);
+
+				if(scripts.size() == 0) response = save(new ScriptTypeDTO(null, companyDto.getAccountingId(), "PADRAO")).getId();
+				else if(scripts.size() == 1) response = scripts.get(0).getId();
+				else if(scripts.size() > 1) response = scripts.get(0).getId();
 			}
-		} catch (Exception e) { }
-	
-		return null;
+		} catch (Exception e) { System.out.println(">>> XD "+response);}
+		System.out.println(">>> XE "+response);
+		return response;
 	}
 
 	
