@@ -138,5 +138,9 @@ public class CompanyService {
 		List<OrganizationDTO> dtos = oauthCliente.getOrganizationInfo(authorization, cnpj).getBody().getRecords();
 		return dtos;
 	}
+
+	public List<CompanyDTO> findCompanies(CompanyDTO filter, String authorization) {
+		return CompanyDTO.entityToDto(repository.findAll(filter, null, null));
+	}
     
 }

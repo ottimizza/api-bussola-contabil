@@ -78,14 +78,8 @@ public class DescriptionService {
 				}
 			}
 			List<ScriptType> scripts = scriptTypeRepository.findAll(new ScriptTypeDTO(null, null, descriptionDTO.getScriptDescription()));
-
-			if(descriptionDTO.getScriptDescription() != null) {
-				if(scripts.size() > 0)		 descriptionDTO.setScriptId(scripts.get(0).getId());
-				else if(scripts.size() == 0) descriptionDTO.setScriptId(scriptTypeRepository.save(new ScriptType(null, descriptionDTO.getAccountingId(), descriptionDTO.getScriptDescription())).getId());
-			} else {
-				scripts = scriptTypeRepository.findAll(new ScriptTypeDTO(null, null, "PADRAO"));
-				if(scripts.size() > 0)		 descriptionDTO.setScriptId(scripts.get(0).getId());
-				else if(scripts.size() == 0) descriptionDTO.setScriptId(scriptTypeRepository.save(new ScriptType(null, descriptionDTO.getAccountingId(), "PADRAO")).getId());
+			if(scripts.size() > 0 && descriptionDTO.getScriptDescription() != null) {
+				descriptionDTO.setScriptId(scripts.get(0).getId());
 			}
 		}
 
@@ -98,10 +92,12 @@ public class DescriptionService {
 
 			try {description2 = repository.findAll(dFiltro).get(0);} 
 			catch (Exception e) { }
+			
 		}
-		
+
 		//nao daremos UPDATE em description pra nao sobrepor o que o contador fez
-		if(description2 == null) {
+		if(description2 == null || description2.getId() == null) {
+
 			Description description = DescriptionDTO.dtoToDescription(descriptionDTO);
 			return DescriptionDTO.descriptionToDto(repository.save(description));
 		}

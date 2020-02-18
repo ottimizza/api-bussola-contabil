@@ -21,12 +21,11 @@ public class CompanyDTO implements Serializable{ //Company
 	private String cnpj;
 	private String name;
 	private Integer sector;
-//	private String organizationId;
 	private String externalId;
 	private BigInteger accountingId;
     private BigInteger scriptId;
 	private String scriptDescription;
-	
+	private String cnpjAccounting;
 	
 	public static CompanyDTO entityToDto(Company entity) {
 
@@ -38,7 +37,7 @@ public class CompanyDTO implements Serializable{ //Company
 		if(entity.getAccountingId() != null)	dto.setAccountingId(entity.getAccountingId());
 		if(entity.getExternalId() != null)		dto.setExternalId(entity.getExternalId());
 		if(entity.getScriptId() != null)		dto.setScriptId(entity.getScriptId());
-		// 'ScriptDescription' nao tem no entity
+		// 'ScriptDescription', 'cnpjAccounting' nao tem no entity
 		
 		return dto;
 	}

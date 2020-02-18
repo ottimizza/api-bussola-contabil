@@ -12,6 +12,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.text.DecimalFormat;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
@@ -147,7 +148,7 @@ public class WebChartsController {
 							.format(dataToCharts.optDouble("value"));
 
 					sb.append("			<div id=\"epi\">").append(rn);
-					sb.append("				<div id=\"charts").append(charts).append("\">").append(rn);
+					sb.append("				<div class=\"chart\" id=\"charts").append(charts).append("\">").append(rn);
 					sb.append("					<p>").append(dataToCharts.optString("title")).append("</p>")
 							.append(rn);
 					sb.append("					<span id=\"endo\"><strong>").append(valorString)
@@ -156,7 +157,7 @@ public class WebChartsController {
 					sb.append("			</div>").append(rn);
 
 				} else {
-					sb.append("			<div id=\"charts").append(charts).append("\"></div>").append(rn);
+					sb.append("			<div  class=\"chart\" id=\"charts").append(charts).append("\"></div>").append(rn);
 				}
 				cont++;
 			}
@@ -244,7 +245,7 @@ public class WebChartsController {
 		sb.append("			}").append(rn);
 		sb.append("		</script>").append(rn);
 
-		LocalDateTime agora = LocalDateTime.now();
+		LocalDateTime agora = LocalDateTime.now(ZoneId.of("America/Sao_Paulo"));
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
 	    
 		sb.append("		<script>").append(rn);
@@ -481,7 +482,7 @@ public class WebChartsController {
 		sb.append("			}").append(rn);
 		sb.append("		</script>").append(rn);
 
-	    LocalDateTime agora = LocalDateTime.now();
+		LocalDateTime agora = LocalDateTime.now(ZoneId.of("America/Sao_Paulo"));
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
 	    
 		sb.append("		<script>").append(rn);
