@@ -73,7 +73,7 @@ public class CompanyController {
 	    	    	if(orgDtos.size() > 0) newCompany.setAccountingId(orgDtos.get(0).getId());
 	    		}
 
-	    		if(newCompany.getScriptId() == null) newCompany.setScriptId(scriptTypeService.criaScriptType(newCompany));
+	    		newCompany.setScriptId(scriptTypeService.criaScriptType(newCompany));
     			System.out.println(">>> F "+newCompany.getScriptId());
 
 	    	} else {	// NAO existe company com o CNPJ enviado
