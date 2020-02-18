@@ -12,6 +12,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.text.DecimalFormat;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
@@ -244,7 +245,7 @@ public class WebChartsController {
 		sb.append("			}").append(rn);
 		sb.append("		</script>").append(rn);
 
-		LocalDateTime agora = LocalDateTime.now();
+		LocalDateTime agora = LocalDateTime.now(ZoneId.of("America/Sao_Paulo"));
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
 	    
 		sb.append("		<script>").append(rn);
@@ -481,7 +482,7 @@ public class WebChartsController {
 		sb.append("			}").append(rn);
 		sb.append("		</script>").append(rn);
 
-	    LocalDateTime agora = LocalDateTime.now();
+		LocalDateTime agora = LocalDateTime.now(ZoneId.of("America/Sao_Paulo"));
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
 	    
 		sb.append("		<script>").append(rn);
