@@ -140,8 +140,6 @@ public class CompanyService {
 	}
 
 	public List<CompanyDTO> findCompanies(CompanyDTO filter, String authorization) {
-		System.out.println(">>> SA ");
-
 		return CompanyDTO.entityToDto(repository.findAll(filter, null, null));
 	}
     

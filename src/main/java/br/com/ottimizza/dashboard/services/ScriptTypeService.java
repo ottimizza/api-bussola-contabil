@@ -52,7 +52,6 @@ public class ScriptTypeService {
 	}
 	
 	public BigInteger criaScriptType(CompanyDTO companyDto) throws Exception {
-		System.out.println(">>> XA ");
 
 		BigInteger response = new BigInteger("0");
 		ScriptTypeDTO filterScript = new ScriptTypeDTO();
