@@ -93,17 +93,21 @@ public class DescriptionService {
 
 		Description description2 = new Description();
 		if(descriptionDTO.getAccountingId() != null && descriptionDTO.getKpiAlias() != null && descriptionDTO.getScriptId() != null) {
-
+System.out.println(">> A ");
 			dFiltro.setAccountingId(descriptionDTO.getAccountingId());
 			dFiltro.setScriptId(descriptionDTO.getScriptId());
 			dFiltro.setKpiAlias(descriptionDTO.getKpiAlias());
 
 			try {description2 = repository.findAll(dFiltro).get(0);} 
 			catch (Exception e) { }
+			
 		}
-		
+		System.out.println(">> B "+description2.toString());
+
 		//nao daremos UPDATE em description pra nao sobrepor o que o contador fez
 		if(description2 == null) {
+			System.out.println(">> C ");
+
 			Description description = DescriptionDTO.dtoToDescription(descriptionDTO);
 			return DescriptionDTO.descriptionToDto(repository.save(description));
 		}
