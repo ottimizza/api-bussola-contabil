@@ -72,9 +72,7 @@ public class CompanyController {
 	    	    	List<OrganizationDTO> orgDtos = service.findOrganizationInfo(authorization, filterOrg);
 	    	    	if(orgDtos.size() > 0) newCompany.setAccountingId(orgDtos.get(0).getId());
 	    		}
-
 	    		newCompany.setScriptId(scriptTypeService.criaScriptType(newCompany));
-    			System.out.println(">>> F "+newCompany.getScriptId());
 
 	    	} else {	// NAO existe company com o CNPJ enviado
 
@@ -85,57 +83,12 @@ public class CompanyController {
     	    	if(orgDtos.size() > 0) newCompany.setAccountingId(orgDtos.get(0).getId());
     	    	
     	    	newCompany.setScriptId(scriptTypeService.criaScriptType(newCompany));
-				
 	    	}
-
-	    	
 	    	return ResponseEntity.ok(service.save(CompanyDTO.dtoToEntity(newCompany)));		
     	} catch (Exception e) { 
     		e.printStackTrace();
         	return ResponseEntity.badRequest().build();
     	}
-    
-    	
-    	//////////////////////////////////////////////////////////////
-    	//////////////////////////////////////////////////////////////
-    	//////////////////////////////////////////////////////////////
-    	//////////////////////////////////////////////////////////////
-
-//    	OrganizationDTO organizationDto = new OrganizationDTO();
-//    	Company company = CompanyDTO.dtoToEntity(companyDto);
-//    	organizationDto.setCnpj(company.getCnpj());
-//    	List<OrganizationDTO> orgDtos = service.findOrganizationInfo(authorization, organizationDto);
-//    	if(orgDtos.size() > 0)	{
-//    		OrganizationDTO response = orgDtos.get(0);
-//			
-//    		BigInteger idContabilidade = response.getOrganizationId();
-//			company.setAccountingId(idContabilidade);
-//			
-////			mover toda essa parte pro ScriptTypeService
-////			companyDto = scriptTypeService.trataRoteiroParaEmpresa(companyDto, authorization);
-//			
-//			List<ScriptTypeDTO> scripts = scriptTypeService.findAll(new ScriptTypeDTO(null, idContabilidade, null));
-//
-//			if(companyDto.getScriptDescription() == null) {
-//				if(scripts.size() == 0) {
-//					company.setScriptId(scriptTypeService.save(new ScriptTypeDTO(null, idContabilidade, "PADRAO")).getId());
-//				} else if(scripts.size() == 1) {
-//					company.setScriptId(scripts.get(0).getId());
-//				} else if(scripts.size() > 1) {
-//					company.setScriptId(scripts.get(0).getId());
-//				}
-//			}
-//			if(companyDto.getScriptDescription() != null) {
-//				if(scripts.size() == 0) {
-//					company.setScriptId(scriptTypeService.save(new ScriptTypeDTO(null, idContabilidade, companyDto.getScriptDescription())).getId());
-//				}else {
-//					company.setScriptId(scripts.get(0).getId());
-//				}
-//			}
-//			return ResponseEntity.ok(service.save(company));
-//    	}
-//    	return ResponseEntity.badRequest().build();
-    	
     }
     
     @GetMapping("find/{id}")
