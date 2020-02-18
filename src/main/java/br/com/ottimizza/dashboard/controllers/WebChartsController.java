@@ -147,7 +147,7 @@ public class WebChartsController {
 							.format(dataToCharts.optDouble("value"));
 
 					sb.append("			<div id=\"epi\">").append(rn);
-					sb.append("				<div id=\"charts").append(charts).append("\">").append(rn);
+					sb.append("				<div class=\"chart\" id=\"charts").append(charts).append("\">").append(rn);
 					sb.append("					<p>").append(dataToCharts.optString("title")).append("</p>")
 							.append(rn);
 					sb.append("					<span id=\"endo\"><strong>").append(valorString)
@@ -156,7 +156,7 @@ public class WebChartsController {
 					sb.append("			</div>").append(rn);
 
 				} else {
-					sb.append("			<div id=\"charts").append(charts).append("\"></div>").append(rn);
+					sb.append("			<div  class=\"chart\" id=\"charts").append(charts).append("\"></div>").append(rn);
 				}
 				cont++;
 			}
