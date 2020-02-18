@@ -89,21 +89,23 @@ public class DescriptionService {
 			}
 		}
 
+		Description description2 = new Description();
 		if(descriptionDTO.getAccountingId() != null && descriptionDTO.getKpiAlias() != null && descriptionDTO.getScriptId() != null) {
 
 			dFiltro.setAccountingId(descriptionDTO.getAccountingId());
 			dFiltro.setScriptId(descriptionDTO.getScriptId());
 			dFiltro.setKpiAlias(descriptionDTO.getKpiAlias());
 
-			try {
-				Description description = repository.findAll(dFiltro).get(0);
-				if (description != null) descriptionDTO.setId(description.getId());
-			} catch (Exception e) { }
+			try {description2 = repository.findAll(dFiltro).get(0);} 
+			catch (Exception e) { }
 		}
 		
-		Description description = DescriptionDTO.dtoToDescription(descriptionDTO);
-		
-		return DescriptionDTO.descriptionToDto(repository.save(description));
+		//nao daremos UPDATE em description pra nao sobrepor o que o contador fez
+		if(description2 == null) {
+			Description description = DescriptionDTO.dtoToDescription(descriptionDTO);
+			return DescriptionDTO.descriptionToDto(repository.save(description));
+		}
+		return new DescriptionDTO();
 	}
 	
 	public JSONObject delete(BigInteger descriptionId) throws Exception {
