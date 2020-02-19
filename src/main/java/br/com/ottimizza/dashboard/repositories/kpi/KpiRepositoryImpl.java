@@ -16,7 +16,9 @@ import com.querydsl.jpa.impl.JPAQuery;
 
 import br.com.ottimizza.dashboard.domain.dtos.KpiDTO;
 import br.com.ottimizza.dashboard.domain.dtos.KpiTitleAndValueDTO;
+import br.com.ottimizza.dashboard.models.ChartOption;
 import br.com.ottimizza.dashboard.models.Kpi;
+import br.com.ottimizza.dashboard.models.QChartOption;
 import br.com.ottimizza.dashboard.models.QCompany;
 import br.com.ottimizza.dashboard.models.QDescription;
 import br.com.ottimizza.dashboard.models.QKpi;
@@ -33,6 +35,7 @@ public class KpiRepositoryImpl implements KpiRepositoryCustom {
 	private QKpi kpi = QKpi.kpi;
 	private QKpiDetail kpiDetail = QKpiDetail.kpiDetail;
 	private QDescription description = QDescription.description1;
+	private QChartOption chartOption = QChartOption.chartOption;
 
 	@Override
 	public List<Kpi> findKpisByCNPJ(List<String> cnpj) {
@@ -61,7 +64,9 @@ public class KpiRepositoryImpl implements KpiRepositoryCustom {
 				.innerJoin(description)
 				.on(description.scriptId.eq(company.scriptId)
 				.and(description.accountingId.eq(company.accountingId))
-				.and(description.kpiAlias.eq(kpi.kpiAlias)));
+				.and(description.kpiAlias.eq(kpi.kpiAlias)))
+				.innerJoin(chartOption)
+				.on(chartOption.chartType.eq(description.chartType));
 		query.where(kpi.visible.isTrue()
 				.and(description.visible.isTrue()));
 
@@ -77,7 +82,7 @@ public class KpiRepositoryImpl implements KpiRepositoryCustom {
 
 		query.select(Projections.constructor(KpiDTO.class, company.cnpj, kpi.kind, kpi.id, 
 				description.title, kpi.kpiAlias, kpi.labelStringArray, description.chartType, 
-				kpi.chartOptions, description.visible));
+				chartOption.option, description.visible));
 		totalElements = query.fetchCount();
 		query.limit(pageable.getPageSize());
 		query.offset(pageable.getPageSize() * pageable.getPageNumber());
