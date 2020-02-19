@@ -2,6 +2,7 @@ package br.com.ottimizza.dashboard.repositories.description;
 
 import java.util.List;
 
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
@@ -13,8 +14,10 @@ import org.springframework.stereotype.Repository;
 import com.querydsl.jpa.impl.JPAQuery;
 
 import br.com.ottimizza.dashboard.domain.dtos.DescriptionDTO;
+import br.com.ottimizza.dashboard.models.Company;
 import br.com.ottimizza.dashboard.models.Description;
 import br.com.ottimizza.dashboard.models.QDescription;
+import br.com.ottimizza.dashboard.services.CompanyService;
 import br.com.ottimizza.dashboard.utils.StringUtil;
 
 @Repository
@@ -22,6 +25,9 @@ public class DescriptionRepositoryImpl implements DescriptionRepositoryCustom {
 	
 	@PersistenceContext
 	EntityManager em;
+	
+	@Inject
+    CompanyService service;
 	
 	private QDescription description = QDescription.description1;
 
@@ -44,6 +50,7 @@ public class DescriptionRepositoryImpl implements DescriptionRepositoryCustom {
 		JPAQuery<Description> query = new JPAQuery<Description>(em);
 		query.from(description);
 
+		Company company = new Company();
 		long totalDescriptions = 0;
 
 		if (descriptionDTO.getId() != null)				query.where(description.id.eq(descriptionDTO.getId()));
@@ -54,7 +61,18 @@ public class DescriptionRepositoryImpl implements DescriptionRepositoryCustom {
 		if (descriptionDTO.getTitle() != null) 			query.where(description.title.eq(descriptionDTO.getTitle()));
 		if (descriptionDTO.getGraphOrder() != null) 	query.where(description.graphOrder.eq(descriptionDTO.getGraphOrder()));
 		if (descriptionDTO.getChartType() != null) 		query.where(description.chartType.eq(descriptionDTO.getChartType()));
-		if (descriptionDTO.getCnpj() != null) 			query.where(description.cnpj.eq(StringUtil.formatCnpj(descriptionDTO.getCnpj())));
+		if (descriptionDTO.getCnpj() != null) {
+			try {
+				company = service.findByCnpj(StringUtil.formatCnpj(descriptionDTO.getCnpj()));
+				if(company != null) {
+					query.where(description.scriptId.eq(company.getScriptId()));
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+			
+			//query.where(description.cnpj.eq(StringUtil.formatCnpj(descriptionDTO.getCnpj())));
 		if (descriptionDTO.getVisible() != null) 		query.where(description.visible.eq(descriptionDTO.getVisible())); 
 
 		totalDescriptions = query.fetchCount();
