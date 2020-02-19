@@ -25,7 +25,6 @@ public class ChartOptionRepositoryImpl implements ChartOptionRepositoryCustom {
 		if(dto.getId() != null)				query.where(chartOption.id.eq(dto.getId()));
 		if(dto.getChartType() != null)		query.where(chartOption.chartType.eq(dto.getChartType()));
 		if(dto.getStyle() != null)			query.where(chartOption.style.eq(dto.getStyle()));
-//		if(dto.getOption() != null)			query.where(chartOption.option.eq(dto.getOption()));
 
 		return query.fetch();
 	}
