@@ -57,10 +57,6 @@ public class OAuthClientController {
     		String response = EntityUtils.toString(responseEntity, "UTF-8");
     		HttpStatus status = HttpStatus.valueOf(httpResponse.getStatusLine().getStatusCode());
             
-            System.out.println(" ***** ");
-            System.out.println("Response ..: " + response);
-            System.out.println("Status ....:   " + status.toString());
-            
             return ResponseEntity.status(status).body(response);
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -90,10 +86,6 @@ public class OAuthClientController {
 
             String response = EntityUtils.toString(responseEntity, "UTF-8");
             HttpStatus status = HttpStatus.valueOf(httpResponse.getStatusLine().getStatusCode());
-
-            System.out.println(" ***** ");
-            System.out.println("Response ..: " + response);
-            System.out.println("Status ....:   " + status.toString());
             
             return ResponseEntity.status(status).body(response);
         } catch (Exception ex) {
