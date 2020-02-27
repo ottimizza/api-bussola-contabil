@@ -649,7 +649,7 @@ public class WebChartsController {
 			int charts = Integer.parseInt(webChart.getKpiAlias());
 			
 			dataToCharts = wcs.getDataToChartsNovo(webChart);
-			System.out.println("chart"+charts);
+			
 			if (charts == 7 || charts == 12) {
 				String valorString = DecimalFormat.getCurrencyInstance(ptBr)
 						.format(dataToCharts.optDouble("value"));
