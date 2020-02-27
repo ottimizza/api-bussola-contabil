@@ -1,5 +1,6 @@
 package br.com.ottimizza.dashboard.repositories.kpi_detail;
 
+import java.math.BigInteger;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -79,6 +80,14 @@ public class KpiDetailRepositoryImpl implements KpiDetailRepositoryCustom {
 		query.limit(pageable.getPageSize());
 		query.offset(pageable.getPageSize() * pageable.getPageNumber());
 		return new PageImpl<KpiDetail>(query.fetch(), pageable, totalElements);
+	}
+
+	@Override
+	public List<KpiDetail> findByKpiId(BigInteger id) {
+		JPAQuery<KpiDetail> query = new JPAQuery<KpiDetail>(em).from(kpiDetail)
+                .innerJoin(kpi).on(kpi.id.eq(kpiDetail.kpiID.id));
+		query.where(kpiDetail.kpiID.id.eq(id));
+		return query.fetch();
 	}
 
 	

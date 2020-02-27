@@ -90,5 +90,9 @@ public class KpiDetailService {
 	public Page<KpiDetailDTO> findAll(KpiDetailDTO filter, int pageIndex, int pageSize, String authorization) {
 		return repository.findAll(filter, PageRequest.of(pageIndex, pageSize)).map(KpiDetailDTO::fromEntity);		
 	}
+
+	public List<KpiDetail> findByKpiId(BigInteger id) {
+		return repository.findByKpiId(id);
+	}
     
 }

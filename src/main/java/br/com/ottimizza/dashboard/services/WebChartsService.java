@@ -1,5 +1,6 @@
 package br.com.ottimizza.dashboard.services;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,6 +9,12 @@ import javax.inject.Inject;
 import org.json.JSONObject;
 import org.springframework.stereotype.Service;
 
+import com.querydsl.core.types.Ops;
+
+import br.com.ottimizza.dashboard.domain.dtos.ChartOptionDTO;
+import br.com.ottimizza.dashboard.domain.dtos.KpiDTO;
+import br.com.ottimizza.dashboard.domain.dtos.WebChartDTO;
+import br.com.ottimizza.dashboard.models.ChartOption;
 import br.com.ottimizza.dashboard.models.KpiDetail;
 
 @Service
@@ -15,6 +22,12 @@ public class WebChartsService {
 
 	@Inject
 	KpiDetailService kpiDetailService;
+	
+	@Inject
+	KpiService kpiService;
+	
+	@Inject
+	ChartOptionService chartOptionService;
 	
 	public static final String CHART_TYPE_COLUMN = "ColumnChart";
 	public static final String CHART_TYPE_LINE = "LineChart";
@@ -172,12 +185,135 @@ public class WebChartsService {
 		
 		return records;
 	}
+	
+	public JSONObject getDataToChartsNovo(WebChartDTO chart) {
+		
+		WebChartDTO webChart = chart;
+		JSONObject records = new JSONObject();
+        BigInteger kpiId = webChart.getId();
+        String kpiAliasS  = webChart.getKpiAlias();
+        int kpiAlias = Integer.parseInt(kpiAliasS);
+        
+        List<KpiDetail> kpiDetailList = kpiDetailService.findByKpiId(kpiId);
+        
+        
+        String rn = "\r\n";
+        String s = "";
+        
+        StringBuffer sbGraphType = new StringBuffer();
+        
+        // tratamento de JSON
+		if(webChart != null) {
+			boolean openC = false;
+			String cName = "";
+    		String cCnpj = "";
+			
+        	for (KpiDetail kpiD : kpiDetailList) {
+        		
+        		
+           		if(cName.equals("")) cName = webChart.getCompanyName();
+        		if(cCnpj.equals("")) cCnpj = webChart.getCnpj();
+        		
+        		
+        		if(!cName.equals("")) records.put("companyName", cName);
+        		if(!cCnpj.equals("")) records.put("cnpj", cCnpj);
+
+				if(sbGraphType.length() == 0 || sbGraphType.equals("") || sbGraphType == null) {
+					openC = true;
+
+					records.put("title", webChart.getTitle());
+					records.put("subtitle", webChart.getSubtitle());
+					
+					records.put("visible", webChart.isVisible());
+					
+					
+					records.put("div", kpiAliasS);
+					
+												
+					if(kpiAlias == 7 || kpiAlias == 12) {
+						records.put("value", kpiD.getValorKPI());
+					}
+						
+					s = "','";
+					sbGraphType.append("					['");
+					sbGraphType.append(webChart.getSubtitle());
+					sbGraphType.append(s);
+					
+					String[] labels = webChart.getLabelArray().split(";");
+					
+					sbGraphType.append(labels[0]);
+					if (labels.length > 1 && labels[1] != "") {
+						sbGraphType.append(s);
+						sbGraphType.append(labels[1]);
+					}
+					if (labels.length > 2 && !labels[2].equals("")) {
+						sbGraphType.append(s);
+						sbGraphType.append(labels[2]);
+					}
+					if (labels.length > 3 && !labels[3].equals("")) {
+						sbGraphType.append(s);
+						sbGraphType.append(labels[3]);
+					}
+					
+					sbGraphType.append("'");
+					}
+					
+					s = ",";
+					
+					sbGraphType.append("],");
+					sbGraphType.append(rn);
+					
+					sbGraphType.append("					['");
+					if(kpiAlias != 7) sbGraphType.append(kpiD.getXBinding()); //retirado getColumnX() pra nao ir dia
+					sbGraphType.append("'").append(s);
+					if(kpiAlias == 7) {
+						
+						double vld = kpiD.getValorKPI();
+						int valorKpi = (int) vld;
+						sbGraphType.append(valorKpi);
+						
+					} else {
+						String[] arrayVal = kpiD.getValorStringArray().split(";");
+						sbGraphType.append(arrayVal[0].toString());
+						
+						if(arrayVal.length > 2) {
+							sbGraphType.append(s);
+							sbGraphType.append(arrayVal[2].toString());
+							
+						}
+						if(arrayVal.length > 4) {
+							sbGraphType.append(s);
+							sbGraphType.append(arrayVal[4].toString());
+						}
+						if(arrayVal.length > 6) {
+							sbGraphType.append(s);
+							sbGraphType.append(arrayVal[6].toString());
+						}
+					}
+			}
+        	if(openC) sbGraphType.append("]").append(rn);
+		}
+		if(sbGraphType.toString().length() == 0) {
+			records.put("emptyTable", true);
+		}
+		else {
+			records.put("emptyTable", false);
+		}
+		
+		records.put("data", sbGraphType.toString());
+		
+		
+		records.put("chartType",webChart.getChartType());
+		
+		return records;
+	}
+
 
 	public String getTable(JSONObject dataToCharts){
 		
 		StringBuffer sb = new StringBuffer();
 		String rn = "\r\n";
-		String k  = dataToCharts.optString("div");
+		int k = Integer.parseInt(dataToCharts.optString("div"));
 		
 		sb.append("				let dataTable").append(k).append(" = google.visualization.arrayToDataTable([").append(rn);
 		sb.append(dataToCharts.optString("data"));
@@ -189,8 +325,10 @@ public class WebChartsService {
 	public String putOptions(JSONObject dataToCharts){
 		StringBuffer sb = new StringBuffer();
 		String rn = "\r\n";
-		sb.append("				let options").append(dataToCharts.optString("div")).append(" = Object.assign({}, optionsTo").append(dataToCharts.optString("chartType")).append(");").append(rn);
-		sb.append("				options").append(dataToCharts.optString("div")).append(".title = '").append(dataToCharts.optString("title")).append("';").append(rn);
+		int k = Integer.parseInt(dataToCharts.optString("div"));
+		
+		sb.append("				let options").append(k).append(" = Object.assign({}, optionsTo").append(dataToCharts.optString("chartType")).append(");").append(rn);
+		sb.append("				options").append(k).append(".title = '").append(dataToCharts.optString("title")).append("';").append(rn);
 
 		return sb.toString();
 	}
@@ -198,9 +336,15 @@ public class WebChartsService {
 	public String putChart(JSONObject dataToCharts){
 		StringBuffer sb = new StringBuffer();
 		String rn  = "\r\n";
-		String k   = dataToCharts.optString("div");
+		int k = Integer.parseInt(dataToCharts.optString("div"));
 		String div = "charts"+k;
-		sb.append("				let grafico").append(k).append(" = new google.visualization.").append(dataToCharts.optString("chartType")).append("(").append(rn);
+		String chartType = dataToCharts.optString("chartType");
+		
+		chartType = chartType.replace("Stacked", "");
+		chartType = chartType.replace("Multiple", "");
+		chartType = chartType.replace("Donut", "Pie");
+		
+		sb.append("				let grafico").append(k).append(" = new google.visualization.").append(chartType).append("(").append(rn);
 		sb.append("					document.getElementById('").append(div).append("'));").append(rn);
 		sb.append("				grafico").append(k).append(".draw(dataTable").append(k).append(", options").append(k).append(");").append(rn).append(rn);
 		return sb.toString();
@@ -247,6 +391,12 @@ public class WebChartsService {
 		sb.append("				");
 		if(isNew) sb.append("let ");
 		sb.append("optionsToGauge = Object.assign({},options);"						).append(rn);
+		sb.append("				");
+		if(isNew) sb.append("let ");
+		sb.append("optionsToDonutChart = Object.assign({},options);"			).append(rn);
+		sb.append("				");
+		if(isNew) sb.append("let ");
+		sb.append("optionsToLineChartMultiple = Object.assign({},options);"     ).append(rn);
 		sb.append("				optionsToColumnChart.bar = {groupWidth: '80%'};"	).append(rn);
 		sb.append("				optionsToLineChart.curveType = 'function'"			).append(rn);
 		sb.append("				optionsToPieChart.legend = {position: 'bottom'};"	).append(rn);
@@ -258,6 +408,24 @@ public class WebChartsService {
 		return sb.toString();
 	}
 	
+	public String getOptions() {
+		StringBuffer sb = new StringBuffer();
+		List<ChartOption> charts = chartOptionService.findAll(ChartOptionDTO.builder().id(null).build());
+		String rn = "\r\n";
+		
+		for(ChartOption chart : charts) {
+			String ct = chart.getChartType();
+			String co = chart.getOption();
+			sb.append("				");
+			sb.append("let ");
+			sb.append("options").append(ct).append(" = ").append(co).append(";").append(rn);
+			sb.append("				");
+			sb.append("let ");
+			sb.append("optionsTo").append(ct).append(" = Object.assign({},options").append(ct).append(");").append(rn);
+			
+		}
+		return sb.toString();
+	}
 	
 	//usado nos graficos gerados compartilhados apartir do celular
 	public String getBasicStyle(){
@@ -313,7 +481,7 @@ public class WebChartsService {
 		sb.append("			#epi{"										).append(rn);
 		sb.append("				padding: 10px;"						).append(rn);
 		sb.append("				text-align: center;"				).append(rn);
-		sb.append("				width: 80%;"						).append(rn);
+		sb.append("				width: 100%;"						).append(rn);
 		sb.append("				height: 150px;"							).append(rn);
 		sb.append("			}"												).append(rn);
 		sb.append("			#charts7, #charts12 {"							).append(rn);
@@ -411,7 +579,7 @@ public class WebChartsService {
 		sb.append("			#epi{"											).append(rn);
 		sb.append("				padding: 10px;"								).append(rn);
 		sb.append("				text-align: center;"						).append(rn);
-		sb.append("				width: 80%;"								).append(rn);
+		sb.append("				width: 100%;"								).append(rn);
 		sb.append("				height: 150px;"								).append(rn);
 		sb.append("			}"												).append(rn);
 		sb.append("			#charts7, #charts12 {"							).append(rn);
