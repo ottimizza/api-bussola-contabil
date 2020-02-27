@@ -8,6 +8,7 @@ import org.springframework.data.domain.Pageable;
 
 import br.com.ottimizza.dashboard.domain.dtos.KpiDTO;
 import br.com.ottimizza.dashboard.domain.dtos.KpiTitleAndValueDTO;
+import br.com.ottimizza.dashboard.domain.dtos.WebChartDTO;
 import br.com.ottimizza.dashboard.models.Kpi;
 
 public interface KpiRepositoryCustom { // KpiRepositoryImpl
@@ -17,4 +18,6 @@ public interface KpiRepositoryCustom { // KpiRepositoryImpl
     KpiTitleAndValueDTO findKpiDTOByCompanyId(BigInteger companyId);
     
     Page<KpiDTO> findAll(KpiDTO filter, Pageable pageable) throws Exception;
+    
+    List<WebChartDTO> findToChart(String cnpj);
 }

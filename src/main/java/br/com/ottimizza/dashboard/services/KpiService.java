@@ -1,6 +1,7 @@
 package br.com.ottimizza.dashboard.services;
 
 import java.math.BigInteger;
+import java.util.List;
 import java.util.Optional;
 
 import javax.inject.Inject;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import br.com.ottimizza.dashboard.domain.dtos.KpiDTO;
 import br.com.ottimizza.dashboard.domain.dtos.KpiTitleAndValueDTO;
+import br.com.ottimizza.dashboard.domain.dtos.WebChartDTO;
 import br.com.ottimizza.dashboard.models.Company;
 import br.com.ottimizza.dashboard.models.Kpi;
 import br.com.ottimizza.dashboard.repositories.company.CompanyRepository;
@@ -113,6 +115,10 @@ public class KpiService {
 
 	public Page<KpiDTO> findAll(KpiDTO filter, int pageIndex, int pageSize, String authorization) throws Exception {
 		return repository.findAll(filter, PageRequest.of(pageIndex, pageSize));
+	}
+	
+	public List<WebChartDTO> findToChart(String cnpj){
+		return repository.findToChart(cnpj);
 	}
 	
 }
