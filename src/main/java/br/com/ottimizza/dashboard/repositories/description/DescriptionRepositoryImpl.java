@@ -2,7 +2,6 @@ package br.com.ottimizza.dashboard.repositories.description;
 
 import java.util.List;
 
-import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
@@ -14,10 +13,9 @@ import org.springframework.stereotype.Repository;
 import com.querydsl.jpa.impl.JPAQuery;
 
 import br.com.ottimizza.dashboard.domain.dtos.DescriptionDTO;
-import br.com.ottimizza.dashboard.models.Company;
 import br.com.ottimizza.dashboard.models.Description;
+import br.com.ottimizza.dashboard.models.QCompany;
 import br.com.ottimizza.dashboard.models.QDescription;
-import br.com.ottimizza.dashboard.services.CompanyService;
 import br.com.ottimizza.dashboard.utils.StringUtil;
 
 @Repository
@@ -26,11 +24,13 @@ public class DescriptionRepositoryImpl implements DescriptionRepositoryCustom {
 	@PersistenceContext
 	EntityManager em;
 	
-	@Inject
-    CompanyService service;
+//	@Inject
+//    CompanyService service;
 	
 	private QDescription description = QDescription.description1;
 
+	private QCompany company = QCompany.company;
+			
 	@Override
 	public List<Description> findAll(DescriptionDTO descriptionDto) {
 
@@ -45,39 +45,31 @@ public class DescriptionRepositoryImpl implements DescriptionRepositoryCustom {
 	}
 
 	@Override
-	public Page<Description> findByAccountingIdScriptType(DescriptionDTO descriptionDTO, Pageable pageable) {
+	public Page<Description> findDescriptions(DescriptionDTO filter, Pageable pageable) {
 
-		JPAQuery<Description> query = new JPAQuery<Description>(em);
-		query.from(description);
-
-		Company company = new Company();
 		long totalDescriptions = 0;
 
-		if (descriptionDTO.getId() != null)				query.where(description.id.eq(descriptionDTO.getId()));
-		if (descriptionDTO.getAccountingId() != null)	query.where(description.accountingId.eq(descriptionDTO.getAccountingId()));
-		if (descriptionDTO.getKpiAlias() != null)		query.where(description.kpiAlias.eq(descriptionDTO.getKpiAlias()));
-		if (descriptionDTO.getDescription() != null) 	query.where(description.description.eq(descriptionDTO.getDescription()));
-		if (descriptionDTO.getScriptId() != null) 		query.where(description.scriptId.eq(descriptionDTO.getScriptId()));
-		if (descriptionDTO.getTitle() != null) 			query.where(description.title.eq(descriptionDTO.getTitle()));
-		if (descriptionDTO.getGraphOrder() != null) 	query.where(description.graphOrder.eq(descriptionDTO.getGraphOrder()));
-		if (descriptionDTO.getChartType() != null) 		query.where(description.chartType.eq(descriptionDTO.getChartType()));
-		if (descriptionDTO.getCnpj() != null) {
-			try {
-				company = service.findByCnpj(StringUtil.formatCnpj(descriptionDTO.getCnpj()));
-				if(company != null) {
-					query.where(description.scriptId.eq(company.getScriptId()));
-				}
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+		JPAQuery<Description> query = new JPAQuery<Description>(em).from(description);
+		
+		if (filter.getCnpj() != null) {
+			query.innerJoin(company).on(company.cnpj.eq(description.cnpj));
+			query.where(company.cnpj.eq(StringUtil.formatCnpj(filter.getCnpj())));
 		}
-			
-			//query.where(description.cnpj.eq(StringUtil.formatCnpj(descriptionDTO.getCnpj())));
-		if (descriptionDTO.getVisible() != null) 		query.where(description.visible.eq(descriptionDTO.getVisible())); 
+
+		if (filter.getId() != null)				query.where(description.id.eq(filter.getId()));
+		if (filter.getAccountingId() != null)	query.where(description.accountingId.eq(filter.getAccountingId()));
+		if (filter.getKpiAlias() != null)		query.where(description.kpiAlias.eq(filter.getKpiAlias()));
+		if (filter.getDescription() != null) 	query.where(description.description.eq(filter.getDescription()));
+		if (filter.getScriptId() != null) 		query.where(description.scriptId.eq(filter.getScriptId()));
+		if (filter.getTitle() != null) 			query.where(description.title.eq(filter.getTitle()));
+		if (filter.getGraphOrder() != null) 	query.where(description.graphOrder.eq(filter.getGraphOrder()));
+		if (filter.getChartType() != null) 		query.where(description.chartType.eq(filter.getChartType()));
+		
+		if (filter.getVisible() != null) 		query.where(description.visible.eq(filter.getVisible())); 
 
 		totalDescriptions = query.fetchCount();
 		query.limit(pageable.getPageSize());
-		query.offset(pageable.getPageSize() *pageable.getPageNumber());
+		query.offset(pageable.getPageSize() * pageable.getPageNumber());
 
 		return new PageImpl<Description>(query.orderBy(description.graphOrder.asc()).fetch(), pageable, totalDescriptions);
 	}	

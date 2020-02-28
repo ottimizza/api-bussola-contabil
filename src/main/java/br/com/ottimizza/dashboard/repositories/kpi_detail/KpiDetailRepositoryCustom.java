@@ -1,5 +1,6 @@
 package br.com.ottimizza.dashboard.repositories.kpi_detail;
 
+import java.math.BigInteger;
 import java.util.List;
 
 import org.json.JSONObject;
@@ -20,5 +21,7 @@ public interface KpiDetailRepositoryCustom {	//KpiDetailRepositoryImpl
     List<String> findKpiAlias(String cnpj);
 
     Page<KpiDetail> findAll(KpiDetailDTO filter, Pageable pageable);  
+    
+    List<KpiDetail> findByKpiId(BigInteger id);
 
 }

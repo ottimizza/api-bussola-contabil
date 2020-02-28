@@ -153,7 +153,13 @@ public class DescriptionService {
 	}
 
 	public Page<DescriptionDTO> returnDescriptionList(DescriptionDTO filter, int pageIndex, int pageSize, String authorization) {
-		return repository.findByAccountingIdScriptType(filter, PageRequest.of(pageIndex, pageSize)).map(DescriptionDTO::descriptionToDto);
+
+		if(filter.getCnpj() != null) {
+			try { filter.setScriptId(companyRepository.findByCnpj(filter.getCnpj()).getScriptId()); }
+			catch (Exception e) { }
+		}
+			
+		return repository.findDescriptions(filter, PageRequest.of(pageIndex, pageSize)).map(DescriptionDTO::descriptionToDto);
 	}
 
 	public DescriptionDTO updateByOrganizationIdScriptType(DescriptionDTO descriptionDTO){

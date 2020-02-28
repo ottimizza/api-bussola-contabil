@@ -45,7 +45,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.ottimizza.dashboard.apis.IsGdApi;
+import br.com.ottimizza.dashboard.domain.dtos.WebChartDTO;
 import br.com.ottimizza.dashboard.repositories.kpi_detail.KpiDetailRepository;
+import br.com.ottimizza.dashboard.services.KpiService;
 import br.com.ottimizza.dashboard.services.WebChartsService;
 import br.com.ottimizza.dashboard.utils.StringUtil;
 
@@ -55,6 +57,9 @@ public class WebChartsController {
 
 	@Inject
 	WebChartsService wcs;
+	
+	@Inject
+	KpiService kpiService;
 
 	@Inject
 	KpiDetailRepository kpiRepository;
@@ -196,7 +201,7 @@ public class WebChartsController {
 						sb.append("				dataTable").append(dataToCharts.optString("div")).append(rn);
 					}
 					sb.append(wcs.putOptions(dataToCharts));
-
+					
 					// opcoes adicionais
 					if(dataToCharts.optString("chartType").equals("PieChart")) { //(kk == 3 || kk == 13 || kk == 14)
 						sb.append("				options").append(kk).append(".pieHole = 0.4;").append(rn);
@@ -586,4 +591,173 @@ public class WebChartsController {
 	public String getContentDisposition(Resource resource) throws Exception {
 		return getContentDisposition(resource, "inline");
 	}
+	
+	@RequestMapping(value = "/by_cnpj_Novo", method = RequestMethod.POST)
+	public String compartilhaGráficos (@RequestHeader("Authorization") String authorization, @RequestBody String objRequest,
+			HttpServletRequest request) throws IOException, Exception {
+		
+		authorization = authorization.replace("Bearer ", "");
+
+		JSONObject requestBody = new JSONObject(objRequest);
+		JSONArray cnpjs = requestBody.optJSONArray("cnpj");
+		String urlLogo = requestBody.optJSONArray("urlLogo").getString(0);
+		
+		Locale ptBr = new Locale("pt", "BR");
+		
+		// variavel usada em FOR
+		String cnpjString = StringUtil.formatCnpj(cnpjs.getString(0));
+		List<WebChartDTO> webCharts = kpiService.findToChart(cnpjString);
+		
+		JSONObject dataToCharts = new JSONObject();
+//		montar aqui depois mover pra service ou nao
+
+		StringBuffer sb = new StringBuffer();
+		String rn = "\r\n";
+
+		sb.append("<!DOCTYPE html>"						).append(rn);
+		sb.append("<html>"								).append(rn);
+		sb.append("	<head>"								).append(rn);
+		sb.append("		<meta charset=\"utf-8\"/>"		).append(rn);
+
+		sb.append(wcs.getBasicStyle());
+
+		
+		dataToCharts = new JSONObject();
+		String companyName = webCharts.get(0).getCompanyName();
+		
+		sb.append("		</style>").append(rn);
+		sb.append("	</head>").append(rn);
+		sb.append("	<body>").append(rn);
+
+		int cont = 0;
+		sb.append("		<div id=\"container\">").append(rn);
+
+		// mudar link
+		if (urlLogo.equals("")) {
+			urlLogo = "https://www.ottimizza.com.br/bussola/logo_bussola.png";
+		}
+		
+		sb.append("			<div id=\"head\" style=\"margin:0\">").append(rn);
+		sb.append("				<img id=\"logo\" style=\"margin-left:240px; margin-right:40px\" src=\"").append(urlLogo).append("\">").append(rn);
+		sb.append("				<div style=\"width: fit-content; margin: 0;\">").append(rn);
+		sb.append("					<span style=\"margin-bottom: 5px;\">").append(cnpjString).append("</span>").append(rn);
+		sb.append("					<span>").append(companyName).append("</span>").append(rn);
+		sb.append("				</div>").append(rn);
+		sb.append("			</div>").append(rn);
+		
+		for (WebChartDTO webChart : webCharts) {
+			int charts = Integer.parseInt(webChart.getKpiAlias());
+			
+			dataToCharts = wcs.getDataToChartsNovo(webChart);
+			
+			if (charts == 7 || charts == 12) {
+				String valorString = DecimalFormat.getCurrencyInstance(ptBr)
+						.format(dataToCharts.optDouble("value"));
+				
+				sb.append("			<div id=\"epi\">").append(rn);
+				sb.append("				<div class=\"chart\" id=\"charts").append(charts).append("\">").append(rn);
+				sb.append("					<p>").append(dataToCharts.optString("title")).append("</p>")
+				.append(rn);
+				sb.append("					<span id=\"endo\"><strong>").append(valorString)
+				.append("</strong></span>").append(rn);
+				sb.append("				</div>").append(rn);
+				sb.append("			</div>").append(rn);
+
+			} else {
+				sb.append("			<div  class=\"chart\" id=\"charts").append(charts).append("\"></div>").append(rn);
+			}
+			cont++;
+			
+			if (cont == 3) {
+				sb.append("			<div id=\"separator\"></div>").append(rn).append(rn);
+				cont = 0;
+			}
+		}
+
+		sb.append("		</div>").append(rn).append(rn);
+
+		sb.append("	<footer>").append(rn);
+		sb.append("		<script type=\"text/javascript\" src=\"https://www.gstatic.com/charts/loader.js\"></script>")
+				.append(rn);
+		sb.append("		<script>").append(rn);
+		sb.append("			function drawCharts() {").append(rn);
+
+		sb.append("				let cores = ['#4285f4','#00ce93','#ce0000','#af00ce','#ce8900'];	").append(rn);
+		sb.append(wcs.getOptions());
+		
+		for (WebChartDTO webChart : webCharts) {
+			int kk = Integer.parseInt(webChart.getKpiAlias());
+			
+			dataToCharts = wcs.getDataToChartsNovo(webChart);
+				
+			if(!dataToCharts.optString("chartType").equals("CardChart")) { 
+				sb.append(wcs.getTable(dataToCharts));
+				sb.append(wcs.putOptions(dataToCharts));
+				sb.append(wcs.putChart(dataToCharts));
+			}
+		}
+
+		sb.append("			}").append(rn);
+		sb.append("		</script>").append(rn);
+
+		LocalDateTime agora = LocalDateTime.now(ZoneId.of("America/Sao_Paulo"));
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+	    
+		sb.append("		<script>").append(rn);
+		sb.append("			google.charts.load('current', {").append(rn);
+		sb.append("				'packages': ['corechart', 'gauge', 'bar'],").append(rn);
+		sb.append("				'language': 'pt'").append(rn);
+		sb.append("			});").append(rn);
+		sb.append("			google.charts.setOnLoadCallback(drawCharts);").append(rn);
+		sb.append("		</script>").append(rn);
+		sb.append("    <p class=\"data\"> Compartilhado em ").append(agora.format(formatter)).append("</div>");
+		sb.append("	</footer>").append(rn);
+		sb.append("	</body>").append(rn);
+		sb.append("</html>").append(rn);
+
+		// cria arquivo temporario
+		File tmp = File.createTempFile("Bussola", ".html");
+		tmp.deleteOnExit();
+
+		// tratamento de arquivo para download
+		OutputStream fos = new FileOutputStream(tmp);
+		Writer osw = new OutputStreamWriter(fos);
+		BufferedWriter bw = new BufferedWriter(osw);
+
+		// escrevendo arquivo
+		bw.write(sb.toString());
+		bw.close();
+
+		String application_id = UPLOAD_ID_BUSSOLA;
+		String accounting_id = UPLOAD_ACCOUNTING_ID;
+		String resourceId = "";
+
+		try {
+			//Ajuste para evitar de ir em branco o link
+			for (int kk = 0; kk < 5; kk++) {
+
+				JSONObject response = new JSONObject(sendToStorage(tmp, authorization, application_id, accounting_id));
+				JSONObject record = response.optJSONObject("record");
+				resourceId = record.optString("id");
+						
+				String downloadURL = "";
+				String toShortURL = String.format("https://s4.ottimizzacontabil.com:55325/storage/%s", resourceId);
+						
+				//encurtador de URL
+				IsGdApi gd = new IsGdApi();
+				downloadURL = gd.shortURL(toShortURL);
+						
+				if(downloadURL.equals("")) downloadURL = toShortURL;
+						
+				record.put("id", downloadURL);
+				response.put("record", record);
+
+				if (!resourceId.equals("") && !downloadURL.equals(""))
+					return response.toString();
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			return "{}";
+		}
 }
