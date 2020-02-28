@@ -70,4 +70,10 @@ public class KpiController {
   		return ResponseEntity.ok(kpiService.findAll(filter, pageIndex, pageSize, authorization));
 	}
 	
+	@GetMapping("toChart/{cnpj}")
+	public ResponseEntity<?> findToChart(@PathVariable("cnpj") String cnpj) throws Exception {
+		return ResponseEntity.ok(kpiService.findToChart(cnpj));
+	}
+	
+	
 }

@@ -16,6 +16,8 @@ import com.querydsl.jpa.impl.JPAQuery;
 
 import br.com.ottimizza.dashboard.domain.dtos.KpiDTO;
 import br.com.ottimizza.dashboard.domain.dtos.KpiTitleAndValueDTO;
+import br.com.ottimizza.dashboard.domain.dtos.WebChartDTO;
+import br.com.ottimizza.dashboard.models.ChartOption;
 import br.com.ottimizza.dashboard.models.Kpi;
 import br.com.ottimizza.dashboard.models.QChartOption;
 import br.com.ottimizza.dashboard.models.QCompany;
@@ -88,5 +90,28 @@ public class KpiRepositoryImpl implements KpiRepositoryCustom {
 		
 		return new PageImpl<KpiDTO>(query.orderBy(description.graphOrder.asc()).fetch(), pageable, totalElements);
 
+	}
+
+	@Override
+	public List<WebChartDTO> findToChart(String cnpj) {
+		JPAQuery<WebChartDTO> query = new JPAQuery<WebChartDTO>(em).from(kpi)
+				.innerJoin(company)
+				.on(company.id.eq(kpi.company.id))
+				.innerJoin(description)
+				.on(description.scriptId.eq(company.scriptId)
+				.and(description.accountingId.eq(company.accountingId))
+				.and(description.kpiAlias.eq(kpi.kpiAlias)))
+				.innerJoin(chartOption)
+				.on(chartOption.chartType.eq(description.chartType));
+		query.where(kpi.visible.isTrue()
+				.and(description.visible.isTrue()));
+		query.where(company.cnpj.eq(StringUtil.formatCnpj(cnpj)));
+		
+		query.select(Projections.constructor(WebChartDTO.class, kpi.kind, company.cnpj, kpi.id, 
+				description.title, kpi.kpiAlias, kpi.labelStringArray, description.chartType, 
+				chartOption.option, description.visible, kpi.subtitle, company.name));
+		query.orderBy(description.graphOrder.asc());
+		
+		return query.fetch();
 	}
 }
