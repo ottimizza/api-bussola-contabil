@@ -593,7 +593,7 @@ public class WebChartsController {
 	}
 	
 	@RequestMapping(value = "/by_cnpj_Novo", method = RequestMethod.POST)
-	public ResponseEntity<Resource> compartilhaGráficos (@RequestHeader("Authorization") String authorization, @RequestBody String objRequest,
+	public String compartilhaGráficos (@RequestHeader("Authorization") String authorization, @RequestBody String objRequest,
 			HttpServletRequest request) throws IOException, Exception {
 		
 		authorization = authorization.replace("Bearer ", "");
@@ -731,16 +731,36 @@ public class WebChartsController {
 		bw.write(sb.toString());
 		bw.close();
 
-		Resource resource = loadFileAsResource(tmp);
-		
+		String application_id = UPLOAD_ID_BUSSOLA;
+		String accounting_id = UPLOAD_ACCOUNTING_ID;
+		String resourceId = "";
 
-		String contentDisposition = getContentDisposition(resource, "attachment");
-        String contentType = "application/octet-stream"; //getContentType(resource, request);
+		try {
+			//Ajuste para evitar de ir em branco o link
+			for (int kk = 0; kk < 5; kk++) {
 
-        return ResponseEntity.ok()
-                .contentType(MediaType.parseMediaType(contentType))
-                .header(HttpHeaders.CONTENT_DISPOSITION, contentDisposition)
-                .body(resource);
-		
+				JSONObject response = new JSONObject(sendToStorage(tmp, authorization, application_id, accounting_id));
+				JSONObject record = response.optJSONObject("record");
+				resourceId = record.optString("id");
+				
+				String downloadURL = "";
+				String toShortURL = String.format("https://s4.ottimizzacontabil.com:55325/storage/%s", resourceId);
+				
+				//encurtador de URL
+				IsGdApi gd = new IsGdApi();
+				downloadURL = gd.shortURL(toShortURL);
+				
+				if(downloadURL.equals("")) downloadURL = toShortURL;
+				
+				record.put("id", downloadURL);
+				response.put("record", record);
+
+				if (!resourceId.equals("") && !downloadURL.equals(""))
+					return response.toString();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "{}";
 	}
 }
