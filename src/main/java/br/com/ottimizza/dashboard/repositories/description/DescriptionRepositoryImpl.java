@@ -2,7 +2,6 @@ package br.com.ottimizza.dashboard.repositories.description;
 
 import java.util.List;
 
-import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
@@ -14,11 +13,9 @@ import org.springframework.stereotype.Repository;
 import com.querydsl.jpa.impl.JPAQuery;
 
 import br.com.ottimizza.dashboard.domain.dtos.DescriptionDTO;
-import br.com.ottimizza.dashboard.models.Company;
 import br.com.ottimizza.dashboard.models.Description;
 import br.com.ottimizza.dashboard.models.QCompany;
 import br.com.ottimizza.dashboard.models.QDescription;
-import br.com.ottimizza.dashboard.services.CompanyService;
 import br.com.ottimizza.dashboard.utils.StringUtil;
 
 @Repository
@@ -47,24 +44,15 @@ public class DescriptionRepositoryImpl implements DescriptionRepositoryCustom {
 		return query.fetch();
 	}
 
-	@Override //findByAccountingIdScriptType
+	@Override
 	public Page<Description> findDescriptions(DescriptionDTO filter, Pageable pageable) {
 
-//		Company company2 = new Company();
 		long totalDescriptions = 0;
 
 		JPAQuery<Description> query = new JPAQuery<Description>(em).from(description);
 		
 		if (filter.getCnpj() != null) {
 			query.innerJoin(company).on(company.cnpj.eq(description.cnpj));
-			
-			query.where(description.scriptId.eq(filter.getScriptId()));
-			
-//			try {
-//				company2 = service.findByCnpj(StringUtil.formatCnpj(filter.getCnpj()));
-//				if(company2 != null) query.where(description.scriptId.eq(company2.getScriptId()));
-//			} catch (Exception e) { e.printStackTrace(); }
-			
 			query.where(company.cnpj.eq(StringUtil.formatCnpj(filter.getCnpj())));
 		}
 
