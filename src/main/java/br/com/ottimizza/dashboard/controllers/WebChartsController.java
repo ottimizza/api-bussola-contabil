@@ -593,7 +593,7 @@ public class WebChartsController {
 	}
 	
 	@RequestMapping(value = "/by_cnpj_Novo", method = RequestMethod.POST)
-	public String compartilhaGráficos (@RequestHeader("Authorization") String authorization, @RequestBody String objRequest,
+	public ResponseEntity<Resource> compartilhaGráficos (@RequestHeader("Authorization") String authorization, @RequestBody String objRequest,
 			HttpServletRequest request) throws IOException, Exception {
 		
 		authorization = authorization.replace("Bearer ", "");
@@ -624,6 +624,8 @@ public class WebChartsController {
 		
 		dataToCharts = new JSONObject();
 		String companyName = webCharts.get(0).getCompanyName();
+		LocalDateTime agora = LocalDateTime.now(ZoneId.of("America/Sao_Paulo"));
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
 		
 		sb.append("		</style>").append(rn);
 		sb.append("	</head>").append(rn);
@@ -669,9 +671,13 @@ public class WebChartsController {
 			cont++;
 			
 			if (cont == 3) {
+				sb.append("    <p class=\"data\"> Compartilhado em ").append(agora.format(formatter)).append(rn);
 				sb.append("			<div id=\"separator\"></div>").append(rn).append(rn);
 				cont = 0;
 			}
+		}
+		if(cont > 0) {
+			sb.append("    <p class=\"data\"> Compartilhado em ").append(agora.format(formatter)).append(rn);
 		}
 
 		sb.append("		</div>").append(rn).append(rn);
@@ -699,9 +705,6 @@ public class WebChartsController {
 
 		sb.append("			}").append(rn);
 		sb.append("		</script>").append(rn);
-
-		LocalDateTime agora = LocalDateTime.now(ZoneId.of("America/Sao_Paulo"));
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
 	    
 		sb.append("		<script>").append(rn);
 		sb.append("			google.charts.load('current', {").append(rn);
@@ -710,7 +713,7 @@ public class WebChartsController {
 		sb.append("			});").append(rn);
 		sb.append("			google.charts.setOnLoadCallback(drawCharts);").append(rn);
 		sb.append("		</script>").append(rn);
-		sb.append("    <p class=\"data\"> Compartilhado em ").append(agora.format(formatter)).append("</div>");
+		sb.append("    <p class=\"dataFinal\"> Compartilhado em ").append(agora.format(formatter)).append(rn);
 		sb.append("	</footer>").append(rn);
 		sb.append("	</body>").append(rn);
 		sb.append("</html>").append(rn);
@@ -728,36 +731,16 @@ public class WebChartsController {
 		bw.write(sb.toString());
 		bw.close();
 
-		String application_id = UPLOAD_ID_BUSSOLA;
-		String accounting_id = UPLOAD_ACCOUNTING_ID;
-		String resourceId = "";
+		Resource resource = loadFileAsResource(tmp);
+		
 
-		try {
-			//Ajuste para evitar de ir em branco o link
-			for (int kk = 0; kk < 5; kk++) {
+		String contentDisposition = getContentDisposition(resource, "attachment");
+        String contentType = "application/octet-stream"; //getContentType(resource, request);
 
-				JSONObject response = new JSONObject(sendToStorage(tmp, authorization, application_id, accounting_id));
-				JSONObject record = response.optJSONObject("record");
-				resourceId = record.optString("id");
-						
-				String downloadURL = "";
-				String toShortURL = String.format("https://s4.ottimizzacontabil.com:55325/storage/%s", resourceId);
-						
-				//encurtador de URL
-				IsGdApi gd = new IsGdApi();
-				downloadURL = gd.shortURL(toShortURL);
-						
-				if(downloadURL.equals("")) downloadURL = toShortURL;
-						
-				record.put("id", downloadURL);
-				response.put("record", record);
-
-				if (!resourceId.equals("") && !downloadURL.equals(""))
-					return response.toString();
-				}
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			return "{}";
-		}
+        return ResponseEntity.ok()
+                .contentType(MediaType.parseMediaType(contentType))
+                .header(HttpHeaders.CONTENT_DISPOSITION, contentDisposition)
+                .body(resource);
+		
+	}
 }
