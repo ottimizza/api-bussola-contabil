@@ -27,8 +27,8 @@ public class DescriptionRepositoryImpl implements DescriptionRepositoryCustom {
 	@PersistenceContext
 	EntityManager em;
 	
-	@Inject
-    CompanyService service;
+//	@Inject
+//    CompanyService service;
 	
 	private QDescription description = QDescription.description1;
 
@@ -47,43 +47,37 @@ public class DescriptionRepositoryImpl implements DescriptionRepositoryCustom {
 		return query.fetch();
 	}
 
-	@Override
-	public Page<Description> findByAccountingIdScriptType(DescriptionDTO descriptionDTO, Pageable pageable) {
+	@Override //findByAccountingIdScriptType
+	public Page<Description> findDescriptions(DescriptionDTO filter, Pageable pageable) {
+
+//		Company company2 = new Company();
+		long totalDescriptions = 0;
 
 		JPAQuery<Description> query = new JPAQuery<Description>(em).from(description);
 		
-		if (descriptionDTO.getCnpj() != null) {
+		if (filter.getCnpj() != null) {
 			query.innerJoin(company).on(company.cnpj.eq(description.cnpj));
-		}
-		
-		Company company2 = new Company();
-		long totalDescriptions = 0;
-
-		if (descriptionDTO.getId() != null)				query.where(description.id.eq(descriptionDTO.getId()));
-		if (descriptionDTO.getAccountingId() != null)	query.where(description.accountingId.eq(descriptionDTO.getAccountingId()));
-		if (descriptionDTO.getKpiAlias() != null)		query.where(description.kpiAlias.eq(descriptionDTO.getKpiAlias()));
-		if (descriptionDTO.getDescription() != null) 	query.where(description.description.eq(descriptionDTO.getDescription()));
-		if (descriptionDTO.getScriptId() != null) 		query.where(description.scriptId.eq(descriptionDTO.getScriptId()));
-		if (descriptionDTO.getTitle() != null) 			query.where(description.title.eq(descriptionDTO.getTitle()));
-		if (descriptionDTO.getGraphOrder() != null) 	query.where(description.graphOrder.eq(descriptionDTO.getGraphOrder()));
-		if (descriptionDTO.getChartType() != null) 		query.where(description.chartType.eq(descriptionDTO.getChartType()));
-		
-		if (descriptionDTO.getCnpj() != null) {
-					
-			try {
-				company2 = service.findByCnpj(StringUtil.formatCnpj(descriptionDTO.getCnpj()));
-				if(company2 != null) {
-					query.where(description.scriptId.eq(company2.getScriptId()));
-				}
-				
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			query.where(company.cnpj.eq(StringUtil.formatCnpj(descriptionDTO.getCnpj())));
-		}
 			
-			//query.where(description.cnpj.eq(StringUtil.formatCnpj(descriptionDTO.getCnpj())));
-		if (descriptionDTO.getVisible() != null) 		query.where(description.visible.eq(descriptionDTO.getVisible())); 
+			query.where(description.scriptId.eq(filter.getScriptId()));
+			
+//			try {
+//				company2 = service.findByCnpj(StringUtil.formatCnpj(filter.getCnpj()));
+//				if(company2 != null) query.where(description.scriptId.eq(company2.getScriptId()));
+//			} catch (Exception e) { e.printStackTrace(); }
+			
+			query.where(company.cnpj.eq(StringUtil.formatCnpj(filter.getCnpj())));
+		}
+
+		if (filter.getId() != null)				query.where(description.id.eq(filter.getId()));
+		if (filter.getAccountingId() != null)	query.where(description.accountingId.eq(filter.getAccountingId()));
+		if (filter.getKpiAlias() != null)		query.where(description.kpiAlias.eq(filter.getKpiAlias()));
+		if (filter.getDescription() != null) 	query.where(description.description.eq(filter.getDescription()));
+		if (filter.getScriptId() != null) 		query.where(description.scriptId.eq(filter.getScriptId()));
+		if (filter.getTitle() != null) 			query.where(description.title.eq(filter.getTitle()));
+		if (filter.getGraphOrder() != null) 	query.where(description.graphOrder.eq(filter.getGraphOrder()));
+		if (filter.getChartType() != null) 		query.where(description.chartType.eq(filter.getChartType()));
+		
+		if (filter.getVisible() != null) 		query.where(description.visible.eq(filter.getVisible())); 
 
 		totalDescriptions = query.fetchCount();
 		query.limit(pageable.getPageSize());
