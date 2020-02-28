@@ -2,13 +2,9 @@ package br.com.ottimizza.dashboard.domain.dtos;
 
 import java.io.Serializable;
 import java.math.BigInteger;
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import br.com.ottimizza.dashboard.models.Kpi;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;

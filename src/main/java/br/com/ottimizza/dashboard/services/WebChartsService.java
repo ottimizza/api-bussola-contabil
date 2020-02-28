@@ -9,10 +9,7 @@ import javax.inject.Inject;
 import org.json.JSONObject;
 import org.springframework.stereotype.Service;
 
-import com.querydsl.core.types.Ops;
-
 import br.com.ottimizza.dashboard.domain.dtos.ChartOptionDTO;
-import br.com.ottimizza.dashboard.domain.dtos.KpiDTO;
 import br.com.ottimizza.dashboard.domain.dtos.WebChartDTO;
 import br.com.ottimizza.dashboard.models.ChartOption;
 import br.com.ottimizza.dashboard.models.KpiDetail;

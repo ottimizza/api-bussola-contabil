@@ -17,7 +17,6 @@ import com.querydsl.jpa.impl.JPAQuery;
 import br.com.ottimizza.dashboard.domain.dtos.KpiDTO;
 import br.com.ottimizza.dashboard.domain.dtos.KpiTitleAndValueDTO;
 import br.com.ottimizza.dashboard.domain.dtos.WebChartDTO;
-import br.com.ottimizza.dashboard.models.ChartOption;
 import br.com.ottimizza.dashboard.models.Kpi;
 import br.com.ottimizza.dashboard.models.QChartOption;
 import br.com.ottimizza.dashboard.models.QCompany;
