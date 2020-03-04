@@ -592,7 +592,7 @@ public class WebChartsController {
 		return getContentDisposition(resource, "inline");
 	}
 	
-	@RequestMapping(value = "/by_cnpj_Novo", method = RequestMethod.POST)
+	@RequestMapping(value = "", method = RequestMethod.POST)
 	public String compartilhaGráficos (@RequestHeader("Authorization") String authorization, @RequestBody String objRequest,
 			HttpServletRequest request) throws IOException, Exception {
 		

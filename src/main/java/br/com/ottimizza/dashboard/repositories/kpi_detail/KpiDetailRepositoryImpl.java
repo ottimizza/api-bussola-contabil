@@ -87,7 +87,7 @@ public class KpiDetailRepositoryImpl implements KpiDetailRepositoryCustom {
 		JPAQuery<KpiDetail> query = new JPAQuery<KpiDetail>(em).from(kpiDetail)
                 .innerJoin(kpi).on(kpi.id.eq(kpiDetail.kpiID.id));
 		query.where(kpiDetail.kpiID.id.eq(id));
-		return query.fetch();
+		return query.orderBy(kpiDetail.columnXSeq.asc()).fetch();
 	}
 
 	
