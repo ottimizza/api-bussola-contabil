@@ -33,6 +33,8 @@ public class KpiDTO implements Serializable {
 	private String chartOptions;
 	private boolean visible;
 	
+	private String subtitle;
+	
 	public List<String> getLabelArray() {
 		return Arrays.asList(labelArray.split(";"));
 	}
@@ -46,6 +48,7 @@ public class KpiDTO implements Serializable {
 		dto.setChartType(kpi.getChartType());
 		dto.setChartOptions(kpi.getChartOptions());
 		dto.setVisible(kpi.getVisible());
+		dto.setSubtitle(kpi.getSubtitle());
 	    return dto;
 	}
 	
