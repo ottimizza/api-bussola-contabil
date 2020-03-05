@@ -25,6 +25,7 @@ import br.com.ottimizza.dashboard.models.ScriptType;
 import br.com.ottimizza.dashboard.repositories.company.CompanyRepository;
 import br.com.ottimizza.dashboard.repositories.description.DescriptionRepository;
 import br.com.ottimizza.dashboard.repositories.script_type.ScriptTypeRepository;
+import br.com.ottimizza.dashboard.utils.StringUtil;
 
 @Service
 public class DescriptionService {
@@ -122,8 +123,12 @@ public class DescriptionService {
 		return repository.findById(id).orElse(null);
 	}
 
-	public List<DescriptionDTO> findAll(DescriptionDTO descriptionDto) {
-		return DescriptionDTO.descriptionToDto(repository.findAll(descriptionDto));
+	public List<DescriptionDTO> findAll(DescriptionDTO filter) {
+		if(filter.getCnpj() != null && filter.getScriptId() == null) {
+			try { filter.setScriptId(companyRepository.findByCnpj(StringUtil.formatCnpj(filter.getCnpj())).getScriptId()); }
+			catch (Exception e) { }
+		}
+		return DescriptionDTO.descriptionToDto(repository.findAll(filter));
 	}
 
 	public DescriptionDTO patch(BigInteger id, DescriptionDTO descriptionDTO) throws Exception {
@@ -158,7 +163,6 @@ public class DescriptionService {
 			try { filter.setScriptId(companyRepository.findByCnpj(filter.getCnpj()).getScriptId()); }
 			catch (Exception e) { }
 		}
-			
 		return repository.findDescriptions(filter, PageRequest.of(pageIndex, pageSize)).map(DescriptionDTO::descriptionToDto);
 	}
 
