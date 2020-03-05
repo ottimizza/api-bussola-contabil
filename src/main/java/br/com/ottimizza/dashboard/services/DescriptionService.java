@@ -128,8 +128,6 @@ public class DescriptionService {
 			try { filter.setScriptId(companyRepository.findByCnpj(StringUtil.formatCnpj(filter.getCnpj())).getScriptId()); }
 			catch (Exception e) { }
 		}
-		System.out.println(">>> > "+filter.getScriptId());
-
 		return DescriptionDTO.descriptionToDto(repository.findAll(filter));
 	}
 

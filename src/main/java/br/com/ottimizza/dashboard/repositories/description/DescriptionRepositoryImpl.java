@@ -36,12 +36,6 @@ public class DescriptionRepositoryImpl implements DescriptionRepositoryCustom {
 
 		JPAQuery<Description> query = new JPAQuery<Description>(em).from(description);
 		
-//		if (filter.getCnpj() != null) {
-//			query.innerJoin(company).on(company.cnpj.eq(description.cnpj));
-//			query.where(company.cnpj.eq(StringUtil.formatCnpj(filter.getCnpj())));
-//		}
-		System.out.println(">> >> "+filter.getScriptId());
-
 		if (filter.getKpiAlias() != null)		query.where(description.kpiAlias.eq(filter.getKpiAlias()));
 		if (filter.getAccountingId() != null)	query.where(description.accountingId.eq(filter.getAccountingId()));
 		if (filter.getScriptId() != null) 		query.where(description.scriptId.eq(filter.getScriptId()));
@@ -53,8 +47,6 @@ public class DescriptionRepositoryImpl implements DescriptionRepositoryCustom {
 		if (filter.getChartType() != null) 		query.where(description.chartType.eq(filter.getChartType()));
 		
 		if (filter.getVisible() != null) 		query.where(description.visible.eq(filter.getVisible())); 
-
-		System.out.println("> >>> "+query.fetchCount());
 		
 		return query.orderBy(description.graphOrder.asc()).fetch();
 
