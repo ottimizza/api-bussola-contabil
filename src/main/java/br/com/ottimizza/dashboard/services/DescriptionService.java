@@ -158,11 +158,11 @@ public class DescriptionService {
 
 	public Page<DescriptionDTO> returnDescriptionList(DescriptionDTO filter, int pageIndex, int pageSize, String authorization) {
 
-		if(filter.getCnpj() != null) {
+		if(filter.getCnpj() != null && filter.getScriptId() == null) {
 			try { filter.setScriptId(companyRepository.findByCnpj(filter.getCnpj()).getScriptId()); }
 			catch (Exception e) { }
 		}
-			
+		System.out.println(">>> > "+filter.getScriptId());
 		return repository.findDescriptions(filter, PageRequest.of(pageIndex, pageSize)).map(DescriptionDTO::descriptionToDto);
 	}
 
