@@ -25,6 +25,7 @@ import br.com.ottimizza.dashboard.models.ScriptType;
 import br.com.ottimizza.dashboard.repositories.company.CompanyRepository;
 import br.com.ottimizza.dashboard.repositories.description.DescriptionRepository;
 import br.com.ottimizza.dashboard.repositories.script_type.ScriptTypeRepository;
+import br.com.ottimizza.dashboard.utils.StringUtil;
 
 @Service
 public class DescriptionService {
@@ -123,10 +124,12 @@ public class DescriptionService {
 	}
 
 	public List<DescriptionDTO> findAll(DescriptionDTO filter) {
-		if(filter.getCnpj() != null) {
-			try { filter.setScriptId(companyRepository.findByCnpj(filter.getCnpj()).getScriptId()); }
+		if(filter.getCnpj() != null && filter.getScriptId() == null) {
+			try { filter.setScriptId(companyRepository.findByCnpj(StringUtil.formatCnpj(filter.getCnpj())).getScriptId()); }
 			catch (Exception e) { }
 		}
+		System.out.println(">>> > "+filter.getScriptId());
+
 		return DescriptionDTO.descriptionToDto(repository.findAll(filter));
 	}
 
@@ -158,11 +161,10 @@ public class DescriptionService {
 
 	public Page<DescriptionDTO> returnDescriptionList(DescriptionDTO filter, int pageIndex, int pageSize, String authorization) {
 
-		if(filter.getCnpj() != null && filter.getScriptId() == null) {
+		if(filter.getCnpj() != null) {
 			try { filter.setScriptId(companyRepository.findByCnpj(filter.getCnpj()).getScriptId()); }
 			catch (Exception e) { }
 		}
-		System.out.println(">>> > "+filter.getScriptId());
 		return repository.findDescriptions(filter, PageRequest.of(pageIndex, pageSize)).map(DescriptionDTO::descriptionToDto);
 	}
 
