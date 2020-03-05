@@ -122,8 +122,12 @@ public class DescriptionService {
 		return repository.findById(id).orElse(null);
 	}
 
-	public List<DescriptionDTO> findAll(DescriptionDTO descriptionDto) {
-		return DescriptionDTO.descriptionToDto(repository.findAll(descriptionDto));
+	public List<DescriptionDTO> findAll(DescriptionDTO filter) {
+		if(filter.getCnpj() != null) {
+			try { filter.setScriptId(companyRepository.findByCnpj(filter.getCnpj()).getScriptId()); }
+			catch (Exception e) { }
+		}
+		return DescriptionDTO.descriptionToDto(repository.findAll(filter));
 	}
 
 	public DescriptionDTO patch(BigInteger id, DescriptionDTO descriptionDTO) throws Exception {

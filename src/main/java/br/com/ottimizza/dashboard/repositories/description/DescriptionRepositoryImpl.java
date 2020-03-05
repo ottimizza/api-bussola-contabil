@@ -32,16 +32,29 @@ public class DescriptionRepositoryImpl implements DescriptionRepositoryCustom {
 	private QCompany company = QCompany.company;
 			
 	@Override
-	public List<Description> findAll(DescriptionDTO descriptionDto) {
+	public List<Description> findAll(DescriptionDTO filter) {
 
 		JPAQuery<Description> query = new JPAQuery<Description>(em).from(description);
-		if(descriptionDto.getId() != null)				query.where(description.id.eq(descriptionDto.getId()));
-		if(descriptionDto.getKpiAlias() != null)		query.where(description.kpiAlias.eq(descriptionDto.getKpiAlias()));
-		if(descriptionDto.getAccountingId() != null)	query.where(description.accountingId.eq(descriptionDto.getAccountingId()));
-		if(descriptionDto.getDescription() != null)		query.where(description.description.eq(descriptionDto.getDescription()));
-		if(descriptionDto.getScriptId() != null)		query.where(description.scriptId.eq(descriptionDto.getScriptId()));
 		
-		return query.fetch();
+//		if (filter.getCnpj() != null) {
+//			query.innerJoin(company).on(company.cnpj.eq(description.cnpj));
+//			query.where(company.cnpj.eq(StringUtil.formatCnpj(filter.getCnpj())));
+//		}
+
+		if (filter.getKpiAlias() != null)		query.where(description.kpiAlias.eq(filter.getKpiAlias()));
+		if (filter.getAccountingId() != null)	query.where(description.accountingId.eq(filter.getAccountingId()));
+		if (filter.getScriptId() != null) 		query.where(description.scriptId.eq(filter.getScriptId()));
+
+		if (filter.getId() != null)				query.where(description.id.eq(filter.getId()));
+		if (filter.getDescription() != null) 	query.where(description.description.eq(filter.getDescription()));
+		if (filter.getTitle() != null) 			query.where(description.title.eq(filter.getTitle()));
+		if (filter.getGraphOrder() != null) 	query.where(description.graphOrder.eq(filter.getGraphOrder()));
+		if (filter.getChartType() != null) 		query.where(description.chartType.eq(filter.getChartType()));
+		
+		if (filter.getVisible() != null) 		query.where(description.visible.eq(filter.getVisible())); 
+
+		return query.orderBy(description.graphOrder.asc()).fetch();
+
 	}
 
 	@Override
