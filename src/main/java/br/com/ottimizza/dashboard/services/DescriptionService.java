@@ -45,7 +45,6 @@ public class DescriptionService {
 	public DescriptionDTO save(DescriptionDTO descriptionDTO, String authorization) throws Exception {
 		CompanyDTO filter = new CompanyDTO();
 		filter.setAccountingId(descriptionDTO.getAccountingId());
-		System.out.println(">>> D.S. A "+descriptionDTO.toString());
 
 		Company company = new Company();
 		List<Company> companies = new ArrayList<Company>();
@@ -55,7 +54,6 @@ public class DescriptionService {
 		if(!companies.isEmpty()) {
 			// nao esta sendo tratado o array por que sempre vai ser chamado por cnpj (nao temos o accounting no OIC)
 			company = companies.get(0);
-			System.out.println(">>> D.S. B "+company.toString());
 
 		} else {
 			try {
@@ -67,7 +65,6 @@ public class DescriptionService {
 		}
 		
 		if (company.getId() != null) {
-			System.out.println(">>> D.S. D ");
 
 			if(company.getScriptId() != null && descriptionDTO.getScriptId() == null) descriptionDTO.setScriptId(company.getScriptId());
 			if(company.getAccountingId() != null) descriptionDTO.setAccountingId(company.getAccountingId());
@@ -83,12 +80,10 @@ public class DescriptionService {
 					descriptionDTO.setCnpj("");
 				}
 			}
-			System.out.println(">>> D.S. E "+descriptionDTO.toString());
 			if(descriptionDTO.getScriptId() == null) { // so fazer a busca se nao manda o ID
 				List<ScriptType> scripts = scriptTypeRepository.findAll(new ScriptTypeDTO(null, null, descriptionDTO.getScriptDescription()));
 				if(scripts.size() > 0 && descriptionDTO.getScriptDescription() != null) {
 					descriptionDTO.setScriptId(scripts.get(0).getId());
-					System.out.println(">>> D.S. F "+descriptionDTO.toString());
 				}
 			}
 		}
@@ -99,7 +94,6 @@ public class DescriptionService {
 			dFiltro.setAccountingId(descriptionDTO.getAccountingId());
 			dFiltro.setScriptId(descriptionDTO.getScriptId());
 			dFiltro.setKpiAlias(descriptionDTO.getKpiAlias());
-			System.out.println(">>> D.S. G "+dFiltro.toString());
 			try {description2 = repository.findAll(dFiltro).get(0);} 
 			catch (Exception e) { }
 			
@@ -108,7 +102,6 @@ public class DescriptionService {
 		//nao daremos UPDATE em description pra nao sobrepor o que o contador fez
 		if(description2 == null || description2.getId() == null) {
 			Description description = DescriptionDTO.dtoToDescription(descriptionDTO);
-			System.out.println(">>> D.S. H "+description.toString());
 			return DescriptionDTO.descriptionToDto(repository.save(description));
 		}
 		return new DescriptionDTO();

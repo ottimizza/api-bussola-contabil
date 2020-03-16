@@ -59,24 +59,13 @@ public class ScriptTypeService {
 		filterScript.setDescription(companyDto.getScriptDescription());
 		
 		List<ScriptTypeDTO> scripts = findAll(filterScript);
-		System.out.println(">>> S.S. A "+companyDto.toString());
 		try {
 			if(companyDto.getScriptDescription() != null) {
-				System.out.println(">>> S.S. B "+companyDto.toString());
-				
-				if(scripts.size() == 0) {
-					response = save(new ScriptTypeDTO(null, companyDto.getAccountingId(), companyDto.getScriptDescription())).getId();
-					System.out.println(">>> S.S. C "+response);
-				}
-				else {
-					response = scripts.get(0).getId();
-					System.out.println(">>> S.S. D "+response);
-				}
+				if(scripts.size() == 0) response = save(new ScriptTypeDTO(null, companyDto.getAccountingId(), companyDto.getScriptDescription())).getId();
+				else response = scripts.get(0).getId();
 			}
 			
 			if(companyDto.getScriptDescription() == null) {
-				System.out.println(">>> S.S. E ");
-
 				if(scripts.size() == 0) response = save(new ScriptTypeDTO(null, companyDto.getAccountingId(), "PADRAO")).getId();
 				else if(scripts.size() == 1) response = scripts.get(0).getId();
 				else if(scripts.size() > 1) response = scripts.get(0).getId();
