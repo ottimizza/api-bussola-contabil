@@ -69,7 +69,7 @@ public class DescriptionService {
 		if (company.getId() != null) {
 			System.out.println(">>> D.S. D ");
 
-			if(company.getScriptId() 	 != null) descriptionDTO.setScriptId(company.getScriptId());
+			if(company.getScriptId() != null && descriptionDTO.getScriptId() == null) descriptionDTO.setScriptId(company.getScriptId());
 			if(company.getAccountingId() != null) descriptionDTO.setAccountingId(company.getAccountingId());
 		
 		} else { // se nao encontrar company busca organization(contabilidade) do account 
@@ -84,10 +84,12 @@ public class DescriptionService {
 				}
 			}
 			System.out.println(">>> D.S. E "+descriptionDTO.toString());
-			List<ScriptType> scripts = scriptTypeRepository.findAll(new ScriptTypeDTO(null, null, descriptionDTO.getScriptDescription()));
-			if(scripts.size() > 0 && descriptionDTO.getScriptDescription() != null) {
-				descriptionDTO.setScriptId(scripts.get(0).getId());
-				System.out.println(">>> D.S. F "+descriptionDTO.toString());
+			if(descriptionDTO.getScriptId() == null) { // so fazer a busca se nao manda o ID
+				List<ScriptType> scripts = scriptTypeRepository.findAll(new ScriptTypeDTO(null, null, descriptionDTO.getScriptDescription()));
+				if(scripts.size() > 0 && descriptionDTO.getScriptDescription() != null) {
+					descriptionDTO.setScriptId(scripts.get(0).getId());
+					System.out.println(">>> D.S. F "+descriptionDTO.toString());
+				}
 			}
 		}
 
