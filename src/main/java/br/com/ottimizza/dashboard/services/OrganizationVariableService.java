@@ -10,9 +10,12 @@ import javax.persistence.NoResultException;
 import org.json.JSONObject;
 import org.springframework.stereotype.Service;
 
+import br.com.ottimizza.dashboard.domain.dtos.OrganizationDTO;
 import br.com.ottimizza.dashboard.domain.dtos.UserDTO;
 import br.com.ottimizza.dashboard.domain.dtos.VariableDTO;
+import br.com.ottimizza.dashboard.models.Company;
 import br.com.ottimizza.dashboard.models.OrganizationVariable;
+import br.com.ottimizza.dashboard.repositories.company.CompanyRepository;
 import br.com.ottimizza.dashboard.repositories.organizationVariable.OrganizationVariableRepository;
 import br.com.ottimizza.dashboard.repositories.variable.VariableRepository;
 
@@ -24,7 +27,9 @@ public class OrganizationVariableService {
 	
 	@Inject
 	VariableRepository variableRepository;
-	
+
+	@Inject
+	CompanyRepository companyRepository;
 	
 	public VariableDTO save(VariableDTO variableDto, UserDTO userInfo) throws Exception {
 		OrganizationVariable organizationVariable = VariableDTO.variableDtoToOrganizationVariable(variableDto);
@@ -110,6 +115,14 @@ public class OrganizationVariableService {
 	}
 	
 	public List<VariableDTO> findMissingByOrganizationId(VariableDTO filter, UserDTO userInfo) {
+		System.out.println(">>> a> "+filter.toString());
+		if(filter.getCnpj() != null) {
+			// busca company por cnpj
+			Company cia = companyRepository.findByCnpj(filter.getCnpj());
+			filter.setScriptId(cia.getScriptId());
+			filter.setAccountingId(cia.getAccountingId());
+		}
+
 		return repository.findMissingByCompanyId(filter, userInfo);
 	}
 	
