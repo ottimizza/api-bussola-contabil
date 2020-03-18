@@ -86,7 +86,7 @@ public class OrganizationVariableController {
 			filter.setCnpj(org.getCnpj());
 			
 		} catch (Exception e) {
-			System.out.println("sem controle no catch");
+			e.printStackTrace();
 		}
 		System.out.println(">>> w> "+filter.toString());
 		return ResponseEntity.ok(service.findMissingByOrganizationId(filter, userInfo));
