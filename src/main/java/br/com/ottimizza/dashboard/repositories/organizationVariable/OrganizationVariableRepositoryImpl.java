@@ -65,7 +65,7 @@ public class OrganizationVariableRepositoryImpl implements OrganizationVariableR
 				 .and(organizationVariable.scriptId.eq(variable.scriptId)));
 		}
 		System.out.println(">>> c> "+query.fetchCount());
-		query.where(variable.accountingId.eq(filter.getAccountingId()));
+//		query.where(variable.accountingId.eq(filter.getAccountingId()));
 		System.out.println(">>> d> "+query.fetchCount());
 		query.where(organizationVariable.id.isNull());
 
