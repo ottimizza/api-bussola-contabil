@@ -81,7 +81,7 @@ public class OrganizationVariableController {
 		UserDTO userInfo = new UserDTO();
 		//busca organization oauth CNPJ
 		try {
-			OrganizationDTO org = oauthClient.getOrganizationInfoById(authorization, filter.getCompanyId()).getBody().getRecord(); 
+			OrganizationDTO org = oauthClient.getOrganizationInfoById(authorization, filter.getCompanyId()).getBody().getRecords().get(0); 
 			System.out.println(">>> t> "+org.toString());
 			filter.setCnpj(org.getCnpj());
 			
