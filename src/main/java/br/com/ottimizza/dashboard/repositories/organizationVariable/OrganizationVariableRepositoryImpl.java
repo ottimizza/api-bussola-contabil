@@ -46,7 +46,7 @@ public class OrganizationVariableRepositoryImpl implements OrganizationVariableR
 
 	@Override
 	public List<VariableDTO> findMissingByCompanyId(VariableDTO filter, UserDTO userInfo) {
-		System.out.println(">>> B> "+filter.toString());
+		System.out.println(">>> b> "+filter.toString());
 
 //		innerJoin(company)... .and(company.cnpj.eq(cnpjTest)) nao parece necessario validar CNPJ
 //		String cnpjTest = "07.586.955/0001-99";
@@ -64,7 +64,9 @@ public class OrganizationVariableRepositoryImpl implements OrganizationVariableR
 				 .and(company.cnpj.eq(StringUtil.formatCnpj(filter.getCnpj())))
 				 .and(organizationVariable.scriptId.eq(variable.scriptId)));
 		}
-		
+		System.out.println(">>> c> "+query.fetchCount());
+		query.where(company.scriptId.eq(filter.getScriptId()));
+		System.out.println(">>> d> "+query.fetchCount());
 		query.where(organizationVariable.id.isNull());
 
 		query.select(Projections.constructor(VariableDTO.class, 

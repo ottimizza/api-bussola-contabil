@@ -18,6 +18,7 @@ import br.com.ottimizza.dashboard.models.OrganizationVariable;
 import br.com.ottimizza.dashboard.repositories.company.CompanyRepository;
 import br.com.ottimizza.dashboard.repositories.organizationVariable.OrganizationVariableRepository;
 import br.com.ottimizza.dashboard.repositories.variable.VariableRepository;
+import br.com.ottimizza.dashboard.utils.StringUtil;
 
 @Service
 public class OrganizationVariableService {
@@ -116,17 +117,12 @@ public class OrganizationVariableService {
 	
 	public List<VariableDTO> findMissingByOrganizationId(VariableDTO filter, UserDTO userInfo) {
 		System.out.println(">>> a> "+filter.toString());
-		if(filter.getCnpj() != null) {
-			// busca company por cnpj
-			try {
-				Company cia = companyRepository.findByCnpj(filter.getCnpj());
-				filter.setScriptId(cia.getScriptId());
-				filter.setAccountingId(cia.getAccountingId());
-				
-			} catch (Exception e) {
-				System.out.println("ó o serviço, deu catch ");
-			}
-		}
+		// busca company por cnpj
+		try {
+			Company cia = companyRepository.findByCnpj(StringUtil.formatCnpj(filter.getCnpj()));
+			filter.setScriptId(cia.getScriptId());
+			filter.setAccountingId(cia.getAccountingId());
+		} catch (Exception e) {  }
 
 		return repository.findMissingByCompanyId(filter, userInfo);
 	}
