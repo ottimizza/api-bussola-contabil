@@ -63,6 +63,9 @@ public class OrganizationVariableRepositoryImpl implements OrganizationVariableR
 				 .and(company.cnpj.eq(StringUtil.formatCnpj(filter.getCnpj())))
 				 .and(organizationVariable.scriptId.eq(variable.scriptId)));
 		}
+		if(company.accountingId != null && variable.accountingId != null)
+			query.where(company.accountingId.eq(variable.accountingId));
+			
 		query.where(organizationVariable.id.isNull());
 		
 		query.select(Projections.constructor(VariableDTO.class, 
