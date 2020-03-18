@@ -118,9 +118,14 @@ public class OrganizationVariableService {
 		System.out.println(">>> a> "+filter.toString());
 		if(filter.getCnpj() != null) {
 			// busca company por cnpj
-			Company cia = companyRepository.findByCnpj(filter.getCnpj());
-			filter.setScriptId(cia.getScriptId());
-			filter.setAccountingId(cia.getAccountingId());
+			try {
+				Company cia = companyRepository.findByCnpj(filter.getCnpj());
+				filter.setScriptId(cia.getScriptId());
+				filter.setAccountingId(cia.getAccountingId());
+				
+			} catch (Exception e) {
+				System.out.println("ó o serviço, deu catch ");
+			}
 		}
 
 		return repository.findMissingByCompanyId(filter, userInfo);

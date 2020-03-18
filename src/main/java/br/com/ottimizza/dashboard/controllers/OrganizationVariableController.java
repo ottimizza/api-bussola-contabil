@@ -80,8 +80,13 @@ public class OrganizationVariableController {
 //		UserDTO userInfo = oauthClient.getUserInfo(authorization).getBody().getRecord();
 		UserDTO userInfo = new UserDTO();
 		//busca organization oauth CNPJ
-		filter.setCnpj(oauthClient.getOrganizationInfoById(authorization, filter.getCompanyId()).getBody().getRecord().getCnpj());
-		
+		try {
+			filter.setCnpj(oauthClient.getOrganizationInfoById(authorization, filter.getCompanyId()).getBody().getRecord().getCnpj());
+			
+		} catch (Exception e) {
+			System.out.println("sem controle no catch");
+		}
+		System.out.println(">>> w> "+filter.toString());
 		return ResponseEntity.ok(service.findMissingByOrganizationId(filter, userInfo));
 	}
 	
