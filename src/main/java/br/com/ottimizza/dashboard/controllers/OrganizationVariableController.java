@@ -81,7 +81,9 @@ public class OrganizationVariableController {
 		UserDTO userInfo = new UserDTO();
 		//busca organization oauth CNPJ
 		try {
-			filter.setCnpj(oauthClient.getOrganizationInfoById(authorization, filter.getCompanyId()).getBody().getRecord().getCnpj());
+			OrganizationDTO org = oauthClient.getOrganizationInfoById(authorization, filter.getCompanyId()).getBody().getRecord(); 
+			System.out.println(">>> t> "+org.toString());
+			filter.setCnpj(org.getCnpj());
 			
 		} catch (Exception e) {
 			System.out.println("sem controle no catch");
