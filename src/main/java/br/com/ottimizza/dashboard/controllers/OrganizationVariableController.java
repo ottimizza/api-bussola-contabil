@@ -85,5 +85,4 @@ public class OrganizationVariableController {
 		return ResponseEntity.ok(service.findMissingByOrganizationId(filter, userInfo));
 	}
 	
-	
 }

@@ -116,8 +116,7 @@ public class OrganizationVariableService {
 	}
 	
 	public List<VariableDTO> findMissingByOrganizationId(VariableDTO filter, UserDTO userInfo) {
-		System.out.println(">>> a> "+filter.toString());
-		// busca company por cnpj
+		// busca informacoes necessarias para join
 		try {
 			Company cia = companyRepository.findByCnpj(StringUtil.formatCnpj(filter.getCnpj()));
 			filter.setScriptId(cia.getScriptId());

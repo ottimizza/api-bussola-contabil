@@ -46,10 +46,7 @@ public class OrganizationVariableRepositoryImpl implements OrganizationVariableR
 
 	@Override
 	public List<VariableDTO> findMissingByCompanyId(VariableDTO filter, UserDTO userInfo) {
-		System.out.println(">>> b> "+filter.toString());
 
-//		innerJoin(company)... .and(company.cnpj.eq(cnpjTest)) nao parece necessario validar CNPJ
-//		String cnpjTest = "07.586.955/0001-99";
 		JPAQuery<VariableDTO> query = new JPAQuery<VariableDTO>(em).from(variable);
 		query.innerJoin(company).on(company.accountingId.eq(variable.accountingId)
 			 .and(company.scriptId.eq(variable.scriptId))
