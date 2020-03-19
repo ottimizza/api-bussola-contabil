@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.ottimizza.dashboard.client.OAuthClient;
+import br.com.ottimizza.dashboard.domain.dtos.OrganizationDTO;
 import br.com.ottimizza.dashboard.domain.dtos.UserDTO;
 import br.com.ottimizza.dashboard.domain.dtos.VariableDTO;
 import br.com.ottimizza.dashboard.models.OrganizationVariable;
@@ -78,8 +79,10 @@ public class OrganizationVariableController {
 														 @RequestHeader("Authorization") String authorization) throws Exception {
 //		UserDTO userInfo = oauthClient.getUserInfo(authorization).getBody().getRecord();
 		UserDTO userInfo = new UserDTO();
+		//busca organization oauth CNPJ
+		try { filter.setCnpj(oauthClient.getOrganizationInfoById(authorization, filter.getCompanyId()).getBody().getRecords().get(0).getCnpj()); } 
+		catch (Exception e) { e.printStackTrace(); }
 		return ResponseEntity.ok(service.findMissingByOrganizationId(filter, userInfo));
 	}
-	
 	
 }

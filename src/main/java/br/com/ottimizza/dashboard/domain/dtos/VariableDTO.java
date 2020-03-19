@@ -5,11 +5,9 @@ import java.math.BigInteger;
 
 import br.com.ottimizza.dashboard.models.OrganizationVariable;
 import br.com.ottimizza.dashboard.models.Variable;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
-@Getter
-@Setter
+@Data
 public class VariableDTO implements Serializable{
 
 	/*
