@@ -52,22 +52,20 @@ public class OrganizationVariableRepositoryImpl implements OrganizationVariableR
 //		String cnpjTest = "07.586.955/0001-99";
 		JPAQuery<VariableDTO> query = new JPAQuery<VariableDTO>(em).from(variable);
 		query.innerJoin(company).on(company.accountingId.eq(variable.accountingId)
-			 .and(company.scriptId.eq(variable.scriptId)));
+			 .and(company.scriptId.eq(variable.scriptId))
+		 	 .and(company.scriptId.eq(filter.getScriptId())));
 
 		if(filter.getCompanyId() != null) {
 			query.leftJoin(organizationVariable).on(organizationVariable.variableId.eq(variable.id)
 				 .and(organizationVariable.organizationId.eq(filter.getCompanyId()))
-				 .and(organizationVariable.scriptId.eq(variable.scriptId))
-				 .and(company.scriptId.eq(filter.getScriptId())));
+				 .and(organizationVariable.scriptId.eq(variable.scriptId)));
 		}
 		if(filter.getCnpj() != null) {
 			query.leftJoin(organizationVariable).on(organizationVariable.variableId.eq(variable.id)
 				 .and(company.cnpj.eq(StringUtil.formatCnpj(filter.getCnpj())))
 				 .and(organizationVariable.scriptId.eq(variable.scriptId)));
 		}
-//		System.out.println(">>> c> "+query.fetchCount());
-//		query.where(variable.accountingId.eq(filter.getAccountingId()));
-		System.out.println(">>> d> "+query.fetchCount());
+
 		query.where(organizationVariable.id.isNull());
 
 		query.select(Projections.constructor(VariableDTO.class, 
