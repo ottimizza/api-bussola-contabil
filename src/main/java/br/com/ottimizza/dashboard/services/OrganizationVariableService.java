@@ -121,7 +121,6 @@ public class OrganizationVariableService {
 			Company cia = companyRepository.findByCnpj(StringUtil.formatCnpj(filter.getCnpj()));
 			filter.setScriptId(cia.getScriptId());
 			filter.setAccountingId(cia.getAccountingId());
-			filter.setCnpj(null);
 		} catch (Exception e) {  }
 
 		return repository.findMissingByCompanyId(filter, userInfo);
