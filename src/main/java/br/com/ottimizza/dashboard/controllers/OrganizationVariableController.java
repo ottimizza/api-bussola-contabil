@@ -84,8 +84,6 @@ public class OrganizationVariableController {
 			try { filter.setCnpj(oauthClient.getOrganizationInfoById(authorization, filter.getCompanyId()).getBody().getRecords().get(0).getCnpj()); } 
 			catch (Exception e) { e.printStackTrace(); }
 		}
-		System.out.println(">>> MM "+filter.toString());
-
 		return ResponseEntity.ok(service.findMissingByOrganizationId(filter, userInfo));
 	}
 	
