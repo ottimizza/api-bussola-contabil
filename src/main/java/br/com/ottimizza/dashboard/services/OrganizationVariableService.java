@@ -124,6 +124,8 @@ public class OrganizationVariableService {
 				filter.setAccountingId(cia.getAccountingId());
 			} catch (Exception e) {  }
 		}
+		System.out.println(">>> NN "+filter.toString());
+
 		return repository.findMissingByCompanyId(filter, userInfo);
 	}
 	
