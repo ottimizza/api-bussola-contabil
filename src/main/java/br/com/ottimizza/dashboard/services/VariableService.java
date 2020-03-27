@@ -47,7 +47,7 @@ public class VariableService {
 		if(variableDto.getCnpj() != null) {//busca accountingId e seta no variableDto
 			System.out.println(">>> vA "+variableDto.toString());
 			OrganizationDTO organizationDto = new OrganizationDTO();
-			List<OrganizationDTO> organizations = oauthClient.getOrganizationInfo(authorization, variableDto.getCnpj().replaceAll("[^0-9]*", "")).getBody().getRecords();
+			List<OrganizationDTO> organizations = oauthClient.getOrganizationInfo(authorization, variableDto.getCnpj().replaceAll("[^0-9]*", ""), variableDto.getType()).getBody().getRecords();
 			System.out.println(">>> vB0 "+organizations.size());
 
 			if(organizations.size() != 0) {
