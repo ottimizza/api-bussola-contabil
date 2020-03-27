@@ -40,6 +40,8 @@ public class VariableController {
 	public ResponseEntity<Variable> saveVariable(@RequestBody VariableDTO variableDto,
 												 @RequestHeader("Authorization") String authorization) throws Exception {
 		try {
+			System.out.println(">>> vA "+variableDto.toString());
+			
 			variableDto = service.save(variableDto, authorization);
 			return ResponseEntity.ok(VariableDTO.variableDtoToVariable(variableDto));
 		} catch (Exception e) { }
