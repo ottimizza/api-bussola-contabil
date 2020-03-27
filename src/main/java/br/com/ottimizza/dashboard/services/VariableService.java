@@ -48,12 +48,15 @@ public class VariableService {
 			System.out.println(">>> vA "+variableDto.toString());
 			OrganizationDTO organizationDto = new OrganizationDTO();
 			List<OrganizationDTO> organizations = oauthClient.getOrganizationInfo(authorization, variableDto.getCnpj().replaceAll("[^0-9]*", "")).getBody().getRecords();
-			
+			System.out.println(">>> vB0 "+organizations.size());
+
 			if(organizations.size() != 0) {
 				organizationDto = organizations.get(0);
+				System.out.println(">>> vB1 "+organizationDto);
 				if(organizationDto.getType() == 1) variableDto.setAccountingId(organizationDto.getId());
+				System.out.println(">>> vB2 "+variableDto.toString());
 			}
-			System.out.println(">>> vB "+variableDto.toString());
+			System.out.println(">>> vB3 "+variableDto.toString());
 			
 		}
 		
