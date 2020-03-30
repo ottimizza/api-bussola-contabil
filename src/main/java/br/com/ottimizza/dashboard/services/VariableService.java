@@ -54,14 +54,17 @@ public class VariableService {
 				if(organizationDto.getType() == 1) variableDto.setAccountingId(organizationDto.getId());
 				System.out.println(">>> vB2 "+variableDto.toString());
 			}else if(organizations.size() > 0) { // se vierem 2 ou mais organizacoes, queremos apenas as do tipo contabilidade
+				System.out.println(">>> vB3"+organizations.size());
 				for (OrganizationDTO orgDto : organizations) {
-					if(orgDto.getType() == 1) {
-						organizationDto = orgDto;
+					System.out.println(">>> vB4"+orgDto.getType());
+						if(orgDto.getType() == 1) {
+							variableDto.setAccountingId(orgDto.getId());
+//						organizationDto = orgDto;
 						break;
 					}
 				}
 			}
-			System.out.println(">>> vB3 "+variableDto.toString());
+			System.out.println(">>> vB5 "+variableDto.toString());
 			
 		}
 		
