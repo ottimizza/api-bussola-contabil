@@ -20,7 +20,11 @@ public interface OAuthClient {
 	
 	@GetMapping("/api/v1/organizations")
 	HttpEntity<GenericResponse<OrganizationDTO>> getOrganizationInfo(@RequestHeader("Authorization") String authorization, @RequestParam String cnpj);	
-
+	
+	
+	@GetMapping("/api/v1/organizations?ignoreAccountingFilter=true")
+	HttpEntity<GenericResponse<OrganizationDTO>> getAccountingInfo(@RequestHeader("Authorization") String authorization, @RequestParam String cnpj);	
+	
 	@GetMapping("/api/v1/organizations")
 	HttpEntity<GenericResponse<OrganizationDTO>> getOrganizationInfoById(@RequestHeader("Authorization") String authorization, @RequestParam BigInteger id);	
 }
