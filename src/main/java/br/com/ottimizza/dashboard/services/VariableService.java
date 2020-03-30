@@ -47,7 +47,7 @@ public class VariableService {
 		System.out.println(">>> vA "+variableDto.getCnpj().replaceAll("[^0-9]*", "")+" -- "+variableDto.getCnpj().replaceAll("\\D", ""));
 		if(variableDto.getCnpj() != null) {//busca accountingId e seta no variableDto
 			OrganizationDTO organizationDto = new OrganizationDTO();
-			List<OrganizationDTO> organizations = oauthClient.getAccountingInfo(authorization, variableDto.getCnpj().replaceAll("\\D", "")).getBody().getRecords();
+			List<OrganizationDTO> organizations = oauthClient.getAccountingInfo(authorization, variableDto.getCnpj().replaceAll("\\D", ""),1).getBody().getRecords();
 			
 			System.out.println(">>> vA2 "+organizations.size());
 			if(organizations.size() == 0) {
