@@ -22,8 +22,5 @@ public interface OAuthClient {
 	HttpEntity<GenericResponse<OrganizationDTO>> getOrganizationInfo(@RequestHeader("Authorization") String authorization, @RequestParam String cnpj);	
 
 	@GetMapping("/api/v1/organizations")
-	HttpEntity<GenericResponse<OrganizationDTO>> getOrganizationInfoByCnpjAndType(@RequestHeader("Authorization") String authorization, @RequestParam String cnpj, @RequestParam Short type);	
-
-	@GetMapping("/api/v1/organizations")
 	HttpEntity<GenericResponse<OrganizationDTO>> getOrganizationInfoById(@RequestHeader("Authorization") String authorization, @RequestParam BigInteger id);	
 }
