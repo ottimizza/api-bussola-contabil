@@ -18,7 +18,7 @@ public interface OAuthClient {
 	@GetMapping("/oauth/userinfo")
 	HttpEntity<GenericResponse<UserDTO>> getUserInfo(@RequestHeader("Authorization") String authorization);
 	
-	@GetMapping("/api/v1/organizations")
+	@GetMapping("/api/v1/organizations?ignoreAccountingFilter=true")
 	HttpEntity<GenericResponse<OrganizationDTO>> getOrganizationInfo(@RequestHeader("Authorization") String authorization, @RequestParam String cnpj);	
 	
 	@GetMapping("/api/v1/organizations?ignoreAccountingFilter=true")
