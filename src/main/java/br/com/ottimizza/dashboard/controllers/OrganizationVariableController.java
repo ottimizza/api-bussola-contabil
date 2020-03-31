@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.ottimizza.dashboard.client.OAuthClient;
-import br.com.ottimizza.dashboard.domain.dtos.OrganizationDTO;
 import br.com.ottimizza.dashboard.domain.dtos.UserDTO;
 import br.com.ottimizza.dashboard.domain.dtos.VariableDTO;
 import br.com.ottimizza.dashboard.models.OrganizationVariable;
@@ -81,7 +80,7 @@ public class OrganizationVariableController {
 		UserDTO userInfo = new UserDTO();
 		//busca organization oauth CNPJ
 		if(filter.getCnpj() == null) {
-			try { filter.setCnpj(oauthClient.getOrganizationInfoById(authorization, filter.getCompanyId()).getBody().getRecords().get(0).getCnpj()); } 
+			try { filter.setCnpj(oauthClient.getOrganizationInfoById(authorization, filter.getCompanyId(), true).getBody().getRecords().get(0).getCnpj()); } 
 			catch (Exception e) { e.printStackTrace(); }
 		}
 		return ResponseEntity.ok(service.findMissingByOrganizationId(filter, userInfo));

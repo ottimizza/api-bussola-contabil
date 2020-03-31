@@ -72,7 +72,7 @@ public class DescriptionService {
 		} else { // se nao encontrar company busca organization(contabilidade) do account 
 			OrganizationDTO organizationDto = new OrganizationDTO();
 			
-			List<OrganizationDTO> organizations = oauthClient.getOrganizationInfo(authorization, descriptionDTO.getCnpj().replaceAll("[^0-9]*", "")).getBody().getRecords();
+			List<OrganizationDTO> organizations = oauthClient.getOrganizationInfo(authorization, descriptionDTO.getCnpj().replaceAll("[^0-9]*", ""),true).getBody().getRecords();
 			if(organizations.size() != 0) {
 				organizationDto = organizations.get(0);
 				if(organizationDto.getType() == 1) {

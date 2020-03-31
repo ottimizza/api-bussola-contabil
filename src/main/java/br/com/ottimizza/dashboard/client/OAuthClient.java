@@ -19,20 +19,13 @@ public interface OAuthClient {
 	HttpEntity<GenericResponse<UserDTO>> getUserInfo(@RequestHeader("Authorization") String authorization);
 	
 	@GetMapping("/api/v1/organizations")
-	HttpEntity<GenericResponse<OrganizationDTO>> getOrganizationInfoById(@RequestHeader("Authorization") String authorization, @RequestParam BigInteger id);	
-
-	
-	@GetMapping("/api/v1/organizations")
-	HttpEntity<GenericResponse<OrganizationDTO>> getOrganizationInfo(@RequestHeader("Authorization") String authorization, @RequestParam String cnpj);	
-	
-	@GetMapping("/api/v1/organizations")
-	HttpEntity<GenericResponse<OrganizationDTO>> getOrganizationInfoIgnoreFilter(@RequestHeader("Authorization") String authorization, @RequestParam String cnpj, @RequestParam boolean ignoreAccountingFilter);	
+	HttpEntity<GenericResponse<OrganizationDTO>> getOrganizationInfoById(@RequestHeader("Authorization") String authorization, @RequestParam BigInteger id, @RequestParam boolean ignoreAccountingFilter);	
 
 	@GetMapping("/api/v1/organizations")
-	HttpEntity<GenericResponse<OrganizationDTO>> getOrganizationByType(@RequestHeader("Authorization") String authorization, @RequestParam String cnpj, @RequestParam Integer type);
+	HttpEntity<GenericResponse<OrganizationDTO>> getOrganizationInfo(@RequestHeader("Authorization") String authorization, @RequestParam String cnpj, @RequestParam boolean ignoreAccountingFilter);	
 	
 	@GetMapping("/api/v1/organizations")
-	HttpEntity<GenericResponse<OrganizationDTO>> getOrganizationByTypeIgnoreFilter(@RequestHeader("Authorization") String authorization, @RequestParam String cnpj, @RequestParam Integer type, @RequestParam boolean ignoreAccountingFilter);
+	HttpEntity<GenericResponse<OrganizationDTO>> getOrganizationByType(@RequestHeader("Authorization") String authorization, @RequestParam String cnpj, @RequestParam Integer type, @RequestParam boolean ignoreAccountingFilter);
 
 }
 
