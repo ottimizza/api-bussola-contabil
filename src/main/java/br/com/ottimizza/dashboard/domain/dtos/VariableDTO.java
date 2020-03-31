@@ -39,7 +39,7 @@ public class VariableDTO implements Serializable{
 	// IN
 	private String scriptDescription;
 	private String cnpj;
-	private Short type;
+	private Integer type;
 	
 	
 

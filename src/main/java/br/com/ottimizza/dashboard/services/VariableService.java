@@ -47,21 +47,16 @@ public class VariableService {
 		System.out.println(">>> vA "+variableDto.getCnpj().replaceAll("[^0-9]*", "")+" -- "+variableDto.getCnpj().replaceAll("\\D", ""));
 		if(variableDto.getCnpj() != null) {//busca accountingId e seta no variableDto
 			OrganizationDTO organizationDto = new OrganizationDTO();
-			List<OrganizationDTO> organizations = oauthClient.getAccountingInfo(authorization, variableDto.getCnpj().replaceAll("\\D", ""),1).getBody().getRecords();
+			List<OrganizationDTO> organizations = oauthClient.getOrganizationByTypeIgnoreFilter(authorization, variableDto.getCnpj().replaceAll("\\D", ""),variableDto.getType(),true).getBody().getRecords();
 			
 			System.out.println(">>> vA2 "+organizations.size());
 			if(organizations.size() == 0) {
 				organizationDto = organizations.get(0);
-				System.out.println(">>> vB1 "+organizationDto);
 				if(organizationDto.getType() == 1) variableDto.setAccountingId(organizationDto.getId());
-				System.out.println(">>> vB2 "+variableDto.toString());
 			}else if(organizations.size() > 0) { // se vierem 2 ou mais organizacoes, queremos apenas as do tipo contabilidade
-				System.out.println(">>> vB3"+organizations.size());
 				for (OrganizationDTO orgDto : organizations) {
-					System.out.println(">>> vB4"+orgDto.getType());
 					if(orgDto.getType() == 1) {
 						variableDto.setAccountingId(orgDto.getId());
-//						organizationDto = orgDto;
 						break;
 					}
 				}
