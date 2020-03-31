@@ -48,16 +48,9 @@ public class VariableService {
 			OrganizationDTO organizationDto = new OrganizationDTO();
 			List<OrganizationDTO> organizations = oauthClient.getOrganizationByType(authorization, variableDto.getCnpj().replaceAll("\\D", ""),variableDto.getType(),true).getBody().getRecords();
 			
-			if(organizations.size() == 0) {
+			if(organizations.size() > 0) {
 				organizationDto = organizations.get(0);
-				if(organizationDto.getType() == 1) variableDto.setAccountingId(organizationDto.getId());
-			}else if(organizations.size() > 0) { // se vierem 2 ou mais organizacoes, queremos apenas as do tipo contabilidade
-				for (OrganizationDTO orgDto : organizations) {
-					if(orgDto.getType() == 1) {
-						variableDto.setAccountingId(orgDto.getId());
-						break;
-					}
-				}
+				variableDto.setAccountingId(organizationDto.getId());
 			}			
 		}
 		
