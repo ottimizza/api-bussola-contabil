@@ -44,12 +44,10 @@ public class VariableService {
 //			variableDto.setScriptId(company.getScriptId());
 //			variableDto.setAccountingId(company.getAccountingId());
 //		}
-		System.out.println(">>> vA "+variableDto.getCnpj().replaceAll("[^0-9]*", "")+" -- "+variableDto.getCnpj().replaceAll("\\D", ""));
 		if(variableDto.getCnpj() != null) {//busca accountingId e seta no variableDto
 			OrganizationDTO organizationDto = new OrganizationDTO();
 			List<OrganizationDTO> organizations = oauthClient.getOrganizationByType(authorization, variableDto.getCnpj().replaceAll("\\D", ""),variableDto.getType(),true).getBody().getRecords();
 			
-			System.out.println(">>> vA2 "+organizations.size());
 			if(organizations.size() == 0) {
 				organizationDto = organizations.get(0);
 				if(organizationDto.getType() == 1) variableDto.setAccountingId(organizationDto.getId());
@@ -60,30 +58,24 @@ public class VariableService {
 						break;
 					}
 				}
-			}
-			System.out.println(">>> vB5 "+variableDto.toString());
-			
+			}			
 		}
 		
 		if(variableDto.getScriptDescription() != null) {//busca scriptId e seta no variableDto
 			variableDto.setScriptId(scriptRepository.findAll(new ScriptTypeDTO(null, null, variableDto.getScriptDescription())).get(0).getId());
 		}
-		System.out.println(">>> vC "+variableDto.toString());
 		
 		if(variableDto.getAccountingId() != null && variableDto.getScriptId() != null && variableDto.getKpiAlias() != null) {
 			VariableDTO filter = new VariableDTO();
 			filter.setScriptId(variableDto.getScriptId());
 			filter.setAccountingId(variableDto.getAccountingId());
 			filter.setKpiAlias(variableDto.getKpiAlias());
-			System.out.println(">>> vD "+filter.toString());
 			try {
 				Variable v = repository.findByAccountIdKpiAliasScriptId(filter);
 				if(v.getId() != null) variableDto.setId(v.getId());
 			} catch (Exception e) { }
 		}
-		System.out.println(">>> vE "+variableDto.toString());
 		Variable variable = VariableDTO.variableDtoToVariable(variableDto);
-		System.out.println(">>> vF "+variable.toString());
 		return VariableDTO.variableToVariableDto(repository.save(variable));
 	}
 

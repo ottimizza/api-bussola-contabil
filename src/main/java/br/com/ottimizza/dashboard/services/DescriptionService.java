@@ -59,7 +59,6 @@ public class DescriptionService {
 			try {
 				filter = new CompanyDTO();
 				filter.setCnpj(descriptionDTO.getCnpj());
-				System.out.println(">>> D.S. C "+filter.toString());
 				company = companyRepository.findAll(filter, null, null).get(0);
 			} catch (Exception e) {	}
 		}
