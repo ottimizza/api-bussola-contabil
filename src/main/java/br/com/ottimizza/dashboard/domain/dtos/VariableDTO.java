@@ -3,6 +3,8 @@ package br.com.ottimizza.dashboard.domain.dtos;
 import java.io.Serializable;
 import java.math.BigInteger;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 import br.com.ottimizza.dashboard.models.OrganizationVariable;
 import br.com.ottimizza.dashboard.models.Variable;
 import lombok.Data;
@@ -37,8 +39,13 @@ public class VariableDTO implements Serializable{
 	private String description;
 	
 	// IN
+    @JsonInclude(JsonInclude.Include.NON_NULL)
 	private String scriptDescription;
+
+	@JsonInclude(JsonInclude.Include.NON_NULL)
 	private String cnpj;
+	
+    @JsonInclude(JsonInclude.Include.NON_NULL)
 	private Integer type;
 	
 	

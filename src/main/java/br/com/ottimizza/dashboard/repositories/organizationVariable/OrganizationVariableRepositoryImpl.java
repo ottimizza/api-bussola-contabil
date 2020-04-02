@@ -34,7 +34,11 @@ public class OrganizationVariableRepositoryImpl implements OrganizationVariableR
 						variable.id.eq(organizationVariable.variableId));//.and(variable.accountingId.eq(userInfo.getOrganization().getId())))
 		
 		if(filter.getCompanyId() != null) query.where(organizationVariable.organizationId.eq(filter.getCompanyId()));
-		else if(filter.getCnpj() != null) query.innerJoin(company).on(company.cnpj.eq(filter.getCnpj()));
+		else if(filter.getCnpj() != null) {
+			query.innerJoin(company).on(company.cnpj.eq(StringUtil.formatCnpj(filter.getCnpj())));
+			query.where(organizationVariable.scriptId.eq(company.scriptId));
+		}
+		
 
 		query.select(Projections.constructor(VariableDTO.class, 
 				organizationVariable.id, organizationVariable.organizationId, variable.variableCode, variable.name, 
