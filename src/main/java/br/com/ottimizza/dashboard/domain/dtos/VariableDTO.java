@@ -3,13 +3,13 @@ package br.com.ottimizza.dashboard.domain.dtos;
 import java.io.Serializable;
 import java.math.BigInteger;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 import br.com.ottimizza.dashboard.models.OrganizationVariable;
 import br.com.ottimizza.dashboard.models.Variable;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
-@Getter
-@Setter
+@Data
 public class VariableDTO implements Serializable{
 
 	/*
@@ -39,8 +39,14 @@ public class VariableDTO implements Serializable{
 	private String description;
 	
 	// IN
+    @JsonInclude(JsonInclude.Include.NON_NULL)
 	private String scriptDescription;
+
+	@JsonInclude(JsonInclude.Include.NON_NULL)
 	private String cnpj;
+	
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+	private Integer type;
 	
 	
 

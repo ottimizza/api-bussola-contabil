@@ -59,7 +59,6 @@ public class ScriptTypeService {
 		filterScript.setDescription(companyDto.getScriptDescription());
 		
 		List<ScriptTypeDTO> scripts = findAll(filterScript);
-
 		try {
 			if(companyDto.getScriptDescription() != null) {
 				if(scripts.size() == 0) response = save(new ScriptTypeDTO(null, companyDto.getAccountingId(), companyDto.getScriptDescription())).getId();

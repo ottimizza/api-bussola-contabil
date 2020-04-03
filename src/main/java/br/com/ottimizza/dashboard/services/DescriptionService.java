@@ -25,6 +25,7 @@ import br.com.ottimizza.dashboard.models.ScriptType;
 import br.com.ottimizza.dashboard.repositories.company.CompanyRepository;
 import br.com.ottimizza.dashboard.repositories.description.DescriptionRepository;
 import br.com.ottimizza.dashboard.repositories.script_type.ScriptTypeRepository;
+import br.com.ottimizza.dashboard.utils.StringUtil;
 
 @Service
 public class DescriptionService {
@@ -44,7 +45,7 @@ public class DescriptionService {
 	public DescriptionDTO save(DescriptionDTO descriptionDTO, String authorization) throws Exception {
 		CompanyDTO filter = new CompanyDTO();
 		filter.setAccountingId(descriptionDTO.getAccountingId());
-		
+
 		Company company = new Company();
 		List<Company> companies = new ArrayList<Company>();
 		if(descriptionDTO.getAccountingId() != null) companies = companyRepository.findAll(filter, null, null);
@@ -53,6 +54,7 @@ public class DescriptionService {
 		if(!companies.isEmpty()) {
 			// nao esta sendo tratado o array por que sempre vai ser chamado por cnpj (nao temos o accounting no OIC)
 			company = companies.get(0);
+
 		} else {
 			try {
 				filter = new CompanyDTO();
@@ -62,14 +64,14 @@ public class DescriptionService {
 		}
 		
 		if (company.getId() != null) {
-			if(company.getScriptId() 	 != null) descriptionDTO.setScriptId(company.getScriptId());
+
+			if(company.getScriptId() != null && descriptionDTO.getScriptId() == null) descriptionDTO.setScriptId(company.getScriptId());
 			if(company.getAccountingId() != null) descriptionDTO.setAccountingId(company.getAccountingId());
 		
 		} else { // se nao encontrar company busca organization(contabilidade) do account 
 			OrganizationDTO organizationDto = new OrganizationDTO();
 			
-			List<OrganizationDTO> organizations = oauthClient.getOrganizationInfo(authorization, descriptionDTO.getCnpj().replaceAll("[^0-9]*", "")).getBody().getRecords();
-			
+			List<OrganizationDTO> organizations = oauthClient.getOrganizationInfo(authorization, descriptionDTO.getCnpj().replaceAll("[^0-9]*", ""),true).getBody().getRecords();
 			if(organizations.size() != 0) {
 				organizationDto = organizations.get(0);
 				if(organizationDto.getType() == 1) {
@@ -77,9 +79,11 @@ public class DescriptionService {
 					descriptionDTO.setCnpj("");
 				}
 			}
-			List<ScriptType> scripts = scriptTypeRepository.findAll(new ScriptTypeDTO(null, null, descriptionDTO.getScriptDescription()));
-			if(scripts.size() > 0 && descriptionDTO.getScriptDescription() != null) {
-				descriptionDTO.setScriptId(scripts.get(0).getId());
+			if(descriptionDTO.getScriptId() == null) { // so fazer a busca se nao manda o ID
+				List<ScriptType> scripts = scriptTypeRepository.findAll(new ScriptTypeDTO(null, null, descriptionDTO.getScriptDescription()));
+				if(scripts.size() > 0 && descriptionDTO.getScriptDescription() != null) {
+					descriptionDTO.setScriptId(scripts.get(0).getId());
+				}
 			}
 		}
 
@@ -89,7 +93,6 @@ public class DescriptionService {
 			dFiltro.setAccountingId(descriptionDTO.getAccountingId());
 			dFiltro.setScriptId(descriptionDTO.getScriptId());
 			dFiltro.setKpiAlias(descriptionDTO.getKpiAlias());
-
 			try {description2 = repository.findAll(dFiltro).get(0);} 
 			catch (Exception e) { }
 			
@@ -97,7 +100,6 @@ public class DescriptionService {
 
 		//nao daremos UPDATE em description pra nao sobrepor o que o contador fez
 		if(description2 == null || description2.getId() == null) {
-
 			Description description = DescriptionDTO.dtoToDescription(descriptionDTO);
 			return DescriptionDTO.descriptionToDto(repository.save(description));
 		}
@@ -122,8 +124,12 @@ public class DescriptionService {
 		return repository.findById(id).orElse(null);
 	}
 
-	public List<DescriptionDTO> findAll(DescriptionDTO descriptionDto) {
-		return DescriptionDTO.descriptionToDto(repository.findAll(descriptionDto));
+	public List<DescriptionDTO> findAll(DescriptionDTO filter) {
+		if(filter.getCnpj() != null && filter.getScriptId() == null) {
+			try { filter.setScriptId(companyRepository.findByCnpj(StringUtil.formatCnpj(filter.getCnpj())).getScriptId()); }
+			catch (Exception e) { }
+		}
+		return DescriptionDTO.descriptionToDto(repository.findAll(filter));
 	}
 
 	public DescriptionDTO patch(BigInteger id, DescriptionDTO descriptionDTO) throws Exception {
@@ -158,7 +164,6 @@ public class DescriptionService {
 			try { filter.setScriptId(companyRepository.findByCnpj(filter.getCnpj()).getScriptId()); }
 			catch (Exception e) { }
 		}
-			
 		return repository.findDescriptions(filter, PageRequest.of(pageIndex, pageSize)).map(DescriptionDTO::descriptionToDto);
 	}
 

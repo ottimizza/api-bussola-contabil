@@ -10,7 +10,7 @@ import br.com.ottimizza.dashboard.models.Description;
 
 public interface DescriptionRepositoryCustom {	//DescriptionRepositoryImpl
 	
-	List<Description> findAll(DescriptionDTO descriptionDto);
+	List<Description> findAll(DescriptionDTO filter);
 
 	Page<Description> findDescriptions(DescriptionDTO descriptionDTO, Pageable pageable);
 

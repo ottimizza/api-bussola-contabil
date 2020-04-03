@@ -34,7 +34,11 @@ public class OrganizationVariableRepositoryImpl implements OrganizationVariableR
 						variable.id.eq(organizationVariable.variableId));//.and(variable.accountingId.eq(userInfo.getOrganization().getId())))
 		
 		if(filter.getCompanyId() != null) query.where(organizationVariable.organizationId.eq(filter.getCompanyId()));
-		else if(filter.getCnpj() != null) query.innerJoin(company).on(company.cnpj.eq(filter.getCnpj()));
+		else if(filter.getCnpj() != null) {
+			query.innerJoin(company).on(company.cnpj.eq(StringUtil.formatCnpj(filter.getCnpj())));
+			query.where(organizationVariable.scriptId.eq(company.scriptId));
+		}
+		
 
 		query.select(Projections.constructor(VariableDTO.class, 
 				organizationVariable.id, organizationVariable.organizationId, variable.variableCode, variable.name, 
@@ -46,12 +50,11 @@ public class OrganizationVariableRepositoryImpl implements OrganizationVariableR
 
 	@Override
 	public List<VariableDTO> findMissingByCompanyId(VariableDTO filter, UserDTO userInfo) {
-		
-//		innerJoin(company)... .and(company.cnpj.eq(cnpjTest)) nao parece necessario validar CNPJ
-//		String cnpjTest = "07.586.955/0001-99";
+
 		JPAQuery<VariableDTO> query = new JPAQuery<VariableDTO>(em).from(variable);
 		query.innerJoin(company).on(company.accountingId.eq(variable.accountingId)
-			 .and(company.scriptId.eq(variable.scriptId)));
+			 .and(company.scriptId.eq(variable.scriptId))
+		 	 .and(company.scriptId.eq(filter.getScriptId())));
 
 		if(filter.getCompanyId() != null) {
 			query.leftJoin(organizationVariable).on(organizationVariable.variableId.eq(variable.id)
@@ -63,8 +66,9 @@ public class OrganizationVariableRepositoryImpl implements OrganizationVariableR
 				 .and(company.cnpj.eq(StringUtil.formatCnpj(filter.getCnpj())))
 				 .and(organizationVariable.scriptId.eq(variable.scriptId)));
 		}
+
 		query.where(organizationVariable.id.isNull());
-		
+
 		query.select(Projections.constructor(VariableDTO.class, 
 				organizationVariable.id, organizationVariable.organizationId, variable.variableCode, variable.name, 
 				variable.id, company.scriptId, variable.originValue, variable.absoluteValue, variable.accountingId, 
