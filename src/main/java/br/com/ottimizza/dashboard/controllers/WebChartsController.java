@@ -607,7 +607,7 @@ public class WebChartsController {
 		// variavel usada em FOR
 		String cnpjString = StringUtil.formatCnpj(cnpjs.getString(0));
 		List<WebChartDTO> webCharts = kpiService.findToChart(cnpjString);
-		
+		System.out.println(">>> z "+cnpjString+" - - "+urlLogo);
 		JSONObject dataToCharts = new JSONObject();
 //		montar aqui depois mover pra service ou nao
 
@@ -740,8 +740,11 @@ public class WebChartsController {
 			for (int kk = 0; kk < 5; kk++) {
 
 				JSONObject response = new JSONObject(sendToStorage(tmp, authorization, application_id, accounting_id));
+				System.out.println(">>> C "+response.toString());
 				JSONObject record = response.optJSONObject("record");
-				resourceId = record.optString("id");
+				System.out.println(">>> D "+record.toString());
+				
+				resourceId = record.has("id") ? record.optString("id") : "";
 				
 				String downloadURL = "";
 				String toShortURL = String.format("https://s4.ottimizzacontabil.com:55325/storage/%s", resourceId);
