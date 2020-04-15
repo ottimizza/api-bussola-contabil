@@ -28,6 +28,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.ottimizza.dashboard.client.OAuthClient;
 import br.com.ottimizza.dashboard.domain.dtos.CompanyDTO;
+import br.com.ottimizza.dashboard.domain.dtos.FilterOrganizationDTO;
 import br.com.ottimizza.dashboard.domain.dtos.OrganizationDTO;
 import br.com.ottimizza.dashboard.domain.dtos.UserDTO;
 import br.com.ottimizza.dashboard.models.Company;
@@ -152,28 +153,27 @@ public class CompanyController {
 		return ResponseEntity.ok(service.findCompanies(filter, authorization));
 	
 	}
+	@GetMapping("organizationId")
+	public BigInteger findOrganizationId(@Valid FilterOrganizationDTO filter, @RequestHeader("Authorization") String authorization) throws Exception { 
+		System.out.println(">>> f1 "+filter.toString());
+		return service.findOrganizationId(filter, authorization);
+	}
+	
 //	public BigInteger criaScriptType(CompanyDTO companyDto) throws Exception {
-//		System.out.println(">>> XA ");
-//
-//		
 //		ScriptTypeDTO filterScript = new ScriptTypeDTO();
 //		filterScript.setAccounting(companyDto.getAccountingId());
 //		List<ScriptTypeDTO> scripts = scriptTypeService.findAll(filterScript);
 //		try {
 //			if(companyDto.getScriptDescription() != null) {
-//				System.out.println(">>> XB ");
 //				if(scripts.size() == 0) return scriptTypeService.save(new ScriptTypeDTO(null, companyDto.getAccountingId(), companyDto.getScriptDescription())).getId();
 //				else return scripts.get(0).getId();
 //			}			
 //			if(companyDto.getScriptDescription() == null) {
-//				System.out.println(">>> XC ");
-//
 //				if(scripts.size() == 0) return scriptTypeService.save(new ScriptTypeDTO(null, companyDto.getAccountingId(), "PADRAO")).getId();
 //				else if(scripts.size() == 1) return scripts.get(0).getId();
 //				else if(scripts.size() > 1) return scripts.get(0).getId();
 //			}
 //		} catch (Exception e) { System.out.println(">>> XD ");}
-//	
 //		return null;
 //	}
 }
