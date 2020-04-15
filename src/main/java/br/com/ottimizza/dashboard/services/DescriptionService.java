@@ -48,7 +48,7 @@ public class DescriptionService {
 
 		Company company = new Company();
 		List<Company> companies = new ArrayList<Company>();
-		if(descriptionDTO.getAccountingId() != null) companies = companyRepository.findAll(filter, null, null);
+		if(descriptionDTO.getAccountingId() != null) companies = companyRepository.findAll(filter);
 		DescriptionDTO dFiltro = new DescriptionDTO();
 
 		if(!companies.isEmpty()) {
@@ -59,7 +59,7 @@ public class DescriptionService {
 			try {
 				filter = new CompanyDTO();
 				filter.setCnpj(descriptionDTO.getCnpj());
-				company = companyRepository.findAll(filter, null, null).get(0);
+				company = companyRepository.findAll(filter).get(0);
 			} catch (Exception e) {	}
 		}
 		

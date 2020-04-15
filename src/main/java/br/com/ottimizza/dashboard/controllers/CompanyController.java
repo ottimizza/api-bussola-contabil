@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.Optional;
 
 import javax.inject.Inject;
+import javax.validation.Valid;
 
 import org.apache.commons.lang3.StringUtils;
 import org.json.JSONArray;
@@ -146,6 +147,11 @@ public class CompanyController {
         return ResponseEntity.ok(service.patch(companyDTO, userInfo));
     }
 	
+	@GetMapping("")
+	public ResponseEntity<?> findAll(@Valid CompanyDTO filter, @RequestHeader("Authorization") String authorization) throws Exception { 
+		return ResponseEntity.ok(service.findCompanies(filter, authorization));
+	
+	}
 //	public BigInteger criaScriptType(CompanyDTO companyDto) throws Exception {
 //		System.out.println(">>> XA ");
 //

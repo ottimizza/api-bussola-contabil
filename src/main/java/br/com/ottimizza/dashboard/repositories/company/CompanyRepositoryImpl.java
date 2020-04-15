@@ -12,6 +12,7 @@ import com.querydsl.jpa.impl.JPAQuery;
 import br.com.ottimizza.dashboard.domain.dtos.CompanyDTO;
 import br.com.ottimizza.dashboard.models.Company;
 import br.com.ottimizza.dashboard.models.QCompany;
+import br.com.ottimizza.dashboard.utils.StringUtil;
 
 @Repository
 public class CompanyRepositoryImpl implements CompanyRepositoryCustom {
@@ -31,10 +32,12 @@ public class CompanyRepositoryImpl implements CompanyRepositoryCustom {
     }
     
     @Override
-    public List<Company> findAll(CompanyDTO filter, Integer pageSize, Integer pageIndex) {
+    public List<Company> findAll(CompanyDTO filter) {
+//      public List<Company> findAll(CompanyDTO filter, Integer pageSize, Integer pageIndex) {
         JPAQuery<Company> query = new JPAQuery<Company>(em).from(company);
+        String cnpj = StringUtil.formatCnpj(filter.getCnpj());
         
-        if(filter.getCnpj() != null)	 	 query.where(company.cnpj.eq(filter.getCnpj()));
+        if(filter.getCnpj() != null)	 	 query.where(company.cnpj.eq(cnpj));
         if(filter.getId() != null)			 query.where(company.id.eq(filter.getId()));
         if(filter.getName() != null)		 query.where(company.name.eq(filter.getName()));
         if(filter.getSector() != null)		 query.where(company.sector.eq(filter.getSector()));
@@ -42,12 +45,12 @@ public class CompanyRepositoryImpl implements CompanyRepositoryCustom {
         if(filter.getScriptId() != null)	 query.where(company.scriptId.eq(filter.getScriptId()));
         if(filter.getAccountingId() != null) query.where(company.accountingId.eq(filter.getAccountingId()));
         
-        if (pageSize != null && pageSize > 0) {
-            query.limit(pageSize);
-            if (pageIndex != null && pageIndex > 0) {
-                query.offset(pageSize * pageIndex);
-            }
-        }
+//        if (pageSize != null && pageSize > 0) {
+//            query.limit(pageSize);
+//            if (pageIndex != null && pageIndex > 0) {
+//                query.offset(pageSize * pageIndex);
+//            }
+//        }
 
         return query.orderBy(company.name.asc()).fetch();
     }
