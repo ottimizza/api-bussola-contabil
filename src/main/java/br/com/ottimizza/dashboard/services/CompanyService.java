@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import br.com.ottimizza.dashboard.client.OAuthClient;
 import br.com.ottimizza.dashboard.domain.dtos.CompanyDTO;
+import br.com.ottimizza.dashboard.domain.dtos.FilterOrganizationDTO;
 import br.com.ottimizza.dashboard.domain.dtos.OrganizationDTO;
 import br.com.ottimizza.dashboard.domain.dtos.UserDTO;
 import br.com.ottimizza.dashboard.models.Company;
@@ -140,10 +141,17 @@ public class CompanyService {
 	}
 
 	public List<CompanyDTO> findCompanies(CompanyDTO filter, String authorization) {
-//		return CompanyDTO.entityToDto(repository.findAll(filter, null, null));
 		return CompanyDTO.entityToDto(repository.findAll(filter));
 	}
 
-	
+	public BigInteger findOrganizationId(FilterOrganizationDTO filter, String authorization) {
+		try {
+			OrganizationDTO contabilidade = oauthCliente.getOrganizationByType(authorization, filter.getCnpjAccounting(), 1, true).getBody().getRecords().get(0);
+			OrganizationDTO empresa = oauthCliente.getOrganizationByAccountingId(authorization, contabilidade.getId(), filter.getCnpj(), true).getBody().getRecords().get(0);
+			
+			return empresa.getId();
+		} catch (Exception e) {  }
+		return null;
+	}	
     
 }
