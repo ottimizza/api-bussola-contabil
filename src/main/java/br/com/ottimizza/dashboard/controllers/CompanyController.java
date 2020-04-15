@@ -153,9 +153,9 @@ public class CompanyController {
 		return ResponseEntity.ok(service.findCompanies(filter, authorization));
 	
 	}
+	
 	@GetMapping("organizationId")
 	public BigInteger findOrganizationId(@Valid FilterOrganizationDTO filter, @RequestHeader("Authorization") String authorization) throws Exception { 
-		System.out.println(">>> f1 "+filter.toString());
 		return service.findOrganizationId(filter, authorization);
 	}
 	

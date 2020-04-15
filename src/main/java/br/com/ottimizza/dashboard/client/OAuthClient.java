@@ -36,7 +36,7 @@ public interface OAuthClient {
 
 	@GetMapping("/api/v1/organizations")
 	HttpEntity<GenericResponse<OrganizationDTO>> getOrganizationByAccountingId(@RequestHeader("Authorization") String authorization, 
-																			   @RequestParam("organizationId")BigInteger contabilidadeId, 
+																			   @RequestParam("organizationId") BigInteger accounting, 
 																			   @RequestParam String cnpj, 
 																			   @RequestParam boolean ignoreAccountingFilter);
 

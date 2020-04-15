@@ -145,17 +145,11 @@ public class CompanyService {
 	}
 
 	public BigInteger findOrganizationId(FilterOrganizationDTO filter, String authorization) {
-		System.out.println(">>> f2 "+ oauthCliente.getOrganizationInfo(authorization, filter.getCnpjAccounting(), true));
-		System.out.println(">>> f3 "+ oauthCliente.getOrganizationByType(authorization, filter.getCnpjAccounting(), 1, true));
 		try {
 			OrganizationDTO contabilidade = oauthCliente.getOrganizationByType(authorization, filter.getCnpjAccounting(), 1, true).getBody().getRecords().get(0);
-			System.out.println(">>> 1 "+contabilidade.toString());
-
 			OrganizationDTO empresa = oauthCliente.getOrganizationByAccountingId(authorization, contabilidade.getId(), filter.getCnpj(), true).getBody().getRecords().get(0);
-			BigInteger b = empresa.getId(); 
-			System.out.println(">>> 2 "+empresa.toString());
-			System.out.println(">>> "+b);
-			return b;
+			
+			return empresa.getId();
 		} catch (Exception e) {  }
 		return null;
 	}	
