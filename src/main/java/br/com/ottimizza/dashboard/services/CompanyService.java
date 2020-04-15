@@ -140,7 +140,10 @@ public class CompanyService {
 	}
 
 	public List<CompanyDTO> findCompanies(CompanyDTO filter, String authorization) {
-		return CompanyDTO.entityToDto(repository.findAll(filter, null, null));
+//		return CompanyDTO.entityToDto(repository.findAll(filter, null, null));
+		return CompanyDTO.entityToDto(repository.findAll(filter));
 	}
+
+	
     
 }
