@@ -35,9 +35,12 @@ public class CompanyRepositoryImpl implements CompanyRepositoryCustom {
     public List<Company> findAll(CompanyDTO filter) {
 //      public List<Company> findAll(CompanyDTO filter, Integer pageSize, Integer pageIndex) {
         JPAQuery<Company> query = new JPAQuery<Company>(em).from(company);
-        String cnpj = StringUtil.formatCnpj(filter.getCnpj());
+
+        if(filter.getCnpj() != null) {	 	 
+        	String cnpj = StringUtil.formatCnpj(filter.getCnpj());
+        	query.where(company.cnpj.eq(cnpj));
+        }
         
-        if(filter.getCnpj() != null)	 	 query.where(company.cnpj.eq(cnpj));
         if(filter.getId() != null)			 query.where(company.id.eq(filter.getId()));
         if(filter.getName() != null)		 query.where(company.name.eq(filter.getName()));
         if(filter.getSector() != null)		 query.where(company.sector.eq(filter.getSector()));
