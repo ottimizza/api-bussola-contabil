@@ -154,5 +154,10 @@ public class VariableService {
 	public Page<Variable> findVariableByOrganization(VariableDTO filter, int pageIndex, int pageSize, UserDTO userInfo) {
 		return repository.findVariableByOrganization(filter, PageRequest.of(pageIndex, pageSize));
 	}
+	
+	public VariableDTO patch(BigInteger id, VariableDTO dto) throws Exception {
+		Variable current = repository.findById(id).orElse(null);
+		return VariableDTO.variableToVariableDto(repository.save(dto.patch(current)));
+	}
 
 }

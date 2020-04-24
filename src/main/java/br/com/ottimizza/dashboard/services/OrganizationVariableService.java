@@ -33,7 +33,6 @@ public class OrganizationVariableService {
 	
 	public VariableDTO save(VariableDTO variableDto, UserDTO userInfo) throws Exception {
 		OrganizationVariable organizationVariable = VariableDTO.variableDtoToOrganizationVariable(variableDto);
-
 		VariableDTO filter = new VariableDTO();
 		filter.setCompanyId(variableDto.getCompanyId());
 		filter.setScriptId(variableDto.getScriptId());
