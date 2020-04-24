@@ -153,6 +153,20 @@ public class VariableDTO implements Serializable{
 		this.scriptDescription = scriptDescription;
 		this.cnpj = cnpj;
 	}
+	
+	public Variable patch(Variable variable) {
+		if(this.id != null) variable.setId(this.id);
+		if(this.accountingId != null) variable.setAccountingId(this.accountingId);
+		if(this.scriptId != null) variable.setScriptId(this.scriptId);
+		if(this.variableCode != null) variable.setVariableCode(this.variableCode);
+		if(this.name != null) variable.setName(this.name);
+		if(this.description != null) variable.setDescription(this.description);
+		if(this.accountingCode != null) variable.setAccountingCode(this.accountingCode);
+		if(this.kpiAlias != null) variable.setKpiAlias(this.kpiAlias);
+		if(this.originValue != null) variable.setOriginValue(this.originValue);
+		if(this.absoluteValue != null) variable.setAbsoluteValue(this.absoluteValue);
+		return variable;
+	}
 
 }
 

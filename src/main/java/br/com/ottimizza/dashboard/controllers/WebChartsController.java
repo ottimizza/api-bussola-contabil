@@ -607,7 +607,7 @@ public class WebChartsController {
 		// variavel usada em FOR
 		String cnpjString = StringUtil.formatCnpj(cnpjs.getString(0));
 		List<WebChartDTO> webCharts = kpiService.findToChart(cnpjString);
-		
+
 		JSONObject dataToCharts = new JSONObject();
 //		montar aqui depois mover pra service ou nao
 
@@ -741,6 +741,7 @@ public class WebChartsController {
 
 				JSONObject response = new JSONObject(sendToStorage(tmp, authorization, application_id, accounting_id));
 				JSONObject record = response.optJSONObject("record");
+				
 				resourceId = record.optString("id");
 				
 				String downloadURL = "";
