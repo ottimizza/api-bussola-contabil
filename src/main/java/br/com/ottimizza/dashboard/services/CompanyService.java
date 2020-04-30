@@ -136,8 +136,10 @@ public class CompanyService {
 	
 	public List<OrganizationDTO> findOrganizationInfo(String authorization, OrganizationDTO filter) throws Exception {
 		String cnpj = StringUtils.leftPad(filter.getCnpj().replaceAll("\\D", ""), 14, "0");
-		List<OrganizationDTO> dtos = oauthCliente.getOrganizationInfo(authorization, cnpj, true).getBody().getRecords();
-		return dtos;
+		if(filter.getType() == null)
+			return oauthCliente.getOrganizationInfo(authorization, cnpj, true).getBody().getRecords();
+		else
+			return oauthCliente.getOrganizationByType(authorization, cnpj, filter.getType(), true).getBody().getRecords();
 	}
 
 	public List<CompanyDTO> findCompanies(CompanyDTO filter, String authorization) {
