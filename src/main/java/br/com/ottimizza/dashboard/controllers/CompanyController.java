@@ -81,6 +81,7 @@ public class CompanyController {
 	    		// busco contabilidade no account e seto accountingID no company
     	    	OrganizationDTO filterOrg = new OrganizationDTO();
     	    	filterOrg.setCnpj(StringUtils.leftPad(companyDto.getCnpjAccounting().replaceAll("\\D", ""), 14, "0"));
+    	    	filterOrg.setType(1);  // contabilidade
     	    	List<OrganizationDTO> orgDtos = service.findOrganizationInfo(authorization, filterOrg);
     	    	if(orgDtos.size() > 0) newCompany.setAccountingId(orgDtos.get(0).getId());
     	    	
