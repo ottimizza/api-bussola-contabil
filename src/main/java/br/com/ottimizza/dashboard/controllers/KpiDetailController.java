@@ -97,4 +97,5 @@ public class KpiDetailController {
 		return ResponseEntity.ok(detailService.findAll(filter, pageIndex, pageSize, authorization));
 	}
 	
+	
 }

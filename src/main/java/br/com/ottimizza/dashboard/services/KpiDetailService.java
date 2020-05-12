@@ -1,6 +1,7 @@
 package br.com.ottimizza.dashboard.services;
 
 import java.math.BigInteger;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import br.com.ottimizza.dashboard.domain.dtos.KpiDetailDTO;
 import br.com.ottimizza.dashboard.models.KpiDetail;
+import br.com.ottimizza.dashboard.models.KpiDetailCreate;
 import br.com.ottimizza.dashboard.repositories.kpi_detail.KpiDetailRepository;
 
 @Service
@@ -94,5 +96,6 @@ public class KpiDetailService {
 	public List<KpiDetail> findByKpiId(BigInteger id) {
 		return repository.findByKpiId(id);
 	}
+	
     
 }
