@@ -42,6 +42,7 @@ public class Variable implements Serializable{
 
 	private String description;
 	
+	@Column(name = "accounting_code", length = 600)
 	private String accountingCode;
 	
 	private String kpiAlias;
