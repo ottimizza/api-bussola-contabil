@@ -70,6 +70,9 @@ public class WebChartsController {
 	@Value("${storage-config.upload-accounting-id}")
     private String UPLOAD_ACCOUNTING_ID;
 	
+	@Value("${storage-config.storage-url}")
+	private String STORAGE_URL;
+	
 	@RequestMapping(value = "/by_cnpj", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public String download(@RequestHeader("Authorization") String authorization, @RequestBody String objRequest,
 			HttpServletRequest request) throws IOException, Exception {
@@ -530,7 +533,7 @@ public class WebChartsController {
 
 	public String sendToStorage(File file, String authorization, String application_id, String accounting_id) {
 		
-		String url = String.format("https://s3.tareffaapp.com.br:55325/storage/%s/accounting/%s/store",
+		String url = String.format(STORAGE_URL.concat("/storage/%s/accounting/%s/store"),
 				application_id, accounting_id);
 
 		try {
@@ -747,7 +750,7 @@ public class WebChartsController {
 				resourceId = record.optString("id");
 				
 				String downloadURL = "";
-				String toShortURL = String.format("https://s3.tareffaapp.com.br:55325/storage/%s", resourceId);
+				String toShortURL = String.format(STORAGE_URL.concat("/storage/%s"), resourceId);
 				
 				//encurtador de URL
 				IsGdApi gd = new IsGdApi();

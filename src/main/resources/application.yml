@@ -12,6 +12,7 @@ oauth2-config:
 storage-config:
     upload-id-bussola: ${UPLOAD_ID_BUSSOLA:development-user-photos}
     upload-accounting-id: ${UPLOAD_ACCOUNTING_ID:ottimizza}
+    storage-url: ${STORAGE_URL:https://s3.tareffaapp.com.br:55325}
 
 # Sentry Environment Variables
 sentry-config:
