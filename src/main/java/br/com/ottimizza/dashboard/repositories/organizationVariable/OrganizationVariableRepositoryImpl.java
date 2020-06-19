@@ -52,9 +52,11 @@ public class OrganizationVariableRepositoryImpl implements OrganizationVariableR
 	public List<VariableDTO> findMissingByCompanyId(VariableDTO filter, UserDTO userInfo) {
 
 		JPAQuery<VariableDTO> query = new JPAQuery<VariableDTO>(em).from(variable);
-		query.innerJoin(company).on(company.accountingId.eq(variable.accountingId)
+		if(filter.getScriptId() != null) {
+			query.innerJoin(company).on(company.accountingId.eq(variable.accountingId)
 			 .and(company.scriptId.eq(variable.scriptId))
 		 	 .and(company.scriptId.eq(filter.getScriptId())));
+		}
 
 		if(filter.getCompanyId() != null) {
 			query.leftJoin(organizationVariable).on(organizationVariable.variableId.eq(variable.id)
