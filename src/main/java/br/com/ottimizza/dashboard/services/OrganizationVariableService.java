@@ -125,7 +125,7 @@ public class OrganizationVariableService {
 				filter.setScriptId(BigInteger.ZERO);
 			}
 			
-		} catch (Exception e) {  }
+		} catch (Exception e) {  e.printStackTrace();}
 		System.out.println(">>> E "+filter.toString());
 
 		return repository.findMissingByCompanyId(filter, userInfo);
