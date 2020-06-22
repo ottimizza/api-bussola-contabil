@@ -53,14 +53,10 @@ public class OrganizationVariableRepositoryImpl implements OrganizationVariableR
 
  		JPAQuery<VariableDTO> query = new JPAQuery<VariableDTO>(em).from(variable);
 		
-		if(filter.getScriptId() != null) {
-			query.innerJoin(company).on(company.accountingId.eq(variable.accountingId)
-			 .and(company.scriptId.eq(variable.scriptId))
-			 .and(company.scriptId.eq(filter.getScriptId())));
-		} else {
-			query.innerJoin(company).on(company.accountingId.eq(variable.accountingId)
-			 .and(company.scriptId.eq(variable.scriptId))); 
-		}
+		query.innerJoin(company).on(company.accountingId.eq(variable.accountingId)
+		 .and(company.scriptId.eq(variable.scriptId))
+		 .and(company.scriptId.eq(filter.getScriptId())));
+		 
 
 		if(filter.getCompanyId() != null) {
 			query.leftJoin(organizationVariable).on(organizationVariable.variableId.eq(variable.id)
