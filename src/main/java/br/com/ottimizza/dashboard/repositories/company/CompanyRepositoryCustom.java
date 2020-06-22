@@ -11,6 +11,4 @@ public interface CompanyRepositoryCustom { // CompanyRepositoryImpl
     
     List<Company> findCompaniesByCNPJ(List<String> cnpj);
     
-//	Company findByCnpj(String cnpj);
-
 }
