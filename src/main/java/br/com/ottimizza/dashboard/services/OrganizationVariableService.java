@@ -115,11 +115,23 @@ public class OrganizationVariableService {
 	
 	public List<VariableDTO> findMissingByOrganizationId(VariableDTO filter, UserDTO userInfo) {
 		// busca informacoes necessarias para join
+		Company cia = new Company();
 		try {
-			Company cia = companyRepository.findByCnpj(StringUtil.formatCnpj(filter.getCnpj()));
-			filter.setScriptId(cia.getScriptId());
-			filter.setAccountingId(cia.getAccountingId());
-		} catch (Exception e) {  }
+			cia = companyRepository.findByCnpj(StringUtil.formatCnpj(filter.getCnpj()));
+		} catch (Exception e) {  
+		}
+		
+		
+		if (cia != null) {
+			if (cia.getScriptId() != null) {
+				filter.setScriptId(cia.getScriptId());
+				filter.setAccountingId(cia.getAccountingId());
+			} else {
+				filter.setScriptId(BigInteger.ZERO);
+			}
+		} else {
+			filter.setScriptId(BigInteger.ZERO);
+		}
 		
 		return repository.findMissingByCompanyId(filter, userInfo);
 	}

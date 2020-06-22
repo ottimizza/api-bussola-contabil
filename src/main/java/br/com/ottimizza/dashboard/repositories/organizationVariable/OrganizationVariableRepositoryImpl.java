@@ -53,14 +53,14 @@ public class OrganizationVariableRepositoryImpl implements OrganizationVariableR
 
  		JPAQuery<VariableDTO> query = new JPAQuery<VariableDTO>(em).from(variable);
 		
-		if(filter.getCompanyId() != null) {
-			query.innerJoin(company).on(company.accountingId.eq(variable.accountingId)
-			 .and(company.scriptId.eq(variable.scriptId))
-			 .and(company.id.eq(filter.getCompanyId())));
- 		} else {
-			query.innerJoin(company).on(company.accountingId.eq(variable.accountingId)
-			 .and(company.scriptId.eq(variable.scriptId))); 
-		}
+//		if(filter.getScriptId() != null) {
+//			query.innerJoin(company).on(company.accountingId.eq(variable.accountingId)
+//			 .and(company.scriptId.eq(variable.scriptId))
+//			 .and(company.id.eq(filter.getCompanyId())));
+// 		} else {
+//			query.innerJoin(company).on(company.accountingId.eq(variable.accountingId)
+//			 .and(company.scriptId.eq(variable.scriptId))); 
+//		}
 
 		if(filter.getCompanyId() != null) {
 			query.leftJoin(organizationVariable).on(organizationVariable.variableId.eq(variable.id)
@@ -68,18 +68,20 @@ public class OrganizationVariableRepositoryImpl implements OrganizationVariableR
 				 .and(organizationVariable.scriptId.eq(variable.scriptId)));
 		}
 		if(filter.getCnpj() != null) {
+			 
+			query.innerJoin(company).on(company.cnpj.eq(StringUtil.formatCnpj(filter.getCnpj())));			
 			query.leftJoin(organizationVariable).on(organizationVariable.variableId.eq(variable.id)
-				 .and(company.cnpj.eq(StringUtil.formatCnpj(filter.getCnpj())))
+//				 .and(company.cnpj.eq(StringUtil.formatCnpj(filter.getCnpj())))
 				 .and(organizationVariable.scriptId.eq(variable.scriptId)));
 		}
 
-		query.where(organizationVariable.id.isNull());
+		query.where(organizationVariable.id.isNull().and(variable.scriptId.eq(filter.getScriptId())));
 		query.distinct();
 		
 		
 		query.select(Projections.constructor(VariableDTO.class, 
 				organizationVariable.id, organizationVariable.organizationId, variable.variableCode, variable.name, 
-				variable.id, company.scriptId, variable.originValue, variable.absoluteValue, variable.accountingId, 
+				variable.id, variable.scriptId, variable.originValue, variable.absoluteValue, variable.accountingId, 
 				variable.accountingCode, variable.kpiAlias, variable.description));
 
 		return query.fetch();

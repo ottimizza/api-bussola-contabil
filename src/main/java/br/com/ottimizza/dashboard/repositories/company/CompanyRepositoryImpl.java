@@ -57,5 +57,4 @@ public class CompanyRepositoryImpl implements CompanyRepositoryCustom {
 
         return query.orderBy(company.name.asc()).fetch();
     }
-
 }
