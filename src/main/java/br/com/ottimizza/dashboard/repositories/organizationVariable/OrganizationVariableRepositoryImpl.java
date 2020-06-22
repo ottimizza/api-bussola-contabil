@@ -53,14 +53,14 @@ public class OrganizationVariableRepositoryImpl implements OrganizationVariableR
 
  		JPAQuery<VariableDTO> query = new JPAQuery<VariableDTO>(em).from(variable);
 		
-		if(filter.getCompanyId() != null) {
-			query.innerJoin(company).on(company.accountingId.eq(variable.accountingId)
-			 .and(company.scriptId.eq(variable.scriptId))
-			 .and(company.id.eq(filter.getCompanyId())));
- 		} else {
-			query.innerJoin(company).on(company.accountingId.eq(variable.accountingId)
-			 .and(company.scriptId.eq(variable.scriptId))); 
-		}
+//		if(filter.getScriptId() != null) {
+//			query.innerJoin(company).on(company.accountingId.eq(variable.accountingId)
+//			 .and(company.scriptId.eq(variable.scriptId))
+//			 .and(company.id.eq(filter.getCompanyId())));
+// 		} else {
+//			query.innerJoin(company).on(company.accountingId.eq(variable.accountingId)
+//			 .and(company.scriptId.eq(variable.scriptId))); 
+//		}
 
 		if(filter.getCompanyId() != null) {
 			query.leftJoin(organizationVariable).on(organizationVariable.variableId.eq(variable.id)
@@ -73,7 +73,7 @@ public class OrganizationVariableRepositoryImpl implements OrganizationVariableR
 				 .and(organizationVariable.scriptId.eq(variable.scriptId)));
 		}
 
-		query.where(organizationVariable.id.isNull());
+		query.where(organizationVariable.id.isNull().and(variable.scriptId.eq(filter.getScriptId())));
 		query.distinct();
 		
 		
