@@ -13,4 +13,6 @@ public interface CompanyRepository extends JpaRepository<Company, BigInteger>, C
 
     Company findCompanyByCnpj(String cnpj);
 
+	Company findByCnpj(String cnpj);
+
 }
