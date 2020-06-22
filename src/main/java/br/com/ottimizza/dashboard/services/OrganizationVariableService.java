@@ -118,7 +118,8 @@ public class OrganizationVariableService {
 		try {
 			Company cia = companyRepository.findByCnpj(StringUtil.formatCnpj(filter.getCnpj()));
 			System.out.println(">>> D "+cia.toString());
-			if(cia.getScriptId() != null) {
+			
+			if(cia != null && cia.getScriptId() != null) {
 				filter.setScriptId(cia.getScriptId());
 				filter.setAccountingId(cia.getAccountingId());
 			} else {
