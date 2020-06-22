@@ -117,6 +117,7 @@ public class OrganizationVariableService {
 		// busca informacoes necessarias para join
 		try {
 			Company cia = companyRepository.findByCnpj(StringUtil.formatCnpj(filter.getCnpj()));
+			System.out.println(">>> D "+cia.toString());
 			if(cia.getScriptId() != null) {
 				filter.setScriptId(cia.getScriptId());
 				filter.setAccountingId(cia.getAccountingId());
@@ -125,7 +126,8 @@ public class OrganizationVariableService {
 			}
 			
 		} catch (Exception e) {  }
-		
+		System.out.println(">>> E "+filter.toString());
+
 		return repository.findMissingByCompanyId(filter, userInfo);
 	}
 	
