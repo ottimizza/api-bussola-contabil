@@ -119,22 +119,20 @@ public class OrganizationVariableService {
 		System.out.println(">>> B "+cia.toString());
 		try {
 			cia = companyRepository.findByCnpj(StringUtil.formatCnpj(filter.getCnpj()));
-			System.out.println(">>> B2 "+cia.toString());
 		} catch (Exception e) {  
 			System.out.println(">>> C "+e.getMessage());
 		}
 		
-		if (cia == null) {
-			System.out.println(">>> Cnullo ");
-		}
+		
 		if (cia != null) {
-				System.out.println(">>> D "+cia.toString());
 			if (cia.getScriptId() != null) {
 				filter.setScriptId(cia.getScriptId());
 				filter.setAccountingId(cia.getAccountingId());
 			} else {
 				filter.setScriptId(BigInteger.ZERO);
 			}
+		} else {
+			filter.setScriptId(BigInteger.ZERO);
 		}
 		
 		System.out.println(">>> E "+filter.toString());

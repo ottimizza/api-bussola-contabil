@@ -62,13 +62,8 @@ public class CompanyRepositoryImpl implements CompanyRepositoryCustom {
 	public Company findByCnpj(String cnpj) {
 		JPAQuery<Company> query = new JPAQuery<Company>(em).from(company);
 
-		System.out.println(">>> r1 "+query.fetchCount());
-		
 		try { query.where(company.cnpj.eq(StringUtil.formatCnpj(cnpj))); } 
 		catch (Exception ex) { ex.printStackTrace(); }
-		
-		System.out.println(">>> s1 "+query.fetchCount() +" -> "+ query.fetchFirst());
-		System.out.println(">>> s3 "+query.fetchOne());
 		
 		return query.fetchOne();
 	}
