@@ -116,14 +116,15 @@ public class OrganizationVariableService {
 	public List<VariableDTO> findMissingByOrganizationId(VariableDTO filter, UserDTO userInfo) {
 		// busca informacoes necessarias para join
 		Company cia = new Company();
+		System.out.println(">>> B "+cia.toString());
 		try {
 			cia = companyRepository.findByCnpj(StringUtil.formatCnpj(filter.getCnpj()));
 		} catch (Exception e) {  
-			
+			System.out.println(">>> C "+e.getMessage());
 		}
 		
-		System.out.println(">>> D "+cia.toString());
 		if (cia != null) {
+			System.out.println(">>> D "+cia.toString());
 			if (cia.getScriptId() != null) {
 				filter.setScriptId(cia.getScriptId());
 				filter.setAccountingId(cia.getAccountingId());
