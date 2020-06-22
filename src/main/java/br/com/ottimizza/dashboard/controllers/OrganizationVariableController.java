@@ -76,14 +76,11 @@ public class OrganizationVariableController {
 	public ResponseEntity<List<VariableDTO>> findMissing(@Valid VariableDTO filter, 
 														 @RequestHeader("Authorization") String authorization) throws Exception {
 		UserDTO userInfo = new UserDTO();
-		
-		System.out.println(">>> A "+filter.toString());
-		
+				
 		//busca organization oauth CNPJ
 		if(filter.getCnpj() == null) {
 			try { 
 				filter.setCnpj(oauthClient.getOrganizationInfoById(authorization, filter.getCompanyId(), true).getBody().getRecords().get(0).getCnpj()); 
-				System.out.println(">>> B "+filter.toString());	
 			} 
 			catch (Exception e) { e.printStackTrace(); }
 		}
