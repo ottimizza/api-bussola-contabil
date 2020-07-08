@@ -95,11 +95,13 @@ public class CompanyController {
     	    		newOrganization.setActive(true);
     	    		newOrganization.setCodigoERP("");
     	    		newOrganization.setOrganizationId(newCompany.getAccountingId());
+
+    	    		System.out.println(">>> >A "+newOrganization.toString());
     	    		
-    	    		oauthClient.saveOrganization(authorization, newOrganization);
-    	    		
+    	    		newOrganization = oauthClient.saveOrganization(authorization, newOrganization).getBody().getRecord();
+    	    		System.out.println(">>> >B "+newOrganization.toString());
     	    	}catch (Exception e) {
-					// TODO: handle exception
+					System.out.println(">>> > erro criando coompany");
 				}
     	    	
 	    	}
