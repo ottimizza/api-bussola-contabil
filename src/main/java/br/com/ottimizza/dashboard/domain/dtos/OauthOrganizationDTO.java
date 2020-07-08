@@ -21,4 +21,5 @@ public class OauthOrganizationDTO  implements Serializable{
 	
 	private Integer type;
 	private BigInteger organizationId;
+	
 }

@@ -96,13 +96,10 @@ public class CompanyController {
     	    		newOrganization.setActive(true);
     	    		newOrganization.setType(2);
     	    		newOrganization.setOrganizationId(newCompany.getAccountingId());
-
-    	    		System.out.println(">>> >A "+newOrganization.toString());
     	    		
     	    		newOrganization = oauthClient.saveOrganization(authorization, newOrganization, true).getBody().getRecord();
-    	    		System.out.println(">>> >B "+newOrganization.toString());
     	    	}catch (Exception er) {
-					System.out.println(">>> > erro criando coompany "+er.getMessage());
+					System.out.println("ERROR creating company IN ACCOUNTS "+er.getMessage());
 				}
     	    	
 	    	}
