@@ -100,8 +100,8 @@ public class CompanyController {
     	    		
     	    		newOrganization = oauthClient.saveOrganization(authorization, newOrganization).getBody().getRecord();
     	    		System.out.println(">>> >B "+newOrganization.toString());
-    	    	}catch (Exception e) {
-					System.out.println(">>> > erro criando coompany");
+    	    	}catch (Exception er) {
+					System.out.println(">>> > erro criando coompany "+er.getMessage());
 				}
     	    	
 	    	}
