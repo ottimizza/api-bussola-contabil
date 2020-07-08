@@ -44,7 +44,8 @@ public interface OAuthClient {
 																			   @RequestParam boolean ignoreAccountingFilter);
 	@PostMapping("/api/v1/organizations")
 	HttpEntity<GenericResponse<OauthOrganizationDTO>> saveOrganization(@RequestHeader("Authorization") String authorization, 
-																		@RequestBody OauthOrganizationDTO organization);	
+																		@RequestBody OauthOrganizationDTO organization,
+																		@RequestParam boolean ignoreAccountingFilter);	
 
 }
 
