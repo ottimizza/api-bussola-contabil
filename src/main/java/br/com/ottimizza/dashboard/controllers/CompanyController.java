@@ -86,6 +86,22 @@ public class CompanyController {
     	    	if(orgDtos.size() > 0) newCompany.setAccountingId(orgDtos.get(0).getId());
     	    	
     	    	newCompany.setScriptId(scriptTypeService.criaScriptType(newCompany));
+    	    	
+    	    	try {
+    	    		OrganizationDTO newOrganization = new OrganizationDTO();
+    	    		newOrganization.setCnpj(StringUtils.leftPad(newCompany.getCnpj().replaceAll("\\D", ""), 14, "0"));
+    	    		newOrganization.setName(newCompany.getName());
+    	    		newOrganization.setType(2);
+    	    		newOrganization.setActive(true);
+    	    		newOrganization.setCodigoERP("");
+    	    		newOrganization.setOrganizationId(newCompany.getAccountingId());
+    	    		
+    	    		oauthClient.saveOrganization(authorization, newOrganization);
+    	    		
+    	    	}catch (Exception e) {
+					// TODO: handle exception
+				}
+    	    	
 	    	}
 	    	return ResponseEntity.ok(service.save(CompanyDTO.dtoToEntity(newCompany)));		
     	} catch (Exception e) { 

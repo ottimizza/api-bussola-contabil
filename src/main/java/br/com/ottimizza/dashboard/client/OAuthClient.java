@@ -5,6 +5,8 @@ import java.math.BigInteger;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.HttpEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -39,6 +41,9 @@ public interface OAuthClient {
 																			   @RequestParam("organizationId") BigInteger accounting, 
 																			   @RequestParam String cnpj, 
 																			   @RequestParam boolean ignoreAccountingFilter);
+	@PostMapping("/api/v1/organizations")
+	HttpEntity<GenericResponse<OrganizationDTO>> saveOrganization(@RequestHeader("Authorization") String authorization, 
+																  @RequestBody OrganizationDTO organization);	
 
 }
 
