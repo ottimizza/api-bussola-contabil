@@ -29,6 +29,7 @@ import org.springframework.web.bind.annotation.RestController;
 import br.com.ottimizza.dashboard.client.OAuthClient;
 import br.com.ottimizza.dashboard.domain.dtos.CompanyDTO;
 import br.com.ottimizza.dashboard.domain.dtos.FilterOrganizationDTO;
+import br.com.ottimizza.dashboard.domain.dtos.OauthOrganizationDTO;
 import br.com.ottimizza.dashboard.domain.dtos.OrganizationDTO;
 import br.com.ottimizza.dashboard.domain.dtos.UserDTO;
 import br.com.ottimizza.dashboard.models.Company;
@@ -88,12 +89,12 @@ public class CompanyController {
     	    	newCompany.setScriptId(scriptTypeService.criaScriptType(newCompany));
     	    	
     	    	try {
-    	    		OrganizationDTO newOrganization = new OrganizationDTO();
-    	    		newOrganization.setCnpj(StringUtils.leftPad(newCompany.getCnpj().replaceAll("\\D", ""), 14, "0"));
+    	    		OauthOrganizationDTO newOrganization = new OauthOrganizationDTO();
     	    		newOrganization.setName(newCompany.getName());
-    	    		newOrganization.setType(2);
-    	    		newOrganization.setActive(true);
+    	    		newOrganization.setCnpj(StringUtils.leftPad(newCompany.getCnpj().replaceAll("\\D", ""), 14, "0"));
     	    		newOrganization.setCodigoERP("");
+    	    		newOrganization.setActive(true);
+    	    		newOrganization.setType(2);
     	    		newOrganization.setOrganizationId(newCompany.getAccountingId());
 
     	    		System.out.println(">>> >A "+newOrganization.toString());
