@@ -5,9 +5,12 @@ import java.math.BigInteger;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.HttpEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import br.com.ottimizza.dashboard.domain.dtos.OauthOrganizationDTO;
 import br.com.ottimizza.dashboard.domain.dtos.OrganizationDTO;
 import br.com.ottimizza.dashboard.domain.dtos.UserDTO;
 import br.com.ottimizza.dashboard.domain.responses.GenericResponse;
@@ -39,6 +42,10 @@ public interface OAuthClient {
 																			   @RequestParam("organizationId") BigInteger accounting, 
 																			   @RequestParam String cnpj, 
 																			   @RequestParam boolean ignoreAccountingFilter);
+	@PostMapping("/api/v1/organizations")
+	HttpEntity<GenericResponse<OauthOrganizationDTO>> saveOrganization(@RequestHeader("Authorization") String authorization, 
+																		@RequestBody OauthOrganizationDTO organization,
+																		@RequestParam boolean ignoreAccountingFilter);	
 
 }
 
