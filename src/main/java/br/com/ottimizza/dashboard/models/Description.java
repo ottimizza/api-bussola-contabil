@@ -38,6 +38,7 @@ public class Description implements Serializable{
 	@Column(nullable = false)
 	private String kpiAlias;
 
+	@Column(length = 600)
 	private String description;
 	
 	@Column(name = "fk_script_id")
