@@ -47,7 +47,9 @@ public class VariableDTO implements Serializable{
 	
     @JsonInclude(JsonInclude.Include.NON_NULL)
 	private Integer type;
-	
+
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+	private BigInteger organizationId;
 	
 
 	public static Variable variableDtoToVariable(VariableDTO variableDto) {
