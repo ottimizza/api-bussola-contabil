@@ -67,7 +67,8 @@ public class OrganizationVariableRepositoryImpl implements OrganizationVariableR
 				 .and(organizationVariable.organizationId.eq(filter.getCompanyId()))
 				 .and(organizationVariable.scriptId.eq(variable.scriptId)));
 		
-		} else if (filter.getCnpj() != null) {			 
+		} 
+		if (filter.getCnpj() != null) {			 
 			query.innerJoin(company).on(company.cnpj.eq(StringUtil.formatCnpj(filter.getCnpj())));			
 			query.leftJoin(organizationVariable).on(organizationVariable.variableId.eq(variable.id)
 //				 .and(company.cnpj.eq(StringUtil.formatCnpj(filter.getCnpj())))

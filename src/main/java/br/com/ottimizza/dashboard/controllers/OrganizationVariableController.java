@@ -84,6 +84,7 @@ public class OrganizationVariableController {
 			} 
 			catch (Exception e) { e.printStackTrace(); }
 		}
+		System.out.println(">>> >A "+filter.toString());
 		return ResponseEntity.ok(service.findMissingByOrganizationId(filter, userInfo));
 	}
 	
