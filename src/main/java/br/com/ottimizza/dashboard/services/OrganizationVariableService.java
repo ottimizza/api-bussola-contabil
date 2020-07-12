@@ -116,11 +116,8 @@ public class OrganizationVariableService {
 	public List<VariableDTO> findMissingByOrganizationId(VariableDTO filter, UserDTO userInfo) {
 		// busca informacoes necessarias para join
 		Company cia = new Company();
-		try {
-			cia = companyRepository.findByCnpj(StringUtil.formatCnpj(filter.getCnpj()));
-		} catch (Exception e) {  
-		}
-		
+		try { cia = companyRepository.findByCnpj(StringUtil.formatCnpj(filter.getCnpj())); } 
+		catch (Exception e) {  }
 		
 		if (cia != null) {
 			if (cia.getScriptId() != null) {
@@ -132,7 +129,6 @@ public class OrganizationVariableService {
 		} else {
 			filter.setScriptId(BigInteger.ZERO);
 		}
-		
 		return repository.findMissingByCompanyId(filter, userInfo);
 	}
 	
