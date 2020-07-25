@@ -600,10 +600,11 @@ public class WebChartsController {
 			HttpServletRequest request) throws IOException, Exception {
 		
 		authorization = authorization.replace("Bearer ", "");
-
+		String urlLogo = "";
 		JSONObject requestBody = new JSONObject(objRequest);
 		JSONArray cnpjs = requestBody.optJSONArray("cnpj");
-		String urlLogo = requestBody.optJSONArray("urlLogo").getString(0);
+		 
+		urlLogo = requestBody.optJSONArray("urlLogo").getString(0);
 		
 		Locale ptBr = new Locale("pt", "BR");
 		
@@ -699,7 +700,8 @@ public class WebChartsController {
 			
 			dataToCharts = wcs.getDataToChartsNovo(webChart);
 				
-			if(!dataToCharts.optString("chartType").equals("CardChart")) { 
+			if(!dataToCharts.optString("chartType").equals("CardChart")) {
+				
 				sb.append(wcs.getTable(dataToCharts));
 				sb.append(wcs.putOptions(dataToCharts));
 				sb.append(wcs.putChart(dataToCharts));
