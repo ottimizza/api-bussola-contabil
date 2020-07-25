@@ -33,6 +33,9 @@ public class VariableService {
 	
 	@Inject
 	ScriptTypeRepository scriptRepository;
+	
+	@Inject
+	ScriptTypeService scriptService;
 
 	@Inject
 	OAuthClient oauthClient;
@@ -44,6 +47,7 @@ public class VariableService {
 //			variableDto.setScriptId(company.getScriptId());
 //			variableDto.setAccountingId(company.getAccountingId());
 //		}
+		System.out.println("variable Service 1 "+ variableDto.toString());
 		if(variableDto.getCnpj() != null) {//busca accountingId e seta no variableDto
 			OrganizationDTO organizationDto = new OrganizationDTO();
 			List<OrganizationDTO> organizations = oauthClient.getOrganizationByType(authorization, variableDto.getCnpj().replaceAll("\\D", ""),variableDto.getType(),true).getBody().getRecords();
@@ -55,18 +59,26 @@ public class VariableService {
 		}
 		
 		if(variableDto.getScriptDescription() != null) {//busca scriptId e seta no variableDto
-			variableDto.setScriptId(scriptRepository.findAll(new ScriptTypeDTO(null, null, variableDto.getScriptDescription())).get(0).getId());
+			try {
+				variableDto.setScriptId(scriptRepository.findAll(new ScriptTypeDTO(null, null, variableDto.getScriptDescription())).get(0).getId());
+			}catch(Exception ex) {
+				ScriptTypeDTO script = new ScriptTypeDTO();
+				script.setAccounting(variableDto.getAccountingId());
+				script.setDescription(variableDto.getScriptDescription());
+				variableDto.setScriptId(scriptService.save(script).getId());
+			}
+			
 		}
-		
 		if(variableDto.getAccountingId() != null && variableDto.getScriptId() != null && variableDto.getKpiAlias() != null) {
 			VariableDTO filter = new VariableDTO();
 			filter.setScriptId(variableDto.getScriptId());
 			filter.setAccountingId(variableDto.getAccountingId());
 			filter.setKpiAlias(variableDto.getKpiAlias());
 			try {
+				
 				Variable v = repository.findByAccountIdKpiAliasScriptId(filter);
 				if(v.getId() != null) variableDto.setId(v.getId());
-			} catch (Exception e) { }
+			} catch (Exception e) { System.err.println(e.getMessage());}
 		}
 		Variable variable = VariableDTO.variableDtoToVariable(variableDto);
 		return VariableDTO.variableToVariableDto(repository.save(variable));
@@ -153,6 +165,11 @@ public class VariableService {
 
 	public Page<Variable> findVariableByOrganization(VariableDTO filter, int pageIndex, int pageSize, UserDTO userInfo) {
 		return repository.findVariableByOrganization(filter, PageRequest.of(pageIndex, pageSize));
+	}
+	
+	public VariableDTO patch(BigInteger id, VariableDTO dto) throws Exception {
+		Variable current = repository.findById(id).orElse(null);
+		return VariableDTO.variableToVariableDto(repository.save(dto.patch(current)));
 	}
 
 }

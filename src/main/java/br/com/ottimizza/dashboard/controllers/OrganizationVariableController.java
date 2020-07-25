@@ -81,6 +81,10 @@ public class OrganizationVariableController {
 			try { filter.setCnpj(oauthClient.getOrganizationInfoById(authorization, filter.getCompanyId(), true).getBody().getRecords().get(0).getCnpj()); } 
 			catch (Exception e) { e.printStackTrace(); }
 		}
+		if (filter.getOrganizationId() == null) {
+			try { filter.setOrganizationId(oauthClient.getOrganizationInfo(authorization, filter.getCnpj(), true).getBody().getRecords().get(0).getId()); } 
+			catch (Exception e) { e.printStackTrace(); }
+		}
 		return ResponseEntity.ok(service.findMissingByOrganizationId(filter, userInfo));
 	}
 	

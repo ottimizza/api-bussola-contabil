@@ -10,8 +10,9 @@ oauth2-config:
     oauth2-client-secret: ${OAUTH2_CLIENT_SECRET:bussola-contabil-secret}
 
 storage-config:
-    upload-id-bussola: ${UPLOAD_ID_BUSSOLA:staging-tareffa-oauth}
+    upload-id-bussola: ${UPLOAD_ID_BUSSOLA:development-user-photos}
     upload-accounting-id: ${UPLOAD_ACCOUNTING_ID:ottimizza}
+    storage-url: ${STORAGE_URL:https://s3.tareffaapp.com.br:55325}
 
 # Sentry Environment Variables
 sentry-config:
@@ -30,7 +31,7 @@ spring:
 
     jpa:
         database-platform: org.hibernate.dialect.PostgreSQLDialect
-        show-sql: true
+        show-sql: false
         hibernate:
             ddl-auto: update
         properties:

@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.Optional;
 
 import javax.inject.Inject;
+import javax.validation.Valid;
 
 import org.apache.commons.lang3.StringUtils;
 import org.json.JSONArray;
@@ -27,6 +28,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.ottimizza.dashboard.client.OAuthClient;
 import br.com.ottimizza.dashboard.domain.dtos.CompanyDTO;
+import br.com.ottimizza.dashboard.domain.dtos.FilterOrganizationDTO;
+import br.com.ottimizza.dashboard.domain.dtos.OauthOrganizationDTO;
 import br.com.ottimizza.dashboard.domain.dtos.OrganizationDTO;
 import br.com.ottimizza.dashboard.domain.dtos.UserDTO;
 import br.com.ottimizza.dashboard.models.Company;
@@ -73,16 +76,43 @@ public class CompanyController {
 	    	    	if(orgDtos.size() > 0) newCompany.setAccountingId(orgDtos.get(0).getId());
 	    		}
 	    		newCompany.setScriptId(scriptTypeService.criaScriptType(newCompany));
-
+	    		try {
+    	    		OauthOrganizationDTO newOrganization = new OauthOrganizationDTO();
+    	    		newOrganization.setName(newCompany.getName());
+    	    		newOrganization.setCnpj(StringUtils.leftPad(newCompany.getCnpj().replaceAll("\\D", ""), 14, "0"));
+    	    		newOrganization.setActive(true);
+    	    		newOrganization.setType(2);
+    	    		newOrganization.setOrganizationId(newCompany.getAccountingId());
+    	    		
+    	    		newOrganization = oauthClient.saveOrganization(authorization, newOrganization, true).getBody().getRecord();
+    	    	}catch (Exception er) {
+					System.out.println("ERROR creating company IN ACCOUNTS "+er.getMessage());
+				}
 	    	} else {	// NAO existe company com o CNPJ enviado
 
 	    		// busco contabilidade no account e seto accountingID no company
     	    	OrganizationDTO filterOrg = new OrganizationDTO();
     	    	filterOrg.setCnpj(StringUtils.leftPad(companyDto.getCnpjAccounting().replaceAll("\\D", ""), 14, "0"));
+    	    	filterOrg.setType(1);  // contabilidade
     	    	List<OrganizationDTO> orgDtos = service.findOrganizationInfo(authorization, filterOrg);
     	    	if(orgDtos.size() > 0) newCompany.setAccountingId(orgDtos.get(0).getId());
     	    	
     	    	newCompany.setScriptId(scriptTypeService.criaScriptType(newCompany));
+    	    	
+    	    	try {
+    	    		OauthOrganizationDTO newOrganization = new OauthOrganizationDTO();
+    	    		newOrganization.setName(newCompany.getName());
+    	    		newOrganization.setCnpj(StringUtils.leftPad(newCompany.getCnpj().replaceAll("\\D", ""), 14, "0"));
+    	    		newOrganization.setCodigoERP("");
+    	    		newOrganization.setActive(true);
+    	    		newOrganization.setType(2);
+    	    		newOrganization.setOrganizationId(newCompany.getAccountingId());
+    	    		
+    	    		newOrganization = oauthClient.saveOrganization(authorization, newOrganization, true).getBody().getRecord();
+    	    	}catch (Exception er) {
+					System.out.println("ERROR creating company IN ACCOUNTS "+er.getMessage());
+				}
+    	    	
 	    	}
 	    	return ResponseEntity.ok(service.save(CompanyDTO.dtoToEntity(newCompany)));		
     	} catch (Exception e) { 
@@ -147,28 +177,32 @@ public class CompanyController {
         return ResponseEntity.ok(service.patch(companyDTO, userInfo));
     }
 	
+	@GetMapping("")
+	public ResponseEntity<?> findAll(@Valid CompanyDTO filter, @RequestHeader("Authorization") String authorization) throws Exception { 
+		return ResponseEntity.ok(service.findCompanies(filter, authorization));
+	
+	}
+	
+	@GetMapping("organizationId")
+	public BigInteger findOrganizationId(@Valid FilterOrganizationDTO filter, @RequestHeader("Authorization") String authorization) throws Exception { 
+		return service.findOrganizationId(filter, authorization);
+	}
+	
 //	public BigInteger criaScriptType(CompanyDTO companyDto) throws Exception {
-//		System.out.println(">>> XA ");
-//
-//		
 //		ScriptTypeDTO filterScript = new ScriptTypeDTO();
 //		filterScript.setAccounting(companyDto.getAccountingId());
 //		List<ScriptTypeDTO> scripts = scriptTypeService.findAll(filterScript);
 //		try {
 //			if(companyDto.getScriptDescription() != null) {
-//				System.out.println(">>> XB ");
 //				if(scripts.size() == 0) return scriptTypeService.save(new ScriptTypeDTO(null, companyDto.getAccountingId(), companyDto.getScriptDescription())).getId();
 //				else return scripts.get(0).getId();
 //			}			
 //			if(companyDto.getScriptDescription() == null) {
-//				System.out.println(">>> XC ");
-//
 //				if(scripts.size() == 0) return scriptTypeService.save(new ScriptTypeDTO(null, companyDto.getAccountingId(), "PADRAO")).getId();
 //				else if(scripts.size() == 1) return scripts.get(0).getId();
 //				else if(scripts.size() > 1) return scripts.get(0).getId();
 //			}
 //		} catch (Exception e) { System.out.println(">>> XD ");}
-//	
 //		return null;
 //	}
 }
