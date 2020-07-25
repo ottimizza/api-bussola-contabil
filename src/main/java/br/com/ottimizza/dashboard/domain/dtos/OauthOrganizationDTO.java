@@ -10,20 +10,16 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class OrganizationDTO implements Serializable{
-	
+public class OauthOrganizationDTO  implements Serializable{
+
 	private static final long serialVersionUID = 1L;
-	private BigInteger id;
-	private String externalId;
+	
 	private String name;
-	private Integer type;
 	private String cnpj;
 	private String codigoERP;
-	private String email;
-	private String avatar;
-	private BigInteger organizationId;
-	private BigInteger scriptId; 
-	
 	private boolean active;
-
+	
+	private Integer type;
+	private BigInteger organizationId;
+	
 }
