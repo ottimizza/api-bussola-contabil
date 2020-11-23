@@ -27,4 +27,12 @@ public class StringUtil {
 		return cnpjs.stream().map(StringUtil::formatCnpj).collect(Collectors.toList());
 		
 	}
+	
+	public static String cleanCpfCnpj(String cnpj){
+		cnpj = cnpj.replaceAll("\\D", "");
+		if (cnpj.length() > 11 && cnpj.length() < 14) StringUtils.leftPad(cnpj, 14, "0");
+		if (cnpj.length() > 5 && cnpj.length() < 11) StringUtils.leftPad(cnpj, 11, "0");
+		
+		return cnpj;
+	}
 }

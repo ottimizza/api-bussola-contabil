@@ -79,7 +79,7 @@ public class CompanyController {
 	    		try {
     	    		OauthOrganizationDTO newOrganization = new OauthOrganizationDTO();
     	    		newOrganization.setName(newCompany.getName());
-    	    		newOrganization.setCnpj(StringUtils.leftPad(newCompany.getCnpj().replaceAll("\\D", ""), 14, "0"));
+    	    		newOrganization.setCnpj(StringUtil.cleanCpfCnpj(newCompany.getCnpj()));
     	    		newOrganization.setActive(true);
     	    		newOrganization.setType(2);
     	    		newOrganization.setOrganizationId(newCompany.getAccountingId());
@@ -102,7 +102,7 @@ public class CompanyController {
     	    	try {
     	    		OauthOrganizationDTO newOrganization = new OauthOrganizationDTO();
     	    		newOrganization.setName(newCompany.getName());
-    	    		newOrganization.setCnpj(StringUtils.leftPad(newCompany.getCnpj().replaceAll("\\D", ""), 14, "0"));
+    	    		newOrganization.setCnpj(StringUtil.cleanCpfCnpj(newCompany.getCnpj()));
     	    		newOrganization.setCodigoERP("");
     	    		newOrganization.setActive(true);
     	    		newOrganization.setType(2);
