@@ -41,7 +41,7 @@ public class BalanceRepositoryImpl implements BalanceRepositoryCustom{
 		JPAQuery<Balance> query = new JPAQuery<Balance>(em).from(balance)
                 .innerJoin(company).on(company.id.eq(balance.companyId));
 		
-		if(filter.getCnpj() != null)		query.where(company.cnpj.eq(StringUtil.formatCnpj(filter.getCnpj())));
+		if(filter.getCnpj() != null)		query.where(company.cnpj.eq(StringUtil.formatCpfCnpj(filter.getCnpj())));
 		if(filter.getDateBalance() != null)	query.where(balance.dateBalance.eq(filter.getDateBalance()));
 		if(filter.getSyntheticId() != null) query.where(balance.syntheticId.eq(filter.getSyntheticId()));
 		if(filter.getAnalyticId() != null)	query.where(balance.analyticId.eq(filter.getAnalyticId()));

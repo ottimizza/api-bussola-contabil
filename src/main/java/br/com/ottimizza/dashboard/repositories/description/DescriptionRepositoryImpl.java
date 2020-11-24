@@ -61,7 +61,7 @@ public class DescriptionRepositoryImpl implements DescriptionRepositoryCustom {
 		
 		if (filter.getCnpj() != null) {
 			query.innerJoin(company).on(company.cnpj.eq(description.cnpj));
-			query.where(company.cnpj.eq(StringUtil.formatCnpj(filter.getCnpj())));
+			query.where(company.cnpj.eq(StringUtil.formatCpfCnpj(filter.getCnpj())));
 		}
 
 		if (filter.getId() != null)				query.where(description.id.eq(filter.getId()));

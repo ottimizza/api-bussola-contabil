@@ -126,7 +126,7 @@ public class DescriptionService {
 
 	public List<DescriptionDTO> findAll(DescriptionDTO filter) {
 		if(filter.getCnpj() != null && filter.getScriptId() == null) {
-			try { filter.setScriptId(companyRepository.findByCnpj(StringUtil.formatCnpj(filter.getCnpj())).getScriptId()); }
+			try { filter.setScriptId(companyRepository.findByCnpj(StringUtil.formatCpfCnpj(filter.getCnpj())).getScriptId()); }
 			catch (Exception e) { }
 		}
 		return DescriptionDTO.descriptionToDto(repository.findAll(filter));

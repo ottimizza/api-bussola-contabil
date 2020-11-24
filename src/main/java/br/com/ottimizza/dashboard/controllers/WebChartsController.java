@@ -90,7 +90,7 @@ public class WebChartsController {
 		Locale ptBr = new Locale("pt", "BR");
 		
 		// variavel usada em FOR
-		String cnpjString = StringUtil.formatCnpj(cnpjs.getString(0));
+		String cnpjString = StringUtil.formatCpfCnpj(cnpjs.getString(0));
 		List<String> chartsSequence = kpiRepository.findKpiAlias(cnpjString);
 		
 		// busca de dados
@@ -328,7 +328,7 @@ public class WebChartsController {
 		Locale ptBr = new Locale("pt", "BR");
 		
 		// variavel usada em FOR
-		String cnpjString = StringUtil.formatCnpj(cnpjs.getString(0));
+		String cnpjString = StringUtil.formatCpfCnpj(cnpjs.getString(0));
 		List<String> chartsSequence = kpiRepository.findKpiAlias(cnpjString);
 		
 		// busca de dados
@@ -609,7 +609,7 @@ public class WebChartsController {
 		Locale ptBr = new Locale("pt", "BR");
 		
 		// variavel usada em FOR
-		String cnpjString = StringUtil.formatCnpj(cnpjs.getString(0));
+		String cnpjString = StringUtil.formatCpfCnpj(cnpjs.getString(0));
 		List<WebChartDTO> webCharts = kpiService.findToChart(cnpjString);
 
 		JSONObject dataToCharts = new JSONObject();
