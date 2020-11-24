@@ -24,7 +24,7 @@ public class StringUtil {
                     .insert(3,  ".")
                     .insert(7,  ".")
                     .insert(11, "-");
-                    cpfCnpj = sb.toString();
+            return sb.toString();
 		}
 		return cpfCnpj;
 	}
