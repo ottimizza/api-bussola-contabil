@@ -12,13 +12,13 @@ public class StringUtil {
 	public static String formatCpfCnpj(String cpfCnpj){
 		cpfCnpj = cpfCnpj.replaceAll("\\D", "");
 		
-		if (cpfCnpj.length() > 11 && cpfCnpj.length() < 14) {
+		if (cpfCnpj.length() > 11 && cpfCnpj.length() <= 14) {
 			cpfCnpj = StringUtils.leftPad(cpfCnpj, 14, "0");
 			Pattern pattern = Pattern.compile("(\\d{2})(\\d{3})(\\d{3})(\\d{4})(\\d{2})");
 			Matcher matcher = pattern.matcher(cpfCnpj);
 			if(matcher.find()) return matcher.replaceAll("$1.$2.$3/$4-$5");
 		}
-		if (cpfCnpj.length() > 5 && cpfCnpj.length() < 11) {
+		if (cpfCnpj.length() > 5 && cpfCnpj.length() <= 11) {
 			cpfCnpj = StringUtils.leftPad(cpfCnpj, 11, "0");
 			StringBuilder sb = new StringBuilder(cpfCnpj)
                     .insert(3,  ".")
