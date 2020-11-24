@@ -20,9 +20,11 @@ public class StringUtil {
 		}
 		if (cpfCnpj.length() > 5 && cpfCnpj.length() < 11) {
 			cpfCnpj = StringUtils.leftPad(cpfCnpj, 11, "0");
-			Pattern pattern = Pattern.compile("(\\d{3})(\\d{3})(\\d{3})(\\d{2})");
-			Matcher matcher = pattern.matcher(cpfCnpj);
-			if(matcher.find()) return matcher.replaceAll("$1.$2.$3-$4");
+			StringBuilder sb = new StringBuilder(cpfCnpj)
+                    .insert(3,  ".")
+                    .insert(7,  ".")
+                    .insert(11, "-");
+                    cpfCnpj = sb.toString();
 		}
 		return cpfCnpj;
 	}
