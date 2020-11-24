@@ -57,12 +57,20 @@ public class CompanyController {
 	
     @PostMapping("save")
     public ResponseEntity<Company> saveCompany(@RequestBody CompanyDTO companyDto,  @RequestHeader String authorization) throws Exception {
-    	    	
+    	
+    	System.out.println(">>> *************************************************************************");
+    	System.out.println(">>> >A "+companyDto.toString());
+    	System.out.println(">>> *************************************************************************");
+    	
     	CompanyDTO filter = new CompanyDTO();
     	filter.setCnpj(companyDto.getCnpj());
     	List<CompanyDTO> companiesExisting = service.findCompanies(filter, authorization);
     	CompanyDTO newCompany = companyDto;
     	try{
+    		System.out.println(">>> *************************************************************************");
+        	System.out.println(">>> >B "+companiesExisting.size());
+        	System.out.println(">>> *************************************************************************");
+        	
 	    	if(companiesExisting.size() > 0) {	//existe company com o CNPJ enviado
 	    		newCompany = companiesExisting.get(0);
 	    		newCompany.setScriptDescription(companyDto.getScriptDescription());
@@ -112,10 +120,9 @@ public class CompanyController {
     	    	}catch (Exception er) {
 					System.out.println("ERROR creating company IN ACCOUNTS "+er.getMessage());
 				}
-    	    	
 	    	}
-	    	return ResponseEntity.ok(service.save(CompanyDTO.dtoToEntity(newCompany)));		
-    	} catch (Exception e) { 
+	    	return ResponseEntity.ok(service.save(CompanyDTO.dtoToEntity(newCompany)));
+    	} catch (Exception e) {
     		e.printStackTrace();
         	return ResponseEntity.badRequest().build();
     	}
