@@ -116,7 +116,7 @@ public class OrganizationVariableService {
 	public List<VariableDTO> findMissingByOrganizationId(VariableDTO filter, UserDTO userInfo) {
 		// busca informacoes necessarias para join
 		Company cia = new Company();
-		try { cia = companyRepository.findByCnpj(StringUtil.formatCnpj(filter.getCnpj())); } 
+		try { cia = companyRepository.findByCnpj(StringUtil.formatCpfCnpj(filter.getCnpj())); } 
 		catch (Exception e) {  }
 		
 		if (cia != null) {

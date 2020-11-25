@@ -57,7 +57,7 @@ public class KpiController {
 
 	@GetMapping("gain/{cnpj}")
 	public ResponseEntity<KpiTitleAndValueDTO> findKpiValue(@PathVariable("cnpj") String cnpj) throws Exception {
-		cnpj = StringUtil.formatCnpj(cnpj);
+		cnpj = StringUtil.formatCpfCnpj(cnpj);
 		BigInteger companyId = companyService.findByCnpj(cnpj).getId();
 		return ResponseEntity.ok(kpiService.kpiValue(companyId));
 	}

@@ -37,7 +37,7 @@ public class CompanyRepositoryImpl implements CompanyRepositoryCustom {
         JPAQuery<Company> query = new JPAQuery<Company>(em).from(company);
 
         if(filter.getCnpj() != null) {	 	 
-        	String cnpj = StringUtil.formatCnpj(filter.getCnpj());
+        	String cnpj = StringUtil.formatCpfCnpj(filter.getCnpj());
         	query.where(company.cnpj.eq(cnpj));
         }
         
