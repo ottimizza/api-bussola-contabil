@@ -57,6 +57,8 @@ public class CompanyController {
 	
     @PostMapping("save")
     public ResponseEntity<Company> saveCompany(@RequestBody CompanyDTO companyDto,  @RequestHeader String authorization) throws Exception {
+    	    	
+    	System.out.println(">>> >A "+companyDto.toString());
     	
     	CompanyDTO filter = new CompanyDTO();
     	filter.setCnpj(companyDto.getCnpj());
@@ -83,7 +85,9 @@ public class CompanyController {
     	    		newOrganization.setActive(true);
     	    		newOrganization.setType(2);
     	    		newOrganization.setOrganizationId(newCompany.getAccountingId());
-    	    		
+
+    	    		System.out.println(">>> >D "+newOrganization.toString());
+
     	    		newOrganization = oauthClient.saveOrganization(authorization, newOrganization, true).getBody().getRecord();
     	    	}catch (Exception er) {
 					System.out.println("ERROR creating company IN ACCOUNTS "+er.getMessage());
