@@ -48,17 +48,22 @@ spring:
     
 
 security:
-    oauth2:
-        client:
-            clientId: ${oauth2-config.oauth2-client-id}
-            clientSecret: ${oauth2-config.oauth2-client-secret}
-            accessTokenUri: ${oauth2-config.oauth2-server-url}/oauth/token
-            userAuthorizationUri: ${oauth2-config.oauth2-server-url}/oauth/authorize
+  jwt:
+    # Chave pública para validação de Token JWT. :)
+    # . . Pode ser um caminho: classpath:public-key.txt
+    public-key: ${JWT_PUBLIC_KEY}
+    
+    #oauth2:
+    #    client:
+    #        clientId: ${oauth2-config.oauth2-client-id}
+    #        clientSecret: ${oauth2-config.oauth2-client-secret}
+    #        accessTokenUri: ${oauth2-config.oauth2-server-url}/oauth/token
+    #        userAuthorizationUri: ${oauth2-config.oauth2-server-url}/oauth/authorize
 
-        resource:
-            userInfoUri: ${oauth2-config.oauth2-server-url}/user/info
-            tokenInfoUri: ${oauth2-config.oauth2-server-url}/oauth/check_token
-            filter_order: 3
+    #   resource:
+    #        userInfoUri: ${oauth2-config.oauth2-server-url}/user/info
+    #        tokenInfoUri: ${oauth2-config.oauth2-server-url}/oauth/check_token
+    #        filter_order: 3
             
 
 setores: ${SETORES:[{"label":"Construção Civil","value":1},{"label":"Comércio Varejista","value":2},{"label":"Tecnologia","value":3},{"label":"Alimentação","value":4},{"label":"Serviços","value":5}]}

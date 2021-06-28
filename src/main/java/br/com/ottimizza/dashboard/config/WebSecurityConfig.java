@@ -55,7 +55,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
      * @param oauth2ClientContext
      * @return
      */
-
+/*
     @Bean
     @Primary
     public ResourceServerTokenServices tokenServices() {
@@ -76,5 +76,5 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         authenticationManager.setTokenServices(tokenServices());
         return authenticationManager;
     }
-
+    */
 }
