@@ -57,13 +57,13 @@ public class CompanyController {
 	
     @PostMapping("save")
     public ResponseEntity<Company> saveCompany(@RequestBody CompanyDTO companyDto,  @RequestHeader String authorization) throws Exception {
-    	    	
+    	
     	CompanyDTO filter = new CompanyDTO();
     	filter.setCnpj(companyDto.getCnpj());
     	List<CompanyDTO> companiesExisting = service.findCompanies(filter, authorization);
     	CompanyDTO newCompany = companyDto;
     	try{
-	    	if(companiesExisting.size() > 0) {	//existe company com o CNPJ enviado
+    		if(companiesExisting.size() > 0) {	//existe company com o CNPJ enviado
 	    		newCompany = companiesExisting.get(0);
 	    		newCompany.setScriptDescription(companyDto.getScriptDescription());
 	    		if(newCompany.getAccountingId() == null) {
@@ -79,7 +79,7 @@ public class CompanyController {
 	    		try {
     	    		OauthOrganizationDTO newOrganization = new OauthOrganizationDTO();
     	    		newOrganization.setName(newCompany.getName());
-    	    		newOrganization.setCnpj(StringUtils.leftPad(newCompany.getCnpj().replaceAll("\\D", ""), 14, "0"));
+    	    		newOrganization.setCnpj(StringUtil.cleanCpfCnpj(newCompany.getCnpj()));
     	    		newOrganization.setActive(true);
     	    		newOrganization.setType(2);
     	    		newOrganization.setOrganizationId(newCompany.getAccountingId());
@@ -102,7 +102,7 @@ public class CompanyController {
     	    	try {
     	    		OauthOrganizationDTO newOrganization = new OauthOrganizationDTO();
     	    		newOrganization.setName(newCompany.getName());
-    	    		newOrganization.setCnpj(StringUtils.leftPad(newCompany.getCnpj().replaceAll("\\D", ""), 14, "0"));
+    	    		newOrganization.setCnpj(StringUtil.cleanCpfCnpj(newCompany.getCnpj()));
     	    		newOrganization.setCodigoERP("");
     	    		newOrganization.setActive(true);
     	    		newOrganization.setType(2);
@@ -112,10 +112,9 @@ public class CompanyController {
     	    	}catch (Exception er) {
 					System.out.println("ERROR creating company IN ACCOUNTS "+er.getMessage());
 				}
-    	    	
 	    	}
-	    	return ResponseEntity.ok(service.save(CompanyDTO.dtoToEntity(newCompany)));		
-    	} catch (Exception e) { 
+	    	return ResponseEntity.ok(service.save(CompanyDTO.dtoToEntity(newCompany)));
+    	} catch (Exception e) {
     		e.printStackTrace();
         	return ResponseEntity.badRequest().build();
     	}

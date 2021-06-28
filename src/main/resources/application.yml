@@ -5,9 +5,9 @@ server:
         
 # OAuth2 Environment Variables
 oauth2-config:
-    oauth2-server-url: ${OAUTH2_SERVER_URL:https://staging-oauth-server.herokuapp.com}
-    oauth2-client-id: ${OAUTH2_CLIENT_ID:bussola-contabil-client}
-    oauth2-client-secret: ${OAUTH2_CLIENT_SECRET:bussola-contabil-secret}
+    oauth2-server-url: ${OAUTH2_SERVER_URL:https://development-oauth-server.herokuapp.com}
+    oauth2-client-id: ${OAUTH2_CLIENT_ID:81232c9b87ccc999bdf8}
+    oauth2-client-secret: ${OAUTH2_CLIENT_SECRET:94faa32fd41083d267fa8b07523c425f526b4b8c}
 
 storage-config:
     upload-id-bussola: ${UPLOAD_ID_BUSSOLA:development-user-photos}
@@ -61,6 +61,7 @@ security:
             filter_order: 3
             
 
+setores: ${SETORES:[{"label":"Construção Civil","value":1},{"label":"Comércio Varejista","value":2},{"label":"Tecnologia","value":3},{"label":"Alimentação","value":4},{"label":"Serviços","value":5}]}
 
 ## MULTIPART (MultipartProperties)
 # Enable multipart uploads

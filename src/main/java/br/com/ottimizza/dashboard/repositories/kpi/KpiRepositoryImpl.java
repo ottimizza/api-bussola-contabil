@@ -71,7 +71,7 @@ public class KpiRepositoryImpl implements KpiRepositoryCustom {
 				.and(description.visible.isTrue()));
 
 		if (filter.getCnpj() != null) {
-			query.where(company.cnpj.eq(StringUtil.formatCnpj(filter.getCnpj())));
+			query.where(company.cnpj.eq(StringUtil.formatCpfCnpj(filter.getCnpj())));
 		}
 
 		if (filter.getKind() != null) {
@@ -104,7 +104,7 @@ public class KpiRepositoryImpl implements KpiRepositoryCustom {
 				.on(chartOption.chartType.eq(description.chartType));
 		query.where(kpi.visible.isTrue()
 				.and(description.visible.isTrue()));
-		query.where(company.cnpj.eq(StringUtil.formatCnpj(cnpj)));
+		query.where(company.cnpj.eq(StringUtil.formatCpfCnpj(cnpj)));
 		
 		query.select(Projections.constructor(WebChartDTO.class, kpi.kind, company.cnpj, kpi.id, 
 				description.title, kpi.kpiAlias, kpi.labelStringArray, description.chartType, 
